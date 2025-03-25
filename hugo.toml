@@ -1,6 +1,7 @@
-baseURL = 'https://www.zyjeski.com/'
+baseURL = 'https://zyjeski.netlify.app/'
 languageCode = 'en-us'
 title = 'Jeffrey A. Zyjeski, Esq.'
+theme = "AUTHOR"
 
 # Basic author information
 [params]
