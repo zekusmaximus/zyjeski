@@ -1,0 +1,8 @@
+{{ with .Site.Params.social }}
+<div class="social-links">
+  {{ with .twitter }}<a href="https://twitter.com/{{ . }}" target="_blank">Twitter</a>{{ end }}
+  {{ with .facebook }}<a href="https://{{ . }}" target="_blank">Facebook</a>{{ end }}
+  {{ with .instagram }}<a href="https://{{ . }}" target="_blank">Instagram</a>{{ end }}
+  {{ with .amazon }}<a href="{{ . }}" target="_blank">Amazon</a>{{ end }}
+</div>
+{{ end }}

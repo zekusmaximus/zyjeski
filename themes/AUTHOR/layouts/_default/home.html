@@ -1,7 +1,12 @@
 {{ define "main" }}
   {{ .Content }}
-  {{ range site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
+  <div class="mandala-grid">
+    {{ range site.RegularPages }}
+      <div class="grid-item">
+        <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+        <div>{{ .Summary }}</div>
+        <a href="{{ .RelPermalink }}" class="read-more">Read More</a>
+      </div>
+    {{ end }}
+  </div>
 {{ end }}

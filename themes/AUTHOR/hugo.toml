@@ -3,19 +3,24 @@ languageCode = 'en-US'
 title = 'My New Hugo Site'
 
 [[menus.main]]
-name = 'Home'
-pageRef = '/'
+name = 'The Protocol'
+pageRef = '/books'
 weight = 10
 
 [[menus.main]]
-name = 'Posts'
-pageRef = '/posts'
+name = 'Koans'
+pageRef = '/stories'
 weight = 20
 
 [[menus.main]]
-name = 'Tags'
-pageRef = '/tags'
+name = 'Simulations'
+pageRef = '/audio'
 weight = 30
+
+[[menus.main]]
+name = 'Dharma Log'
+pageRef = '/posts'
+weight = 40
 
 [module]
   [module.hugoVersion]
