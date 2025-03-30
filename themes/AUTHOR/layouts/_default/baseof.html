@@ -3,15 +3,69 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body>
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
+<body class="{{ if .Params.digital_rain_bg }}digital-rain-bg{{ end }}">
+  <!-- Digital noise background overlay -->
+  <div class="noise-overlay"></div>
+  
+  <div class="page-container">
+    <header>
+      {{ partial "header.html" . }}
+    </header>
+    
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+    
+    <footer>
+      {{ partial "footer.html" . }}
+    </footer>
+  </div>
+  
+  <!-- Custom cursor -->
+  <div class="custom-cursor"></div>
+  
+  <!-- Add ambient script to create the digital noise effect -->
+  <script>
+    // Create ambient noise overlay
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize custom cursor
+      const cursor = document.querySelector('.custom-cursor');
+      if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+        });
+      }
+      
+      // Add class to body when scrolling for effects
+      let scrollTimer;
+      window.addEventListener('scroll', function() {
+        document.body.classList.add('is-scrolling');
+        
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(function() {
+          document.body.classList.remove('is-scrolling');
+        }, 150);
+      });
+      
+      // Add intersection observer for revealing elements
+      const revealElements = document.querySelectorAll('.reveal-on-scroll');
+      if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+            }
+          });
+        }, {
+          threshold: 0.1
+        });
+        
+        revealElements.forEach(element => {
+          revealObserver.observe(element);
+        });
+      }
+    });
+  </script>
 </body>
 </html>

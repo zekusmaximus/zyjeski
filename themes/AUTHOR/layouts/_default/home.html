@@ -1,12 +1,79 @@
 {{ define "main" }}
-  {{ .Content }}
-  <div class="mandala-grid">
-    {{ range site.RegularPages }}
-      <div class="grid-item">
-        <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-        <div>{{ .Summary }}</div>
-        <a href="{{ .RelPermalink }}" class="read-more">Read More</a>
+  <div class="home-intro">
+    {{ .Content }}
+  </div>
+
+  <div class="mandala-container">
+    <div class="mandala-grid">
+      <!-- Center feature item - The Protocol/Featured Book -->
+      <div class="mandala-center">
+        <a href="/books/featured-book/">
+          <div class="mandala-center-content">
+            <h2>The Protocol</h2>
+            <div class="pulse-circle"></div>
+          </div>
+        </a>
       </div>
-    {{ end }}
+
+      <!-- Surrounding items - dynamically populated based on content -->
+      {{ $sections := slice "books" "stories" "audio" "posts" }}
+      {{ $displayedItems := 0 }}
+      
+      {{ range $sections }}
+        {{ $section := . }}
+        {{ with site.GetPage $section }}
+          {{ range first 2 .Pages }}
+            <div class="mandala-item">
+              <a href="{{ .RelPermalink }}">
+                {{ with .Params.image }}
+                  <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
+                {{ else }}
+                  <div class="mandala-item-placeholder"></div>
+                {{ end }}
+                <h3 class="mandala-item-title">{{ .Title }}</h3>
+                <div class="mandala-item-subtitle">{{ $section | title }}</div>
+                <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
+              </a>
+            </div>
+            {{ $displayedItems = add $displayedItems 1 }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      <!-- Fill any remaining slots with placeholder items -->
+      {{ $remainingItems := sub 8 $displayedItems }}
+      {{ range seq $remainingItems }}
+        <div class="mandala-item mandala-item-placeholder">
+          <div class="mandala-item-title">Coming Soon</div>
+          <div class="mandala-item-subtitle">Future Work</div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="home-sections">
+    <div class="home-section">
+      <h2 class="section-title">The Protocol</h2>
+      <p class="section-desc">Explore the intersection of technology and spirituality through my cyberpunk-mystical novel series.</p>
+      <a href="/books/" class="section-link">Enter The Protocol</a>
+    </div>
+
+    <div class="home-section">
+      <h2 class="section-title">Koans</h2>
+      <p class="section-desc">Digital-age koans that dissolve boundaries between machine and consciousness.</p>
+      <a href="/stories/" class="section-link">Explore Koans</a>
+    </div>
+
+    <div class="home-section">
+      <h2 class="section-title">Simulations</h2>
+      <p class="section-desc">Audio experiences that merge meditation with dystopian narrative.</p>
+      <a href="/audio/" class="section-link">Run Simulations</a>
+    </div>
+
+    <div class="home-section">
+      <h2 class="section-title">Dharma Log</h2>
+      <p class="section-desc">Chronicles from the intersection of silicon and soul.</p>
+      <a href="/posts/" class="section-link">Browse Dharma Log</a>
+    </div>
   </div>
 {{ end }}

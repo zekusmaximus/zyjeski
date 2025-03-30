@@ -1,0 +1,159 @@
+{{ define "main" }}
+  <article class="audio-single">
+    <div class="audio-header">
+      <h1 class="audio-title">{{ .Title }}</h1>
+      
+      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := .Date | time.Format ":date_long" }}
+      <time datetime="{{ $dateMachine }}" class="audio-date">{{ $dateHuman }}</time>
+    </div>
+    
+    <!-- Prayer Wheel Audio Player -->
+    <div class="prayer-wheel-container">
+      {{ with .Params.audio_file }}
+        <div class="prayer-wheel-player" data-audio="{{ . }}">
+          <div class="prayer-wheel">
+            <div class="wheel-outer">
+              <div class="wheel-inner">
+                <div class="wheel-center"></div>
+                <div class="wheel-spokes">
+                  {{ range seq 8 }}
+                    <div class="wheel-spoke"></div>
+                  {{ end }}
+                </div>
+                <div class="wheel-symbols">
+                  {{ range seq 6 }}
+                    <div class="wheel-symbol">ॐ</div>
+                  {{ end }}
+                </div>
+              </div>
+            </div>
+            <div class="player-controls">
+              <button class="play-pause-btn" aria-label="Play or pause audio">
+                <span class="play-icon">▶</span>
+                <span class="pause-icon">⏸</span>
+              </button>
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+              <div class="time-display">00:00 / 00:00</div>
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+    
+    <div class="audio-content">
+      {{ .Content }}
+    </div>
+    
+    {{ if .Params.transcript }}
+      <div class="audio-transcript">
+        <h2 class="transcript-title">Transcript</h2>
+        <div class="transcript-content">
+          {{ .Params.transcript | markdownify }}
+        </div>
+      </div>
+    {{ end }}
+    
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  </article>
+  
+  <script>
+    // Prayer Wheel Audio Player Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const playerContainer = document.querySelector('.prayer-wheel-player');
+      if (!playerContainer) return;
+      
+      const audioSrc = playerContainer.getAttribute('data-audio');
+      if (!audioSrc) return;
+      
+      // Create audio element
+      const audio = new Audio(audioSrc);
+      const wheel = document.querySelector('.prayer-wheel');
+      const playPauseBtn = document.querySelector('.play-pause-btn');
+      const progressBar = document.querySelector('.progress-fill');
+      const timeDisplay = document.querySelector('.time-display');
+      
+      let isPlaying = false;
+      let rotationInterval;
+      
+      // Format time in MM:SS
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      }
+      
+      // Update progress bar and time display
+      function updateProgress() {
+        const currentTime = audio.currentTime;
+        const duration = audio.duration;
+        
+        // Update progress bar
+        if (duration) {
+          progressBar.style.width = `${(currentTime / duration) * 100}%`;
+          timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+        }
+      }
+      
+      // Rotate the prayer wheel when playing
+      function startWheelRotation() {
+        wheel.classList.add('spinning');
+      }
+      
+      function stopWheelRotation() {
+        wheel.classList.remove('spinning');
+      }
+      
+      // Play/Pause functionality
+      playPauseBtn.addEventListener('click', function() {
+        if (isPlaying) {
+          audio.pause();
+          playPauseBtn.classList.remove('playing');
+          stopWheelRotation();
+          isPlaying = false;
+        } else {
+          audio.play();
+          playPauseBtn.classList.add('playing');
+          startWheelRotation();
+          isPlaying = true;
+        }
+      });
+      
+      // Update progress as audio plays
+      audio.addEventListener('timeupdate', updateProgress);
+      
+      // Handle audio ended
+      audio.addEventListener('ended', function() {
+        playPauseBtn.classList.remove('playing');
+        stopWheelRotation();
+        isPlaying = false;
+        audio.currentTime = 0;
+        updateProgress();
+      });
+      
+      // Handle clicks on progress bar
+      progressBar.parentElement.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = pos * audio.duration;
+        updateProgress();
+      });
+      
+      // Initialize display when metadata is loaded
+      audio.addEventListener('loadedmetadata', function() {
+        timeDisplay.textContent = `00:00 / ${formatTime(audio.duration)}`;
+      });
+      
+      // Add glowing effect on hover
+      wheel.addEventListener('mouseenter', function() {
+        this.classList.add('glowing');
+      });
+      
+      wheel.addEventListener('mouseleave', function() {
+        this.classList.remove('glowing');
+      });
+    });
+  </script>
+{{ end }}

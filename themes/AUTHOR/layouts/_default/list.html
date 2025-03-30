@@ -1,8 +1,46 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
+  <div class="section-header">
+    <h1 class="section-title">{{ .Title }}</h1>
+    
+    <div class="section-description">
+      {{ .Content }}
+    </div>
+  </div>
+  
+  <div class="section-grid">
+    {{ $pages := .Pages }}
+    {{ if .Sections }}
+      {{ $pages = .Sections }}
+    {{ end }}
+    
+    {{ range $pages }}
+      <article class="section-item">
+        <a href="{{ .RelPermalink }}" class="section-item-link">
+          {{ with .Params.image }}
+            <div class="section-item-image-container">
+              <img src="{{ . }}" alt="{{ $.Title }}" class="section-item-image">
+              <div class="section-item-image-overlay"></div>
+            </div>
+          {{ else }}
+            <div class="section-item-placeholder">
+              <div class="section-item-placeholder-icon">{{ index (slice "⟁" "⧖" "⧗" "⨖" "⨗" "⩐" "⫷" "⫸") (mod .Date.Day 8) }}</div>
+            </div>
+          {{ end }}
+          
+          <h2 class="section-item-title">{{ .Title }}</h2>
+          
+          {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+          {{ $dateHuman := .Date | time.Format ":date_medium" }}
+          <time datetime="{{ $dateMachine }}" class="section-item-date">{{ $dateHuman }}</time>
+          
+          <div class="section-item-summary">{{ .Summary | truncate 120 }}</div>
+          
+          <div class="section-item-read-more">
+            <span class="read-more-text">Enter</span>
+            <span class="read-more-icon">→</span>
+          </div>
+        </a>
+      </article>
+    {{ end }}
+  </div>
 {{ end }}

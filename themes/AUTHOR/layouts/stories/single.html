@@ -1,0 +1,71 @@
+{{ define "main" }}
+  <article class="koan-single">
+    <div class="koan-header">
+      <h1 class="koan-title">{{ .Title }}</h1>
+      
+      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := .Date | time.Format ":date_long" }}
+      <time datetime="{{ $dateMachine }}" class="koan-date">{{ $dateHuman }}</time>
+    </div>
+    
+    <!-- Pixelated koan container -->
+    <div class="pixelated-koan-container">
+      {{ with .Params.koan_text }}
+        <div class="pixelated-koan" data-koan="{{ . }}">
+          <div class="pixelated-overlay"></div>
+          <div class="koan-text">{{ . }}</div>
+        </div>
+      {{ end }}
+    </div>
+    
+    <div class="koan-content">
+      {{ .Content }}
+    </div>
+    
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  </article>
+  
+  <script>
+    // Pixelated koan effect
+    document.addEventListener('DOMContentLoaded', function() {
+      const koanElement = document.querySelector('.pixelated-koan');
+      if (!koanElement) return;
+      
+      const pixels = 20; // Initial pixelation level
+      const overlay = koanElement.querySelector('.pixelated-overlay');
+      
+      // Create pixelated overlay
+      if (overlay) {
+        overlay.style.backgroundImage = `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="${pixels}" height="${pixels}" viewBox="0 0 ${pixels} ${pixels}"><rect width="${pixels}" height="${pixels}" fill="rgba(0,0,0,0.7)" /></svg>')`;
+        overlay.style.backgroundSize = `${pixels}px ${pixels}px`;
+      }
+      
+      // De-pixelate on hover
+      koanElement.addEventListener('mouseenter', function() {
+        if (overlay) {
+          // Animate the pixelation level
+          let currentPixels = pixels;
+          const interval = setInterval(() => {
+            currentPixels -= 1;
+            if (currentPixels <= 0) {
+              clearInterval(interval);
+              overlay.style.opacity = '0';
+              return;
+            }
+            
+            overlay.style.backgroundImage = `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="${currentPixels}" height="${currentPixels}" viewBox="0 0 ${currentPixels} ${currentPixels}"><rect width="${currentPixels}" height="${currentPixels}" fill="rgba(0,0,0,${currentPixels/pixels})" /></svg>')`;
+            overlay.style.backgroundSize = `${currentPixels}px ${currentPixels}px`;
+          }, 50);
+        }
+      });
+      
+      // Re-pixelate on mouse leave
+      koanElement.addEventListener('mouseleave', function() {
+        if (overlay) {
+          // Reset to pixelated
+          overlay.style.backgroundImage = `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="${pixels}" height="${pixels}" viewBox="0 0 ${pixels} ${pixels}"><rect width="${pixels}" height="${pixels}" fill="rgba(0,0,0,0.7)" /></svg>')`;
+          overlay.style.backgroundSize = `${pixels}px ${pixels}px`;
+          overlay.style.opacity = '1';
+        }
+      });
+    });

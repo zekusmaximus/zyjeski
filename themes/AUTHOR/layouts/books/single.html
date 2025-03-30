@@ -1,0 +1,107 @@
+{{ define "main" }}
+  <article class="book-single">
+    <div class="book-header">
+      <h1 class="book-title">{{ .Title }}</h1>
+      
+      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := .Date | time.Format ":date_long" }}
+      <time datetime="{{ $dateMachine }}" class="book-date">{{ $dateHuman }}</time>
+    </div>
+    
+    <div class="book-container">
+      <div class="book-cover">
+        {{ with .Params.cover_image }}
+          <img src="{{ . }}" alt="Cover for {{ $.Title }}" class="book-cover-img">
+        {{ else }}
+          <div class="book-cover-placeholder">
+            <div class="book-cover-title">{{ $.Title }}</div>
+          </div>
+        {{ end }}
+        
+        <div class="book-meta">
+          {{ with .Params.series }}
+            <div class="book-series">{{ . }}</div>
+          {{ end }}
+          
+          {{ with .Params.pages }}
+            <div class="book-pages">{{ . }} pages</div>
+          {{ end }}
+          
+          {{ with .Params.publication_date }}
+            <div class="book-pub-date">Published: {{ . }}</div>
+          {{ end }}
+        </div>
+        
+        {{ with .Params.purchase_links }}
+          <div class="book-purchase">
+            {{ range . }}
+              <a href="{{ .url }}" class="purchase-button" target="_blank" rel="noopener noreferrer">
+                {{ .store }}
+              </a>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+      
+      <div class="book-content">
+        <div class="book-synopsis">
+          <h2 class="book-section-title">Synopsis</h2>
+          
+          <!-- Special formatting for AI dialogue synopsis if present -->
+          {{ if .Params.ai_synopsis }}
+            <div class="ai-dialogue">
+              {{ range .Params.ai_synopsis }}
+                <div class="dialogue-entry {{ .speaker | lower }}">
+                  <div class="dialogue-speaker">{{ .speaker }}</div>
+                  <div class="dialogue-text">{{ .text | markdownify }}</div>
+                </div>
+              {{ end }}
+            </div>
+          {{ else }}
+            <!-- Regular synopsis -->
+            <div class="regular-synopsis">
+              {{ .Content }}
+            </div>
+          {{ end }}
+        </div>
+        
+        <!-- Additional book sections -->
+        {{ with .Params.reviews }}
+          <div class="book-reviews">
+            <h2 class="book-section-title">Reviews</h2>
+            {{ range . }}
+              <div class="book-review">
+                <div class="review-text">"{{ .text }}"</div>
+                <div class="review-author">— {{ .author }}</div>
+              </div>
+            {{ end }}
+          </div>
+        {{ end }}
+        
+        {{ with .Params.excerpt }}
+          <div class="book-excerpt">
+            <h2 class="book-section-title">Excerpt</h2>
+            <div class="excerpt-content">
+              {{ . | markdownify }}
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+    
+    <!-- 3D VR headset/Buddha transition effect container -->
+    {{ if .Params.show_3d_transition }}
+      <div class="vr-buddha-transition">
+        <div id="3d-transition-container"></div>
+      </div>
+    {{ end }}
+    
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  </article>
+  
+  <!-- Load Three.js for 3D effects if needed -->
+  {{ if .Params.show_3d_transition }}
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script async src="{{ "js/vr-buddha-transition.js" | relURL }}"></script>
+  {{ end }}
+{{ end }}

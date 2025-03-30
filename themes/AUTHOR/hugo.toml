@@ -2,27 +2,35 @@ baseURL = 'https://example.org/'
 languageCode = 'en-US'
 title = 'My New Hugo Site'
 
-[[menus.main]]
-name = 'The Protocol'
-pageRef = '/books'
-weight = 10
+# Add to themes/AUTHOR/hugo.toml or hugo.toml in the root directory
 
-[[menus.main]]
-name = 'Koans'
-pageRef = '/stories'
-weight = 20
+[menu]
+  [[menu.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
 
-[[menus.main]]
-name = 'Simulations'
-pageRef = '/audio'
-weight = 30
+  [[menu.main]]
+    name = 'The Protocol'
+    pageRef = '/books'
+    weight = 20
 
-[[menus.main]]
-name = 'Dharma Log'
-pageRef = '/posts'
-weight = 40
+  [[menu.main]]
+    name = 'Koans'
+    pageRef = '/stories'
+    weight = 30
 
-[module]
-  [module.hugoVersion]
-    extended = false
-    min = "0.116.0"
+  [[menu.main]]
+    name = 'Simulations'
+    pageRef = '/audio'
+    weight = 40
+
+  [[menu.main]]
+    name = 'Dharma Log'
+    pageRef = '/posts'
+    weight = 50
+
+  [[menu.main]]
+    name = 'About'
+    pageRef = '/about'
+    weight = 60
