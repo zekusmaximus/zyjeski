@@ -1,7 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
-  {{ partial "head.html" . }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+  
+  <!-- Add mobile viewport and touch icon meta tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#0a0a14">
+  
+  <!-- Add any favicon/touch icons here -->
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+  
+  {{ partialCached "head/css.html" . }}
+  {{ partialCached "head/js.html" . }}
 </head>
 <body class="{{ if .Params.digital_rain_bg }}digital-rain-bg{{ end }}">
   <!-- Digital noise background overlay -->
@@ -21,48 +35,95 @@
     </footer>
   </div>
   
-  <!-- Custom cursor -->
+  <!-- Custom cursor - hidden on mobile -->
   <div class="custom-cursor"></div>
   
   <!-- Add ambient script to create the digital noise effect -->
   <script>
     // Create ambient noise overlay
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize custom cursor
+      // Check if device is touch/mobile
+      const isTouchDevice = 'ontouchstart' in window || 
+                          navigator.maxTouchPoints > 0 || 
+                          navigator.msMaxTouchPoints > 0;
+      
+      // Initialize custom cursor only on non-touch devices
       const cursor = document.querySelector('.custom-cursor');
-      if (cursor) {
+      if (cursor && !isTouchDevice) {
         document.addEventListener('mousemove', (e) => {
           cursor.style.left = e.clientX + 'px';
           cursor.style.top = e.clientY + 'px';
         });
+      } else if (cursor) {
+        // Hide cursor on touch devices
+        cursor.style.display = 'none';
       }
       
       // Add class to body when scrolling for effects
       let scrollTimer;
+      let lastScrollTop = 0;
+      
+      // Optimized scroll handler for better mobile performance
       window.addEventListener('scroll', function() {
-        document.body.classList.add('is-scrolling');
-        
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(function() {
-          document.body.classList.remove('is-scrolling');
-        }, 150);
+        // Throttle the scroll event for better performance
+        if (!scrollTimer) {
+          scrollTimer = setTimeout(function() {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Only apply effects if scrolled more than a threshold
+            if (Math.abs(lastScrollTop - currentScrollTop) > 10) {
+              document.body.classList.add('is-scrolling');
+              
+              // Store new scroll position
+              lastScrollTop = currentScrollTop;
+            }
+            
+            // Reset the timer
+            scrollTimer = null;
+          }, 50); // 50ms throttle
+        }
+      }, { passive: true }); // Passive listener for better performance
+      
+      // Remove scrolling class when not scrolling
+      window.addEventListener('scrollend', function() {
+        document.body.classList.remove('is-scrolling');
       });
       
       // Add intersection observer for revealing elements
-      const revealElements = document.querySelectorAll('.reveal-on-scroll');
-      if (revealElements.length > 0) {
-        const revealObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('revealed');
-            }
+      if ('IntersectionObserver' in window) {
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        if (revealElements.length > 0) {
+          const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                
+                // Once revealed, stop observing to save resources
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px 50px 0px' // Trigger slightly before element is in view
           });
-        }, {
-          threshold: 0.1
-        });
+          
+          revealElements.forEach(element => {
+            revealObserver.observe(element);
+          });
+        }
+      }
+      
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        // Add class to disable animations for users who prefer reduced motion
+        document.body.classList.add('reduced-motion');
         
-        revealElements.forEach(element => {
-          revealObserver.observe(element);
+        // Remove resource-heavy effects
+        const animatedElements = document.querySelectorAll('.mandala-grid, .prayer-wheel, [class*="animation"]');
+        animatedElements.forEach(el => {
+          el.style.animation = 'none';
+          el.style.transition = 'none';
         });
       }
     });

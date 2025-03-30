@@ -8,7 +8,7 @@
       <time datetime="{{ $dateMachine }}" class="audio-date">{{ $dateHuman }}</time>
     </div>
     
-    <!-- Prayer Wheel Audio Player -->
+    <!-- Prayer Wheel Audio Player - Mobile optimized -->
     <div class="prayer-wheel-container">
       {{ with .Params.audio_file }}
         <div class="prayer-wheel-player" data-audio="{{ . }}">
@@ -17,12 +17,14 @@
               <div class="wheel-inner">
                 <div class="wheel-center"></div>
                 <div class="wheel-spokes">
-                  {{ range seq 8 }}
+                  <!-- Reduced number of spokes for better mobile performance -->
+                  {{ range seq 6 }}
                     <div class="wheel-spoke"></div>
                   {{ end }}
                 </div>
                 <div class="wheel-symbols">
-                  {{ range seq 6 }}
+                  <!-- Reduced number of symbols for better mobile performance -->
+                  {{ range seq 4 }}
                     <div class="wheel-symbol">ॐ</div>
                   {{ end }}
                 </div>
@@ -60,13 +62,21 @@
   </article>
   
   <script>
-    // Prayer Wheel Audio Player Functionality
+    // Prayer Wheel Audio Player Functionality - Mobile optimized
     document.addEventListener('DOMContentLoaded', function() {
       const playerContainer = document.querySelector('.prayer-wheel-player');
       if (!playerContainer) return;
       
       const audioSrc = playerContainer.getAttribute('data-audio');
       if (!audioSrc) return;
+      
+      // Check for touch device
+      const isTouchDevice = 'ontouchstart' in window || 
+                          navigator.maxTouchPoints > 0 || 
+                          navigator.msMaxTouchPoints > 0;
+      
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       
       // Create audio element
       const audio = new Audio(audioSrc);
@@ -76,17 +86,27 @@
       const timeDisplay = document.querySelector('.time-display');
       
       let isPlaying = false;
-      let rotationInterval;
+      
+      // Mobile Safari requires user interaction before playing
+      audio.setAttribute('playsinline', '');
+      audio.setAttribute('preload', 'metadata');
       
       // Format time in MM:SS
       function formatTime(seconds) {
+        if (isNaN(seconds)) return "00:00";
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
       }
       
-      // Update progress bar and time display
+      // Update progress bar and time display - throttled for mobile
+      let lastUpdateTime = 0;
       function updateProgress() {
+        const now = Date.now();
+        // Only update every 250ms for better performance
+        if (now - lastUpdateTime < 250) return;
+        
+        lastUpdateTime = now;
         const currentTime = audio.currentTime;
         const duration = audio.duration;
         
@@ -97,27 +117,62 @@
         }
       }
       
-      // Rotate the prayer wheel when playing
+      // Rotate the prayer wheel when playing - simplified for mobile
       function startWheelRotation() {
-        wheel.classList.add('spinning');
+        if (prefersReducedMotion) {
+          // For reduced motion, just add a gentle pulse instead of spinning
+          wheel.classList.add('reduced-motion-active');
+        } else {
+          wheel.classList.add('spinning');
+        }
       }
       
       function stopWheelRotation() {
-        wheel.classList.remove('spinning');
+        wheel.classList.remove('spinning', 'reduced-motion-active');
       }
       
-      // Play/Pause functionality
+      // Play/Pause functionality with better mobile handling
       playPauseBtn.addEventListener('click', function() {
+        // For iOS, need to load audio on first interaction
+        if (audio.readyState === 0) {
+          audio.load();
+        }
+        
         if (isPlaying) {
           audio.pause();
           playPauseBtn.classList.remove('playing');
           stopWheelRotation();
           isPlaying = false;
         } else {
-          audio.play();
-          playPauseBtn.classList.add('playing');
-          startWheelRotation();
-          isPlaying = true;
+          // Use play() as Promise for better mobile handling
+          const playPromise = audio.play();
+          
+          if (playPromise !== undefined) {
+            playPromise.then(_ => {
+              // Playback started successfully
+              playPauseBtn.classList.add('playing');
+              startWheelRotation();
+              isPlaying = true;
+            })
+            .catch(error => {
+              // Auto-play was prevented - show error or prompt
+              console.error("Playback prevented:", error);
+              
+              // Create a visual indicator for the error
+              const errorMsg = document.createElement('div');
+              errorMsg.className = 'audio-error-message';
+              errorMsg.textContent = 'Tap again to play audio';
+              playerContainer.appendChild(errorMsg);
+              
+              // Remove error after a tap anywhere
+              document.addEventListener('click', function removeError() {
+                if (errorMsg.parentNode) {
+                  errorMsg.parentNode.removeChild(errorMsg);
+                }
+                document.removeEventListener('click', removeError);
+              }, { once: true });
+            });
+          }
         }
       });
       
@@ -133,27 +188,163 @@
         updateProgress();
       });
       
-      // Handle clicks on progress bar
-      progressBar.parentElement.addEventListener('click', function(e) {
-        const rect = this.getBoundingClientRect();
-        const pos = (e.clientX - rect.left) / rect.width;
-        audio.currentTime = pos * audio.duration;
-        updateProgress();
-      });
+      // Handle clicks on progress bar - improved for touch devices
+      const progressContainer = progressBar.parentElement;
+      
+      if (isTouchDevice) {
+        // For touch devices, use touch events for better accuracy
+        progressContainer.addEventListener('touchstart', updateAudioPosition);
+        progressContainer.addEventListener('touchmove', updateAudioPosition);
+      } else {
+        // For mouse devices
+        progressContainer.addEventListener('click', function(e) {
+          const rect = this.getBoundingClientRect();
+          const pos = (e.clientX - rect.left) / rect.width;
+          audio.currentTime = pos * audio.duration;
+          updateProgress();
+        });
+      }
+      
+      // Function to update audio position from touch
+      function updateAudioPosition(e) {
+        // Prevent scrolling while adjusting
+        e.preventDefault();
+        
+        const rect = progressContainer.getBoundingClientRect();
+        const touch = e.touches[0];
+        let pos = (touch.clientX - rect.left) / rect.width;
+        
+        // Constrain to 0-1 range
+        pos = Math.max(0, Math.min(1, pos));
+        
+        if (audio.duration) {
+          audio.currentTime = pos * audio.duration;
+          updateProgress();
+        }
+      }
       
       // Initialize display when metadata is loaded
       audio.addEventListener('loadedmetadata', function() {
         timeDisplay.textContent = `00:00 / ${formatTime(audio.duration)}`;
       });
       
-      // Add glowing effect on hover
-      wheel.addEventListener('mouseenter', function() {
-        this.classList.add('glowing');
+      // Error handling for audio playback
+      audio.addEventListener('error', function(e) {
+        console.error("Audio error:", e);
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'audio-error-message';
+        errorMsg.textContent = 'Unable to play audio. Please try again later.';
+        playerContainer.appendChild(errorMsg);
       });
       
-      wheel.addEventListener('mouseleave', function() {
-        this.classList.remove('glowing');
-      });
+      // Add reduced CSS animations for touch devices or reduced motion
+      if (isTouchDevice || prefersReducedMotion) {
+        // Use CSS classes instead of direct style manipulation for better performance
+        wheel.classList.add('touch-optimized');
+      }
+      
+      // Add special touch effects for mobile
+      if (isTouchDevice) {
+        // Add touch feedback
+        playPauseBtn.addEventListener('touchstart', function() {
+          this.classList.add('touch-active');
+        });
+        
+        playPauseBtn.addEventListener('touchend', function() {
+          this.classList.remove('touch-active');
+        });
+        
+        // Add a ripple effect on the wheel for touch
+        wheel.addEventListener('touchstart', function(e) {
+          const rect = this.getBoundingClientRect();
+          const touch = e.touches[0];
+          
+          const ripple = document.createElement('div');
+          ripple.className = 'wheel-touch-ripple';
+          ripple.style.top = `${touch.clientY - rect.top}px`;
+          ripple.style.left = `${touch.clientX - rect.left}px`;
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 500);
+        });
+      }
     });
   </script>
+  
+  <style>
+    /* Mobile optimizations for audio page */
+    @media (max-width: 768px) {
+      .prayer-wheel-container {
+        perspective: 600px; /* Reduced perspective for less intense effect */
+      }
+      
+      /* Touch-specific styling */
+      .play-pause-btn.touch-active {
+        transform: scale(0.95);
+        background: linear-gradient(135deg, #00ccff, #0066ff);
+      }
+      
+      .wheel-touch-ripple {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: rgba(0, 255, 204, 0.5);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: wheel-ripple 0.5s ease-out;
+        pointer-events: none;
+      }
+      
+      @keyframes wheel-ripple {
+        to {
+          width: 80px;
+          height: 80px;
+          opacity: 0;
+        }
+      }
+      
+      /* Reduced motion style */
+      .prayer-wheel.reduced-motion-active {
+        animation: none;
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+      }
+      
+      .prayer-wheel.reduced-motion-active .wheel-center {
+        animation: center-pulse 2s ease infinite;
+      }
+      
+      @keyframes center-pulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+      
+      /* Error message styling */
+      .audio-error-message {
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: var(--saffron);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+      
+      /* Touch-optimized wheel */
+      .prayer-wheel.touch-optimized .wheel-symbol {
+        animation: none;
+      }
+    }
+  </style>
 {{ end }}

@@ -1,6 +1,156 @@
+<!-- Replace the existing header.html with this mobile-friendly version -->
 <!-- themes/AUTHOR/layouts/partials/header.html -->
-<h1 class="site-title">{{ site.Title }}</h1>
-<div class="author-name" data-text="Jeffrey A. Zyjeski">
-  Jeffre<span class="problem-chars">y A. Z</span>yjeski
+<div class="header-content">
+  <h1 class="site-title">{{ site.Title }}</h1>
+  <div class="author-name" data-text="Jeffrey A. Zyjeski">
+    Jeffre<span class="problem-chars">y A. Z</span>yjeski
+  </div>
+  
+  <!-- Mobile menu toggle button -->
+  <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+    <span class="toggle-bar"></span>
+    <span class="toggle-bar"></span>
+    <span class="toggle-bar"></span>
+  </button>
 </div>
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+
+<!-- Mobile-friendly navigation with toggle functionality -->
+<div class="nav-container">
+  {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+</div>
+
+<!-- Add this JavaScript code after the navigation markup -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle functionality
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const navContainer = document.querySelector('.nav-container');
+    
+    if (menuToggle && navContainer) {
+      menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navContainer.classList.toggle('active');
+        
+        // Add a body class to prevent scrolling when menu is open
+        document.body.classList.toggle('menu-open');
+      });
+      
+      // Close menu when clicking on a link
+      const navLinks = navContainer.querySelectorAll('a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          menuToggle.classList.remove('active');
+          navContainer.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        });
+      });
+    }
+  });
+</script>
+
+<!-- Add these CSS styles to your main.css file -->
+<style>
+  /* Mobile navigation styles */
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    position: relative;
+    z-index: 1001;
+    outline: none;
+  }
+  
+  .toggle-bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--holographic-teal);
+    margin: 6px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  /* Mobile menu active state animation */
+  .mobile-menu-toggle.active .toggle-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .mobile-menu-toggle.active .toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-toggle.active .toggle-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-menu-toggle {
+      display: block;
+    }
+    
+    .nav-container {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100vh;
+      background-color: rgba(10, 10, 20, 0.95);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      padding: 80px 20px 20px;
+      backdrop-filter: blur(10px);
+      overflow-y: auto;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-container.active {
+      right: 0;
+    }
+    
+    .nav-container nav ul {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .nav-container nav a {
+      display: block;
+      padding: 10px 0;
+      font-size: 1.2rem;
+    }
+    
+    /* Prevent scrolling when menu is open */
+    body.menu-open {
+      overflow: hidden;
+    }
+    
+    /* Adjust site title to fit better on mobile */
+    .site-title {
+      font-size: 1.8rem;
+    }
+    
+    .author-name {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .site-title {
+      font-size: 1.5rem;
+    }
+    
+    .author-name {
+      font-size: 0.9rem;
+    }
+  }
+</style>

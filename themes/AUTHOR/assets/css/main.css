@@ -1996,3 +1996,509 @@ a:hover::before {
   -webkit-text-fill-color: transparent;
 }
 
+/* Mandala Grid Container - Mobile Optimizations */
+.mandala-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  perspective: 1000px;
+  transition: transform 0.5s ease;
+}
+
+/* Responsive adjustments for the mandala grid */
+@media (max-width: 1024px) {
+  .mandala-grid {
+    perspective: 600px; /* Reduced perspective for less intense effect on tablets */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  
+  /* Reduce hover transform to be more subtle on tablets */
+  .mandala-item:hover {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+@media (max-width: 768px) {
+  .mandala-grid {
+    grid-template-columns: repeat(2, 1fr);
+    perspective: none; /* Remove 3D effect on mobile */
+    transform: none !important; /* Prevent 3D transformations on mobile */
+  }
+  
+  .mandala-center {
+    grid-column: span 2;
+  }
+  
+  /* Simplified hover effect for mobile */
+  .mandala-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+  }
+}
+
+@media (max-width: 480px) {
+  .mandala-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .mandala-center {
+    grid-column: 1;
+    aspect-ratio: 1/1;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .mandala-item {
+    aspect-ratio: auto;
+    height: auto;
+    min-height: 200px;
+  }
+}
+
+/* Touch-specific optimizations */
+@media (hover: none) {
+  /* Apply these styles to touch devices only */
+  .mandala-grid {
+    transform: none !important; /* Disable 3D transform entirely */
+  }
+  
+  /* Change hover effects to active (touch) effects */
+  .mandala-item:active {
+    transform: translateY(-3px);
+    border-color: rgba(0, 255, 255, 0.7);
+  }
+  
+  .mandala-item::after {
+    display: none; /* Remove hover-based effects that don't work well on touch */
+  }
+  
+  .mandala-item:active .mandala-item-img {
+    filter: grayscale(0%) brightness(1);
+  }
+  
+  /* Make items slightly larger for better touch targets */
+  .mandala-item-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* Performance optimizations */
+@media (max-width: 768px) {
+  /* Use simpler animations on mobile */
+  .mandala-item:hover,
+  .mandala-item:active {
+    box-shadow: 0 5px 10px rgba(0, 255, 255, 0.3);
+  }
+  
+  /* Reduce or eliminate resource-intensive animations */
+  @keyframes pulseRotate {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  
+  /* Simplify mandala center effect on mobile */
+  .mandala-center::before {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* Smoother transitions for all devices */
+.mandala-grid, 
+.mandala-item,
+.mandala-center {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Footer mobile optimizations */
+@media (max-width: 768px) {
+  .footer-middle {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-section {
+    padding: 0;
+  }
+  
+  .newsletter-form {
+    max-width: 100%;
+    display: flex;
+  }
+  
+  .newsletter-form input {
+    height: 44px; /* Larger touch target */
+    font-size: 16px; /* Prevent auto-zoom on iOS */
+  }
+  
+  .newsletter-form button {
+    height: 44px;
+    width: 44px; /* Square button for easier tapping */
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Simplified circuit animation for mobile */
+  .footer-decoration svg {
+    height: 20px;
+  }
+  
+  @keyframes circuit-animation {
+    0%, 100% {
+      stroke-dashoffset: 500;
+    }
+  }
+  
+  .circuit-path {
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+  }
+  
+  /* Reduce number of animated nodes for performance */
+  .circuit-node:nth-child(odd) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-symbol {
+    font-size: 1rem;
+    letter-spacing: 3px;
+  }
+  
+  .footer-tagline {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+  
+  .footer-heading {
+    font-size: 1.1rem;
+  }
+  
+  .footer-links a,
+  .social-link,
+  .footer-copyright p {
+    font-size: 0.9rem;
+  }
+  
+  /* Improve touch targets for footer links */
+  .footer-links li,
+  .footer-social li {
+    margin-bottom: 1rem;
+    padding: 0.3rem 0;
+  }
+  
+  .social-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Add active state for touch */
+  .footer-links a:active,
+  .social-link:active {
+    color: var(--holographic-teal);
+    transform: translateX(5px);
+  }
+}
+
+/* Touch-specific optimizations */
+@media (hover: none) {
+  .footer-links a:hover,
+  .social-link:hover {
+    /* Remove hover styles that don't work well on touch */
+    transform: none;
+  }
+  
+  .footer-links a:active,
+  .social-link:active {
+    /* Add active states instead */
+    color: var(--holographic-teal);
+    transform: translateX(5px);
+  }
+  
+  .social-link:active .social-icon {
+    transform: scale(1.1);
+    background: rgba(0, 255, 204, 0.2);
+  }
+  
+  .newsletter-form button:active {
+    transform: translateX(3px);
+  }
+}
+
+/* Adjust the newsletter form for better mobile experience */
+@media (max-width: 480px) {
+  .newsletter-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .newsletter-form input {
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .newsletter-form button {
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Base mobile optimizations */
+:root {
+  /* Add responsive sizing variables */
+  --space-sm: clamp(0.5rem, 0.5rem + 0.25vw, 0.75rem);
+  --space-md: clamp(1rem, 1rem + 0.5vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1.5rem + 1vw, 2.5rem);
+  --space-xl: clamp(2rem, 2rem + 1.5vw, 3.5rem);
+  
+  --font-size-sm: clamp(0.8rem, 0.8rem + 0.1vw, 0.9rem);
+  --font-size-base: clamp(1rem, 1rem + 0.15vw, 1.15rem);
+  --font-size-lg: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --font-size-xl: clamp(1.5rem, 1.5rem + 0.75vw, 2.25rem);
+  --font-size-2xl: clamp(1.875rem, 1.75rem + 1.5vw, 3rem);
+}
+
+/* Responsive Typography */
+h1 {
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+  line-height: 1.3;
+}
+
+p, li, td, th {
+  font-size: var(--font-size-base);
+}
+
+.container {
+  padding: 0 var(--space-sm);
+}
+
+@media (max-width: 768px) {
+  /* Adjust core spacing for mobile */
+  main {
+    padding: var(--space-md) 0;
+  }
+  
+  article {
+    padding: var(--space-md);
+  }
+  
+  /* Make page container fill screen width on mobile */
+  .page-container {
+    padding: 0 var(--space-sm);
+  }
+  
+  /* Optimize page load animations */
+  @keyframes page-pulse {
+    0% {
+      opacity: 0.5;
+      transform: scale(0.99);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Apply reduced motion styles */
+  body.reduced-motion * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Custom cursor handling for mobile */
+@media (hover: none) {
+  .custom-cursor {
+    display: none !important;
+  }
+  
+  /* Remove hover effects that don't work well on touch */
+  a::before {
+    display: none;
+  }
+  
+  /* Improve tap target sizes for mobile */
+  a, button, .section-link, .purchase-button {
+    padding: 0.7rem;
+    margin: 0.2rem;
+    min-height: 44px; /* Minimum recommended touch target size */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Add active state styles for touch */
+  a:active, button:active {
+    color: var(--saffron);
+    transform: scale(0.98);
+  }
+}
+
+/* Mobile optimizations for book page */
+@media (max-width: 768px) {
+  .book-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .book-cover {
+    max-width: 280px;
+    margin: 0 auto var(--space-md);
+  }
+  
+  .book-purchase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  
+  .purchase-button {
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+    font-size: var(--font-size-sm);
+  }
+  
+  /* Optimize AI dialogue for mobile */
+  .ai-dialogue {
+    padding: var(--space-sm);
+  }
+  
+  .dialogue-entry {
+    margin-bottom: var(--space-md);
+    padding-left: 0.5rem;
+  }
+}
+
+/* Mobile optimizations for koan/stories page */
+@media (max-width: 768px) {
+  .pixelated-koan-container {
+    padding: var(--space-sm);
+  }
+  
+  .pixelated-koan {
+    padding: var(--space-md);
+    transform: none !important; /* Remove 3D effect on mobile */
+  }
+  
+  .koan-text {
+    font-size: var(--font-size-lg);
+  }
+  
+  /* Mobile touch-specific handling for koans */
+  .pixelated-koan {
+    cursor: pointer;
+  }
+  
+  /* On touch devices, clicking will reveal the koan */
+  @media (hover: none) {
+    .pixelated-koan.active .pixelated-overlay {
+      opacity: 0;
+    }
+  }
+}
+
+/* Mobile optimizations for audio/simulations page */
+@media (max-width: 768px) {
+  .prayer-wheel-container {
+    padding: var(--space-sm) 0;
+  }
+  
+  .prayer-wheel-player {
+    width: 220px; /* Slightly smaller on mobile */
+  }
+  
+  .prayer-wheel {
+    width: 220px;
+    height: 220px;
+  }
+  
+  /* Larger touch targets for audio controls */
+  .play-pause-btn {
+    width: 60px;
+    height: 60px;
+    margin-top: var(--space-md);
+  }
+  
+  .progress-bar {
+    height: 10px; /* Thicker for easier touch */
+  }
+  
+  /* Add padding for safe areas on notched phones */
+  @supports (padding: max(0px)) {
+    .page-container {
+      padding-left: max(var(--space-sm), env(safe-area-inset-left));
+      padding-right: max(var(--space-sm), env(safe-area-inset-right));
+      padding-bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+    }
+    
+    header {
+      padding-top: max(1.5rem, env(safe-area-inset-top));
+    }
+  }
+}
+
+/* Performance optimizations for all pages */
+img {
+  content-visibility: auto; /* Modern browsers only - improves performance */
+}
+
+.mandala-grid, 
+.mandala-item,
+.mandala-center,
+.prayer-wheel,
+.circuit-path {
+  will-change: transform; /* Hint to browser about properties that will change */
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Special accommodations for extremely small screens */
+@media (max-width: 360px) {
+  :root {
+    --font-size-base: 0.9rem;
+  }
+  
+  .site-title {
+    font-size: 1.3rem;
+  }
+  
+  .author-name {
+    font-size: 0.8rem;
+  }
+  
+  /* Stack mobile menu toggle and site title for very small screens */
+  .header-content {
+    flex-wrap: wrap;
+  }
+  
+  .mobile-menu-toggle {
+    order: 2;
+    margin-top: 0.5rem;
+  }
+  
+  /* Make purchase buttons stack on very small screens */
+  .book-purchase {
+    grid-template-columns: 1fr;
+  }
+}
