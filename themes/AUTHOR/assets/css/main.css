@@ -1,9 +1,6 @@
-/* Neuro-Digital Enlightenment Theme
-   Black Mirror meets Zen Buddhism with cyberpunk mysticism */
-
 /* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 /* CSS Variables for theme colors */
 :root {
   /* Primary colors */
@@ -471,8 +468,6 @@ tr:hover {
   background-color: rgba(0, 245, 212, 0.05);
 }
 
-/* Add this to themes/AUTHOR/assets/css/main.css */
-
 /* Mandala Grid Container */
 .mandala-grid {
   display: grid;
@@ -482,6 +477,7 @@ tr:hover {
   max-width: 1200px;
   margin: 3rem auto;
   perspective: 1000px;
+  transition: transform 0.5s ease;
 }
 
 /* Center item styling - for featured content */
@@ -604,6 +600,21 @@ tr:hover {
 .mandala-item:hover .mandala-item-img {
   filter: grayscale(0%) brightness(1);
   transform: scale(1.05);
+}
+
+.mandala-item.item-0 { grid-column: 1; grid-row: 1; }
+.mandala-item.item-1 { grid-column: 3; grid-row: 1; }
+.mandala-item.item-2 { grid-column: 1; grid-row: 3; }
+.mandala-item.item-3 { grid-column: 3; grid-row: 3; }
+.mandala-item.item-4 { grid-column: 1; grid-row: 2; }
+.mandala-item.item-5 { grid-column: 3; grid-row: 2; }
+.mandala-item.item-6 { grid-column: 2; grid-row: 1; }
+.mandala-item.item-7 { grid-column: 2; grid-row: 3; }
+
+/* Placeholder specific styles */
+.mandala-item.mandala-item-placeholder {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
 }
 
 /* Media queries for responsiveness */
@@ -1523,7 +1534,7 @@ footer {
 }
 
 /* Import modern font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
 
 /* Add this to themes/AUTHOR/assets/css/main.css */
 
@@ -2511,11 +2522,3 @@ img {
   }
 }
 
-.mandala-item.pos-0 { grid-column: 1; grid-row: 1; }
-.mandala-item.pos-1 { grid-column: 3; grid-row: 1; }
-.mandala-item.pos-2 { grid-column: 1; grid-row: 3; }
-.mandala-item.pos-3 { grid-column: 3; grid-row: 3; }
-.mandala-item.pos-4 { grid-column: 1; grid-row: 2; }
-.mandala-item.pos-5 { grid-column: 3; grid-row: 2; }
-.mandala-item.pos-6 { grid-column: 2; grid-row: 1; }
-.mandala-item.pos-7 { grid-column: 2; grid-row: 3; }
