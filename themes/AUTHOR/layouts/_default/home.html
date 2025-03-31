@@ -5,7 +5,6 @@
 
   <div class="mandala-container">
     <div class="mandala-grid">
-      <!-- Center feature item - The Protocol/Featured Book -->
       <div class="mandala-center">
         <a href="/books/featured-book/">
           <div class="mandala-center-content">
@@ -15,33 +14,34 @@
         </a>
       </div>
 
-      <!-- Surrounding items - dynamically populated based on content -->
       {{ $sections := slice "books" "stories" "audio" "posts" }}
       {{ $displayedItems := 0 }}
-      
+      {{ $maxItems := 8 }}
+
       {{ range $sections }}
         {{ $section := . }}
         {{ with site.GetPage $section }}
           {{ range first 2 .Pages }}
-            <div class="mandala-item">
-              <a href="{{ .RelPermalink }}">
-                {{ with .Params.image }}
-                  <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
-                {{ else }}
-                  <div class="mandala-item-placeholder"></div>
-                {{ end }}
-                <h3 class="mandala-item-title">{{ .Title }}</h3>
-                <div class="mandala-item-subtitle">{{ $section | title }}</div>
-                <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
-              </a>
-            </div>
-            {{ $displayedItems = add $displayedItems 1 }}
+            {{ if lt $displayedItems $maxItems }}
+              <div class="mandala-item pos-{{ $displayedItems }}">
+                <a href="{{ .RelPermalink }}">
+                  {{ with .Params.image }}
+                    <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
+                  {{ else }}
+                    <div class="mandala-item-placeholder"></div>
+                  {{ end }}
+                  <h3 class="mandala-item-title">{{ .Title }}</h3>
+                  <div class="mandala-item-subtitle">{{ $section | title }}</div>
+                  <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
+                </a>
+              </div>
+              {{ $displayedItems = add $displayedItems 1 }}
+            {{ end }}
           {{ end }}
         {{ end }}
       {{ end }}
 
-      <!-- Fill any remaining slots with placeholder items -->
-      {{ $remainingItems := sub 8 $displayedItems }}
+      {{ $remainingItems := sub $maxItems $displayedItems }}
       {{ range seq $remainingItems }}
         <div class="mandala-item mandala-item-placeholder">
           <div class="mandala-item-title">Coming Soon</div>
