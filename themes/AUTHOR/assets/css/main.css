@@ -477,6 +477,7 @@ tr:hover {
 .mandala-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 1.5rem;
   max-width: 1200px;
   margin: 3rem auto;
@@ -609,6 +610,7 @@ tr:hover {
 @media (max-width: 768px) {
   .mandala-grid {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto; 
   }
   
   .mandala-center {
@@ -624,6 +626,12 @@ tr:hover {
   
   .mandala-center {
     grid-column: 1;
+  }
+
+  .mandala-item {
+    aspect-ratio: auto;
+    height: auto;
+    min-height: 200px;
   }
 }
 

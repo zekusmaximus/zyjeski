@@ -168,32 +168,27 @@ function createGlitchEffect(element) {
 }
 
 function initCyberpunkTextEffects() {
-  // Add glitch effect to titles - simplified for mobile
-  const titles = document.querySelectorAll('.site-title, .mandala-item-title');
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  
-  titles.forEach(title => {
-    const text = title.textContent;
-    title.setAttribute('data-text', text);
-    
-    if (!isMobile) {
-      title.addEventListener('mouseenter', function() {
-        this.classList.add('text-glitch');
-        setTimeout(() => {
-          this.classList.remove('text-glitch');
-        }, 1000);
-      });
-    }
-  });
-  
-  // Add digital noise to the author name on hover - simplified for mobile
+
+  // Glitch effect for site title
+  const siteTitle = document.querySelector('.site-title');
+  if (siteTitle && !isMobile) {
+    siteTitle.addEventListener('mouseenter', function() {
+      this.classList.add('text-glitch');
+      setTimeout(() => {
+        this.classList.remove('text-glitch');
+      }, 1000);
+    });
+  }
+
+  // Symbol effect for author name
   const authorName = document.querySelector('.author-name');
   if (authorName && !isMobile) {
     authorName.addEventListener('mouseenter', function() {
-      const originalText = this.textContent;
+      const originalText = this.getAttribute('data-text');
       const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
       let iterations = 0;
-      
+
       const interval = setInterval(() => {
         this.textContent = originalText
           .split('')
@@ -204,14 +199,18 @@ function initCyberpunkTextEffects() {
             return chars[Math.floor(Math.random() * chars.length)];
           })
           .join('');
-          
+
         if (iterations >= originalText.length) {
           clearInterval(interval);
           this.textContent = originalText;
         }
-        
-        iterations += 1/3;
+
+        iterations += 1 / 3;
       }, 30);
+    });
+
+    authorName.addEventListener('mouseleave', function() {
+      this.textContent = this.getAttribute('data-text'); // Reset to original text
     });
   }
 }
