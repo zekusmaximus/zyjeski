@@ -1,7 +1,7 @@
 // Save this as themes/AUTHOR/static/js/vr-buddha-transition.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    const container = document.getElementById('3d-transition-container');
+    const container = document.getElementById('three-d-transition-container');
     if (!container) return;
     
     // Set up Three.js scene
