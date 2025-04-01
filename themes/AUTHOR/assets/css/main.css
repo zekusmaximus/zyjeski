@@ -467,6 +467,8 @@ tr:hover {
   background-color: rgba(0, 245, 212, 0.05);
 }
 
+/* Replace the existing mandala grid CSS with this */
+
 /* Mandala Grid Container */
 .mandala-grid {
   display: grid;
@@ -496,152 +498,133 @@ tr:hover {
   z-index: 5;
 }
 
-.mandala-center:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
-}
-
-.mandala-center::before {
-  content: '';
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 255, 255, 0.5);
-  animation: pulseRotate 8s linear infinite;
-}
-
-@keyframes pulseRotate {
-  0% {
-    transform: rotate(0deg) scale(0.95);
-    opacity: 0.5;
-  }
-  50% {
-    transform: rotate(180deg) scale(1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: rotate(360deg) scale(0.95);
-    opacity: 0.5;
-  }
-}
-
-/* Mandala Item - for surrounding content */
-.mandala-item {
-  aspect-ratio: 1/1;
-  background: #0f0f1a;
-  border-radius: 15px;
-  overflow: hidden;
-  position: relative;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 1.5rem;
-  color: white;
-  border: 1px solid rgba(51, 51, 255, 0.3);
-}
-
-.mandala-item:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
-  border-color: rgba(0, 255, 255, 0.7);
-}
-
-.mandala-item::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(0, 255, 255, 0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.mandala-item:hover::after {
-  opacity: 1;
-}
-
-.mandala-item-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  z-index: 2;
-}
-
-.mandala-item-subtitle {
-  font-size: 0.9rem;
-  opacity: 0.7;
-  margin-bottom: 1rem;
-  position: relative;
-  z-index: 2;
-}
-
-.mandala-item-img {
-  width: 80%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-  filter: grayscale(30%) brightness(0.8);
-  position: relative;
-  z-index: 2;
-}
-
-.mandala-item:hover .mandala-item-img {
-  filter: grayscale(0%) brightness(1);
-  transform: scale(1.05);
-}
-
-/* Explicit grid item positioning (using classes) */
+/* Explicit grid item positioning */
 .mandala-item.item-1 {
   grid-column: 1;
   grid-row: 1;
 }
 
 .mandala-item.item-2 {
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 1;
 }
 
 .mandala-item.item-3 {
-  grid-column: 1;
-  grid-row: 3;
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .mandala-item.item-4 {
-  grid-column: 3;
-  grid-row: 3;
+  grid-column: 1;
+  grid-row: 2;
 }
 
+/* Center item is at grid-column: 2, grid-row: 2 */
+
 .mandala-item.item-5 {
-  grid-column: 1;
+  grid-column: 3;
   grid-row: 2;
 }
 
 .mandala-item.item-6 {
-  grid-column: 3;
-  grid-row: 2;
+  grid-column: 1;
+  grid-row: 3;
 }
 
 .mandala-item.item-7 {
   grid-column: 2;
-  grid-row: 1;
-}
-
-.mandala-item.item-8 {
-  grid-column: 2;
   grid-row: 3;
 }
 
+.mandala-item.item-8 {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .mandala-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+  }
+  
+  .mandala-center {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
+  
+  .mandala-item.item-1 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  .mandala-item.item-2 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  
+  .mandala-item.item-3 {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  .mandala-item.item-4 {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  
+  .mandala-item.item-5 {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  
+  .mandala-item.item-6 {
+    grid-column: 2;
+    grid-row: 4;
+  }
+  
+  .mandala-item.item-7 {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  
+  .mandala-item.item-8 {
+    grid-column: 2;
+    grid-row: 5;
+  }
+}
+
+@media (max-width: 480px) {
+  .mandala-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .mandala-center {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .mandala-item.item-1,
+  .mandala-item.item-2,
+  .mandala-item.item-3,
+  .mandala-item.item-4,
+  .mandala-item.item-5,
+  .mandala-item.item-6,
+  .mandala-item.item-7,
+  .mandala-item.item-8 {
+    grid-column: 1;
+  }
+  
+  .mandala-item.item-1 { grid-row: 2; }
+  .mandala-item.item-2 { grid-row: 3; }
+  .mandala-item.item-3 { grid-row: 4; }
+  .mandala-item.item-4 { grid-row: 5; }
+  .mandala-item.item-5 { grid-row: 6; }
+  .mandala-item.item-6 { grid-row: 7; }
+  .mandala-item.item-7 { grid-row: 8; }
+  .mandala-item.item-8 { grid-row: 9; }
+}
 /* Placeholder specific styles */
 .mandala-item.mandala-item-placeholder {
   background: rgba(0, 0, 0, 0.3);
@@ -2550,3 +2533,13 @@ img {
   }
 }
 
+.mobile-menu-toggle {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative;
+  z-index: 1100 !important; /* Higher than anything else */
+}
+
+.toggle-bar {
+  pointer-events: auto !important;
+}

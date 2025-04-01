@@ -6,7 +6,7 @@
   <div class="mandala-container">
     <div class="mandala-grid">
       <div class="mandala-center">
-        <a href="/books/featured-book/">
+        <a href="/books/the-protocol-vol1/">
           <div class="mandala-center-content">
             <h2>The Protocol</h2>
             <div class="pulse-circle"></div>
@@ -15,35 +15,44 @@
       </div>
 
       {{ $sections := slice "books" "stories" "audio" "posts" }}
-      {{ $displayedItems := 1 }}
-      {{ $maxItems := 8 }}
-
+      {{ $displayCount := dict "books" 0 "stories" 0 "audio" 0 "posts" 0 }}
+      {{ $itemCount := 1 }} <!-- Start with item-1 -->
+      
+      <!-- Loop through each section -->
       {{ range $sections }}
         {{ $section := . }}
         {{ with site.GetPage $section }}
+          <!-- Get up to 2 pages from each section -->
           {{ range first 2 .Pages }}
-            {{ if lt $displayedItems $maxItems }}
-              <div class="mandala-item item-{{ $displayedItems }}">
-                <a href="{{ .RelPermalink }}">
-                  {{ with .Params.image }}
-                    <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
-                  {{ else }}
-                    <div class="mandala-item-placeholder"></div>
-                  {{ end }}
-                  <h3 class="mandala-item-title">{{ .Title }}</h3>
-                  <div class="mandala-item-subtitle">{{ $section | title }}</div>
-                  <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
-                </a>
-              </div>
-              {{ $displayedItems = add $displayedItems 1 }}
+            {{ if lt $itemCount 9 }} <!-- We only have space for 8 items + center -->
+              {{ $sectionCount := index $displayCount $section }}
+              {{ if lt $sectionCount 2 }} <!-- Limit to 2 items per section -->
+                <div class="mandala-item item-{{ $itemCount }}">
+                  <a href="{{ .RelPermalink }}">
+                    {{ with .Params.image }}
+                      <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
+                    {{ else }}
+                      <div class="mandala-item-placeholder"></div>
+                    {{ end }}
+                    <h3 class="mandala-item-title">{{ .Title }}</h3>
+                    <div class="mandala-item-subtitle">{{ $section | title }}</div>
+                    <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
+                  </a>
+                </div>
+                
+                <!-- Increment counters -->
+                {{ $itemCount = add $itemCount 1 }}
+                {{ $newCount := add $sectionCount 1 }}
+                {{ $displayCount = merge $displayCount (dict $section $newCount) }}
+              {{ end }}
             {{ end }}
           {{ end }}
         {{ end }}
       {{ end }}
 
-      {{ $remainingItems := sub $maxItems (sub $displayedItems 1) }}
-      {{ range seq $remainingItems }}
-        <div class="mandala-item mandala-item-placeholder item-{{ add $displayedItems (sub (sub $maxItems (sub $maxItems (sub 8 .))) 1) }}">
+      <!-- Add placeholder items if we don't have enough content -->
+      {{ range seq $itemCount 8 }}
+        <div class="mandala-item mandala-item-placeholder item-{{ . }}">
           <div class="mandala-item-title">Coming Soon</div>
           <div class="mandala-item-subtitle">Future Work</div>
         </div>
