@@ -23,6 +23,11 @@
     const navContainer = document.querySelector('.nav-container');
     
     if (menuToggle && navContainer) {
+      // Initially hide the menu on mobile
+      if (window.innerWidth <= 768) {
+        navContainer.classList.remove('active');
+      }
+      
       menuToggle.addEventListener('click', function() {
         this.classList.toggle('active');
         navContainer.classList.toggle('active');
@@ -35,9 +40,11 @@
       const navLinks = navContainer.querySelectorAll('a');
       navLinks.forEach(link => {
         link.addEventListener('click', function() {
-          menuToggle.classList.remove('active');
-          navContainer.classList.remove('active');
-          document.body.classList.remove('menu-open');
+          if (window.innerWidth <= 768) {
+            menuToggle.classList.remove('active');
+            navContainer.classList.remove('active');
+            document.body.classList.remove('menu-open');
+          }
         });
       });
     }
