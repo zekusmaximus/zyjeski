@@ -3,86 +3,88 @@
     {{ .Content }}
   </div>
 
-  <div class="mandala-container">
-    <div class="mandala-grid">
-      <div class="mandala-center">
-        <a href="/books/the-protocol-vol1/">
-          <div class="mandala-center-content">
-            <h2>The Protocol</h2>
-            <div class="pulse-circle"></div>
-          </div>
-        </a>
+  <!-- In themes/AUTHOR/layouts/_default/home.html -->
+<div class="mandala-grid">
+  <div class="mandala-center">
+    <a href="/books/the-protocol-vol1/">
+      <div class="mandala-center-content">
+        <h2>The Protocol</h2>
+        <div class="pulse-circle"></div>
       </div>
-
-      {{ $sections := slice "books" "stories" "audio" "posts" }}
-      {{ $displayCount := dict "books" 0 "stories" 0 "audio" 0 "posts" 0 }}
-      {{ $itemCount := 1 }} <!-- Start with item-1 -->
-      
-      <!-- Loop through each section -->
-      {{ range $sections }}
-        {{ $section := . }}
-        {{ with site.GetPage $section }}
-          <!-- Get up to 2 pages from each section -->
-          {{ range first 2 .Pages }}
-            {{ if lt $itemCount 9 }} <!-- We only have space for 8 items + center -->
-              {{ $sectionCount := index $displayCount $section }}
-              {{ if lt $sectionCount 2 }} <!-- Limit to 2 items per section -->
-                <div class="mandala-item item-{{ $itemCount }}">
-                  <a href="{{ .RelPermalink }}">
-                    {{ with .Params.image }}
-                      <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
-                    {{ else }}
-                      <div class="mandala-item-placeholder"></div>
-                    {{ end }}
-                    <h3 class="mandala-item-title">{{ .Title }}</h3>
-                    <div class="mandala-item-subtitle">{{ $section | title }}</div>
-                    <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
-                  </a>
-                </div>
-                
-                <!-- Increment counters -->
-                {{ $itemCount = add $itemCount 1 }}
-                {{ $newCount := add $sectionCount 1 }}
-                {{ $displayCount = merge $displayCount (dict $section $newCount) }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-
-      <!-- Add placeholder items if we don't have enough content -->
-      {{ range seq $itemCount 8 }}
-        <div class="mandala-item mandala-item-placeholder item-{{ . }}">
-          <div class="mandala-item-title">Coming Soon</div>
-          <div class="mandala-item-subtitle">Future Work</div>
-        </div>
-      {{ end }}
-    </div>
+    </a>
   </div>
 
-  <div class="home-sections">
-    <div class="home-section">
-      <h2 class="section-title">The Protocol</h2>
-      <p class="section-desc">Explore the intersection of technology and spirituality through my cyberpunk-mystical novel series.</p>
-      <a href="/books/" class="section-link">Enter The Protocol</a>
-    </div>
-
-    <div class="home-section">
-      <h2 class="section-title">Koans</h2>
-      <p class="section-desc">Digital-age koans that dissolve boundaries between machine and consciousness.</p>
-      <a href="/stories/" class="section-link">Explore Koans</a>
-    </div>
-
-    <div class="home-section">
-      <h2 class="section-title">Simulations</h2>
-      <p class="section-desc">Audio experiences that merge meditation with dystopian narrative.</p>
-      <a href="/audio/" class="section-link">Run Simulations</a>
-    </div>
-
-    <div class="home-section">
-      <h2 class="section-title">Dharma Log</h2>
-      <p class="section-desc">Chronicles from the intersection of silicon and soul.</p>
-      <a href="/posts/" class="section-link">Browse Dharma Log</a>
-    </div>
+  <!-- Grid Item 1: Books/The Protocol -->
+  <div class="mandala-item item-1">
+    <a href="/books/">
+      <div class="mandala-item-placeholder"></div>
+      <h3 class="mandala-item-title">Books</h3>
+      <div class="mandala-item-subtitle">The Protocol</div>
+      <div class="mandala-item-excerpt">Explore the intersection of technology and spirituality through my cyberpunk-mystical novel series.</div>
+    </a>
   </div>
+  
+  <!-- Grid Item 2: Stories/Koans -->
+  <div class="mandala-item item-2">
+    <a href="/stories/">
+      <div class="mandala-item-placeholder"></div>
+      <h3 class="mandala-item-title">Stories</h3>
+      <div class="mandala-item-subtitle">Koans</div>
+      <div class="mandala-item-excerpt">Digital-age koans that dissolve boundaries between machine and consciousness.</div>
+    </a>
+  </div>
+  
+  <!-- Grid Item 3: Audio/Simulations -->
+  <div class="mandala-item item-3">
+    <a href="/audio/">
+      <div class="mandala-item-placeholder"></div>
+      <h3 class="mandala-item-title">Audio</h3>
+      <div class="mandala-item-subtitle">Simulations</div>
+      <div class="mandala-item-excerpt">Audio experiences that merge meditation with dystopian narrative.</div>
+    </a>
+  </div>
+  
+  <!-- Grid Item 4: Blog/Dharma Log -->
+  <div class="mandala-item item-4">
+    <a href="/posts/">
+      <div class="mandala-item-placeholder"></div>
+      <h3 class="mandala-item-title">Blog</h3>
+      <div class="mandala-item-subtitle">Dharma Log</div>
+      <div class="mandala-item-excerpt">Chronicles from the intersection of silicon and soul.</div>
+    </a>
+  </div>
+  
+  <!-- Grid Item 5: Newsletter/Future Law Insider -->
+  <div class="mandala-item item-5">
+    <a href="/newsletter/">
+      <div class="mandala-item-placeholder"></div>
+      <h3 class="mandala-item-title">Newsletter</h3>
+      <div class="mandala-item-subtitle">Future Law Insider</div>
+      <div class="mandala-item-excerpt">Updates on the convergence of legal frameworks and emerging technologies.</div>
+    </a>
+  </div>
+  
+  <!-- Grid Item 6: About -->
+  <div class="mandala-item item-6">
+    <a href="/about/">
+      <div class="mandala-item-placeholder"></div>
+      <h3 class="mandala-item-title">About</h3>
+      <div class="mandala-item-subtitle">Jeffrey A. Zyjeski</div>
+      <div class="mandala-item-excerpt">Author exploring Neuro-Digital Enlightenment at the intersection of technology and consciousness.</div>
+    </a>
+  </div>
+  
+  <!-- Grid Items 7-8: Reserved for future use -->
+  <div class="mandala-item mandala-item-placeholder item-7">
+    <div class="mandala-item-title">Coming Soon</div>
+    <div class="mandala-item-subtitle">Future Work</div>
+  </div>
+  
+  <div class="mandala-item mandala-item-placeholder item-8">
+    <div class="mandala-item-title">Coming Soon</div>
+    <div class="mandala-item-subtitle">Future Work</div>
+  </div>
+</div>
+
+  
 {{ end }}

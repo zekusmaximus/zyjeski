@@ -14,30 +14,40 @@ theme = "AUTHOR"
   facebook = 'facebook.com/zyjeski'
   instagram = '/zeksumaximus'
   # goodreads = 'yourgoodreadsprofile'
-  # amazon = 'youramazonauthorpage'
+  amazon = 'youramazonauthorpage'
 
 # Menu configuration (from your existing theme)
-[[menus.main]]
-name = 'Home'
-pageRef = '/'
-weight = 10
+[[menu.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
 
-[[menus.main]]
-name = 'Books'
-pageRef = '/books'
-weight = 20
+  [[menu.main]]
+    name = 'Books'
+    pageRef = '/books'
+    weight = 20
 
-[[menus.main]]
-name = 'Stories'
-pageRef = '/stories'
-weight = 30
+  [[menu.main]]
+    name = 'Stories'
+    pageRef = '/stories'
+    weight = 30
 
-[[menus.main]]
-name = 'Blog'
-pageRef = '/posts'
-weight = 40
+  [[menu.main]]
+    name = 'Audio'
+    pageRef = '/audio'
+    weight = 40
 
-[[menus.main]]
-name = 'About'
-pageRef = '/about'
-weight = 50
+  [[menu.main]]
+    name = 'Blog'
+    pageRef = '/posts'
+    weight = 50
+    
+  [[menu.main]]
+    name = 'Newsletter'
+    pageRef = '/newsletter'
+    weight = 60
+
+  [[menu.main]]
+    name = 'About'
+    pageRef = '/about'
+    weight = 70
