@@ -1,47 +1,79 @@
 {{ define "main" }}
-<div class="mandala-grid">
-  <div class="mandala-center">
-    <a href="/books/featured-book/">
-      <div class="mandala-center-content">
-        <h2>The Protocol</h2>
-        <div class="pulse-circle"></div>
-      </div>
-    </a>
+  <div class="home-intro">
+    {{ .Content }}
   </div>
 
-  {{ $sections := slice "books" "stories" "audio" "posts" }}
-  {{ $displayedItems := 0 }}
-  {{ $maxItems := 8 }}
-
-  {{ range $sections }}
-    {{ $section := . }}
-    {{ with site.GetPage $section }}
-      {{ range first 2 .Pages }}
-        {{ if lt $displayedItems $maxItems }}
-          <div class="mandala-item item-{{ $displayedItems }}">
-            <a href="{{ .RelPermalink }}">
-              {{ with .Params.image }}
-                <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
-              {{ else }}
-                <div class="mandala-item-placeholder"></div>
-              {{ end }}
-              <h3 class="mandala-item-title">{{ .Title }}</h3>
-              <div class="mandala-item-subtitle">{{ $section | title }}</div>
-              <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
-            </a>
+  <div class="mandala-container">
+    <div class="mandala-grid">
+      <div class="mandala-center">
+        <a href="/books/featured-book/">
+          <div class="mandala-center-content">
+            <h2>The Protocol</h2>
+            <div class="pulse-circle"></div>
           </div>
-          {{ $displayedItems = add $displayedItems 1 }}
+        </a>
+      </div>
+
+      {{ $sections := slice "books" "stories" "audio" "posts" }}
+      {{ $displayedItems := 1 }}
+      {{ $maxItems := 8 }}
+
+      {{ range $sections }}
+        {{ $section := . }}
+        {{ with site.GetPage $section }}
+          {{ range first 2 .Pages }}
+            {{ if lt $displayedItems $maxItems }}
+              <div class="mandala-item item-{{ $displayedItems }}">
+                <a href="{{ .RelPermalink }}">
+                  {{ with .Params.image }}
+                    <img src="{{ . }}" alt="{{ $.Title }}" class="mandala-item-img">
+                  {{ else }}
+                    <div class="mandala-item-placeholder"></div>
+                  {{ end }}
+                  <h3 class="mandala-item-title">{{ .Title }}</h3>
+                  <div class="mandala-item-subtitle">{{ $section | title }}</div>
+                  <div class="mandala-item-excerpt">{{ .Summary | truncate 80 }}</div>
+                </a>
+              </div>
+              {{ $displayedItems = add $displayedItems 1 }}
+            {{ end }}
+          {{ end }}
         {{ end }}
       {{ end }}
-    {{ end }}
-  {{ end }}
 
-  {{ $remainingItems := sub $maxItems $displayedItems }}
-  {{ range seq $remainingItems }}
-    <div class="mandala-item mandala-item-placeholder item-{{ add $displayedItems (sub 7 . ) }}">
-      <div class="mandala-item-title">Coming Soon</div>
-      <div class="mandala-item-subtitle">Future Work</div>
+      {{ $remainingItems := sub $maxItems (sub $displayedItems 1) }}
+      {{ range seq $remainingItems }}
+        <div class="mandala-item mandala-item-placeholder item-{{ add $displayedItems (sub (sub $maxItems (sub $maxItems (sub 8 .))) 1) }}">
+          <div class="mandala-item-title">Coming Soon</div>
+          <div class="mandala-item-subtitle">Future Work</div>
+        </div>
+      {{ end }}
     </div>
-  {{ end }}
-</div>
-</div>
+  </div>
+
+  <div class="home-sections">
+    <div class="home-section">
+      <h2 class="section-title">The Protocol</h2>
+      <p class="section-desc">Explore the intersection of technology and spirituality through my cyberpunk-mystical novel series.</p>
+      <a href="/books/" class="section-link">Enter The Protocol</a>
+    </div>
+
+    <div class="home-section">
+      <h2 class="section-title">Koans</h2>
+      <p class="section-desc">Digital-age koans that dissolve boundaries between machine and consciousness.</p>
+      <a href="/stories/" class="section-link">Explore Koans</a>
+    </div>
+
+    <div class="home-section">
+      <h2 class="section-title">Simulations</h2>
+      <p class="section-desc">Audio experiences that merge meditation with dystopian narrative.</p>
+      <a href="/audio/" class="section-link">Run Simulations</a>
+    </div>
+
+    <div class="home-section">
+      <h2 class="section-title">Dharma Log</h2>
+      <p class="section-desc">Chronicles from the intersection of silicon and soul.</p>
+      <a href="/posts/" class="section-link">Browse Dharma Log</a>
+    </div>
+  </div>
+{{ end }}
