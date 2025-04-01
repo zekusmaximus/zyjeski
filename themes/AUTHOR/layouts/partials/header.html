@@ -1,4 +1,3 @@
-<!-- Replace the existing header.html with this mobile-friendly version -->
 <!-- themes/AUTHOR/layouts/partials/header.html -->
 <div class="header-content">
   <h1 class="site-title">{{ site.Title }}</h1>
@@ -6,7 +5,6 @@
     Jeffre<span class="problem-chars">y A. Z</span>yjeski
   </div>
   
-  <!-- Mobile menu toggle button -->
   <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
     <span class="toggle-bar"></span>
     <span class="toggle-bar"></span>
@@ -14,12 +12,10 @@
   </button>
 </div>
 
-<!-- Mobile-friendly navigation with toggle functionality -->
 <div class="nav-container">
   {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
 </div>
 
-<!-- Add this JavaScript code after the navigation markup -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle functionality
@@ -47,4 +43,3 @@
     }
   });
 </script>
-

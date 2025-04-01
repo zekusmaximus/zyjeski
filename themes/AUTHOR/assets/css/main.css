@@ -2522,24 +2522,68 @@ img {
     flex-wrap: wrap;
   }
   
-  .mobile-menu-toggle {
-    order: 2;
-    margin-top: 0.5rem;
-  }
-  
-  /* Make purchase buttons stack on very small screens */
-  .book-purchase {
-    grid-template-columns: 1fr;
-  }
-}
-
+ /* Mobile menu styles */
 .mobile-menu-toggle {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  position: relative;
-  z-index: 1100 !important; /* Higher than anything else */
+  display: none; /* Hidden by default on larger screens */
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+  z-index: 1000;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
 }
 
 .toggle-bar {
-  pointer-events: auto !important;
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--flickering-white);
+  margin-bottom: 5px;
+}
+
+.toggle-bar:last-child {
+  margin-bottom: 0;
+}
+
+.nav-container {
+  /* Initially hidden on mobile */
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 999;
+  padding-top: 4rem;
+}
+
+.nav-container.active {
+  /* Display when active */
+  display: block;
+}
+
+nav ul {
+  flex-direction: column;
+  align-items: center;
+}
+
+nav li {
+  margin: 1rem 0;
+}
+
+/* Show the menu toggle on mobile */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+/* Prevent scrolling when menu is open */
+body.menu-open {
+  overflow: hidden;
 }
