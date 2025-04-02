@@ -9,9 +9,6 @@ backend:
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
 
-media_folder: "static/images/uploads"
-public_folder: "/images/uploads"
-
 # Your collections configuration remains the same
 
 collections:
