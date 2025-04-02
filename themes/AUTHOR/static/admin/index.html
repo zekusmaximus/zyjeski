@@ -1,184 +1,57 @@
-backend:
-  name: git-gateway
-  branch: main # Change to your main branch name if different
-  auth_scope: openid profile email
-
-# Use the Auth0 authentication provider
-auth_type: implicit # For Auth0 SPA authentication flow
-
-media_folder: "static/images/uploads" # Media will be stored here
-public_folder: "/images/uploads" # URLs for media will be like this
-
-collections:
-  # Books collection
-  - name: "books"
-    label: "Books"
-    folder: "content/books"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Draft", name: "draft", widget: "boolean", default: false}
-      - {label: "Cover Image", name: "cover_image", widget: "image", required: false}
-      - {label: "Series", name: "series", widget: "string", required: false}
-      - {label: "Pages", name: "pages", widget: "number", required: false}
-      - {label: "Publication Date", name: "publication_date", widget: "string", required: false}
-      - {label: "Show 3D Transition", name: "show_3d_transition", widget: "boolean", default: false}
-      - label: "Purchase Links"
-        name: "purchase_links"
-        widget: "list"
-        required: false
-        fields:
-          - {label: "Store", name: "store", widget: "string"}
-          - {label: "URL", name: "url", widget: "string"}
-      - label: "AI Synopsis"
-        name: "ai_synopsis"
-        widget: "list"
-        required: false
-        fields:
-          - {label: "Speaker", name: "speaker", widget: "string"}
-          - {label: "Text", name: "text", widget: "text"}
-      - label: "Reviews"
-        name: "reviews"
-        widget: "list"
-        required: false
-        fields:
-          - {label: "Text", name: "text", widget: "text"}
-          - {label: "Author", name: "author", widget: "string"}
-      - {label: "Excerpt", name: "excerpt", widget: "markdown", required: false}
-      - {label: "Tags", name: "tags", widget: "list", required: false}
-      - {label: "Body", name: "body", widget: "markdown"}
-  
-  # Stories/Koans collection
-  - name: "stories"
-    label: "Koans"
-    folder: "content/stories"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Draft", name: "draft", widget: "boolean", default: false}
-      - {label: "Koan Text", name: "koan_text", widget: "text"}
-      - {label: "Tags", name: "tags", widget: "list", required: false}
-      - {label: "Body", name: "body", widget: "markdown"}
-  
-  # Audio/Simulations collection
-  - name: "audio"
-    label: "Simulations"
-    folder: "content/audio"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Draft", name: "draft", widget: "boolean", default: false}
-      - {label: "Audio File", name: "audio_file", widget: "file", required: false}
-      - {label: "Transcript", name: "transcript", widget: "markdown", required: false}
-      - {label: "Tags", name: "tags", widget: "list", required: false}
-      - {label: "Body", name: "body", widget: "markdown"}
-  
-  # Blog/Dharma Log collection
-  - name: "posts"
-    label: "Dharma Log"
-    folder: "content/posts"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Draft", name: "draft", widget: "boolean", default: false}
-      - {label: "Tags", name: "tags", widget: "list", required: false}
-      - {label: "Body", name: "body", widget: "markdown"}
-  
-  # About section
-  - name: "about"
-    label: "About"
-    files:
-      - name: "about"
-        label: "About Page"
-        file: "content/about/index.md"
-        fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime"}
-          - {label: "Draft", name: "draft", widget: "boolean", default: false}
-          - {label: "Body", name: "body", widget: "markdown"}
-  
-  # Home page/section pages
-  - name: "pages"
-    label: "Pages"
-    files:
-      - name: "home"
-        label: "Home Page"
-        file: "content/_index.md"
-        fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime"}
-          - {label: "Draft", name: "draft", widget: "boolean", default: false}
-          - {label: "Body", name: "body", widget: "markdown"}
-      - name: "books_section"
-        label: "Books Section"
-        file: "content/books/_index.md"
-        fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime"}
-          - {label: "Draft", name: "draft", widget: "boolean", default: false}
-          - {label: "Body", name: "body", widget: "markdown"}
-      - name: "stories_section"
-        label: "Koans Section"
-        file: "content/stories/_index.md"
-        fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime"}
-          - {label: "Draft", name: "draft", widget: "boolean", default: false}
-          - {label: "Body", name: "body", widget: "markdown"}
-      - name: "audio_section"
-        label: "Simulations Section"
-        file: "content/audio/_index.md"
-        fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime"}
-          - {label: "Draft", name: "draft", widget: "boolean", default: false}
-          - {label: "Body", name: "body", widget: "markdown"}
-      - name: "posts_section"
-        label: "Dharma Log Section"
-        file: "content/posts/_index.md"
-        fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime"}
-          - {label: "Draft", name: "draft", widget: "boolean", default: false}
-          - {label: "Body", name: "body", widget: "markdown"}
-
-  # Site configuration
-  - name: "settings"
-    label: "Settings"
-    files:
-      - name: "config"
-        label: "Site Configuration"
-        file: "hugo.toml"
-        fields:
-          - {label: "Site Title", name: "title", widget: "string"}
-          - {label: "Base URL", name: "baseURL", widget: "string"}
-          - label: "Parameters"
-            name: "params"
-            widget: "object"
-            fields:
-              - {label: "Author", name: "author", widget: "string"}
-              - {label: "Description", name: "description", widget: "string"}
-              - {label: "Featured Title 1", name: "featured_title_1", widget: "string", required: false}
-              - {label: "Featured Subtitle 1", name: "featured_subtitle_1", widget: "string", required: false}
-              - {label: "Featured Image 1", name: "featured_image_1", widget: "string", required: false}
-              - {label: "Featured Link 1", name: "featured_link_1", widget: "string", required: false}
-              - {label: "Featured Title 2", name: "featured_title_2", widget: "string", required: false}
-              - {label: "Featured Subtitle 2", name: "featured_subtitle_2", widget: "string", required: false}
-              - {label: "Featured Image 2", name: "featured_image_2", widget: "string", required: false}
-              - {label: "Featured Link 2", name: "featured_link_2", widget: "string", required: false}
-              - label: "Social Media"
-                name: "social"
-                widget: "object"
-                fields:
-                  - {label: "Twitter", name: "twitter", widget: "string", required: false}
-                  - {label: "Facebook", name: "facebook", widget: "string", required: false}
-                  - {label: "Instagram", name: "instagram", widget: "string", required: false}
-                  - {label: "Amazon", name: "amazon", widget: "string", required: false}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jeffrey A. Zyjeski CMS</title>
+    
+    <!-- Include the styles for the Decap CMS UI -->
+    <link rel="stylesheet" href="https://unpkg.com/@staticcms/app@^2.0.0/dist/main.css" />
+    
+    <!-- Custom styles for the admin interface -->
+    <style>
+      :root {
+        --primary-color: #6E0DD0;
+        --secondary-color: #00F5D4;
+        --tertiary-color: #FF9933;
+        --text-color: #E0E0E0;
+        --background-color: #000F08;
+      }
+      
+      /* Apply cyberpunk-spiritual styling to the admin interface */
+      body {
+        background-color: var(--background-color);
+        background-image: 
+          radial-gradient(circle at 20% 30%, #2D0F54 0%, transparent 20%),
+          radial-gradient(circle at 80% 70%, #000000 0%, transparent 20%);
+        background-attachment: fixed;
+      }
+      
+      /* Custom logo styling */
+      .site-logo {
+        font-family: 'Courier New', monospace;
+        font-size: 1.2rem;
+        color: var(--secondary-color);
+        margin: 1rem 0;
+        text-align: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Display a custom logo/text before the CMS loads -->
+    <div class="site-logo">
+      Jeffrey A. Zyjeski<br>
+      Neuro-Digital Enlightenment CMS
+    </div>
+    
+    <!-- Include the Decap CMS -->
+    <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
+    
+    <script>
+      // Initialize the CMS
+      window.CMS.init();
+    </script>
+  </body>
+</html>

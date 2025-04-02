@@ -1,13 +1,13 @@
 backend:
   name: git-gateway
-  branch: main # Change to your main branch name if different
+  branch: main
   auth_scope: openid profile email
 
 # Use the Auth0 authentication provider
-auth_type: implicit # For Auth0 SPA authentication flow
+auth_type: implicit
 
-media_folder: "static/images/uploads" # Media will be stored here
-public_folder: "/images/uploads" # URLs for media will be like this
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
 
 collections:
   # Books collection
