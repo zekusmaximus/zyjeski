@@ -51,9 +51,10 @@
     <!-- Include the Decap CMS -->
     <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
     
-    <script>
-      // Initialize the CMS
-      window.CMS.init();
-    </script>
+   <script src="config.js"></script>
+<script>
+  // Initialize the CMS with the config
+  window.CMS.init(window.CMS_CONFIG);
+</script>
   </body>
 </html>

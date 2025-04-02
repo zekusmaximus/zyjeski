@@ -1,10 +1,10 @@
 backend:
   name: auth0
-  domain: dev-cj5f52kzudnipqoz.us.auth0.com  # Replace with your Auth0 domain
-  clientID: 0RPDm2aPHynvpsCAMMa9XGtaUYae7xFd       # Replace with your Auth0 client ID
-  audience: https://api.netlify.com/   # This is the default API identifier for Netlify's API
-  scope: openid profile email          # Scope for Auth0 authentication
-  responseType: token id_token         # Response type for implicit flow
+  domain: '{{DOMAIN}}'
+  clientID: '{{CLIENT_ID}}'
+  audience: https://api.netlify.com/
+  scope: openid profile email
+  responseType: token id_token
 
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
