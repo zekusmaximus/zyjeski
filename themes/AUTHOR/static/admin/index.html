@@ -5,101 +5,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jeffrey A. Zyjeski CMS</title>
     
-    <!-- Include the styles for the Decap CMS UI -->
+    <!-- Include the styles for the Static CMS UI -->
     <link rel="stylesheet" href="https://unpkg.com/@staticcms/app@^2.0.0/dist/main.css" />
+    
+    <!-- Auth0 SDK -->
+    <script src="https://cdn.auth0.com/js/auth0/9.19.0/auth0.min.js"></script>
     
     <!-- Custom styles for the admin interface -->
     <style>
-      /* Your styles here */
+      :root {
+        --primary-color: #6E0DD0;
+        --secondary-color: #00F5D4;
+        --tertiary-color: #FF9933;
+        --text-color: #E0E0E0;
+        --background-color: #000F08;
+      }
+      
+      /* Apply cyberpunk-spiritual styling to the admin interface */
+      body {
+        background-color: var(--background-color);
+        background-image: 
+          radial-gradient(circle at 20% 30%, #2D0F54 0%, transparent 20%),
+          radial-gradient(circle at 80% 70%, #000000 0%, transparent 20%);
+        background-attachment: fixed;
+      }
+      
+      /* Custom logo styling */
+      .site-logo {
+        font-family: 'Courier New', monospace;
+        font-size: 1.2rem;
+        color: var(--secondary-color);
+        margin: 1rem 0;
+        text-align: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      
+      /* Login screen */
+      #auth0-login {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .login-container {
+        background: #1a1a2e;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 0 20px rgba(110, 13, 208, 0.5);
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+      }
+      
+      .login-button {
+        background: linear-gradient(90deg, #6E0DD0, #00F5D4);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        margin-top: 1.5rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      
+      .login-button:hover {
+        transform: translateY(-3px);
+      }
     </style>
   </head>
   <body>
-    <!-- Display a custom logo/text before the CMS loads -->
-    <div class="site-logo">
-      Jeffrey A. Zyjeski<br>
-      Neuro-Digital Enlightenment CMS
+    <!-- Auth0 Login Dialog -->
+    <div id="auth0-login">
+      <div class="login-container">
+        <div class="site-logo">
+          Jeffrey A. Zyjeski<br>
+          Neuro-Digital Enlightenment CMS
+        </div>
+        <h2 style="color: white; margin-top: 1.5rem;">Admin Login</h2>
+        <button id="login-button" class="login-button">Login with Auth0</button>
+      </div>
     </div>
     
-    <!-- Include the Decap CMS -->
+    <!-- Include the Static CMS -->
     <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
     
-    <!-- Auth0 backend registration -->
     <script>
-      // Create an Auth0 backend class
-      class Auth0Backend {
-        constructor(config) {
-          this.config = config;
-        }
-        
-        login() {
-          // Redirect to Auth0's login page
-          const auth0Domain = this.config.domain;
-          const auth0ClientID = this.config.clientID;
-          const callbackURL = encodeURIComponent(`${window.location.origin}/admin/`);
-          const auth0State = Date.now().toString();
-          localStorage.setItem('auth0State', auth0State);
-          
-          const authURL = `https://${auth0Domain}/authorize?client_id=${auth0ClientID}&redirect_uri=${callbackURL}&response_type=token%20id_token&scope=openid%20profile%20email&state=${auth0State}&nonce=${Date.now()}`;
-          
-          window.location.href = authURL;
-        }
-        
-        restoreUser() {
-          // Check if we have a token in the URL (after Auth0 redirect)
-          const hashParams = new URLSearchParams(
-            window.location.hash.substring(1)
-          );
-          
-          if (hashParams.has('access_token') && hashParams.has('id_token')) {
-            const accessToken = hashParams.get('access_token');
-            const idToken = hashParams.get('id_token');
-            
-            // Clear the hash to remove tokens from URL
-            history.replaceState(null, null, ' ');
-            
-            // Return user data
-            return Promise.resolve({
-              token: accessToken,
-              id_token: idToken
-            });
+      // Simple Auth0 integration
+      const auth0Client = new auth0.WebAuth({
+        domain: 'dev-cj5f52kzudnipqoz.us.auth0.com',
+        clientID: '0RPDm2aPHynvpsCAMMa9XGtaUYae7xFd',
+        responseType: 'token id_token',
+        redirectUri: window.location.origin + '/admin/',
+        scope: 'openid profile email'
+      });
+      
+      // Check for Auth0 callback
+      function handleAuth0Callback() {
+        // Parse the URL hash
+        if (window.location.hash) {
+          auth0Client.parseHash((err, authResult) => {
+            if (authResult && authResult.accessToken && authResult.idToken) {
+              // Set auth data in localStorage
+              localStorage.setItem('accessToken', authResult.accessToken);
+              localStorage.setItem('idToken', authResult.idToken);
+              localStorage.setItem('expiresAt', (authResult.expiresIn * 1000 + new Date().getTime()).toString());
+              
+              // Fetch user info
+              auth0Client.client.userInfo(authResult.accessToken, (err, user) => {
+                if (!err) {
+                  // Store user info
+                  localStorage.setItem('user', JSON.stringify(user));
+                  
+                  // Clear hash from URL
+                  window.history.replaceState({}, document.title, window.location.pathname);
+                  
+                  // Initialize CMS
+                  initCMS();
+                }
+              });
+            } else {
+              console.error('Auth0 authentication error:', err);
+              showLogin();
+            }
+          });
+        } else {
+          // Check for existing session
+          const expiresAt = localStorage.getItem('expiresAt');
+          if (expiresAt && new Date().getTime() < parseInt(expiresAt)) {
+            // Session still valid
+            initCMS();
+          } else {
+            // No session, show login
+            showLogin();
           }
-          
-          return Promise.resolve(null);
-        }
-        
-        logout() {
-          // Implement logout by clearing tokens
-          // Optionally redirect to Auth0 logout
-          const auth0Domain = this.config.domain;
-          const clientId = this.config.clientID;
-          const returnToURL = encodeURIComponent(`${window.location.origin}/admin/`);
-          
-          window.location.href = `https://${auth0Domain}/v2/logout?client_id=${clientId}&returnTo=${returnToURL}`;
-          
-          return Promise.resolve();
-        }
-        
-        getToken() {
-          // Return token from localStorage
-          const hashParams = new URLSearchParams(
-            window.location.hash.substring(1)
-          );
-          
-          if (hashParams.has('access_token')) {
-            return hashParams.get('access_token');
-          }
-          
-          return null;
         }
       }
       
-      // Register the Auth0 backend constructor
-      window.CMS.registerBackend('auth0', Auth0Backend);
-    </script>
-    
-    <script>
-      // Initialize the CMS
-      window.CMS.init();
+      // Show login dialog
+      function showLogin() {
+        document.getElementById('auth0-login').style.display = 'flex';
+        document.getElementById('login-button').addEventListener('click', () => {
+          auth0Client.authorize();
+        });
+      }
+      
+      // Initialize CMS with custom authentication
+      function initCMS() {
+        window.netlifyIdentity = {
+          currentUser: () => {
+            const user = localStorage.getItem('user');
+            return user ? JSON.parse(user) : null;
+          },
+          on: () => {}
+        };
+        
+        // Initialize CMS
+        window.CMS.init();
+      }
+      
+      // Start the auth process
+      document.addEventListener('DOMContentLoaded', handleAuth0Callback);
     </script>
   </body>
 </html>
