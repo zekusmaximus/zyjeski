@@ -14,6 +14,6 @@ Drawing from both cyberpunk aesthetics and contemplative practices, Zyjeski's "N
 
 For inquiries, collaborations, or conversations at the edge of code and consciousness:
 
-- Email: [contact@example.com](mailto:contact@example.com)
-- Twitter: [@username](https://twitter.com/username)
-- Instagram: [@username](https://instagram.com/username)
+- Email: [jeff@zyjeski.com](mailto:jeff@zyjeski.com)
+- Twitter: [@zekusmaximus](https://twitter.com/zekusmaximus)
+- Instagram: [@uzekusmaximus](https://instagram.com/zekusmaximus)
