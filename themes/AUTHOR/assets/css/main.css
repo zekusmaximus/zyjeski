@@ -660,6 +660,19 @@ tr:hover {
   }
 }
 
+/* Center-align text content in mandala items */
+.mandala-item {
+  text-align: center;
+}
+
+.mandala-item-title,
+.mandala-item-subtitle,
+.mandala-item-excerpt {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Add a subtle rotation effect to the entire grid on scroll */
 .mandala-container {
   perspective: 1000px;
