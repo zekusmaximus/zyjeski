@@ -39,25 +39,17 @@
         </a>
       </div>
       
-      <!-- Grid Item 4: Headshot (middle row) -->
-      <div class="mandala-item item-4">
+      <!-- Grid Item 4: Headshot (middle row) - photo only -->
+      <div class="mandala-item item-4 photo-item">
         <a href="{{ if .Site.Params.featured_link_1 }}{{ .Site.Params.featured_link_1 }}{{ else }}{{ "/about" }}{{ end }}">
-          <div class="mandala-item-image">
-            <img src="{{ "/images/featured-book.jpg" | relURL }}" alt="Jeffrey A. Zyjeski" class="mandala-img">
-          </div>
-          <h3 class="mandala-item-title">{{ if .Site.Params.featured_title_1 }}{{ .Site.Params.featured_title_1 }}{{ else }}About the Author{{ end }}</h3>
-          <div class="mandala-item-subtitle">{{ if .Site.Params.featured_subtitle_1 }}{{ .Site.Params.featured_subtitle_1 }}{{ else }}Jeffrey A. Zyjeski{{ end }}</div>
+          <img src="{{ "/images/featured-book.jpg" | relURL }}" alt="Jeffrey A. Zyjeski" class="mandala-photo">
         </a>
       </div>
       
-      <!-- Grid Item 5: Book Cover (middle row) -->
-      <div class="mandala-item item-5">
+      <!-- Grid Item 5: Book Cover (middle row) - photo only -->
+      <div class="mandala-item item-5 photo-item">
         <a href="{{ if .Site.Params.featured_link_2 }}{{ .Site.Params.featured_link_2 }}{{ else }}{{ "/books/the-protocol-vol1" }}{{ end }}">
-          <div class="mandala-item-image">
-            <img src="{{ "/images/featured-event.jpg" | relURL }}" alt="The Karmic Protocol" class="mandala-img">
-          </div>
-          <h3 class="mandala-item-title">{{ if .Site.Params.featured_title_2 }}{{ .Site.Params.featured_title_2 }}{{ else }}Latest Book{{ end }}</h3>
-          <div class="mandala-item-subtitle">{{ if .Site.Params.featured_subtitle_2 }}{{ .Site.Params.featured_subtitle_2 }}{{ else }}The Karmic Protocol{{ end }}</div>
+          <img src="{{ "/images/featured-event.jpg" | relURL }}" alt="The Karmic Protocol" class="mandala-photo">
         </a>
       </div>
       

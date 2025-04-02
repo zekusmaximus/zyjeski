@@ -2662,44 +2662,39 @@ img {
   }
 }
 
-/* Mandala item image styling */
-.mandala-item-image {
-  width: 100%;
-  height: 150px;
+/* Mandala photo item styling */
+.mandala-item.photo-item {
+  padding: 0;
   overflow: hidden;
   border-radius: 8px;
+}
+
+.mandala-item.photo-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
   position: relative;
-  margin-bottom: 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  transition: all 0.3s ease;
 }
 
-.mandala-item:hover .mandala-item-image {
-  transform: translateY(-5px);
-  border-color: rgba(0, 255, 255, 0.5);
-  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
-}
-
-.mandala-img {
+.mandala-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.4s ease;
+  transition: all 0.5s ease;
   filter: saturate(0.8) brightness(0.8);
 }
 
-.mandala-item:hover .mandala-img {
+.mandala-item.photo-item:hover .mandala-photo {
   transform: scale(1.05);
   filter: saturate(1.2) brightness(1.1);
 }
 
 /* Add a subtle glitch effect on hover */
-.mandala-item:hover .mandala-img {
-  animation: image-glitch 8s infinite;
+.mandala-item.photo-item:hover .mandala-photo {
+  animation: photo-glitch 8s infinite;
 }
 
-@keyframes image-glitch {
+@keyframes photo-glitch {
   0%, 100% {
     filter: saturate(1.2) brightness(1.1);
   }
@@ -2729,19 +2724,28 @@ img {
   }
 }
 
-/* Make sure the placeholder doesn't show when we have images */
-.mandala-item-image + .mandala-item-placeholder {
-  display: none;
+/* Add a subtle border glow effect */
+.mandala-item.photo-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(0, 255, 255, 0.2);
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
 
-/* Mobile optimization for images */
+.mandala-item.photo-item:hover::after {
+  box-shadow: inset 0 0 0 2px rgba(0, 255, 255, 0.5), 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+/* Mobile optimization for photos */
 @media (max-width: 768px) {
-  .mandala-item-image {
-    height: 120px;
-  }
-  
   /* Simplified hover animation for better performance */
-  @keyframes image-glitch {
+  @keyframes photo-glitch {
     0%, 100% {
       filter: saturate(1.2) brightness(1.1);
     }
