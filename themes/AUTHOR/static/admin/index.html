@@ -21,7 +21,6 @@
         --background-color: #000F08;
       }
       
-      /* Apply cyberpunk-spiritual styling to the admin interface */
       body {
         background-color: var(--background-color);
         background-image: 
@@ -30,7 +29,29 @@
         background-attachment: fixed;
       }
       
-      /* Custom logo styling */
+      .login-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .login-container {
+        background: rgba(26, 26, 46, 0.9);
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 0 20px rgba(110, 13, 208, 0.5);
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+      }
+      
       .site-logo {
         font-family: 'Courier New', monospace;
         font-size: 1.2rem;
@@ -41,28 +62,9 @@
         text-transform: uppercase;
       }
       
-      /* Login screen */
-      #auth0-login {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      .login-container {
-        background: #1a1a2e;
-        border-radius: 8px;
-        padding: 2rem;
-        box-shadow: 0 0 20px rgba(110, 13, 208, 0.5);
-        max-width: 400px;
-        width: 90%;
-        text-align: center;
+      h2 {
+        color: white;
+        margin-top: 1.5rem;
       }
       
       .login-button {
@@ -80,97 +82,34 @@
       .login-button:hover {
         transform: translateY(-3px);
       }
+      
+      #cms-root {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <!-- Auth0 Login Dialog -->
-    <div id="auth0-login">
+    <!-- Login Page -->
+    <div id="login-page" class="login-page">
       <div class="login-container">
         <div class="site-logo">
           Jeffrey A. Zyjeski<br>
           Neuro-Digital Enlightenment CMS
         </div>
-        <h2 style="color: white; margin-top: 1.5rem;">Admin Login</h2>
+        <h2>Admin Login</h2>
         <button id="login-button" class="login-button">Login with Auth0</button>
       </div>
     </div>
     
-    <!-- Include the Static CMS -->
+    <!-- CMS Root -->
+    <div id="cms-root"></div>
+    
+    <!-- Static CMS script -->
     <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
     
     <script>
-      // Create a more complete Netlify Identity mock
-      let callbacks = {};
-      let currentUser = null;
-      
-      window.netlifyIdentity = {
-        on: function(event, cb) {
-          callbacks[event] = callbacks[event] || [];
-          callbacks[event].push(cb);
-          return this;
-        },
-        init: function(options) {
-          console.log('Mock Netlify Identity initialized with:', options);
-          return this;
-        },
-        open: function() {
-          console.log('Mock Netlify Identity: open login modal');
-          document.getElementById('auth0-login').style.display = 'flex';
-          return this;
-        },
-        close: function() {
-          console.log('Mock Netlify Identity: close login modal');
-          document.getElementById('auth0-login').style.display = 'none';
-          return this;
-        },
-        currentUser: function() {
-          return currentUser;
-        },
-        logout: function() {
-          currentUser = null;
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('idToken');
-          localStorage.removeItem('user');
-          localStorage.removeItem('expiresAt');
-          
-          if (callbacks.logout && callbacks.logout.length) {
-            callbacks.logout.forEach(cb => cb());
-          }
-          
-          return this;
-        },
-        refresh: function(cb) {
-          if (cb) {
-            cb(null, currentUser);
-          }
-          return this;
-        },
-        gotrue: {
-          currentUser: function() {
-            return currentUser;
-          },
-          settings: function() {
-            return {};
-          },
-          logout: function() {
-            window.netlifyIdentity.logout();
-          }
-        },
-        store: {
-          user: {
-            set: function(data) {
-              currentUser = data;
-              return this;
-            },
-            get: function() {
-              return currentUser;
-            }
-          }
-        }
-      };
-      
-      // Simple Auth0 integration
-      const auth0Client = new auth0.WebAuth({
+      // Auth0 configuration
+      const auth0 = new auth0.WebAuth({
         domain: 'dev-cj5f52kzudnipqoz.us.auth0.com',
         clientID: '0RPDm2aPHynvpsCAMMa9XGtaUYae7xFd',
         responseType: 'token id_token',
@@ -178,112 +117,92 @@
         scope: 'openid profile email'
       });
       
-      // Check for Auth0 callback
-      function handleAuth0Callback() {
-        // Parse the URL hash
+      // Login button event
+      document.getElementById('login-button').addEventListener('click', function() {
+        auth0.authorize();
+      });
+      
+      // Check for Auth0 authentication result
+      function handleAuth() {
         if (window.location.hash) {
-          auth0Client.parseHash((err, authResult) => {
+          auth0.parseHash(function(err, authResult) {
             if (authResult && authResult.accessToken && authResult.idToken) {
-              // Set auth data in localStorage
-              localStorage.setItem('accessToken', authResult.accessToken);
-              localStorage.setItem('idToken', authResult.idToken);
-              localStorage.setItem('expiresAt', (authResult.expiresIn * 1000 + new Date().getTime()).toString());
+              // Store tokens
+              localStorage.setItem('auth0_access_token', authResult.accessToken);
+              localStorage.setItem('auth0_id_token', authResult.idToken);
+              localStorage.setItem('auth0_expires_at', new Date().getTime() + authResult.expiresIn * 1000);
               
-              // Fetch user info
-              auth0Client.client.userInfo(authResult.accessToken, (err, user) => {
+              // Get user profile
+              auth0.client.userInfo(authResult.accessToken, function(err, user) {
                 if (!err) {
-                  // Store user info
-                  localStorage.setItem('user', JSON.stringify(user));
+                  localStorage.setItem('auth0_user', JSON.stringify(user));
                   
-                  // Update mock Netlify Identity user
-                  currentUser = {
-                    token: {
-                      access_token: authResult.accessToken,
-                      id_token: authResult.idToken,
-                      expires_at: parseInt(localStorage.getItem('expiresAt'))
-                    },
-                    id: user.sub,
-                    user_metadata: {
-                      full_name: user.name || user.nickname
-                    },
-                    app_metadata: {
-                      roles: ['admin']
-                    },
-                    email: user.email
-                  };
-                  
-                  // Clear hash from URL
+                  // Clear URL hash
                   window.history.replaceState({}, document.title, window.location.pathname);
-                  
-                  // Trigger login callback
-                  if (callbacks.login && callbacks.login.length) {
-                    callbacks.login.forEach(cb => cb(currentUser));
-                  }
                   
                   // Initialize CMS
                   initCMS();
                 }
               });
-            } else {
-              console.error('Auth0 authentication error:', err);
-              showLogin();
+            } else if (err) {
+              console.error('Auth0 error:', err);
+              alert('Login failed. Please try again.');
             }
           });
         } else {
           // Check for existing session
-          const expiresAt = localStorage.getItem('expiresAt');
-          const userJson = localStorage.getItem('user');
-          const accessToken = localStorage.getItem('accessToken');
-          const idToken = localStorage.getItem('idToken');
+          const accessToken = localStorage.getItem('auth0_access_token');
+          const expiresAt = localStorage.getItem('auth0_expires_at');
           
-          if (expiresAt && userJson && accessToken && idToken && new Date().getTime() < parseInt(expiresAt)) {
+          if (accessToken && expiresAt && new Date().getTime() < parseInt(expiresAt)) {
             // Session still valid
-            const user = JSON.parse(userJson);
-            
-            // Set mock user
-            currentUser = {
-              token: {
-                access_token: accessToken,
-                id_token: idToken,
-                expires_at: parseInt(expiresAt)
-              },
-              id: user.sub,
-              user_metadata: {
-                full_name: user.name || user.nickname
-              },
-              app_metadata: {
-                roles: ['admin']
-              },
-              email: user.email
-            };
-            
             initCMS();
-          } else {
-            // No session, show login
-            showLogin();
           }
         }
       }
       
-      // Show login dialog
-      function showLogin() {
-        document.getElementById('auth0-login').style.display = 'flex';
-        document.getElementById('login-button').addEventListener('click', () => {
-          auth0Client.authorize();
+      // Initialize CMS with Auth0 token
+      function initCMS() {
+        // Hide login page
+        document.getElementById('login-page').style.display = 'none';
+        
+        // Show CMS root
+        document.getElementById('cms-root').style.display = 'block';
+        
+        // Initialize the CMS
+        window.CMS.init({
+          config: {
+            backend: {
+              name: 'git-gateway',
+              branch: 'main',
+              auth_token: localStorage.getItem('auth0_id_token'),
+              accept_roles: ['admin', 'editor']
+            },
+            media_folder: 'static/images/uploads',
+            public_folder: '/images/uploads',
+            // Add your collections config here
+            collections: [
+              {
+                name: 'books',
+                label: 'Books',
+                folder: 'content/books',
+                create: true,
+                slug: '{{slug}}',
+                fields: [
+                  {label: 'Title', name: 'title', widget: 'string'},
+                  {label: 'Date', name: 'date', widget: 'datetime'},
+                  {label: 'Draft', name: 'draft', widget: 'boolean', default: false},
+                  {label: 'Body', name: 'body', widget: 'markdown'}
+                ]
+              },
+              // Add your other collections here
+            ]
+          }
         });
       }
       
-      // Initialize CMS
-      function initCMS() {
-        // Hide login screen if visible
-        document.getElementById('auth0-login').style.display = 'none';
-        
-        // Initialize CMS
-        window.CMS.init();
-      }
-      
-      // Start the auth process
-      document.addEventListener('DOMContentLoaded', handleAuth0Callback);
+      // Initialize the app
+      handleAuth();
     </script>
   </body>
 </html>
