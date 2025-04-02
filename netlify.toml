@@ -21,7 +21,6 @@
   to = "/admin/index.html"
   status = 200
 
-# Headers to allow Auth0 and Decap CMS with unsafe-eval and Google Fonts
 [[headers]]
   for = "/*"
   [headers.values]
