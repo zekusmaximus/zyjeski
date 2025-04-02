@@ -1,9 +1,8 @@
 backend:
   name: git-gateway
   branch: main
-  auth_scope: openid profile email
 
-# Use the Auth0 authentication provider
+# Auth0 configuration - Removed invalid auth_scope
 auth_type: implicit
 
 media_folder: "static/images/uploads"
