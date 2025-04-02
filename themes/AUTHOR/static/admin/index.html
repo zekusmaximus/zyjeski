@@ -99,6 +99,76 @@
     <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
     
     <script>
+      // Create a more complete Netlify Identity mock
+      let callbacks = {};
+      let currentUser = null;
+      
+      window.netlifyIdentity = {
+        on: function(event, cb) {
+          callbacks[event] = callbacks[event] || [];
+          callbacks[event].push(cb);
+          return this;
+        },
+        init: function(options) {
+          console.log('Mock Netlify Identity initialized with:', options);
+          return this;
+        },
+        open: function() {
+          console.log('Mock Netlify Identity: open login modal');
+          document.getElementById('auth0-login').style.display = 'flex';
+          return this;
+        },
+        close: function() {
+          console.log('Mock Netlify Identity: close login modal');
+          document.getElementById('auth0-login').style.display = 'none';
+          return this;
+        },
+        currentUser: function() {
+          return currentUser;
+        },
+        logout: function() {
+          currentUser = null;
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('idToken');
+          localStorage.removeItem('user');
+          localStorage.removeItem('expiresAt');
+          
+          if (callbacks.logout && callbacks.logout.length) {
+            callbacks.logout.forEach(cb => cb());
+          }
+          
+          return this;
+        },
+        refresh: function(cb) {
+          if (cb) {
+            cb(null, currentUser);
+          }
+          return this;
+        },
+        gotrue: {
+          currentUser: function() {
+            return currentUser;
+          },
+          settings: function() {
+            return {};
+          },
+          logout: function() {
+            window.netlifyIdentity.logout();
+          }
+        },
+        store: {
+          user: {
+            set: function(data) {
+              currentUser = data;
+              return this;
+            },
+            get: function() {
+              return currentUser;
+            }
+          }
+        }
+      };
+      
       // Simple Auth0 integration
       const auth0Client = new auth0.WebAuth({
         domain: 'dev-cj5f52kzudnipqoz.us.auth0.com',
@@ -125,8 +195,30 @@
                   // Store user info
                   localStorage.setItem('user', JSON.stringify(user));
                   
+                  // Update mock Netlify Identity user
+                  currentUser = {
+                    token: {
+                      access_token: authResult.accessToken,
+                      id_token: authResult.idToken,
+                      expires_at: parseInt(localStorage.getItem('expiresAt'))
+                    },
+                    id: user.sub,
+                    user_metadata: {
+                      full_name: user.name || user.nickname
+                    },
+                    app_metadata: {
+                      roles: ['admin']
+                    },
+                    email: user.email
+                  };
+                  
                   // Clear hash from URL
                   window.history.replaceState({}, document.title, window.location.pathname);
+                  
+                  // Trigger login callback
+                  if (callbacks.login && callbacks.login.length) {
+                    callbacks.login.forEach(cb => cb(currentUser));
+                  }
                   
                   // Initialize CMS
                   initCMS();
@@ -140,8 +232,31 @@
         } else {
           // Check for existing session
           const expiresAt = localStorage.getItem('expiresAt');
-          if (expiresAt && new Date().getTime() < parseInt(expiresAt)) {
+          const userJson = localStorage.getItem('user');
+          const accessToken = localStorage.getItem('accessToken');
+          const idToken = localStorage.getItem('idToken');
+          
+          if (expiresAt && userJson && accessToken && idToken && new Date().getTime() < parseInt(expiresAt)) {
             // Session still valid
+            const user = JSON.parse(userJson);
+            
+            // Set mock user
+            currentUser = {
+              token: {
+                access_token: accessToken,
+                id_token: idToken,
+                expires_at: parseInt(expiresAt)
+              },
+              id: user.sub,
+              user_metadata: {
+                full_name: user.name || user.nickname
+              },
+              app_metadata: {
+                roles: ['admin']
+              },
+              email: user.email
+            };
+            
             initCMS();
           } else {
             // No session, show login
@@ -158,15 +273,10 @@
         });
       }
       
-      // Initialize CMS with custom authentication
+      // Initialize CMS
       function initCMS() {
-        window.netlifyIdentity = {
-          currentUser: () => {
-            const user = localStorage.getItem('user');
-            return user ? JSON.parse(user) : null;
-          },
-          on: () => {}
-        };
+        // Hide login screen if visible
+        document.getElementById('auth0-login').style.display = 'none';
         
         // Initialize CMS
         window.CMS.init();
