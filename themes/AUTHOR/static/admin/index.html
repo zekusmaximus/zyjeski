@@ -108,101 +108,154 @@
     <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
     
     <script>
-      // Auth0 configuration
-      const auth0 = new auth0.WebAuth({
-        domain: 'dev-cj5f52kzudnipqoz.us.auth0.com',
-        clientID: '0RPDm2aPHynvpsCAMMa9XGtaUYae7xFd',
-        responseType: 'token id_token',
-        redirectUri: window.location.origin + '/admin/',
-        scope: 'openid profile email'
-      });
-      
-      // Login button event
-      document.getElementById('login-button').addEventListener('click', function() {
-        auth0.authorize();
-      });
-      
-      // Check for Auth0 authentication result
-      function handleAuth() {
-        if (window.location.hash) {
-          auth0.parseHash(function(err, authResult) {
-            if (authResult && authResult.accessToken && authResult.idToken) {
-              // Store tokens
-              localStorage.setItem('auth0_access_token', authResult.accessToken);
-              localStorage.setItem('auth0_id_token', authResult.idToken);
-              localStorage.setItem('auth0_expires_at', new Date().getTime() + authResult.expiresIn * 1000);
-              
-              // Get user profile
-              auth0.client.userInfo(authResult.accessToken, function(err, user) {
-                if (!err) {
-                  localStorage.setItem('auth0_user', JSON.stringify(user));
-                  
-                  // Clear URL hash
-                  window.history.replaceState({}, document.title, window.location.pathname);
-                  
-                  // Initialize CMS
-                  initCMS();
-                }
-              });
-            } else if (err) {
-              console.error('Auth0 error:', err);
-              alert('Login failed. Please try again.');
+      // Wait for DOM content to load
+      document.addEventListener('DOMContentLoaded', function() {
+        // Auth0 configuration
+        const auth0Client = new auth0.WebAuth({
+          domain: 'dev-cj5f52kzudnipqoz.us.auth0.com',
+          clientID: '0RPDm2aPHynvpsCAMMa9XGtaUYae7xFd',
+          responseType: 'token id_token',
+          redirectUri: window.location.origin + '/admin/',
+          scope: 'openid profile email'
+        });
+        
+        // Login button event
+        document.getElementById('login-button').addEventListener('click', function() {
+          auth0Client.authorize();
+        });
+        
+        // Check for Auth0 authentication result
+        function handleAuth() {
+          if (window.location.hash) {
+            auth0Client.parseHash(function(err, authResult) {
+              if (authResult && authResult.accessToken && authResult.idToken) {
+                // Store tokens
+                localStorage.setItem('auth0_access_token', authResult.accessToken);
+                localStorage.setItem('auth0_id_token', authResult.idToken);
+                localStorage.setItem('auth0_expires_at', new Date().getTime() + authResult.expiresIn * 1000);
+                
+                // Get user profile
+                auth0Client.client.userInfo(authResult.accessToken, function(err, user) {
+                  if (!err) {
+                    localStorage.setItem('auth0_user', JSON.stringify(user));
+                    
+                    // Clear URL hash
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    
+                    // Initialize CMS
+                    initCMS();
+                  }
+                });
+              } else if (err) {
+                console.error('Auth0 error:', err);
+                alert('Login failed. Please try again.');
+              }
+            });
+          } else {
+            // Check for existing session
+            const accessToken = localStorage.getItem('auth0_access_token');
+            const expiresAt = localStorage.getItem('auth0_expires_at');
+            
+            if (accessToken && expiresAt && new Date().getTime() < parseInt(expiresAt)) {
+              // Session still valid
+              initCMS();
             }
-          });
-        } else {
-          // Check for existing session
-          const accessToken = localStorage.getItem('auth0_access_token');
-          const expiresAt = localStorage.getItem('auth0_expires_at');
-          
-          if (accessToken && expiresAt && new Date().getTime() < parseInt(expiresAt)) {
-            // Session still valid
-            initCMS();
           }
         }
-      }
-      
-      // Initialize CMS with Auth0 token
-      function initCMS() {
-        // Hide login page
-        document.getElementById('login-page').style.display = 'none';
         
-        // Show CMS root
-        document.getElementById('cms-root').style.display = 'block';
-        
-        // Initialize the CMS
-        window.CMS.init({
-          config: {
-            backend: {
-              name: 'git-gateway',
-              branch: 'main',
-              auth_token: localStorage.getItem('auth0_id_token'),
-              accept_roles: ['admin', 'editor']
-            },
-            media_folder: 'static/images/uploads',
-            public_folder: '/images/uploads',
-            // Add your collections config here
-            collections: [
-              {
-                name: 'books',
-                label: 'Books',
-                folder: 'content/books',
-                create: true,
-                slug: '{{slug}}',
-                fields: [
-                  {label: 'Title', name: 'title', widget: 'string'},
-                  {label: 'Date', name: 'date', widget: 'datetime'},
-                  {label: 'Draft', name: 'draft', widget: 'boolean', default: false},
-                  {label: 'Body', name: 'body', widget: 'markdown'}
-                ]
+        // Initialize CMS with Auth0 token
+        function initCMS() {
+          // Hide login page
+          document.getElementById('login-page').style.display = 'none';
+          
+          // Show CMS root
+          document.getElementById('cms-root').style.display = 'block';
+          
+          // Initialize the CMS
+          window.CMS.init({
+            config: {
+              backend: {
+                name: 'git-gateway',
+                branch: 'main',
+                auth_token: localStorage.getItem('auth0_id_token'),
+                accept_roles: ['admin', 'editor']
               },
-              // Add your other collections here
-            ]
-          }
-        });
-      }
-      
-      // Initialize the app
-      handleAuth();
+              media_folder: 'static/images/uploads',
+              public_folder: '/images/uploads',
+              // Add your collections config here - these match your existing config.yml
+              collections: [
+                {
+                  name: 'books',
+                  label: 'Books',
+                  folder: 'content/books',
+                  create: true,
+                  slug: '{{slug}}',
+                  fields: [
+                    {label: 'Title', name: 'title', widget: 'string'},
+                    {label: 'Date', name: 'date', widget: 'datetime'},
+                    {label: 'Draft', name: 'draft', widget: 'boolean', default: false},
+                    {label: 'Cover Image', name: 'cover_image', widget: 'image', required: false},
+                    {label: 'Series', name: 'series', widget: 'string', required: false},
+                    {label: 'Pages', name: 'pages', widget: 'number', required: false},
+                    {label: 'Publication Date', name: 'publication_date', widget: 'string', required: false},
+                    {label: 'Show 3D Transition', name: 'show_3d_transition', widget: 'boolean', default: false},
+                    {label: 'Tags', name: 'tags', widget: 'list', required: false},
+                    {label: 'Body', name: 'body', widget: 'markdown'}
+                  ]
+                },
+                {
+                  name: 'stories',
+                  label: 'Koans',
+                  folder: 'content/stories',
+                  create: true,
+                  slug: '{{slug}}',
+                  fields: [
+                    {label: 'Title', name: 'title', widget: 'string'},
+                    {label: 'Date', name: 'date', widget: 'datetime'},
+                    {label: 'Draft', name: 'draft', widget: 'boolean', default: false},
+                    {label: 'Koan Text', name: 'koan_text', widget: 'text'},
+                    {label: 'Tags', name: 'tags', widget: 'list', required: false},
+                    {label: 'Body', name: 'body', widget: 'markdown'}
+                  ]
+                },
+                {
+                  name: 'audio',
+                  label: 'Simulations',
+                  folder: 'content/audio',
+                  create: true,
+                  slug: '{{slug}}',
+                  fields: [
+                    {label: 'Title', name: 'title', widget: 'string'},
+                    {label: 'Date', name: 'date', widget: 'datetime'},
+                    {label: 'Draft', name: 'draft', widget: 'boolean', default: false},
+                    {label: 'Audio File', name: 'audio_file', widget: 'file', required: false},
+                    {label: 'Transcript', name: 'transcript', widget: 'markdown', required: false},
+                    {label: 'Tags', name: 'tags', widget: 'list', required: false},
+                    {label: 'Body', name: 'body', widget: 'markdown'}
+                  ]
+                },
+                {
+                  name: 'posts',
+                  label: 'Dharma Log',
+                  folder: 'content/posts',
+                  create: true,
+                  slug: '{{slug}}',
+                  fields: [
+                    {label: 'Title', name: 'title', widget: 'string'},
+                    {label: 'Date', name: 'date', widget: 'datetime'},
+                    {label: 'Draft', name: 'draft', widget: 'boolean', default: false},
+                    {label: 'Tags', name: 'tags', widget: 'list', required: false},
+                    {label: 'Body', name: 'body', widget: 'markdown'}
+                  ]
+                }
+              ]
+            }
+          });
+        }
+        
+        // Initialize the app
+        handleAuth();
+      });
     </script>
   </body>
 </html>
