@@ -8,8 +8,6 @@
     <!-- Include the styles for the Decap CMS UI -->
     <link rel="stylesheet" href="https://unpkg.com/@staticcms/app@^2.0.0/dist/main.css" />
     
-    <!-- Remove Netlify Identity Widget - we don't need it for Auth0 -->
-    
     <!-- Custom styles for the admin interface -->
     <style>
       :root {
@@ -51,10 +49,77 @@
     <!-- Include the Decap CMS -->
     <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
     
-   <script src="config.js"></script>
-<script>
-  // Initialize the CMS with the config
-  window.CMS.init(window.CMS_CONFIG);
-</script>
+    <!-- Auth0 backend registration -->
+    <script>
+      // Register the Auth0 backend
+      window.CMS.registerBackend('auth0', {
+        init: (config) => {
+          return {
+            login: () => {
+              // Redirect to Auth0's login page
+              const auth0Domain = config.domain;
+              const auth0ClientID = config.clientID;
+              const callbackURL = encodeURIComponent(`${window.location.origin}/admin/`);
+              const auth0State = Date.now().toString();
+              localStorage.setItem('auth0State', auth0State);
+              
+              const authURL = `https://${auth0Domain}/authorize?client_id=${auth0ClientID}&redirect_uri=${callbackURL}&response_type=token%20id_token&scope=openid%20profile%20email&state=${auth0State}&nonce=${Date.now()}`;
+              
+              window.location.href = authURL;
+            },
+            restoreUser: () => {
+              // Check if we have a token in the URL (after Auth0 redirect)
+              const hashParams = new URLSearchParams(
+                window.location.hash.substring(1)
+              );
+              
+              if (hashParams.has('access_token') && hashParams.has('id_token')) {
+                const accessToken = hashParams.get('access_token');
+                const idToken = hashParams.get('id_token');
+                
+                // Clear the hash to remove tokens from URL
+                history.replaceState(null, null, ' ');
+                
+                // Return user data
+                return Promise.resolve({
+                  token: accessToken,
+                  id_token: idToken
+                });
+              }
+              
+              return Promise.resolve(null);
+            },
+            logout: () => {
+              // Implement logout by clearing tokens
+              // Optionally redirect to Auth0 logout
+              const auth0Domain = config.domain;
+              const clientId = config.clientID;
+              const returnToURL = encodeURIComponent(`${window.location.origin}/admin/`);
+              
+              window.location.href = `https://${auth0Domain}/v2/logout?client_id=${clientId}&returnTo=${returnToURL}`;
+              
+              return Promise.resolve();
+            },
+            getToken: () => {
+              // Return token from localStorage
+              const hashParams = new URLSearchParams(
+                window.location.hash.substring(1)
+              );
+              
+              if (hashParams.has('access_token')) {
+                return hashParams.get('access_token');
+              }
+              
+              return null;
+            }
+          };
+        }
+      });
+    </script>
+    
+    <script>
+      // Initialize the CMS
+      window.CMS.init();
+    </script>
   </body>
 </html>

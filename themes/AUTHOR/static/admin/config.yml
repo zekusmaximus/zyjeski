@@ -1,10 +1,14 @@
 backend:
   name: auth0
-  domain: '{{DOMAIN}}'
-  clientID: '{{CLIENT_ID}}'
-  audience: https://api.netlify.com/
-  scope: openid profile email
-  responseType: token id_token
+  domain: "dev-cj5f52kzudnipqoz.us.auth0.com"
+  clientID: "0RPDm2aPHynvpsCAMMa9XGtaUYae7xFd"
+  audience: "https://api.netlify.com/"
+  scope: "openid profile email"
+  responseType: "token id_token"
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
 
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
