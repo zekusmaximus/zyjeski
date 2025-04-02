@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jeffrey A. Zyjeski CMS</title>
+    <!-- Include the styles for the Netlify CMS UI -->
+    <link rel="stylesheet" href="https://unpkg.com/@staticcms/app@^2.0.0/dist/main.css" />
+    
+    <!-- Custom styles for the admin interface -->
+    <style>
+      :root {
+        --primary-color: #6E0DD0;
+        --secondary-color: #00F5D4;
+        --tertiary-color: #FF9933;
+        --text-color: #E0E0E0;
+        --background-color: #000F08;
+      }
+      
+      /* Apply cyberpunk-spiritual styling to the admin interface */
+      body {
+        background-color: var(--background-color);
+        background-image: 
+          radial-gradient(circle at 20% 30%, #2D0F54 0%, transparent 20%),
+          radial-gradient(circle at 80% 70%, #000000 0%, transparent 20%);
+        background-attachment: fixed;
+      }
+      
+      /* Make sure text is readable */
+      .css-wb6i3k-StyledForm, .css-1j3pp4a-EditorControlBar, .css-12b66la-AppHeaderContent {
+        color: var(--text-color) !important;
+      }
+      
+      /* Style the header */
+      .css-1dvxtzw-AppHeaderQuickLinks, .css-1vvopgm-AppHeaderNavList, .css-1hvrgvd-AppHeaderButton-button-buttonActive-buttonActive-buttonActive-buttonActive-AppHeaderButton, .css-12yqrwa-AppHeaderNavLink-AppHeaderButton-button-buttonActive-buttonActive-buttonActive-buttonActive-AppHeaderButton {
+        background-color: rgba(0, 15, 8, 0.8) !important;
+      }
+      
+      /* Loading indicator */
+      .css-17gqa05-FileWidgetButton-button-default-disabled-button-default-disabled-buttonActive-default {
+        background-color: var(--primary-color) !important;
+        color: white !important;
+      }
+      
+      /* Custom logo styling */
+      .site-logo {
+        font-family: 'Courier New', monospace;
+        font-size: 1.2rem;
+        color: var(--secondary-color);
+        margin: 1rem 0;
+        text-align: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Display a custom logo/text before the CMS loads -->
+    <div class="site-logo">
+      Jeffrey A. Zyjeski<br>
+      Neuro-Digital Enlightenment CMS
+    </div>
+    
+    <!-- Include the Decap CMS -->
+    <script src="https://unpkg.com/@staticcms/app@^2.0.0/dist/static-cms-app.js"></script>
+    
+    <script>
+      // Initialize the CMS
+      window.CMS.init();
+      
+      // Optional: Add a custom preview style for the content preview
+      CMS.registerPreviewStyle("/css/main.css");
+      
+      // You can add custom preview templates for your content types here
+    </script>
+  </body>
+</html>
