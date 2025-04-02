@@ -8,7 +8,14 @@ pages = 312
 publication_date = 'coming 2025'
 show_3d_transition = true
 tags = ['cyberpunk', 'digital enlightenment', 'consciousness']
-+++
+
+[[purchase_links]]
+store = 'Amazon'
+url = 'https://amazon.com'
+
+[[purchase_links]]
+store = 'Barnes & Noble'
+url = 'https://barnesandnoble.com'
 
 [[ai_synopsis]]
 speaker = 'User'
@@ -33,4 +40,5 @@ text = '''How does the story end?'''
 [[ai_synopsis]]
 speaker = 'AI'
 text = '''This cyber-spiritual thriller winds up with everyone questioning whether a society built on desire could handle a public with access to digitally inspired freedom from those desires.'''
++++
 
