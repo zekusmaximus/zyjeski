@@ -5,15 +5,14 @@
 
   <div class="mandala-container">
     <div class="mandala-grid">
-      <!-- Center: Your name -->
+      <!-- Center: Blank -->
       <div class="mandala-center">
         <div class="mandala-center-content">
-          <h2>Jeffrey A. Zyjeski, Esq.</h2>
           <div class="pulse-circle"></div>
         </div>
       </div>
     
-      <!-- Grid Item 1: Books/The Protocol -->
+      <!-- Grid Item 1: Books/The Protocol (top row) -->
       <div class="mandala-item item-1">
         <a href="/books/">
           <div class="mandala-item-placeholder"></div>
@@ -22,7 +21,7 @@
         </a>
       </div>
       
-      <!-- Grid Item 2: Stories/Koans -->
+      <!-- Grid Item 2: Stories/Koans (top row) -->
       <div class="mandala-item item-2">
         <a href="/stories/">
           <div class="mandala-item-placeholder"></div>
@@ -31,7 +30,7 @@
         </a>
       </div>
       
-      <!-- Grid Item 3: Audio/Simulations -->
+      <!-- Grid Item 3: Audio/Simulations (top row) -->
       <div class="mandala-item item-3">
         <a href="/audio/">
           <div class="mandala-item-placeholder"></div>
@@ -40,35 +39,8 @@
         </a>
       </div>
       
-      <!-- Grid Item 4: Blog/Dharma Log -->
+      <!-- Grid Item 4: Featured Image 1 (middle row) -->
       <div class="mandala-item item-4">
-        <a href="/posts/">
-          <div class="mandala-item-placeholder"></div>
-          <h3 class="mandala-item-title">Blog</h3>
-          <div class="mandala-item-subtitle">Dharma Log</div>
-        </a>
-      </div>
-    
-      <!-- Grid Item 5: Newsletter -->
-      <div class="mandala-item item-5">
-        <a href="/newsletter/">
-          <div class="mandala-item-placeholder"></div>
-          <h3 class="mandala-item-title">Newsletter</h3>
-          <div class="mandala-item-subtitle">Future Law Insider</div>
-        </a>
-      </div>
-      
-      <!-- Grid Item 6: About -->
-      <div class="mandala-item item-6">
-        <a href="/about/">
-          <div class="mandala-item-placeholder"></div>
-          <h3 class="mandala-item-title">About</h3>
-          <div class="mandala-item-subtitle">The Author</div>
-        </a>
-      </div>
-      
-      <!-- Grid Item 7: CMS-managed featured image 1 -->
-      <div class="mandala-item item-7">
         <a href="{{ if .Site.Params.featured_link_1 }}{{ .Site.Params.featured_link_1 }}{{ else }}{{ "/" }}{{ end }}">
           <div class="mandala-item-placeholder"></div>
           <h3 class="mandala-item-title">{{ if .Site.Params.featured_title_1 }}{{ .Site.Params.featured_title_1 }}{{ else }}Featured{{ end }}</h3>
@@ -76,12 +48,39 @@
         </a>
       </div>
       
-      <!-- Grid Item 8: CMS-managed featured image 2 -->
-      <div class="mandala-item item-8">
+      <!-- Grid Item 5: Featured Image 2 (middle row) -->
+      <div class="mandala-item item-5">
         <a href="{{ if .Site.Params.featured_link_2 }}{{ .Site.Params.featured_link_2 }}{{ else }}{{ "/" }}{{ end }}">
           <div class="mandala-item-placeholder"></div>
           <h3 class="mandala-item-title">{{ if .Site.Params.featured_title_2 }}{{ .Site.Params.featured_title_2 }}{{ else }}Featured{{ end }}</h3>
           <div class="mandala-item-subtitle">{{ if .Site.Params.featured_subtitle_2 }}{{ .Site.Params.featured_subtitle_2 }}{{ else }}Spotlight{{ end }}</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 6: Blog/Dharma Log (bottom row) -->
+      <div class="mandala-item item-6">
+        <a href="/posts/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">Blog</h3>
+          <div class="mandala-item-subtitle">Dharma Log</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 7: Newsletter (bottom row) -->
+      <div class="mandala-item item-7">
+        <a href="/newsletter/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">Newsletter</h3>
+          <div class="mandala-item-subtitle">Future Law Insider</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 8: About (bottom row) -->
+      <div class="mandala-item item-8">
+        <a href="/about/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">About</h3>
+          <div class="mandala-item-subtitle">The Author</div>
         </a>
       </div>
     </div>
