@@ -1,11 +1,11 @@
 [build]
   publish = "public"
-  command = "hugo"
+  command = "hugo && node inject-secrets.js"
 
 [build.environment]
   HUGO_VERSION = "0.116.0"
 
-  SECRETS_SCAN_OMIT_PATTERNS = "backend.*|domain.*|clientID.*"
+ SECRETS_SCAN_OMIT_PATHS = "public/admin/*,themes/AUTHOR/static/admin/*"
 
 [context.production.environment]
   HUGO_ENV = "production"
