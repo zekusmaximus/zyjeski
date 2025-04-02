@@ -3,88 +3,95 @@
     {{ .Content }}
   </div>
 
-  <!-- In themes/AUTHOR/layouts/_default/home.html -->
-<div class="mandala-grid">
-  <div class="mandala-center">
-    <a href="/books/the-protocol-vol1/">
-      <div class="mandala-center-content">
-        <h2>The Protocol</h2>
-        <div class="pulse-circle"></div>
+  <div class="mandala-container">
+    <div class="mandala-grid">
+      <!-- Center: Your name -->
+      <div class="mandala-center">
+        <div class="mandala-center-content">
+          <h2>Jeffrey A. Zyjeski, Esq.</h2>
+          <div class="pulse-circle"></div>
+        </div>
       </div>
-    </a>
+    
+      <!-- Grid Item 1: Books/The Protocol -->
+      <div class="mandala-item item-1">
+        <a href="/books/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">Books</h3>
+          <div class="mandala-item-subtitle">The Protocol</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 2: Stories/Koans -->
+      <div class="mandala-item item-2">
+        <a href="/stories/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">Stories</h3>
+          <div class="mandala-item-subtitle">Koans</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 3: Audio/Simulations -->
+      <div class="mandala-item item-3">
+        <a href="/audio/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">Audio</h3>
+          <div class="mandala-item-subtitle">Simulations</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 4: Blog/Dharma Log -->
+      <div class="mandala-item item-4">
+        <a href="/posts/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">Blog</h3>
+          <div class="mandala-item-subtitle">Dharma Log</div>
+        </a>
+      </div>
+    
+      <!-- Grid Item 5: Newsletter -->
+      <div class="mandala-item item-5">
+        <a href="/newsletter/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">Newsletter</h3>
+          <div class="mandala-item-subtitle">Future Law Insider</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 6: About -->
+      <div class="mandala-item item-6">
+        <a href="/about/">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">About</h3>
+          <div class="mandala-item-subtitle">The Author</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 7: CMS-managed featured image 1 -->
+      <div class="mandala-item item-7">
+        <a href="{{ .Site.Params.featured_link_1 | default '/' }}">
+          {{ if .Site.Params.featured_image_1 }}
+            <img src="{{ .Site.Params.featured_image_1 }}" alt="{{ .Site.Params.featured_title_1 | default 'Featured Content' }}" class="mandala-item-img">
+          {{ else }}
+            <div class="mandala-item-placeholder"></div>
+          {{ end }}
+          <h3 class="mandala-item-title">{{ .Site.Params.featured_title_1 | default "Featured" }}</h3>
+          <div class="mandala-item-subtitle">{{ .Site.Params.featured_subtitle_1 | default "Spotlight" }}</div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 8: CMS-managed featured image 2 -->
+      <div class="mandala-item item-8">
+        <a href="{{ .Site.Params.featured_link_2 | default '/' }}">
+          {{ if .Site.Params.featured_image_2 }}
+            <img src="{{ .Site.Params.featured_image_2 }}" alt="{{ .Site.Params.featured_title_2 | default 'Featured Content' }}" class="mandala-item-img">
+          {{ else }}
+            <div class="mandala-item-placeholder"></div>
+          {{ end }}
+          <h3 class="mandala-item-title">{{ .Site.Params.featured_title_2 | default "Featured" }}</h3>
+          <div class="mandala-item-subtitle">{{ .Site.Params.featured_subtitle_2 | default "Spotlight" }}</div>
+        </a>
+      </div>
+    </div>
   </div>
-
-  <!-- Grid Item 1: Books/The Protocol -->
-  <div class="mandala-item item-1">
-    <a href="/books/">
-      <div class="mandala-item-placeholder"></div>
-      <h3 class="mandala-item-title">Books</h3>
-      <div class="mandala-item-subtitle">The Protocol</div>
-      <div class="mandala-item-excerpt">Explore the intersection of technology and spirituality through my cyberpunk-mystical novel series.</div>
-    </a>
-  </div>
-  
-  <!-- Grid Item 2: Stories/Koans -->
-  <div class="mandala-item item-2">
-    <a href="/stories/">
-      <div class="mandala-item-placeholder"></div>
-      <h3 class="mandala-item-title">Stories</h3>
-      <div class="mandala-item-subtitle">Koans</div>
-      <div class="mandala-item-excerpt">Digital-age koans that dissolve boundaries between machine and consciousness.</div>
-    </a>
-  </div>
-  
-  <!-- Grid Item 3: Audio/Simulations -->
-  <div class="mandala-item item-3">
-    <a href="/audio/">
-      <div class="mandala-item-placeholder"></div>
-      <h3 class="mandala-item-title">Audio</h3>
-      <div class="mandala-item-subtitle">Simulations</div>
-      <div class="mandala-item-excerpt">Audio experiences that merge meditation with dystopian narrative.</div>
-    </a>
-  </div>
-  
-  <!-- Grid Item 4: Blog/Dharma Log -->
-  <div class="mandala-item item-4">
-    <a href="/posts/">
-      <div class="mandala-item-placeholder"></div>
-      <h3 class="mandala-item-title">Blog</h3>
-      <div class="mandala-item-subtitle">Dharma Log</div>
-      <div class="mandala-item-excerpt">Chronicles from the intersection of silicon and soul.</div>
-    </a>
-  </div>
-  
-  <!-- Grid Item 5: Newsletter/Future Law Insider -->
-  <div class="mandala-item item-5">
-    <a href="/newsletter/">
-      <div class="mandala-item-placeholder"></div>
-      <h3 class="mandala-item-title">Newsletter</h3>
-      <div class="mandala-item-subtitle">Future Law Insider</div>
-      <div class="mandala-item-excerpt">Updates on the convergence of legal frameworks and emerging technologies.</div>
-    </a>
-  </div>
-  
-  <!-- Grid Item 6: About -->
-  <div class="mandala-item item-6">
-    <a href="/about/">
-      <div class="mandala-item-placeholder"></div>
-      <h3 class="mandala-item-title">About</h3>
-      <div class="mandala-item-subtitle">Jeffrey A. Zyjeski</div>
-      <div class="mandala-item-excerpt">Author exploring Neuro-Digital Enlightenment at the intersection of technology and consciousness.</div>
-    </a>
-  </div>
-  
-  <!-- Grid Items 7-8: Reserved for future use -->
-  <div class="mandala-item mandala-item-placeholder item-7">
-    <div class="mandala-item-title">Coming Soon</div>
-    <div class="mandala-item-subtitle">Future Work</div>
-  </div>
-  
-  <div class="mandala-item mandala-item-placeholder item-8">
-    <div class="mandala-item-title">Coming Soon</div>
-    <div class="mandala-item-subtitle">Future Work</div>
-  </div>
-</div>
-
-  
 {{ end }}
