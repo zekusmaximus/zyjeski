@@ -16,4 +16,4 @@ For inquiries, collaborations, or conversations at the edge of code and consciou
 
 - Email: [jeff@zyjeski.com](mailto:jeff@zyjeski.com)
 - Twitter: [@zekusmaximus](https://twitter.com/zekusmaximus)
-- Instagram: [@uzekusmaximus](https://instagram.com/zekusmaximus)
+- Instagram: [@zekusmaximus](https://instagram.com/zekusmaximus)
