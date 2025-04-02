@@ -8,6 +8,18 @@ theme = "AUTHOR"
   author = 'Jeffrey A. Zyjeski'
   description = 'Speculative fiction author'
 
+   # Featured spot 1
+  featured_title_1 = "Latest Book"
+  featured_subtitle_1 = "New Release"
+  featured_image_1 = "/images/featured-book.jpg"
+  featured_link_1 = "/books/latest/"
+  
+  # Featured spot 2
+  featured_title_2 = "Upcoming Event"
+  featured_subtitle_2 = "Speaking Engagement"
+  featured_image_2 = "/images/featured-event.jpg"
+  featured_link_2 = "/events/"
+
 # Optional social media links
 [params.social]
   twitter = '@zekusmaximus'

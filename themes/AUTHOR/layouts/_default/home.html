@@ -69,27 +69,19 @@
       
       <!-- Grid Item 7: CMS-managed featured image 1 -->
       <div class="mandala-item item-7">
-        <a href="{{ .Site.Params.featured_link_1 | default '/' }}">
-          {{ if .Site.Params.featured_image_1 }}
-            <img src="{{ .Site.Params.featured_image_1 }}" alt="{{ .Site.Params.featured_title_1 | default 'Featured Content' }}" class="mandala-item-img">
-          {{ else }}
-            <div class="mandala-item-placeholder"></div>
-          {{ end }}
-          <h3 class="mandala-item-title">{{ .Site.Params.featured_title_1 | default "Featured" }}</h3>
-          <div class="mandala-item-subtitle">{{ .Site.Params.featured_subtitle_1 | default "Spotlight" }}</div>
+        <a href="{{ if .Site.Params.featured_link_1 }}{{ .Site.Params.featured_link_1 }}{{ else }}{{ "/" }}{{ end }}">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">{{ if .Site.Params.featured_title_1 }}{{ .Site.Params.featured_title_1 }}{{ else }}Featured{{ end }}</h3>
+          <div class="mandala-item-subtitle">{{ if .Site.Params.featured_subtitle_1 }}{{ .Site.Params.featured_subtitle_1 }}{{ else }}Spotlight{{ end }}</div>
         </a>
       </div>
       
       <!-- Grid Item 8: CMS-managed featured image 2 -->
       <div class="mandala-item item-8">
-        <a href="{{ .Site.Params.featured_link_2 | default '/' }}">
-          {{ if .Site.Params.featured_image_2 }}
-            <img src="{{ .Site.Params.featured_image_2 }}" alt="{{ .Site.Params.featured_title_2 | default 'Featured Content' }}" class="mandala-item-img">
-          {{ else }}
-            <div class="mandala-item-placeholder"></div>
-          {{ end }}
-          <h3 class="mandala-item-title">{{ .Site.Params.featured_title_2 | default "Featured" }}</h3>
-          <div class="mandala-item-subtitle">{{ .Site.Params.featured_subtitle_2 | default "Spotlight" }}</div>
+        <a href="{{ if .Site.Params.featured_link_2 }}{{ .Site.Params.featured_link_2 }}{{ else }}{{ "/" }}{{ end }}">
+          <div class="mandala-item-placeholder"></div>
+          <h3 class="mandala-item-title">{{ if .Site.Params.featured_title_2 }}{{ .Site.Params.featured_title_2 }}{{ else }}Featured{{ end }}</h3>
+          <div class="mandala-item-subtitle">{{ if .Site.Params.featured_subtitle_2 }}{{ .Site.Params.featured_subtitle_2 }}{{ else }}Spotlight{{ end }}</div>
         </a>
       </div>
     </div>
