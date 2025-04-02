@@ -2760,3 +2760,46 @@ img {
     }
   }
 }
+
+/* Center text in mandala items (for the top and bottom rows) */
+.mandala-item:not(.photo-item) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.mandala-item:not(.photo-item) a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+}
+
+.mandala-item-title, 
+.mandala-item-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.mandala-item-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.mandala-item-subtitle {
+  margin-bottom: 0;
+}
+
+/* Adjust the placeholder icons to be properly centered as well */
+.mandala-item-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
