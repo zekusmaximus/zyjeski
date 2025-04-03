@@ -7,3 +7,9 @@ draft = false
 Welcome to Future Law Insider, where legal expertise meets forward-thinking speculation. As technology races ahead, the gap between innovation and regulation grows wider. This jurisfiction monthly bridges that divide, helping you understand not just what's happening now, but what it means for our legal future.
 
 Every month, we explore the intersection of emerging technology and legal frameworks through a unique blend of policy analysis and speculative scenarios. From AI liability to space law, from digital rights to synthetic biology, we examine how today's legal decisions shape tomorrow's realities.
+
+<div class="substack-banner">
+  <a href="https://jeffreyzyjeski.substack.com" target="_blank">
+    <img src="/images/substack-banner.jpg" alt="Subscribe to Future Law Insider on Substack" class="full-width-image">
+  </a>
+</div>
