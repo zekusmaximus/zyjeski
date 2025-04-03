@@ -5,12 +5,12 @@
 
   <div class="mandala-container">
     <div class="mandala-grid">
-      <!-- Center: Blank -->
-      <div class="mandala-center">
-        <div class="mandala-center-content">
-          <div class="pulse-circle"></div>
-        </div>
-      </div>
+      <!-- Center: Mandala -->
+<div class="mandala-center">
+  <div class="mandala-center-content">
+    <img src="{{ "/images/mandala-center.jpg" | relURL }}" alt="Mandala" class="mandala-center-img">
+  </div>
+</div>
     
       <!-- Grid Item 1: Books/The Protocol (top row) -->
       <div class="mandala-item item-1">
@@ -41,14 +41,14 @@
       
       <!-- Grid Item 4: Headshot (middle row) - photo only -->
       <div class="mandala-item item-4 photo-item">
-        <a href="{{ if .Site.Params.featured_link_1 }}{{ .Site.Params.featured_link_1 }}{{ else }}{{ "/about" }}{{ end }}">
+        <a href="/about/">
           <img src="{{ "/images/featured-book.jpg" | relURL }}" alt="Jeffrey A. Zyjeski" class="mandala-photo">
         </a>
       </div>
       
       <!-- Grid Item 5: Book Cover (middle row) - photo only -->
       <div class="mandala-item item-5 photo-item">
-        <a href="{{ if .Site.Params.featured_link_2 }}{{ .Site.Params.featured_link_2 }}{{ else }}{{ "/books/the-protocol-vol1" }}{{ end }}">
+        <a href="/books/the-protocol-vol1/">
           <img src="{{ "/images/featured-event.jpg" | relURL }}" alt="The Karmic Protocol" class="mandala-photo">
         </a>
       </div>
