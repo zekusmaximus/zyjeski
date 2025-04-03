@@ -208,6 +208,63 @@
               color: #ff3366;
               margin: 0;
             }
+
+            /* Fix for footer layout */
+  .footer-middle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+  
+  .footer-bottom {
+    clear: both;
+    width: 100%;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 1rem;
+  }
+  
+  /* Ensure newsletter form container doesn't break layout */
+  .footer-newsletter {
+    width: 100%;
+  }
+  
+  /* Adjust newsletter form to stay in its container */
+  #newsletter-form-container {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Make sure the form doesn't float outside its container */
+  .newsletter-form {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure the section containers are properly cleared */
+  .footer-section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Media queries for better mobile experience */
+  @media (max-width: 768px) {
+    .footer-middle {
+      grid-template-columns: 1fr;
+    }
+    
+    /* Force the bottom footer to clear all floats */
+    .footer-bottom {
+      display: block;
+      clear: both;
+      float: none;
+      position: relative;
+    }
+  }
           </style>
         </div>
       </div>
