@@ -1,11 +1,9 @@
 [build]
   publish = "public"
-  command = "hugo && node inject-secrets.js"
+  command = "hugo"
 
 [build.environment]
   HUGO_VERSION = "0.116.0"
-
- SECRETS_SCAN_OMIT_PATHS = "public/admin/*,themes/AUTHOR/static/admin/*"
 
 [context.production.environment]
   HUGO_ENV = "production"
@@ -28,6 +26,6 @@
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://*.auth0.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://unpkg.com https://fonts.gstatic.com; img-src 'self' data: https://unpkg.com; connect-src 'self' https://*.auth0.com https://api.netlify.com"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://identity.netlify.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://unpkg.com https://fonts.gstatic.com; img-src 'self' data: https://unpkg.com; connect-src 'self' https://api.netlify.com"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"

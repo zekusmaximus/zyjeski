@@ -6,7 +6,6 @@ media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
 
 # Your collections configuration remains the same
-
 collections:
   # Books collection
   - name: "books"
@@ -47,6 +46,8 @@ collections:
       - {label: "Excerpt", name: "excerpt", widget: "markdown", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+  
+  # Your other collections remain unchanged
   
   # Stories/Koans collection
   - name: "stories"
