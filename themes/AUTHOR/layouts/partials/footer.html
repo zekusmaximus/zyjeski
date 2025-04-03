@@ -69,7 +69,7 @@
       <div class="footer-section">
         <h3 class="footer-heading">Subscribe</h3>
         <div class="footer-newsletter">
-          <p>Join the cybernetic sangha for updates.</p>
+          <p>Join the cybernetic sangha for updates and digital koans.</p>
           
           <!-- Custom Form with MailerLite API Integration -->
           <div id="newsletter-form-container">
@@ -105,11 +105,10 @@
                 const data = {
                   email: email,
                   fields: {},
-                  groups: ["YOUR_GROUP_ID"] // Replace with your actual group ID
+                  groups: ["138542836936083268"] // Replace with your actual group ID
                 };
                 
-                // Here you'd normally send this directly to MailerLite's API
-                // But for security reasons, we'll send it to your own server endpoint first
+                // Send to Netlify function
                 fetch('/api/subscribe', {
                   method: 'POST',
                   headers: {

@@ -5,8 +5,7 @@
 
 [build.environment]
   HUGO_VERSION = "0.116.0"
-  # Add NODE_VERSION for functions
-  NODE_VERSION = "18.17.1"
+  # Node version is specified in .nvmrc file
 
 [context.production.environment]
   HUGO_ENV = "production"
