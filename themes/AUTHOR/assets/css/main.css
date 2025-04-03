@@ -2817,3 +2817,22 @@ img {
   transform: scale(1.05);
   filter: brightness(1.2) saturate(1.2);
 }
+
+/* Add this to your CSS file */
+.substack-banner {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.full-width-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.full-width-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 255, 0.3);
+}
