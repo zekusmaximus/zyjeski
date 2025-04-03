@@ -8,8 +8,4 @@ Welcome to Future Law Insider, where legal expertise meets forward-thinking spec
 
 Every month, we explore the intersection of emerging technology and legal frameworks through a unique blend of policy analysis and speculative scenarios. From AI liability to space law, from digital rights to synthetic biology, we examine how today's legal decisions shape tomorrow's realities.
 
-<div class="substack-banner">
-  <a href="https://jeffreyzyjeski.substack.com" target="_blank">
-    <img src="/images/substack-banner.jpg" alt="Subscribe to Future Law Insider on Substack" class="full-width-image">
-  </a>
-</div>
+[![Subscribe to Future Law Insider on Substack](/images/substack-banner.jpg)](https://jeffreyzyjeski.substack.com)
