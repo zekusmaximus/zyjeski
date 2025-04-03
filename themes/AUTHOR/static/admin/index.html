@@ -9,7 +9,7 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <!-- Include the styles for the Netlify CMS UI -->
-    <link rel="stylesheet" href="https://unpkg.com/netlify-cms@^2.0.0/dist/cms.css" />
+    <link href="https://unpkg.com/netlify-cms@^2.0.0/dist/cms.css" rel="stylesheet" />
     
     <!-- Custom styles for the admin interface -->
     <style>
@@ -28,14 +28,6 @@
           radial-gradient(circle at 80% 70%, #000000 0%, transparent 20%);
         background-attachment: fixed;
       }
-      
-      .nc-appHeader-content {
-        background: linear-gradient(90deg, rgba(110, 13, 208, 0.8), rgba(0, 245, 212, 0.8)) !important;
-      }
-      
-      .nc-appHeader-button {
-        background-color: rgba(0, 0, 0, 0.2) !important;
-      }
     </style>
   </head>
   <body>
@@ -44,18 +36,5 @@
     
     <!-- Netlify CMS script -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-    
-    <script>
-      // Customize CMS if needed
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
   </body>
 </html>
