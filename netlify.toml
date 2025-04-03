@@ -1,9 +1,12 @@
 [build]
   publish = "public"
   command = "hugo"
+  functions = "netlify/functions"
 
 [build.environment]
   HUGO_VERSION = "0.116.0"
+  # Add NODE_VERSION for functions
+  NODE_VERSION = "16.x"
 
 [context.production.environment]
   HUGO_ENV = "production"
@@ -14,6 +17,12 @@
 
 [context.branch-deploy]
   command = "hugo -b $DEPLOY_PRIME_URL"
+
+# Redirects for the API functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
 
 # Redirects for the CMS
 [[redirects]]
@@ -26,6 +35,6 @@
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://identity.netlify.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://unpkg.com https://fonts.gstatic.com; img-src 'self' data: https://unpkg.com; connect-src 'self' https://api.netlify.com"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://identity.netlify.com https://assets.mailerlite.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://unpkg.com https://fonts.gstatic.com; img-src 'self' data: https://unpkg.com; connect-src 'self' https://api.netlify.com https://api.mailerlite.com;"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
