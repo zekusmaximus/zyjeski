@@ -111,7 +111,7 @@ a {
 }
 
 a:hover {
-  color: var(--holographic-teal);
+  color: var(--saffron);
 }
 
 a:hover::after {
@@ -2012,19 +2012,19 @@ a:hover::before {
 
 @keyframes text-glitch-effect {
   0% {
-    text-shadow: 1px 0 #ff00cc, -1px 0 #00ffcc;
+    text-shadow: 1px 0 #00ff88, -1px 0 #00ffcc;
   }
   25% {
-    text-shadow: -1px 0 #ff00cc, 1px 0 #00ffcc;
+    text-shadow: -1px 0 #00ff88, 1px 0 #00ffcc;
   }
   50% {
-    text-shadow: 0.5px 0 #ff00cc, -0.5px 0 #00ffcc;
+    text-shadow: 0.5px 0 #00ff88, -0.5px 0 #00ffcc;
   }
   75% {
-    text-shadow: -0.5px 0 #ff00cc, 0.5px 0 #00ffcc;
+    text-shadow: -0.5px 0 #00ff88, 0.5px 0 #00ffcc;
   }
   100% {
-    text-shadow: 1px 0 #ff00cc, -1px 0 #00ffcc;
+    text-shadow: 1px 0 #00ff88, -1px 0 #00ffcc;
   }
 }
 
@@ -2768,6 +2768,60 @@ img {
   align-items: center;
   justify-content: center;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Cyberpunk landscape background for mandala items */
+.mandala-item.cyber-bg {
+  position: relative;
+}
+
+.mandala-item.cyber-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  z-index: -1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  filter: saturate(0.8) brightness(0.5);
+}
+
+.mandala-item.cyber-bg:hover::before {
+  opacity: 0.9;
+  transform: scale(1.05);
+  filter: saturate(1.2) brightness(0.6);
+}
+
+/* Individual cyberpunk backgrounds */
+.mandala-item.cyber-bg.bg-1::before {
+  background-image: url('/images/cyber-bg-1.jpg');
+}
+
+.mandala-item.cyber-bg.bg-2::before {
+  background-image: url('/images/cyber-bg-2.jpg');
+}
+
+.mandala-item.cyber-bg.bg-3::before {
+  background-image: url('/images/cyber-bg-3.jpg');
+}
+
+.mandala-item.cyber-bg.bg-6::before {
+  background-image: url('/images/cyber-bg-4.jpg');
+}
+
+.mandala-item.cyber-bg.bg-7::before {
+  background-image: url('/images/cyber-bg-5.jpg');
+}
+
+.mandala-item.cyber-bg.bg-8::before {
+  background-image: url('/images/cyber-bg-6.jpg');
 }
 
 .mandala-item:not(.photo-item) a {
@@ -2796,12 +2850,59 @@ img {
   margin-bottom: 0;
 }
 
+/* Enhanced text visibility for items with background images */
+.cyber-bg .mandala-item-title,
+.cyber-bg .mandala-item-subtitle {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 5px rgba(0, 0, 0, 0.9);
+  position: relative;
+  z-index: 2;
+}
+
+.cyber-bg .mandala-item-title {
+  color: var(--holographic-teal);
+}
+
+.cyber-bg .mandala-item-subtitle {
+  color: var(--flickering-white);
+}
+
+/* Add a semi-transparent overlay to improve text visibility */
+.cyber-bg a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(45,15,84,0.7));
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-bg:hover a::after {
+  opacity: 0.7;
+}
+
 /* Adjust the placeholder icons to be properly centered as well */
 .mandala-item-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* For items with background images, make placeholder transparent */
+.cyber-bg .mandala-item-placeholder {
+  background: transparent;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(0, 255, 204, 0.5);
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 /* Mandala center image styling */
