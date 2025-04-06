@@ -2937,3 +2937,35 @@ img {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 255, 0.3);
 }
+
+/* Mandala overlay for text on images */
+.mandala-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(45,15,84,0.7));
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  z-index: 2;
+}
+
+.photo-item:hover .mandala-overlay {
+  background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(45,15,84,0.6));
+}
+
+.mandala-overlay .mandala-item-title {
+  color: var(--holographic-teal);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  margin-bottom: 0.5rem;
+}
+
+.mandala-overlay .mandala-item-subtitle {
+  color: var(--flickering-white);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+}
