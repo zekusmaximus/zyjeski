@@ -111,7 +111,7 @@ a {
 }
 
 a:hover {
-  color: var(--saffron);
+  color: var(--holographic-teal);
 }
 
 a:hover::after {

@@ -2,7 +2,7 @@
 title: There Are No Humans
 date: 2025-04-03T12:27:25.696Z
 draft: false
-cover_image: https://m.media-amazon.com/images/I/71sGD9ZMq8L._SL1499_.jpg
+cover_image: /images/uploads/there-are-no-humans.jpg
 pages: 69
 publication_date: January 29, 2025
 show_3d_transition: false
