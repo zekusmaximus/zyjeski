@@ -472,10 +472,11 @@ tr:hover {
 /* Mandala Grid Container */
 .mandala-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Explicitly 3 columns */
+  grid-template-rows: repeat(3, 1fr);    /* Explicitly 3 rows */
   gap: 1.5rem;
   max-width: 1200px;
-  margin: 3rem auto;
+  margin: 3rem auto;             /* Center the grid */
   perspective: 1000px;
   transition: transform 0.5s ease;
 }
