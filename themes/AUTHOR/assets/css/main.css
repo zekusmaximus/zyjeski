@@ -2771,6 +2771,25 @@ img {
   filter: saturate(1.4) brightness(1.3);
 }
 
+/* Increased brightness for images 1, 2, 3, 6, 7, and 8 */
+.mandala-item.cyber-bg.bg-1::before,
+.mandala-item.cyber-bg.bg-2::before,
+.mandala-item.cyber-bg.bg-3::before,
+.mandala-item.cyber-bg.bg-6::before,
+.mandala-item.cyber-bg.bg-7::before,
+.mandala-item.cyber-bg.bg-8::before {
+  filter: saturate(1.4) brightness(1.7);
+}
+
+.mandala-item.cyber-bg.bg-1:hover::before,
+.mandala-item.cyber-bg.bg-2:hover::before,
+.mandala-item.cyber-bg.bg-3:hover::before,
+.mandala-item.cyber-bg.bg-6:hover::before,
+.mandala-item.cyber-bg.bg-7:hover::before,
+.mandala-item.cyber-bg.bg-8:hover::before {
+  filter: saturate(1.7) brightness(2.0);
+}
+
 /* Individual cyberpunk backgrounds */
 .mandala-item.cyber-bg.bg-1::before {
   background-image: url('/images/cyber-bg-1.jpg');
