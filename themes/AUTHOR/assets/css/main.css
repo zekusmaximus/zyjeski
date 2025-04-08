@@ -2653,7 +2653,7 @@ img {
   height: 100%;
   object-fit: cover;
   transition: all 0.5s ease;
-  filter: saturate(.6) brightness(1);
+  filter: saturate(.8) brightness(1.2);
 }
 
 .mandala-item.photo-item:hover .mandala-photo {
