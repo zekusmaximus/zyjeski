@@ -2653,12 +2653,12 @@ img {
   height: 100%;
   object-fit: cover;
   transition: all 0.5s ease;
-  filter: saturate(1) brightness(1.4);
+  filter: saturate(.6) brightness(1.4);
 }
 
 .mandala-item.photo-item:hover .mandala-photo {
   transform: scale(1.05);
-  filter: saturate(1.4) brightness(1.8);
+  filter: saturate(1) brightness(1.8);
 }
 
 /* Add a subtle glitch effect on hover */
