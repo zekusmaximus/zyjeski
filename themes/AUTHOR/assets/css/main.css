@@ -2961,4 +2961,23 @@ img {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
 }
 
+/* Brighter and more saturated photos for specific backgrounds */
+.mandala-item.bg-1 .mandala-photo,
+.mandala-item.bg-2 .mandala-photo,
+.mandala-item.bg-3 .mandala-photo,
+.mandala-item.bg-6 .mandala-photo,
+.mandala-item.bg-7 .mandala-photo,
+.mandala-item.bg-8 .mandala-photo {
+  filter: saturate(1.4) brightness(1.7);
+}
+
+.mandala-item.bg-1:hover .mandala-photo,
+.mandala-item.bg-2:hover .mandala-photo,
+.mandala-item.bg-3:hover .mandala-photo,
+.mandala-item.bg-6:hover .mandala-photo,
+.mandala-item.bg-7:hover .mandala-photo,
+.mandala-item.bg-8:hover .mandala-photo {
+  filter: saturate(1.7) brightness(2.0);
+}
+
 /* Force Netlify Deploy */
