@@ -1652,10 +1652,6 @@ a:hover::before {
   outline-offset: 2px;
 }
 
-.page-container {
-  /* this left empty 
-}
-
 /* Utility classes for specific effects */
 .text-glitch {
   position: relative;
