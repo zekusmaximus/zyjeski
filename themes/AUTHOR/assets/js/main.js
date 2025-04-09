@@ -22,33 +22,37 @@ function initMandalaEffects() {
   
   // Add 3D rotation effect on mouse move, but only for non-touch devices
   if (!isTouch && !isMobile) {
-    document.addEventListener('mousemove', function(e) {
+      document.addEventListener('mousemove', function(e) {
       if (!mandalaGrid) return;
-      
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 50; // Reduced intensity (was 25)
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 50; // Reduced intensity
-      
-      // Apply rotation with limits to prevent extreme angles
+  
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+  
+      // Apply rotation with limits
       mandalaGrid.style.transform = `rotateY(${Math.max(-5, Math.min(5, xAxis))}deg) rotateX(${Math.max(-5, Math.min(5, yAxis))}deg)`;
-    });
-    
-    // Reset on mouse leave
-    document.addEventListener('mouseleave', function() {
+      });
+  
+      // Reset on mouse leave
+      document.addEventListener('mouseleave', function() {
       if (!mandalaGrid) return;
       mandalaGrid.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    });
-    
-    // Add subtle rotation on scroll, again only for non-touch devices
-    window.addEventListener('scroll', function() {
-      if (isMobile || isTouch) return; // Skip for mobile/touch devices
-      
+      });
+  
+      // Add subtle rotation on scroll (using CSS class)
+      window.addEventListener('scroll', function() {
+      if (isMobile || isTouch) return;
+  
       const scrollPosition = window.scrollY;
-      const rotationAngle = (scrollPosition / window.innerHeight) * 3; // Reduced max angle
-      
+      const rotationAngle = (scrollPosition / window.innerHeight) * 3;
+  
       if (mandalaGrid && rotationAngle <= 3) {
-        mandalaGrid.style.transform = `rotateX(${rotationAngle}deg) rotateZ(${rotationAngle/4}deg)`;
+          mandalaGrid.classList.add('rotate'); // Add the rotate class
+          mandalaGrid.style.transform = `rotateX(${rotationAngle}deg) rotateZ(${rotationAngle/4}deg)`; // Set the transform
+      } else {
+          mandalaGrid.classList.remove('rotate'); // Remove the rotate class
+          mandalaGrid.style.transform = ''; // Clear inline styles
       }
-    });
+      });
   }
   
   // Add hover/touch effects to mandala items
