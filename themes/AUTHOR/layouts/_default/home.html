@@ -5,7 +5,7 @@
 
   <style>
     /* Force the correct grid layout */
-    .fixed-mandala-grid {
+    .mandala-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(3, auto);
@@ -16,7 +16,7 @@
     }
     
     /* Make sure items have a proper height */
-    .fixed-mandala-grid > div {
+    .mandala-grid > div {
       min-height: 200px;
     }
     
@@ -29,7 +29,7 @@
     
     /* Responsive adjustments with improved mobile layout */
     @media (max-width: 768px) {
-      .fixed-mandala-grid {
+      .mandala-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
       }
@@ -80,7 +80,7 @@
     }
     
     @media (max-width: 480px) {
-      .fixed-mandala-grid {
+      .mandala-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
       }
@@ -133,7 +133,7 @@
   </style>
 
   <div class="mandala-container">
-    <div class="fixed-mandala-grid">
+    <div class="mandala-grid">
       <!-- Center: Mandala -->
       <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;">
         <div class="mandala-center">
