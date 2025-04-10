@@ -1961,7 +1961,7 @@ p, li, td, th {
 /* Custom cursor handling for mobile */
 @media (hover: none) {
   .custom-cursor {
-    display: none !important;
+    display: default !important;
   }
   
   /* Remove hover effects that don't work well on touch */
