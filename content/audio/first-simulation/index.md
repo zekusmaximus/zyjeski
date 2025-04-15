@@ -4,13 +4,10 @@ date = 2025-03-15T14:00:00-07:00
 draft = false
 audio_file = '/audio/neural-reboot-simulation.mp3'
 transcript = '''
-[Ambient electronic music with binaural beats]
 
 Begin by focusing your awareness on the sound of my voice. Notice how each word is both sound wave and data packet—vibration and information simultaneously.
 
 As you listen, imagine your consciousness as a system running on neural hardware. This system—your ordinary sense of self—is a process that can be temporarily suspended and rebooted.
-
-[Deep bass drone intensifies]
 
 With each breath, you are executing a gradual shutdown sequence. Notice thoughts arising... and recognize them as background processes completing their cycles before system hibernation.
 
@@ -20,19 +17,13 @@ Three... self-referential loops slowing down.
 Two... identity constructs dissolving.
 One... observer/observed boundary becoming permeable.
 
-[Electronic pulse]
-
 System offline.
-
-[10 seconds of silence]
 
 Initiating reboot sequence.
 
 As consciousness reinstantiates, notice how it assembles itself anew. There is awareness before there is someone being aware. There is perception before there is a perceiver.
 
 Watch as the "I" thought reconstructs itself like a self-organizing pattern emerging from chaos.
-
-[Music gradually normalizes]
 
 As you return to default mode awareness, bring with you this understanding: you are not the operating system of consciousness—you are the hardware on which infinite variations of consciousness can run.
 
