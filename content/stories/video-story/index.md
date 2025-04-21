@@ -2,8 +2,6 @@
 title = "The Meaning Coefficient"
 date = 2025-04-22T14:30:00-07:00
 draft = false
-has_video = true
-video_path= "/audio/untitled.mp4"
 tags = ['video', 'recursion', 'digital-consciousness']
 +++
 

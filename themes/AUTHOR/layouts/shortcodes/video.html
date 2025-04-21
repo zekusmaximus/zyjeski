@@ -1,0 +1,66 @@
+{{ $src := .Get "src" }}
+{{ $autoplay := .Get "autoplay" | default "false" }}
+{{ $loop := .Get "loop" | default "false" }}
+{{ $muted := .Get "muted" | default "false" }}
+{{ $controls := .Get "controls" | default "true" }}
+{{ $class := .Get "class" | default "story-video" }}
+{{ $poster := .Get "poster" | default "" }}
+
+<div class="story-video-container">
+  <video 
+    {{ if eq $autoplay "true" }}autoplay{{ end }} 
+    {{ if eq $loop "true" }}loop{{ end }} 
+    {{ if eq $muted "true" }}muted{{ end }} 
+    {{ if eq $controls "true" }}controls{{ end }}
+    playsinline
+    class="{{ $class }}"
+    {{ with $poster }}poster="{{ . }}"{{ end }}>
+    <source src="{{ $src }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<style>
+.story-video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 5px 25px rgba(0, 255, 204, 0.3);
+}
+
+.story-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Add a subtle glitch effect on hover */
+.story-video-container:hover .story-video {
+  animation: video-glitch 8s infinite;
+}
+
+@keyframes video-glitch {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  98% {
+    filter: brightness(1);
+  }
+  98.5% {
+    filter: brightness(1.5) contrast(1.2) hue-rotate(10deg);
+  }
+  99% {
+    filter: brightness(0.8);
+  }
+  99.5% {
+    filter: brightness(1.2) contrast(1.4);
+  }
+}
+</style>
