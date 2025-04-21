@@ -1,5 +1,5 @@
 ---
-title: "The Emergence of Specialized Legal Language in Digital Ecosystems"
+title: "Introducing LexSecifica"
 date: 2025-04-21T10:00:00-07:00
 draft: false
 tags: ['law', 'digital linguistics', 'cyberpunk', 'future governance']
@@ -7,7 +7,7 @@ tags: ['law', 'digital linguistics', 'cyberpunk', 'future governance']
 
 ![Lex Specifica](/LexSpecifica.png)
 
-## TSpeculative Legal Framework Generator for Fiction Writers
+## Speculative Legal Framework Generator for Fiction Writers
 
 My new app creates realistic legal frameworks for your fictional worlds. [Lex Specifica](https://lexspecifica.com) represents the evolution of legal language in speculative fiction, acting as a quick brainstorm session.
 
