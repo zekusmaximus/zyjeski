@@ -1,6 +1,6 @@
 <!--
 +++
-title = "Your HTML Story Title"
+title = "Interactive HTML Story"
 date = 2025-04-12T08:00:00-07:00
 draft = false
 tags = ['experiment', 'html', 'interactive']
@@ -204,17 +204,6 @@ tags = ['experiment', 'html', 'interactive']
   }
   
   /* Removed the old particle styles as particles.js will handle this */
-  /*
-  .particle {
-    position: fixed;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.8;
-    box-shadow: 0 0 4px #fff;
-  }
-  @keyframes particleFloat { ... }
-  */
   
   
   /* Enhanced Text Effects */
@@ -240,7 +229,6 @@ tags = ['experiment', 'html', 'interactive']
       word-wrap: break-word;
       visibility: hidden;
       line-height: 1.5;
-      /* Removed border-right animation here, handled by the JS finishing class */
   }
   
   /* Cursor blink animation - applied to the element */
@@ -385,7 +373,8 @@ tags = ['experiment', 'html', 'interactive']
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNiIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjxmd01hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlPSIxIDAgMCAwIDAgMCAxIDAgMCAwIDAgMCAxIDAgMCAwIDAgMCAxIDAgMCAwIDAgMCAxIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IndoaXRlIiBmaWx0ZXI9InVybCjI2b2lzZSkiLz48L3N2Z34='); /* Simple noise SVG */
+      /* CORRECTED: Valid base64 data URL for simple noise SVG */
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC43IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIGZpbHRlcj0idXJsKCNmKSIvPjwvc3ZnPg==');
       background-size: cover;
       opacity: 0.03; /* Very subtle */
       pointer-events: none;
@@ -401,120 +390,128 @@ tags = ['experiment', 'html', 'interactive']
   
   </style>
   
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/particles.js@2.0.0/particles.min.js"></script>
   
   <script>
   // particles.js configuration
-  particlesJS('particles-js', {
-    "particles": {
-      "number": {
-        "value": 80, // Fewer particles
-        "density": {
-          "enable": true,
-          "value_area": 800 // Area density
-        }
-      },
-      "color": {
-        "value": "#ffffff" // White particles
-      },
-      "shape": {
-        "type": "circle",
-        "stroke": {
-          "width": 0,
-          "color": "#000000"
-        },
-        "polygon": {
-          "nb_sides": 5
-        },
-        "image": {
-          "src": "img/github.svg",
-          "width": 100,
-          "height": 100
-        }
-      },
-      "opacity": {
-        "value": 0.5,
-        "random": false,
-        "anim": {
-          "enable": false,
-          "speed": 1,
-          "opacity_min": 0.1,
-          "sync": false
-        }
-      },
-      "size": {
-        "value": 3, // Particle size
-        "random": true,
-        "anim": {
-          "enable": false,
-          "speed": 40,
-          "size_min": 0.1,
-          "sync": false
-        }
-      },
-      "line_linked": {
-        "enable": true, // Enable lines
-        "distance": 150, // Line distance
-        "color": "#ffffff", // Line color
-        "opacity": 0.4,
-        "width": 1
-      },
-      "move": {
-        "enable": true,
-        "speed": 6, // Movement speed
-        "direction": "none",
-        "random": false,
-        "straight": false,
-        "out_mode": "out",
-        "bounce": false,
-        "attract": {
-          "enable": false,
-          "rotateX": 600,
-          "rotateY": 1200
-        }
+  // Ensure this script runs *after* the particles.js library is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+      if (typeof particlesJS !== 'undefined') { // Check if particlesJS function is available
+          particlesJS('particles-js', {
+            "particles": {
+              "number": {
+                "value": 80, // Fewer particles
+                "density": {
+                  "enable": true,
+                  "value_area": 800 // Area density
+                }
+              },
+              "color": {
+                "value": "#ffffff" // White particles
+              },
+              "shape": {
+                "type": "circle",
+                "stroke": {
+                  "width": 0,
+                  "color": "#000000"
+                },
+                "polygon": {
+                  "nb_sides": 5
+                },
+                "image": {
+                  "src": "img/github.svg",
+                  "width": 100,
+                  "height": 100
+                }
+              },
+              "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                  "enable": false,
+                  "speed": 1,
+                  "opacity_min": 0.1,
+                  "sync": false
+                }
+              },
+              "size": {
+                "value": 3, // Particle size
+                "random": true,
+                "anim": {
+                  "enable": false,
+                  "speed": 40,
+                  "size_min": 0.1,
+                  "sync": false
+                }
+              },
+              "line_linked": {
+                "enable": true, // Enable lines
+                "distance": 150, // Line distance
+                "color": "#ffffff", // Line color
+                "opacity": 0.4,
+                "width": 1
+              },
+              "move": {
+                "enable": true,
+                "speed": 6, // Movement speed
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                  "enable": false,
+                  "rotateX": 600,
+                  "rotateY": 1200
+                }
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": true,
+                  "mode": "grab" // Lines connect on hover
+                },
+                "onclick": {
+                  "enable": true,
+                  "mode": "push" // Add particles on click
+                },
+                "resize": true
+              },
+              "modes": {
+                "grab": {
+                  "distance": 140,
+                  "line_linked": {
+                    "opacity": 1 // Lines become opaque on grab
+                  }
+                },
+                "bubble": {
+                  "distance": 400,
+                  "size": 40,
+                  "duration": 2,
+                  "opacity": 8,
+                  "speed": 3
+                },
+                "repulse": {
+                  "distance": 200,
+                  "duration": 0.4
+                },
+                "push": {
+                  "particles_nb": 4
+                },
+                "remove": {
+                  "particles_nb": 2
+                }
+              }
+            },
+            "retina_detect": true
+          });
+      } else {
+          console.error("particles.js not loaded. Check CSP or network issues.");
       }
-    },
-    "interactivity": {
-      "detect_on": "canvas",
-      "events": {
-        "onhover": {
-          "enable": true,
-          "mode": "grab" // Lines connect on hover
-        },
-        "onclick": {
-          "enable": true,
-          "mode": "push" // Add particles on click
-        },
-        "resize": true
-      },
-      "modes": {
-        "grab": {
-          "distance": 140,
-          "line_linked": {
-            "opacity": 1 // Lines become opaque on grab
-          }
-        },
-        "bubble": {
-          "distance": 400,
-          "size": 40,
-          "duration": 2,
-          "opacity": 8,
-          "speed": 3
-        },
-        "repulse": {
-          "distance": 200,
-          "duration": 0.4
-        },
-        "push": {
-          "particles_nb": 4
-        },
-        "remove": {
-          "particles_nb": 2
-        }
-      }
-    },
-    "retina_detect": true
   });
+  
   
   // Existing Typewriter Effect Script (Modified for class usage)
   document.addEventListener('DOMContentLoaded', () => {
@@ -565,8 +562,8 @@ tags = ['experiment', 'html', 'interactive']
           if (isVisible) {
               section.classList.add('visible');
           } else {
-              // Optional: remove 'visible' class when scrolling away
-              section.classList.remove('visible');
+               // Optional: remove 'visible' class when scrolling away - helps re-trigger on scroll back up
+               // section.classList.remove('visible');
           }
       });
   }
