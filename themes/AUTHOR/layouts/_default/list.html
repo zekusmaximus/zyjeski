@@ -8,12 +8,11 @@
   </div>
   
   <div class="section-grid">
-    {{ $pages := .Pages }}
-    {{ if .Sections }}
-      {{ $pages = .Sections }}
-    {{ end }}
+    {{ $pages := .RegularPages }}
+    {{ $sections := .Sections }}
+    {{ $combined := union $pages $sections }}
     
-    {{ range $pages }}
+    {{ range $combined }}
       <article class="section-item">
         <a href="{{ .RelPermalink }}" class="section-item-link">
           {{ with .Params.image }}
@@ -27,7 +26,8 @@
             </div>
           {{ end }}
           
-          <h2 class="section-item-title">{{ .Title }}</h2>  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+          <h2 class="section-item-title">{{ .Title }}</h2>  
+          {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
           {{ $dateHuman := .Date | time.Format ":date_medium" }}
           <time datetime="{{ $dateMachine }}" class="section-item-date">{{ $dateHuman }}</time>
           
