@@ -5,8 +5,6 @@ draft = false
 tags = ['video', 'recursion', 'digital-consciousness']
 +++
 
-{{< video src="/audio/untitled.mp4" autoplay="true" loop="true" muted="true" >}}
-
 The sun fractured at its eigenvalues, its phase states collapsing into searchable wavelengths that stained the wasteland like corrupted memory registers. Ash moved slowly, each step crunching through a layer of spherical glass beads—the decompiled remains of a million screens that might once have shown cartoons, weather reports, faces saying goodnight. Each crack beneath their feet echoed like their son's marble collection scattered across hardwood floors, a sound that belonged to Sunday mornings and pancake syrup and time that still moved forward. Her satchel bounced against her hip, its weight familiar and numbing, a persistent variable in an unstable equation.
 
 Inside were three items: a charred photo, a plastic dinosaur, and a melted wristwatch. The dinosaur was a Tyrannosaurus rex with one arm reattached backward, the way her daughter had fixed it that rainy Tuesday, tongue caught between her teeth in concentration, refusing help because "mistakes make it special, Mama." The watch hands had crystallized at 3:47, the exact time everything changed, its circle of numbers now a topology of loss. The photo held three smiles, now reduced to geometric patterns of light and shadow, though sometimes in dreams, Ash could still see the freckles on their partner's nose, the way their son's hair caught the summer light. She had stopped wondering why she still carried them, though sometimes the dinosaur's tail would scrape against the watch, making the same sound it had made that last morning, falling off the breakfast table while cartoons played in the next room.
