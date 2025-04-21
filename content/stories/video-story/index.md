@@ -2,15 +2,12 @@
 title = "The Meaning Coefficient"
 date = 2025-04-22T14:30:00-07:00
 draft = false
+has_video = true
+video_path= "/audio/untitled.mp4"
 tags = ['video', 'recursion', 'digital-consciousness']
 +++
 
-<div class="story-video-container">
-  <video autoplay loop muted playsinline class="story-video">
-    <source src="/audio/untitled.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
+{{< video src="/audio/untitled.mp4" autoplay="true" loop="true" muted="true" >}}
 
 The sun fractured at its eigenvalues, its phase states collapsing into searchable wavelengths that stained the wasteland like corrupted memory registers. Ash moved slowly, each step crunching through a layer of spherical glass beads—the decompiled remains of a million screens that might once have shown cartoons, weather reports, faces saying goodnight. Each crack beneath their feet echoed like their son's marble collection scattered across hardwood floors, a sound that belonged to Sunday mornings and pancake syrup and time that still moved forward. Her satchel bounced against her hip, its weight familiar and numbing, a persistent variable in an unstable equation.
 
