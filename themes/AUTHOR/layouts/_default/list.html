@@ -14,7 +14,9 @@
     
     {{ range $combined }}
       <article class="section-item">
-        <a href="{{ .RelPermalink }}" class="section-item-link">
+        <a href="{{ if .Params.externalLink }}{{ .Params.externalLink }}{{ else }}{{ .RelPermalink }}{{ end }}" 
+           class="section-item-link"
+           {{ if .Params.externalLink }}target="_blank" rel="noopener"{{ end }}>
           {{ with .Params.image }}
             <div class="section-item-image-container">
               <img src="{{ . }}" alt="{{ $.Title }}" class="section-item-image">
@@ -34,8 +36,8 @@
           <div class="section-item-summary">{{ .Summary | truncate 120 }}</div>
           
           <div class="section-item-read-more">
-            <span class="read-more-text">Enter</span>
-            <span class="read-more-icon">→</span>
+            <span class="read-more-text">{{ if .Params.externalLink }}Listen on Spoken.Press{{ else }}Enter{{ end }}</span>
+            <span class="read-more-icon">{{ if .Params.externalLink }}↗{{ else }}→{{ end }}</span>
           </div>
         </a>
       </article>
