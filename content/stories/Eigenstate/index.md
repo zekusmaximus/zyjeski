@@ -1,6 +1,6 @@
 +++
 title = "Eigenstate Cascade"
-date = 2025-06-05T14:00:00-07:00
+date = 2025-04-05T14:00:00-07:00
 draft = false
 tags = ['fiction', 'cyberpunk', 'mysticism']
 # Optional: featured image for the story
