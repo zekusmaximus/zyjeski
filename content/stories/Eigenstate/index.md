@@ -284,10 +284,7 @@ In the quantum foam of his new existence, he smiled all possible smiles and wept
 
 
 
-<div class="story-image-container">
-  <img src="/images/uploads/Worlds_Apart.png" alt="Worlds Apart" class="story-image-wide">
-  <div class="image-caption">Worlds Apart</div>
-</div>
+![Morning Loss or Gain](/images/uploads/Worlds_Apart.png)
 
 
 
