@@ -248,6 +248,34 @@ footer {
   box-shadow: 0 5px 15px rgba(110, 13, 208, 0.3);
 }
 
+/* External link styling */
+.section-item-link[target="_blank"] .read-more-icon {
+  transform: translateX(0);
+}
+
+.section-item-link[target="_blank"]:hover .read-more-icon {
+  transform: translateX(3px) translateY(-3px);
+}
+
+/* Optional: Add a subtle indicator for external links */
+.section-item-link[target="_blank"]::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--saffron);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.section-item-link[target="_blank"]:hover::after {
+  transform: scale(1.5);
+  opacity: 1;
+}
+
 /* Post styling */
 article {
   margin-bottom: 4rem;
