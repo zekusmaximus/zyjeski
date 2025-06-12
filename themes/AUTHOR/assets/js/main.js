@@ -238,7 +238,7 @@ function createDigitalRain() {
   canvas.height = window.innerHeight;
   
   const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-  const columns = Math.floor(canvas.width / 20);
+  let columns = Math.floor(canvas.width / 20);
   const drops = [];
   
   for (let i = 0; i < columns; i++) {
@@ -295,6 +295,9 @@ function createDigitalRain() {
       // Remove excess drops
       drops.length = newColumns;
     }
+
+    // Update stored columns count
+    columns = newColumns;
     
     // Restart animation
     animate();
