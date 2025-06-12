@@ -9,6 +9,7 @@ show_3d_transition: false
 purchase_links:
   - store: Amazon
     url: https://a.co/d/3QcVVOk
+description: Philosophical novella exploring consciousness in a post-human universe.
 ---
 <!--StartFragment-->
 

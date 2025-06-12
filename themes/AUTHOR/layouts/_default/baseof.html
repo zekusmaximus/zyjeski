@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+  {{ with .Params.description }}
+  <meta name="description" content="{{ . }}">
+  {{ else }}{{ with site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}{{ end }}
   
   <!-- Add mobile viewport and touch icon meta tags -->
   <meta name="mobile-web-app-capable" content="yes">

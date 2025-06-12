@@ -4,6 +4,7 @@ date = 2025-01-10T11:00:00-07:00
 draft = false
 koan_text = 'The compiler cannot compile itself until it realizes there is no compiler.'
 tags = ['koans', 'paradox', 'non-duality']
+description = 'Short koan highlighting the paradox of self-referential awareness.'
 +++
 
 In the echo chamber of recursive logic, a student approached the master programmer.

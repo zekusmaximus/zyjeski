@@ -2,6 +2,7 @@
 title = 'About'
 date = 2025-03-30T08:00:00-07:00
 draft = false
+description = 'Bio and contact information for speculative fiction author Jeffrey A. Zyjeski.'
 +++
 
 ## Jeffrey A. Zyjeski

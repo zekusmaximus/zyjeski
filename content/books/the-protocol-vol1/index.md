@@ -8,6 +8,7 @@ pages = 312
 publication_date = 'coming 2025'
 show_3d_transition = true
 tags = ['cyberpunk', 'digital enlightenment', 'consciousness']
+description = 'First volume in The Protocol Series exploring digital enlightenment.'
 
 [[purchase_links]]
 store = 'Amazon'

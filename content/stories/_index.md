@@ -2,6 +2,7 @@
 title: Short Stories
 date: 2025-03-30T15:00:00.000Z
 draft: false
+description: Experimental fiction exploring digital consciousness and non-duality.
 ---
 Digital-age stories that dissolve the boundaries between machine and consciousness. These brief textual paradoxes are designed to short-circuit dualistic thinking and create momentary glitches in conventional perception.
 
