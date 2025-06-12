@@ -63,3 +63,8 @@ theme = "AUTHOR"
     name = 'About'
     pageRef = '/about'
     weight = 70
+
+  [[menu.main]]
+    name = 'Agent/Editor Inquiries'
+    pageRef = '/inquiries'
+    weight = 80

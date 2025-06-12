@@ -5,6 +5,7 @@ draft = false
 tags = ['fiction', 'cyberpunk', 'mysticism']
 # Optional: featured image for the story
 image = "/images/uploads/EC_Cover.png"
+description = 'Cyber-mystic tale where digital reality collapses into awareness.'
 +++
 
 

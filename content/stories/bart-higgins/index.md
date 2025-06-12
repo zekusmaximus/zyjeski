@@ -3,6 +3,7 @@ title = "Bart Higgins"
 date = 2025-04-20T10:00:00-07:00
 draft = false
 tags = ['fiction', 'character-study']
+description = 'Slice-of-life story about the laid-back Bart Higgins.'
 +++
 
 Bartholomew Higgins, or Bart as everyone (eventually) called him, came into the world under a sweltering midday sun. His mom, a woman who collected coincidences like some people collect stamps, swore up and down that was the reason he was, well, relaxed. "Born needing a nap," she'd say, shaking her head with a mixture of exasperation and a fondness that, if you looked close enough, you could just barely see. Bart? He took it as a sign from the universe. A permission slip, maybe.

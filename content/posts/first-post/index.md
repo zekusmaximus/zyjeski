@@ -3,6 +3,7 @@ title = 'Meditation as Debugging'
 date = 2025-03-25T09:30:00-07:00
 draft = false
 tags = ['meditation', 'programming', 'consciousness']
+description = 'Exploring how meditation parallels debugging code and mind.'
 +++
 
 ## Meditation as Debugging: Runtime Errors in Consciousness
