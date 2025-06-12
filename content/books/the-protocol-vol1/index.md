@@ -11,12 +11,12 @@ tags = ['cyberpunk', 'digital enlightenment', 'consciousness']
 description = 'First volume in The Protocol Series exploring digital enlightenment.'
 
 [[purchase_links]]
-store = 'Amazon'
-url = 'https://amazon.com'
+store = 'VR Experience'
+url = 'https://www.karmicprotocol.com/'
 
 [[purchase_links]]
-store = 'Barnes & Noble'
-url = 'https://barnesandnoble.com'
+store = 'Agent Inquiries'
+url = '/inquiries/'
 
 +++
 
