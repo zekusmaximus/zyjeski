@@ -1,5 +1,5 @@
 ---
-title: "Introducing LexSecifica"
+title: "Introducing LexSpecifica"
 date: 2025-04-21T10:00:00-07:00
 draft: false
 tags: ['law', 'digital linguistics', 'cyberpunk', 'future governance']
