@@ -1,0 +1,425 @@
+/* PROGRESSIVE ENHANCEMENT CSS
+ * Device capability-based styling
+ */
+
+/* Base styles - always loaded, accessible for all devices */
+:root {
+  --animation-duration: 200ms;
+  --transition-duration: 150ms;
+  --animation-easing: ease-out;
+}
+
+/* Low performance optimization */
+.performance-low {
+  --animation-duration: 100ms;
+  --transition-duration: 50ms;
+  --animation-easing: linear;
+}
+
+.performance-low * {
+  animation-duration: var(--animation-duration) !important;
+  transition-duration: var(--transition-duration) !important;
+  animation-timing-function: var(--animation-easing) !important;
+  transition-timing-function: var(--animation-easing) !important;
+}
+
+.performance-low .mandala-grid {
+  perspective: none;
+  transform: none !important;
+}
+
+.performance-low .prayer-wheel {
+  animation: none !important;
+}
+
+/* Medium performance optimization */
+.performance-medium {
+  --animation-duration: 250ms;
+  --transition-duration: 200ms;
+  --animation-easing: ease;
+}
+
+.performance-medium .complex-animation {
+  display: none;
+}
+
+.performance-medium .particle-effects {
+  display: none;
+}
+
+/* High performance enhancements */
+.performance-high {
+  --animation-duration: 400ms;
+  --transition-duration: 300ms;
+  --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Screen size adaptations */
+.screen-mobile .mandala-grid {
+  perspective: none;
+  transform: none !important;
+}
+
+.screen-mobile .complex-effects {
+  display: none;
+}
+
+.screen-mobile .background-effects {
+  opacity: 0.3;
+}
+
+.screen-tablet .mandala-grid {
+  perspective: 800px;
+}
+
+.screen-desktop .mandala-grid {
+  perspective: 1000px;
+}
+
+.screen-large-desktop .mandala-grid {
+  perspective: 1200px;
+}
+
+/* Touch device optimizations */
+.touch-device .hover-effects {
+  display: none;
+}
+
+.touch-device .mandala-item {
+  min-height: 44px; /* WCAG touch target size */
+}
+
+.touch-device .prayer-wheel {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.touch-device .mandala-grid {
+  transform: none !important;
+}
+
+/* Connection-aware styling */
+.connection-poor .background-effects,
+.connection-poor .particle-effects,
+.connection-poor .complex-animations {
+  display: none !important;
+}
+
+.connection-poor .mandala-item img {
+  content-visibility: auto;
+  contain-intrinsic-size: 200px;
+}
+
+.connection-fair .background-effects {
+  opacity: 0.5;
+}
+
+.connection-fair .particle-effects {
+  animation-iteration-count: 1;
+}
+
+/* Reduced motion support */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduce-motion .mandala-grid {
+  transform: none !important;
+}
+
+.reduce-motion .prayer-wheel {
+  animation: none !important;
+}
+
+.reduce-motion .particle-effects,
+.reduce-motion .background-effects {
+  display: none !important;
+}
+
+/* Low battery mode */
+.low-battery .mandala-grid {
+  transform: none !important;
+  perspective: none;
+}
+
+.low-battery .prayer-wheel {
+  animation: none !important;
+}
+
+.low-battery .background-effects,
+.low-battery .particle-effects,
+.low-battery .complex-animations {
+  display: none !important;
+}
+
+.low-battery * {
+  animation-duration: 0.1s !important;
+  transition-duration: 0.1s !important;
+}
+
+/* Enhancement fallback mode */
+.enhancement-fallback .mandala-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  perspective: none;
+  transform: none !important;
+}
+
+.enhancement-fallback .mandala-item {
+  background: var(--ink-black);
+  border: 1px solid var(--electric-indigo);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.enhancement-fallback .mandala-item:hover,
+.enhancement-fallback .mandala-item:focus {
+  background: rgba(110, 13, 208, 0.1);
+  border-color: var(--holographic-teal);
+}
+
+.enhancement-fallback .prayer-wheel-player {
+  display: none;
+}
+
+.enhancement-fallback .basic-audio-container {
+  display: block;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--ink-black);
+  border: 1px solid var(--electric-indigo);
+  border-radius: 8px;
+}
+
+.enhancement-fallback .fallback-audio-player {
+  width: 100%;
+  background: var(--dark-purple);
+  border-radius: 4px;
+}
+
+/* Basic mandala fallback */
+.basic-mandala-fallback .mandala-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.basic-mandala-fallback .mandala-item:hover,
+.basic-mandala-fallback .mandala-item:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 245, 212, 0.2);
+}
+
+/* Enhanced features - only visible with JS enhancement */
+.mandala-3d-enhanced .mandala-item {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.mandala-item-3d-enhanced {
+  cursor: pointer;
+}
+
+.mandala-item-3d-enhanced:hover {
+  transform: translateZ(20px) scale(1.05);
+}
+
+.mandala-item-revealed {
+  animation: revealItem 0.6s ease forwards;
+}
+
+@keyframes revealItem {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotateX(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+/* Prayer wheel enhancements */
+.wheel-enhanced {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.wheel-visual-effects {
+  filter: drop-shadow(0 0 10px var(--holographic-teal));
+}
+
+.wheel-touched {
+  transform: scale(0.95);
+}
+
+.wheel-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.wheel-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--holographic-teal);
+  border-radius: 50%;
+  animation: particleOrbit 3s linear infinite;
+}
+
+@keyframes particleOrbit {
+  0% {
+    transform: rotate(0deg) translateX(40px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg) translateX(40px) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+.wheel-particle:nth-child(2) { animation-delay: 0.375s; }
+.wheel-particle:nth-child(3) { animation-delay: 0.75s; }
+.wheel-particle:nth-child(4) { animation-delay: 1.125s; }
+.wheel-particle:nth-child(5) { animation-delay: 1.5s; }
+.wheel-particle:nth-child(6) { animation-delay: 1.875s; }
+.wheel-particle:nth-child(7) { animation-delay: 2.25s; }
+.wheel-particle:nth-child(8) { animation-delay: 2.625s; }
+
+/* Basic audio player fallback */
+.basic-audio-player {
+  background: var(--dark-purple);
+  border: 1px solid var(--electric-indigo);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.audio-player-label {
+  color: var(--holographic-teal);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.audio-error {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: #ff6b6b;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Performance monitoring and debugging */
+.performance-debug {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--holographic-teal);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  z-index: 9999;
+  display: none;
+}
+
+.performance-debug.show {
+  display: block;
+}
+
+/* Content-visibility optimizations */
+.mandala-item {
+  content-visibility: auto;
+  contain-intrinsic-size: 200px;
+}
+
+.audio-content {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
+}
+
+/* Intersection observer optimizations */
+.lazy-load {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.lazy-load.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* GPU acceleration hints */
+.mandala-grid,
+.prayer-wheel,
+.particle,
+.background-effect {
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/* Print styles - remove all enhancements */
+@media print {
+  .mandala-grid {
+    transform: none !important;
+    perspective: none !important;
+  }
+  
+  .prayer-wheel {
+    animation: none !important;
+  }
+  
+  .particle-effects,
+  .background-effects,
+  .noise-overlay,
+  .gradient-overlay {
+    display: none !important;
+  }
+}
+
+/* Loading indicator styles */
+.loading-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(110, 13, 208, 0.3);
+  border-top: 3px solid var(--electric-indigo);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Touch states */
+.touch-active {
+  transform: scale(0.98) !important;
+  transition: transform 0.1s ease !important;
+}

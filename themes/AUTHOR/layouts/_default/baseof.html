@@ -16,9 +16,13 @@
   
   <!-- Add any favicon/touch icons here -->
   <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
-  
-  {{ partialCached "head/css.html" . }}
+    {{ partialCached "head/css.html" . }}
   {{ partialCached "head/js.html" . }}
+  
+  <!-- Progressive Enhancement CSS -->
+  {{ $progressiveCSS := resources.Get "css/progressive-enhancement.css" }}
+  {{ $progressiveCSS = $progressiveCSS | resources.Minify }}
+  <link rel="stylesheet" href="{{ $progressiveCSS.RelPermalink }}">
 </head>
 <body>  <!-- Skip Links for Accessibility -->
   <div class="skip-links" aria-label="Skip links">
@@ -26,8 +30,10 @@
     <a href="#navigation" class="skip-link">Skip to navigation</a>
   </div>
   
-  <!-- Digital noise background overlay -->
-  <div class="noise-overlay" aria-hidden="true"></div>
+  <!-- Loading indicator for progressive enhancement -->
+  <div class="loading-indicator" aria-hidden="true">
+    <div class="loading-spinner"></div>
+  </div>
   
   <div class="page-container">
     <header id="navigation" role="banner">
@@ -42,99 +48,43 @@
     </footer>
   </div>
   
-  <!-- Custom cursor - hidden on mobile -->
-  <div class="custom-cursor"></div>
+  <!-- Progressive Enhancement JavaScript -->
+  {{ $progressiveJS := resources.Get "js/progressive-enhancement.js" }}
+  {{ $progressiveJS = $progressiveJS | resources.Minify }}
+  <script src="{{ $progressiveJS.RelPermalink }}" async></script>  {{ $mainJS := resources.Get "js/main.js" }}
+  {{ $mainJS = $mainJS | resources.Minify }}
+  <script src="{{ $mainJS.RelPermalink }}" defer></script>
   
-  <!-- Add ambient script to create the digital noise effect -->
+  <!-- Basic functionality fallback script -->
   <script>
-    // Create ambient noise overlay
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check if device is touch/mobile
-      const isTouchDevice = 'ontouchstart' in window || 
-                          navigator.maxTouchPoints > 0 || 
-                          navigator.msMaxTouchPoints > 0;
-      
-      // Initialize custom cursor only on non-touch devices
-      const cursor = document.querySelector('.custom-cursor');
-      if (cursor && !isTouchDevice) {
-        document.addEventListener('mousemove', (e) => {
-          cursor.style.left = e.clientX + 'px';
-          cursor.style.top = e.clientY + 'px';
-        });
-      } else if (cursor) {
-        // Hide cursor on touch devices
-        cursor.style.display = 'none';
-      }
-      
-      // Add class to body when scrolling for effects
-      let scrollTimer;
-      let lastScrollTop = 0;
-      
-      // Optimized scroll handler for better mobile performance
-      window.addEventListener('scroll', function() {
-        // Throttle the scroll event for better performance
-        if (!scrollTimer) {
-          scrollTimer = setTimeout(function() {
-            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Only apply effects if scrolled more than a threshold
-            if (Math.abs(lastScrollTop - currentScrollTop) > 10) {
-              document.body.classList.add('is-scrolling');
-              
-              // Store new scroll position
-              lastScrollTop = currentScrollTop;
-            }
-            
-            // Reset the timer
-            scrollTimer = null;
-          }, 50); // 50ms throttle
-        }
-      }, { passive: true }); // Passive listener for better performance
-      
-      // Remove scrolling class when not scrolling
-      window.addEventListener('scrollend', function() {
-        document.body.classList.remove('is-scrolling');
-      });
-      
-      // Add intersection observer for revealing elements
-      if ('IntersectionObserver' in window) {
-        const revealElements = document.querySelectorAll('.reveal-on-scroll');
-        if (revealElements.length > 0) {
-          const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                
-                // Once revealed, stop observing to save resources
-                revealObserver.unobserve(entry.target);
-              }
-            });
-          }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px 50px 0px' // Trigger slightly before element is in view
-          });
-          
-          revealElements.forEach(element => {
-            revealObserver.observe(element);
-          });
-        }
-      }
-      
-      // Check for reduced motion preference
+    // Immediate fallback for critical functionality
+    (function() {
+      // Basic device detection
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      const isTouch = 'ontouchstart' in window;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) {
-        // Add class to disable animations for users who prefer reduced motion
-        document.body.classList.add('reduced-motion');
-        
-        // Remove resource-heavy effects
-        const animatedElements = document.querySelectorAll('.mandala-grid, .prayer-wheel, [class*="animation"]');
-        animatedElements.forEach(el => {
-          el.style.animation = 'none';
-          el.style.transition = 'none';
-        });
-      }
-    });
-  </script>
+      
+      // Apply immediate classes for CSS targeting
+      document.documentElement.classList.add(
+        isMobile ? 'mobile' : 'desktop',
+        isTouch ? 'touch' : 'no-touch',
+        prefersReducedMotion ? 'reduce-motion' : 'motion-ok'
+      );
+      
+      // Hide loading indicator after timeout
+      setTimeout(() => {
+        const loader = document.querySelector('.loading-indicator');
+        if (loader) loader.style.display = 'none';
+      }, 3000);
+      
+      // Basic error handling
+      window.addEventListener('error', (e) => {
+        console.warn('Script error:', e.message);
+        document.body.classList.add('enhancement-fallback');
+      });
+    })();  </script>
+  
+  <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
     if (window.netlifyIdentity) {

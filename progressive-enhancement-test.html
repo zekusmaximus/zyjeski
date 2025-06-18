@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progressive Enhancement Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background: #000F08;
+            color: #FFFFFF;
+        }
+        
+        .test-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #6E0DD0;
+            border-radius: 8px;
+        }
+        
+        .capability-display {
+            background: rgba(110, 13, 208, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .feature-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+        
+        .feature-enabled {
+            background: #00F5D4;
+            color: #000000;
+        }
+        
+        .feature-disabled {
+            background: #333;
+            color: #999;
+        }
+        
+        .test-mandala {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #6E0DD0, #00F5D4);
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .test-audio-player {
+            background: rgba(0, 15, 8, 0.5);
+            padding: 1rem;
+            border: 1px solid #6E0DD0;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        button {
+            background: #6E0DD0;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #00F5D4;
+            color: #000;
+        }
+        
+        #debug-info {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Progressive Enhancement Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Device Capabilities</h2>
+        <div class="capability-display" id="capabilities">
+            <p>Loading capability detection...</p>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Enabled Features</h2>
+        <div id="features">
+            <p>Loading feature detection...</p>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Mandala Test</h2>
+        <div class="test-mandala mandala-item" id="test-mandala">
+            <span>Test Mandala</span>
+        </div>
+        <p>This element should show enhanced effects based on your device capabilities.</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Audio Player Test</h2>
+        <div class="test-audio-player prayer-wheel-player" data-audio="/audio/test.mp3">
+            <div class="prayer-wheel">
+                <div class="wheel-center">🎵</div>
+            </div>
+            <div class="player-controls">
+                <button class="play-pause-btn">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon" style="display: none;">⏸</span>
+                </button>
+            </div>
+        </div>
+        <p>Audio player should show enhanced animations based on device performance.</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Performance Testing</h2>
+        <button onclick="runPerformanceTest()">Run Performance Test</button>
+        <button onclick="toggleDebugMode()">Toggle Debug Mode</button>
+        <button onclick="forceReassessment()">Force Reassessment</button>
+        <div id="performance-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Debug Information</h2>
+        <div id="debug-info">Debug mode disabled</div>
+    </div>
+
+    <!-- Load Progressive Enhancement System -->
+    <script src="../themes/AUTHOR/assets/js/progressive-enhancement.js"></script>
+    <script src="../themes/AUTHOR/assets/js/main-enhanced.js"></script>
+    
+    <script>
+        let debugMode = false;
+        
+        // Listen for progressive enhancement ready event
+        document.addEventListener('progressive-enhancement-ready', (event) => {
+            const { capabilities, features } = event.detail;
+            
+            // Display capabilities
+            displayCapabilities(capabilities);
+            displayFeatures(features);
+            updateDebugInfo();
+        });
+        
+        function displayCapabilities(capabilities) {
+            const capabilitiesEl = document.getElementById('capabilities');
+            capabilitiesEl.innerHTML = `
+                <strong>Performance Level:</strong> ${capabilities.performance}<br>
+                <strong>Screen Size:</strong> ${capabilities.screenSize}<br>
+                <strong>Connection:</strong> ${capabilities.connection}<br>
+                <strong>Touch Support:</strong> ${capabilities.touchSupport ? 'Yes' : 'No'}<br>
+                <strong>Motion Preference:</strong> ${capabilities.motionPreference}<br>
+                <strong>Battery Level:</strong> ${Math.round(capabilities.batteryLevel * 100)}%<br>
+                <strong>GPU Acceleration:</strong> ${capabilities.gpuAcceleration ? 'Yes' : 'No'}<br>
+                <strong>WebGL Support:</strong> ${capabilities.webGL ? 'Yes' : 'No'}
+            `;
+        }
+        
+        function displayFeatures(features) {
+            const featuresEl = document.getElementById('features');
+            let html = '';
+            
+            Object.entries(features).forEach(([feature, enabled]) => {
+                const className = enabled ? 'feature-enabled' : 'feature-disabled';
+                html += `<span class="feature-indicator ${className}">${feature}: ${enabled ? 'ON' : 'OFF'}</span>`;
+            });
+            
+            featuresEl.innerHTML = html;
+        }
+        
+        function runPerformanceTest() {
+            const resultsEl = document.getElementById('performance-results');
+            resultsEl.innerHTML = '<p>Running performance test...</p>';
+            
+            const startTime = performance.now();
+            
+            // Simulate some work
+            const iterations = 10000;
+            let result = 0;
+            for (let i = 0; i < iterations; i++) {
+                result += Math.sin(i) * Math.cos(i);
+            }
+            
+            const endTime = performance.now();
+            const duration = endTime - startTime;
+            
+            // Assess performance based on test results
+            let assessment = 'high';
+            if (duration > 100) assessment = 'low';
+            else if (duration > 50) assessment = 'medium';
+            
+            resultsEl.innerHTML = `
+                <p><strong>Test Duration:</strong> ${duration.toFixed(2)}ms</p>
+                <p><strong>Performance Assessment:</strong> ${assessment}</p>
+                <p><strong>Result Sum:</strong> ${result.toFixed(2)}</p>
+            `;
+        }
+        
+        function toggleDebugMode() {
+            debugMode = !debugMode;
+            updateDebugInfo();
+        }
+        
+        function forceReassessment() {
+            if (window.ProgressiveEnhancement) {
+                window.ProgressiveEnhancement.reassessFeatures();
+                setTimeout(() => {
+                    const capabilities = window.ProgressiveEnhancement.getCapabilities();
+                    const features = window.ProgressiveEnhancement.getFeatures();
+                    displayCapabilities(capabilities);
+                    displayFeatures(features);
+                    updateDebugInfo();
+                }, 100);
+            }
+        }
+        
+        function updateDebugInfo() {
+            const debugEl = document.getElementById('debug-info');
+            
+            if (!debugMode) {
+                debugEl.textContent = 'Debug mode disabled';
+                return;
+            }
+            
+            if (!window.ProgressiveEnhancement) {
+                debugEl.textContent = 'Progressive Enhancement not loaded';
+                return;
+            }
+            
+            const capabilities = window.ProgressiveEnhancement.getCapabilities();
+            const features = window.ProgressiveEnhancement.getFeatures();
+            
+            debugEl.textContent = `
+Progressive Enhancement Debug Info:
+
+Capabilities:
+${JSON.stringify(capabilities, null, 2)}
+
+Features:
+${JSON.stringify(features, null, 2)}
+
+Browser Info:
+- User Agent: ${navigator.userAgent}
+- Screen Resolution: ${screen.width}x${screen.height}
+- Viewport: ${window.innerWidth}x${window.innerHeight}
+- Memory: ${navigator.deviceMemory || 'unknown'}GB
+- Cores: ${navigator.hardwareConcurrency || 'unknown'}
+- Connection Type: ${navigator.connection?.effectiveType || 'unknown'}
+- Save Data: ${navigator.connection?.saveData || false}
+            `;
+        }
+        
+        // Test mandala effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const testMandala = document.getElementById('test-mandala');
+            
+            testMandala.addEventListener('mouseenter', () => {
+                if (window.ProgressiveEnhancement?.isFeatureEnabled('mandala3D')) {
+                    testMandala.style.transform = 'rotateY(15deg) rotateX(15deg) scale(1.1)';
+                } else {
+                    testMandala.style.transform = 'scale(1.05)';
+                }
+            });
+            
+            testMandala.addEventListener('mouseleave', () => {
+                testMandala.style.transform = '';
+            });
+        });
+        
+        // Fallback if progressive enhancement fails
+        setTimeout(() => {
+            if (!window.ProgressiveEnhancement) {
+                document.getElementById('capabilities').innerHTML = 
+                    '<p style="color: #ff6b6b;">Progressive Enhancement failed to load. Using fallback mode.</p>';
+                document.getElementById('features').innerHTML = 
+                    '<span class="feature-indicator feature-disabled">All features: DISABLED (fallback mode)</span>';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
