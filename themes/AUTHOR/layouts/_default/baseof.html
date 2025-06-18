@@ -20,12 +20,11 @@
   {{ partialCached "head/css.html" . }}
   {{ partialCached "head/js.html" . }}
 </head>
-<body>
-  <!-- Skip Links for Accessibility -->
-  <nav aria-label="Skip links">
+<body>  <!-- Skip Links for Accessibility -->
+  <div class="skip-links" aria-label="Skip links">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <a href="#navigation" class="skip-link">Skip to navigation</a>
-  </nav>
+  </div>
   
   <!-- Digital noise background overlay -->
   <div class="noise-overlay" aria-hidden="true"></div>
