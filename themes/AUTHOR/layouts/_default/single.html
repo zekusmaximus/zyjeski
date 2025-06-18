@@ -1,13 +1,69 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <!-- Reading Progress Indicator -->
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress-bar"></div>
+  </div>
 
-  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-  {{ $dateHuman := .Date | time.Format ":date_long" }}
-  <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+  <article class="post-single content-container" data-content-type="post">
+    <!-- Mobile Reading Controls -->
+    <div class="mobile-reading-controls" role="toolbar" aria-label="Reading options">
+      <button class="reading-mode-toggle" aria-pressed="false" aria-label="Toggle reading mode">
+        <span class="icon-eye" aria-hidden="true">👁</span>
+        <span class="control-text">Reading Mode</span>
+      </button>
+      <button class="font-size-toggle" aria-label="Adjust font size">
+        <span class="icon-text" aria-hidden="true">Aa</span>
+        <span class="control-text">Font Size</span>
+      </button>
+    </div>
 
-  {{ .Content }}
-  
-  {{ partial "social-share.html" . }}
-  
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    <header class="post-header content-header">
+      <h1 class="post-title content-title">{{ .Title }}</h1>
+
+      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := .Date | time.Format ":date_long" }}
+      <time datetime="{{ $dateMachine }}" class="post-date content-date">{{ $dateHuman }}</time>
+      
+      {{ with .Params.image }}
+        <div class="content-image-container">
+          <img class="post-image content-image" 
+               src="{{ . | relURL }}" 
+               alt="{{ $.Title }}"
+               loading="lazy"
+               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw">
+        </div>
+      {{ end }}
+    </header>
+
+    <div class="post-content main-content" role="main">
+      {{ .Content }}
+    </div>
+
+    <!-- Content Navigation -->
+    <nav class="content-navigation" role="navigation" aria-label="Content navigation">
+      {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink }}" class="nav-prev touch-target" rel="prev">
+          <span class="nav-arrow" aria-hidden="true">←</span>
+          <span class="nav-text">
+            <span class="nav-label">Previous</span>
+            <span class="nav-title">{{ .Title }}</span>
+          </span>
+        </a>
+      {{ end }}
+      
+      {{ with .NextInSection }}
+        <a href="{{ .RelPermalink }}" class="nav-next touch-target" rel="next">
+          <span class="nav-text">
+            <span class="nav-label">Next</span>
+            <span class="nav-title">{{ .Title }}</span>
+          </span>
+          <span class="nav-arrow" aria-hidden="true">→</span>
+        </a>
+      {{ end }}
+    </nav>
+    
+    {{ partial "social-share.html" . }}
+    
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  </article>
 {{ end }}

@@ -53,7 +53,14 @@
   <!-- Progressive Enhancement JavaScript -->
   {{ $progressiveJS := resources.Get "js/progressive-enhancement.js" }}
   {{ $progressiveJS = $progressiveJS | resources.Minify }}
-  <script src="{{ $progressiveJS.RelPermalink }}" async></script>  {{ $mainJS := resources.Get "js/main.js" }}
+  <script src="{{ $progressiveJS.RelPermalink }}" async></script>
+
+  <!-- Mobile Reading Enhancement JavaScript -->
+  {{ $mobileReadingJS := resources.Get "js/mobile-reading.js" }}
+  {{ $mobileReadingJS = $mobileReadingJS | resources.Minify }}
+  <script src="{{ $mobileReadingJS.RelPermalink }}" defer></script>
+
+  {{ $mainJS := resources.Get "js/main.js" }}
   {{ $mainJS = $mainJS | resources.Minify }}
   <script src="{{ $mainJS.RelPermalink }}" defer></script>
   

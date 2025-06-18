@@ -1,11 +1,28 @@
 {{ define "main" }}
-  <article class="audio-single">
-    <div class="audio-header">
-      <h1 class="audio-title">{{ .Title }}</h1>
+  <!-- Reading Progress Indicator -->
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress-bar"></div>
+  </div>
+
+  <article class="audio-single content-container" data-content-type="audio">
+    <!-- Mobile Reading Controls -->
+    <div class="mobile-reading-controls" role="toolbar" aria-label="Reading options">
+      <button class="reading-mode-toggle" aria-pressed="false" aria-label="Toggle reading mode">
+        <span class="icon-eye" aria-hidden="true">👁</span>
+        <span class="control-text">Reading Mode</span>
+      </button>
+      <button class="font-size-toggle" aria-label="Adjust font size">
+        <span class="icon-text" aria-hidden="true">Aa</span>
+        <span class="control-text">Font Size</span>
+      </button>
+    </div>
+
+    <div class="audio-header content-header">
+      <h1 class="audio-title content-title">{{ .Title }}</h1>
       
       {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
       {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <time datetime="{{ $dateMachine }}" class="audio-date">{{ $dateHuman }}</time>
+      <time datetime="{{ $dateMachine }}" class="audio-date content-date">{{ $dateHuman }}</time>
     </div>
       <!-- Prayer Wheel Audio Player - Mobile optimized and accessible -->
     <div class="prayer-wheel-container" 
@@ -84,23 +101,48 @@
                      value="1"
                      aria-label="Audio volume">
             </div>
-          </div>
-        </div>
+          </div>        </div>
       {{ end }}
     </div>
     
-    <div class="audio-content">
+    <div class="audio-content main-content" role="main">
       {{ .Content }}
     </div>
     
     {{ if .Params.transcript }}
-      <div class="audio-transcript">
-        <h2 class="transcript-title">Transcript</h2>
-        <div class="transcript-content">          {{ .Params.transcript | markdownify }}
+      <div class="audio-transcript expandable-content">
+        <button class="transcript-toggle" aria-expanded="false" aria-controls="transcript-content">
+          <h2 class="transcript-title">Transcript</h2>
+          <span class="expand-icon" aria-hidden="true">▼</span>
+        </button>
+        <div class="transcript-content" id="transcript-content" aria-hidden="true">
+          {{ .Params.transcript | markdownify }}
         </div>
       </div>
     {{ end }}
-    
+
+    <!-- Content Navigation -->
+    <nav class="content-navigation" role="navigation" aria-label="Content navigation">
+      {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink }}" class="nav-prev touch-target" rel="prev">
+          <span class="nav-arrow" aria-hidden="true">←</span>
+          <span class="nav-text">
+            <span class="nav-label">Previous</span>
+            <span class="nav-title">{{ .Title }}</span>
+          </span>
+        </a>
+      {{ end }}
+      
+      {{ with .NextInSection }}
+        <a href="{{ .RelPermalink }}" class="nav-next touch-target" rel="next">
+          <span class="nav-text">
+            <span class="nav-label">Next</span>
+            <span class="nav-title">{{ .Title }}</span>
+          </span>
+          <span class="nav-arrow" aria-hidden="true">→</span>
+        </a>
+      {{ end }}
+    </nav>
     {{ partial "social-share.html" . }}
     
     {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}

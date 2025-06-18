@@ -1,0 +1,607 @@
+/* =============================================================================
+   MOBILE-OPTIMIZED READING EXPERIENCE
+   Cyberpunk-mystical themed reading enhancements for all content types
+   ============================================================================= */
+
+/* =============================================================================
+   RESPONSIVE TYPOGRAPHY WITH CSS CLAMP
+   ============================================================================= */
+
+:root {
+  /* Mobile-optimized typography scaling */
+  --reading-font-size-xs: clamp(0.75rem, 0.75rem + 0.5vw, 0.875rem);
+  --reading-font-size-sm: clamp(0.875rem, 0.875rem + 0.5vw, 1rem);
+  --reading-font-size-base: clamp(1rem, 1rem + 0.75vw, 1.25rem);
+  --reading-font-size-lg: clamp(1.125rem, 1.125rem + 1vw, 1.5rem);
+  --reading-font-size-xl: clamp(1.25rem, 1.25rem + 1.5vw, 2rem);
+  --reading-font-size-2xl: clamp(1.5rem, 1.5rem + 2vw, 2.75rem);
+  --reading-font-size-3xl: clamp(1.875rem, 1.875rem + 2.5vw, 3.5rem);
+  
+  /* Reading mode variables */
+  --reading-line-height: clamp(1.4, 1.4 + 0.2vw, 1.8);
+  --reading-paragraph-spacing: clamp(1rem, 1rem + 0.5vw, 1.75rem);
+  --reading-max-width: clamp(45ch, 45ch + 10vw, 75ch);
+  
+  /* Mobile touch targets */
+  --touch-target-size: clamp(44px, 44px + 0.5vw, 52px);
+  --touch-spacing: clamp(8px, 8px + 0.25vw, 12px);
+  
+  /* Reading mode colors */
+  --reading-bg: rgba(0, 8, 4, 0.95);
+  --reading-text: rgba(255, 255, 255, 0.92);
+  --reading-accent: var(--holographic-teal);
+  
+  /* Mobile content spacing */
+  --content-padding: clamp(1rem, 1rem + 2vw, 3rem);
+  --section-spacing: clamp(2rem, 2rem + 2vw, 4rem);
+}
+
+/* =============================================================================
+   READING PROGRESS INDICATOR
+   ============================================================================= */
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(0, 15, 8, 0.8);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background: var(--cyber-gradient);
+  width: 0%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(110, 13, 208, 0.5);
+}
+
+/* =============================================================================
+   MOBILE READING CONTROLS
+   ============================================================================= */
+
+.mobile-reading-controls {
+  position: sticky;
+  top: 60px; /* Account for header */
+  z-index: 100;
+  display: flex;
+  gap: var(--touch-spacing);
+  padding: var(--touch-spacing);
+  background: rgba(0, 15, 8, 0.9);
+  border-radius: 12px;
+  margin: 1rem 0;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 245, 212, 0.2);
+  justify-content: center;
+}
+
+.reading-mode-toggle,
+.font-size-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(110, 13, 208, 0.1);
+  border: 1px solid rgba(110, 13, 208, 0.3);
+  border-radius: 8px;
+  color: var(--holographic-teal);
+  font-size: var(--reading-font-size-sm);
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: var(--touch-target-size);
+  min-width: var(--touch-target-size);
+}
+
+.reading-mode-toggle:hover,
+.reading-mode-toggle:focus,
+.font-size-toggle:hover,
+.font-size-toggle:focus {
+  background: rgba(110, 13, 208, 0.2);
+  border-color: var(--holographic-teal);
+  color: var(--saffron);
+  outline: 2px solid var(--holographic-teal);
+  outline-offset: 2px;
+}
+
+.reading-mode-toggle[aria-pressed="true"] {
+  background: rgba(0, 245, 212, 0.2);
+  border-color: var(--holographic-teal);
+  color: var(--holographic-teal);
+}
+
+.control-text {
+  display: none;
+}
+
+/* Show text labels on larger mobile screens */
+@media (min-width: 480px) {
+  .control-text {
+    display: block;
+  }
+}
+
+/* =============================================================================
+   CONTENT CONTAINERS
+   ============================================================================= */
+
+.content-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: var(--content-padding);
+  position: relative;
+}
+
+.content-header {
+  text-align: center;
+  margin-bottom: var(--section-spacing);
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 245, 212, 0.2);
+}
+
+.content-title {
+  font-size: var(--reading-font-size-3xl);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  font-family: 'Orbitron', sans-serif;
+  background: var(--cyber-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 20px rgba(110, 13, 208, 0.3);
+}
+
+.content-date {
+  font-size: var(--reading-font-size-sm);
+  color: var(--saffron);
+  opacity: 0.8;
+  font-family: 'Inter', sans-serif;
+}
+
+/* =============================================================================
+   MAIN CONTENT TYPOGRAPHY
+   ============================================================================= */
+
+.main-content {
+  font-family: 'Inter', sans-serif;
+  font-size: var(--reading-font-size-base);
+  line-height: var(--reading-line-height);
+  color: var(--flickering-white);
+  max-width: var(--reading-max-width);
+  margin: 0 auto;
+}
+
+.main-content p {
+  margin-bottom: var(--reading-paragraph-spacing);
+  font-size: var(--reading-font-size-base);
+  line-height: var(--reading-line-height);
+}
+
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  font-family: 'Orbitron', sans-serif;
+  margin-top: var(--section-spacing);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.main-content h1 { font-size: var(--reading-font-size-2xl); }
+.main-content h2 { font-size: var(--reading-font-size-xl); }
+.main-content h3 { font-size: var(--reading-font-size-lg); }
+.main-content h4,
+.main-content h5,
+.main-content h6 { font-size: var(--reading-font-size-base); }
+
+.main-content blockquote {
+  margin: var(--section-spacing) 0;
+  padding: 1.5rem;
+  background: rgba(110, 13, 208, 0.05);
+  border-left: 4px solid var(--saffron);
+  border-radius: 8px;
+  font-style: italic;
+  font-size: var(--reading-font-size-lg);
+  line-height: var(--reading-line-height);
+}
+
+.main-content pre,
+.main-content code {
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 245, 212, 0.2);
+  border-radius: 6px;
+}
+
+.main-content pre {
+  padding: 1rem;
+  overflow-x: auto;
+  margin: var(--reading-paragraph-spacing) 0;
+}
+
+.main-content code {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9em;
+}
+
+/* =============================================================================
+   CONTENT IMAGES
+   ============================================================================= */
+
+.content-image-container {
+  margin: var(--section-spacing) 0;
+  text-align: center;
+}
+
+.content-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 245, 212, 0.2);
+  box-shadow: 0 8px 32px rgba(110, 13, 208, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 48px rgba(110, 13, 208, 0.3);
+}
+
+/* =============================================================================
+   TOUCH-FRIENDLY NAVIGATION
+   ============================================================================= */
+
+.content-navigation {
+  display: flex;
+  gap: 1rem;
+  margin: var(--section-spacing) 0;
+  flex-wrap: wrap;
+}
+
+.nav-prev,
+.nav-next {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(110, 13, 208, 0.1);
+  border: 1px solid rgba(110, 13, 208, 0.3);
+  border-radius: 12px;
+  color: var(--holographic-teal);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  min-height: var(--touch-target-size);
+}
+
+.nav-prev:hover,
+.nav-prev:focus,
+.nav-next:hover,
+.nav-next:focus {
+  background: rgba(110, 13, 208, 0.2);
+  border-color: var(--holographic-teal);
+  color: var(--saffron);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(110, 13, 208, 0.3);
+}
+
+.nav-arrow {
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+}
+
+.nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-label {
+  font-size: var(--reading-font-size-xs);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav-title {
+  font-size: var(--reading-font-size-sm);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Single navigation item spans full width */
+.content-navigation:has(.nav-prev):not(:has(.nav-next)) .nav-prev,
+.content-navigation:has(.nav-next):not(:has(.nav-prev)) .nav-next {
+  min-width: 100%;
+}
+
+/* =============================================================================
+   EXPANDABLE CONTENT SECTIONS
+   ============================================================================= */
+
+.expandable-content {
+  margin: var(--section-spacing) 0;
+  border: 1px solid rgba(0, 245, 212, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 15, 8, 0.3);
+}
+
+.transcript-toggle,
+.section-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--holographic-teal);
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--reading-font-size-lg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: var(--touch-target-size);
+}
+
+.transcript-toggle:hover,
+.transcript-toggle:focus,
+.section-toggle:hover,
+.section-toggle:focus {
+  background: rgba(110, 13, 208, 0.1);
+  color: var(--saffron);
+}
+
+.expand-icon {
+  transition: transform 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.transcript-toggle[aria-expanded="true"] .expand-icon,
+.section-toggle[aria-expanded="true"] .expand-icon {
+  transform: rotate(180deg);
+}
+
+.transcript-content,
+.reviews-content,
+.excerpt-content {
+  padding: 0 1rem 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.transcript-content.expanded,
+.reviews-content.expanded,
+.excerpt-content.expanded {
+  max-height: 2000px;
+  opacity: 1;
+}
+
+/* =============================================================================
+   READING MODE ENHANCEMENTS
+   ============================================================================= */
+
+.reading-mode {
+  background: var(--reading-bg) !important;
+  color: var(--reading-text) !important;
+}
+
+.reading-mode .main-content {
+  background: rgba(0, 8, 4, 0.9);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 245, 212, 0.1);
+  backdrop-filter: blur(20px);
+  margin: 2rem auto;
+  max-width: 65ch;
+}
+
+.reading-mode .main-content p {
+  font-size: var(--reading-font-size-lg);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.reading-mode .content-title {
+  background: linear-gradient(135deg, var(--holographic-teal), var(--saffron));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* =============================================================================
+   FONT SIZE ADJUSTMENTS
+   ============================================================================= */
+
+.font-size-small {
+  --reading-font-size-base: clamp(0.875rem, 0.875rem + 0.5vw, 1.125rem);
+  --reading-font-size-lg: clamp(1rem, 1rem + 0.75vw, 1.375rem);
+}
+
+.font-size-large {
+  --reading-font-size-base: clamp(1.125rem, 1.125rem + 1vw, 1.5rem);
+  --reading-font-size-lg: clamp(1.25rem, 1.25rem + 1.25vw, 1.75rem);
+}
+
+/* =============================================================================
+   CONTENT TYPE SPECIFIC STYLES
+   ============================================================================= */
+
+/* Koan-specific styles */
+.content-container[data-content-type="koan"] .main-content {
+  text-align: center;
+  font-size: var(--reading-font-size-lg);
+  font-style: italic;
+  max-width: 60ch;
+}
+
+.content-container[data-content-type="koan"] .main-content p {
+  font-size: var(--reading-font-size-xl);
+  line-height: 1.6;
+  margin-bottom: var(--section-spacing);
+}
+
+/* Audio content styles */
+.content-container[data-content-type="audio"] .prayer-wheel-container {
+  margin: var(--section-spacing) 0;
+  text-align: center;
+}
+
+/* Book content styles */
+.content-container[data-content-type="book"] .book-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-spacing);
+}
+
+.content-container[data-content-type="book"] .book-cover {
+  text-align: center;
+}
+
+.book-purchase .purchase-button {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(110, 13, 208, 0.2);
+  border: 1px solid var(--holographic-teal);
+  border-radius: 8px;
+  color: var(--holographic-teal);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  min-height: var(--touch-target-size);
+  min-width: var(--touch-target-size);
+}
+
+.book-purchase .purchase-button:hover,
+.book-purchase .purchase-button:focus {
+  background: rgba(0, 245, 212, 0.2);
+  color: var(--saffron);
+  transform: translateY(-2px);
+}
+
+/* =============================================================================
+   TABLET RESPONSIVE ADJUSTMENTS
+   ============================================================================= */
+
+@media (min-width: 768px) {
+  .content-container {
+    padding: var(--content-padding) 2rem;
+  }
+  
+  .mobile-reading-controls {
+    justify-content: flex-end;
+    margin: 1rem 0 2rem auto;
+    max-width: 300px;
+  }
+  
+  .content-navigation {
+    flex-wrap: nowrap;
+  }
+  
+  .nav-prev,
+  .nav-next {
+    min-width: auto;
+  }
+  
+  .content-container[data-content-type="book"] .book-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .content-container[data-content-type="book"] .book-cover {
+    flex-shrink: 0;
+    width: 300px;
+    margin-right: 2rem;
+  }
+}
+
+/* =============================================================================
+   DESKTOP RESPONSIVE ADJUSTMENTS
+   ============================================================================= */
+
+@media (min-width: 1024px) {
+  .content-container {
+    max-width: 1200px;
+  }
+  
+  .main-content {
+    font-size: var(--reading-font-size-lg);
+  }
+  
+  .reading-mode .main-content {
+    max-width: 75ch;
+    padding: 3rem;
+  }
+}
+
+/* =============================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ============================================================================= */
+
+@media (prefers-contrast: high) {
+  .main-content {
+    color: #ffffff;
+  }
+  
+  .content-title {
+    color: #ffffff !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+  }
+  
+  .nav-prev,
+  .nav-next {
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+  
+  .reading-mode-toggle,
+  .font-size-toggle {
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+}
+
+/* =============================================================================
+   TOUCH TARGET ACCESSIBILITY
+   ============================================================================= */
+
+.touch-target {
+  min-height: var(--touch-target-size);
+  min-width: var(--touch-target-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+}
+
+/* =============================================================================
+   PRINT STYLES
+   ============================================================================= */
+
+@media print {
+  .reading-progress,
+  .mobile-reading-controls,
+  .content-navigation {
+    display: none !important;
+  }
+  
+  .main-content {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+  
+  .content-title {
+    color: #000 !important;
+    background: none !important;
+  }
+}

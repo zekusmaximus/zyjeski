@@ -1,17 +1,40 @@
 {{ define "main" }}
-  <article class="book-single">
-    <div class="book-header">
-      <h1 class="book-title">{{ .Title }}</h1>
+  <!-- Reading Progress Indicator -->
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress-bar"></div>
+  </div>
+
+  <article class="book-single content-container" data-content-type="book">
+    <!-- Mobile Reading Controls -->
+    <div class="mobile-reading-controls" role="toolbar" aria-label="Reading options">
+      <button class="reading-mode-toggle" aria-pressed="false" aria-label="Toggle reading mode">
+        <span class="icon-eye" aria-hidden="true">👁</span>
+        <span class="control-text">Reading Mode</span>
+      </button>
+      <button class="font-size-toggle" aria-label="Adjust font size">
+        <span class="icon-text" aria-hidden="true">Aa</span>
+        <span class="control-text">Font Size</span>
+      </button>
+    </div>
+
+    <div class="book-header content-header">
+      <h1 class="book-title content-title">{{ .Title }}</h1>
       
       {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
       {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <time datetime="{{ $dateMachine }}" class="book-date">{{ $dateHuman }}</time>
+      <time datetime="{{ $dateMachine }}" class="book-date content-date">{{ $dateHuman }}</time>
     </div>
     
     <div class="book-container">
       <div class="book-cover">
         {{ with .Params.cover_image }}
-          <img src="{{ . }}" alt="Cover for {{ $.Title }}" class="book-cover-img">
+          <div class="content-image-container">
+            <img src="{{ . }}" 
+                 alt="Cover for {{ $.Title }}" 
+                 class="book-cover-img content-image"
+                 loading="lazy"
+                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 30vw, 25vw">
+          </div>
         {{ else }}
           <div class="book-cover-placeholder">
             <div class="book-cover-title">{{ $.Title }}</div>
@@ -35,7 +58,7 @@
         {{ with .Params.purchase_links }}
           <div class="book-purchase">
             {{ range . }}
-              <a href="{{ .url }}" class="purchase-button" target="_blank" rel="noopener noreferrer">
+              <a href="{{ .url }}" class="purchase-button touch-target" target="_blank" rel="noopener noreferrer">
                 {{ .store }}
               </a>
             {{ end }}
@@ -43,7 +66,7 @@
         {{ end }}
       </div>
       
-      <div class="book-content">
+      <div class="book-content main-content" role="main">
         <div class="book-synopsis">
           <h2 class="book-section-title">Synopsis</h2>
           
@@ -67,26 +90,58 @@
         
         <!-- Additional book sections -->
         {{ with .Params.reviews }}
-          <div class="book-reviews">
-            <h2 class="book-section-title">Reviews</h2>
-            {{ range . }}
-              <div class="book-review">
-                <div class="review-text">"{{ .text }}"</div>
-                <div class="review-author">— {{ .author }}</div>
-              </div>
-            {{ end }}
+          <div class="book-reviews expandable-content">
+            <button class="section-toggle" aria-expanded="false" aria-controls="reviews-content">
+              <h2 class="book-section-title">Reviews</h2>
+              <span class="expand-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="reviews-content" id="reviews-content" aria-hidden="true">
+              {{ range . }}
+                <div class="book-review">
+                  <div class="review-text">"{{ .text }}"</div>
+                  <div class="review-author">— {{ .author }}</div>
+                </div>
+              {{ end }}
+            </div>
           </div>
         {{ end }}
         
         {{ with .Params.excerpt }}
-          <div class="book-excerpt">
-            <h2 class="book-section-title">Excerpt</h2>
-            <div class="excerpt-content">
+          <div class="book-excerpt expandable-content">
+            <button class="section-toggle" aria-expanded="false" aria-controls="excerpt-content">
+              <h2 class="book-section-title">Excerpt</h2>
+              <span class="expand-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="excerpt-content" id="excerpt-content" aria-hidden="true">
               {{ . | markdownify }}
             </div>
           </div>
-        {{ end }}      </div>
+        {{ end }}
+      </div>
     </div>
+
+    <!-- Content Navigation -->
+    <nav class="content-navigation" role="navigation" aria-label="Content navigation">
+      {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink }}" class="nav-prev touch-target" rel="prev">
+          <span class="nav-arrow" aria-hidden="true">←</span>
+          <span class="nav-text">
+            <span class="nav-label">Previous</span>
+            <span class="nav-title">{{ .Title }}</span>
+          </span>
+        </a>
+      {{ end }}
+      
+      {{ with .NextInSection }}
+        <a href="{{ .RelPermalink }}" class="nav-next touch-target" rel="next">
+          <span class="nav-text">
+            <span class="nav-label">Next</span>
+            <span class="nav-title">{{ .Title }}</span>
+          </span>
+          <span class="nav-arrow" aria-hidden="true">→</span>
+        </a>
+      {{ end }}
+    </nav>
     
     {{ partial "social-share.html" . }}
     
