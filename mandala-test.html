@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandala Test</title>
+    <style>
+        body {
+            background: #000F08;
+            color: #E0E0E0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .mandala-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-rows: repeat(3, minmax(200px, auto)) !important;
+            gap: 1.5rem !important;
+            max-width: 1200px !important;
+            margin: 3rem auto !important;
+            padding: 0 2rem !important;
+            border: 2px solid #00F5D4;
+        }
+        
+        .mandala-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(0, 15, 8, 0.9);
+            border: 1px solid rgba(110, 13, 208, 0.3);
+            min-height: 200px;
+            min-width: 0;
+            width: 100%;
+            border: 2px solid #FF9933;
+        }
+        
+        .mandala-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 15, 8, 0.8), rgba(0, 15, 8, 0.95));
+            padding: 1.5rem 1rem 1rem;
+            color: #FFFFFF;
+        }
+        
+        .mandala-item-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00F5D4;
+            margin: 0 0 0.25rem 0;
+            text-transform: uppercase;
+        }
+        
+        .mandala-item-subtitle {
+            font-size: 0.9rem;
+            color: #E0E0E0;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .mandala-center-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #6E0DD0;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mandala Grid Test</h1>
+    <div class="mandala-grid">
+        <!-- Item 1 -->
+        <div class="mandala-item" style="grid-column: 1; grid-row: 1;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">Books</h3>
+                <div class="mandala-item-subtitle">The Protocol</div>
+            </div>
+        </div>
+        
+        <!-- Item 2 -->
+        <div class="mandala-item" style="grid-column: 2; grid-row: 1;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">Stories</h3>
+                <div class="mandala-item-subtitle">Koans</div>
+            </div>
+        </div>
+        
+        <!-- Item 3 -->
+        <div class="mandala-item" style="grid-column: 3; grid-row: 1;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">Audio</h3>
+                <div class="mandala-item-subtitle">Simulations</div>
+            </div>
+        </div>
+        
+        <!-- Center -->
+        <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;">
+            <div>CENTER</div>
+        </div>
+        
+        <!-- Item 4 -->
+        <div class="mandala-item" style="grid-column: 1; grid-row: 2;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">About</h3>
+                <div class="mandala-item-subtitle">Jeffrey</div>
+            </div>
+        </div>
+        
+        <!-- Item 5 -->
+        <div class="mandala-item" style="grid-column: 3; grid-row: 2;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">Featured</h3>
+                <div class="mandala-item-subtitle">Book</div>
+            </div>
+        </div>
+        
+        <!-- Item 6 -->
+        <div class="mandala-item" style="grid-column: 1; grid-row: 3;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">Blog</h3>
+                <div class="mandala-item-subtitle">Dharma Log</div>
+            </div>
+        </div>
+        
+        <!-- Item 7 -->
+        <div class="mandala-item" style="grid-column: 2; grid-row: 3;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">Newsletter</h3>
+                <div class="mandala-item-subtitle">Future Law</div>
+            </div>
+        </div>
+        
+        <!-- Item 8 -->
+        <div class="mandala-item" style="grid-column: 3; grid-row: 3;">
+            <div class="mandala-overlay">
+                <h3 class="mandala-item-title">Inquiries</h3>
+                <div class="mandala-item-subtitle">Contact</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

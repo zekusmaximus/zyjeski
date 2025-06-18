@@ -1098,13 +1098,13 @@ tr:hover {
 
 /* Mandala Grid Accessibility */
 .mandala-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, minmax(200px, auto));
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 3rem auto;
-  padding: 0 2rem;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-rows: repeat(3, minmax(200px, auto)) !important;
+  gap: 1.5rem !important;
+  max-width: 1200px !important;
+  margin: 3rem auto !important;
+  padding: 0 2rem !important;
   position: relative;
 }
 
@@ -1116,10 +1116,16 @@ tr:hover {
   border: 1px solid rgba(110, 13, 208, 0.3);
   transition: all 0.3s ease;
   min-height: 200px;
+  min-width: 0; /* Prevent flex shrinking */
+  width: 100%; /* Ensure full grid cell width */
   cursor: pointer;
   
   /* Accessibility improvements */
   -webkit-tap-highlight-color: transparent;
+  
+  /* Debug mandala items - remove after testing */
+  /* Temporary debug border */
+  box-shadow: 0 0 0 2px rgba(255, 153, 51, 0.5) !important;
 }
 
 .mandala-item:focus {
@@ -1179,25 +1185,40 @@ tr:hover {
 /* Responsive accessibility improvements */
 @media (max-width: 768px) {
   .mandala-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 0 1rem;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
   }
   
   .mandala-item {
     min-height: 180px; /* Maintain touch target size */
+    width: 100% !important; /* Ensure full width */
   }
   
   .mandala-center-wrapper {
-    grid-column: 1 / span 2;
-    grid-row: 1;
+    grid-column: 1 / span 2 !important;
+    grid-row: 1 !important;
     order: -1;
   }
 }
 
 @media (max-width: 480px) {
   .mandala-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 0.5rem !important;
+  }
+  
+  .mandala-item {
+    min-height: 160px;
+    width: 100% !important;
+  }
+  
+  .mandala-center-wrapper {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+}
   }
   
   .mandala-center-wrapper {
@@ -1541,4 +1562,192 @@ tr:hover {
   .copy-notification {
     background: linear-gradient(135deg, rgba(0, 245, 212, 0.9), rgba(110, 13, 208, 0.9));
   }
+}
+
+/* Mandala overlay styles for text content */
+.mandala-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    transparent,
+    rgba(0, 15, 8, 0.8),
+    rgba(0, 15, 8, 0.95)
+  );
+  padding: 1.5rem 1rem 1rem;
+  color: var(--flickering-white);
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.mandala-item:hover .mandala-overlay,
+.mandala-item:focus-within .mandala-overlay {
+  background: linear-gradient(
+    transparent,
+    rgba(0, 245, 212, 0.2),
+    rgba(0, 245, 212, 0.3),
+    rgba(0, 15, 8, 0.95)
+  );
+}
+
+.mandala-item-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--holographic-teal);
+  margin: 0 0 0.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px rgba(0, 245, 212, 0.5);
+}
+
+.mandala-item-subtitle {
+  font-size: 0.9rem;
+  color: var(--light-gray);
+  margin: 0;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Mandala photo styling */
+.mandala-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.mandala-item:hover .mandala-photo,
+.mandala-item:focus-within .mandala-photo {
+  transform: scale(1.05);
+}
+
+/* Photo item specific styles */
+.photo-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(110, 13, 208, 0.1);
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+.photo-item:hover::before,
+.photo-item:focus-within::before {
+  background: rgba(0, 245, 212, 0.15);
+}
+
+/* Mandala center styles */
+.mandala-center {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at center,
+    rgba(110, 13, 208, 0.3),
+    rgba(0, 245, 212, 0.1),
+    rgba(0, 15, 8, 0.9)
+  );
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mandala-center:hover,
+.mandala-center:focus {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+}
+
+.mandala-center-content {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.mandala-center-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.mandala-center:hover .mandala-center-img,
+.mandala-center:focus .mandala-center-img {  opacity: 1;
+}
+
+/* Ensure proper grid layout is maintained */
+.mandala-center-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+/* Responsive adjustments for mandala content */
+@media (max-width: 768px) {
+  .mandala-item-title {
+    font-size: 1rem;
+  }
+  
+  .mandala-item-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .mandala-overlay {
+    padding: 1rem 0.75rem 0.75rem;
+  }
+  
+  .mandala-center {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mandala-item-title {
+    font-size: 0.9rem;
+  }
+  
+  .mandala-item-subtitle {
+    font-size: 0.75rem;
+  }
+  
+  .mandala-overlay {
+    padding: 0.75rem 0.5rem 0.5rem;
+  }
+}
+
+/* Debug mandala items - remove after testing */
+.mandala-item {
+  /* ...existing code... */
+  /* Temporary debug border */
+  box-shadow: 0 0 0 2px rgba(255, 153, 51, 0.5) !important;
+}
+
+.mandala-overlay {
+  /* Ensure overlay is always visible during debugging */
+  background: linear-gradient(
+    transparent,
+    rgba(0, 15, 8, 0.8),
+    rgba(0, 15, 8, 0.95)
+  ) !important;
+  /* Temporary debug border */
+  box-shadow: inset 0 0 0 1px rgba(0, 245, 212, 0.5) !important;
 }
