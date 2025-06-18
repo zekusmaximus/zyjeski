@@ -1,0 +1,22 @@
+<!-- Critical CSS Partial - Simple approach without Hugo template syntax -->
+<!-- This file should be used during build process to inline critical CSS -->
+
+<!-- For development: Load critical CSS as external file -->
+<link rel="stylesheet" href="{{ "css/critical.css" | relURL }}" media="all">
+
+<!-- For production: Replace the above link with inlined CSS using build script -->
+<!-- The build-optimized.ps1 script will handle the CSS inlining automatically -->
+
+<!-- Remove critical CSS after main stylesheet loads to prevent duplication -->
+<script>
+window.addEventListener('load', function() {
+  var criticalLink = document.querySelector('link[href*="critical.css"]');
+  var mainStylesheet = document.querySelector('link[href*="main-mobile-optimized.css"]');
+  
+  if (criticalLink && mainStylesheet) {
+    setTimeout(function() {
+      criticalLink.remove();
+    }, 100);
+  }
+});
+</script>

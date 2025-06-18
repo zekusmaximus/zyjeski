@@ -1,0 +1,137 @@
+{
+  "name": "Jeffrey A. Zyjeski - Cyberpunk Buddhist Author",
+  "short_name": "Zyjeski",
+  "description": "Explore the intersection of technology and spirituality through cyberpunk Buddhism. Books, stories, and audio simulations by Jeffrey A. Zyjeski.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000F08",
+  "theme_color": "#6E0DD0",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["books", "entertainment", "lifestyle", "education"],
+  "icons": [
+    {
+      "src": "/images/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Books",
+      "short_name": "Books",
+      "description": "Read The Protocol and other cyberpunk Buddhist works",
+      "url": "/books/",
+      "icons": [
+        {
+          "src": "/images/shortcut-books.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Stories",
+      "short_name": "Stories",
+      "description": "Digital koans and cyberpunk narratives",
+      "url": "/stories/",
+      "icons": [
+        {
+          "src": "/images/shortcut-stories.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Audio",
+      "short_name": "Audio",
+      "description": "Neural simulations and spoken stories",
+      "url": "/audio/",
+      "icons": [
+        {
+          "src": "/images/shortcut-audio.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Newsletter",
+      "short_name": "Newsletter",
+      "description": "Future Law Insider newsletter signup",
+      "url": "/newsletter/",
+      "icons": [
+        {
+          "src": "/images/shortcut-newsletter.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+zyjeski",
+      "url": "/?protocol=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "text/plain": [".txt"],
+        "text/markdown": [".md"]
+      }
+    }
+  ]
+}

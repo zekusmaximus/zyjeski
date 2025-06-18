@@ -1,0 +1,223 @@
+<!-- Mobile-Optimized Head Section for Hugo Author Website -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover">
+
+<!-- Performance hints -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+
+<!-- Preconnect to external domains -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- DNS prefetch for better performance -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+<!-- Critical resource hints -->
+<link rel="preload" href="{{ "css/critical.css" | relURL }}" as="style">
+<link rel="preload" href="{{ "js/main-mobile-optimized.js" | relURL }}" as="script">
+
+<!-- Preload critical images -->
+{{- if .IsHome }}
+<link rel="preload" href="{{ "images/cyber-bg-1.jpg" | relURL }}" as="image" media="(min-width: 768px)">
+<link rel="preload" href="{{ "images/cyber-bg-2.jpg" | relURL }}" as="image" media="(min-width: 768px)">
+{{- end }}
+
+<!-- Progressive Web App -->
+<link rel="manifest" href="{{ "manifest.json" | relURL }}">
+<meta name="theme-color" content="#6E0DD0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zyjeski">
+
+<!-- PWA Icons -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "images/icon-180.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "images/icon-32.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "images/icon-16.png" | relURL }}">
+<link rel="mask-icon" href="{{ "images/safari-pinned-tab.svg" | relURL }}" color="#6E0DD0">
+
+<!-- Microsoft Tiles -->
+<meta name="msapplication-TileColor" content="#000F08">
+<meta name="msapplication-TileImage" content="{{ "images/mstile-144x144.png" | relURL }}">
+<meta name="msapplication-config" content="{{ "browserconfig.xml" | relURL }}">
+
+<!-- SEO Meta Tags -->
+<title>{{ if .IsHome }}{{ .Site.Title }} - {{ .Site.Params.tagline }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else if .IsPage }}{{ .Summary | truncate 160 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="author" content="{{ .Site.Params.author.name }}">
+<meta name="generator" content="Hugo {{ hugo.Version }}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ .Permalink }}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else if .IsPage }}{{ .Summary | truncate 160 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta property="og:image" content="{{ if .Params.image }}{{ .Params.image | absURL }}{{ else }}{{ "images/og-default.jpg" | absURL }}{{ end }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@jzyjeski">
+<meta name="twitter:creator" content="@jzyjeski">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else if .IsPage }}{{ .Summary | truncate 160 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="twitter:image" content="{{ if .Params.image }}{{ .Params.image | absURL }}{{ else }}{{ "images/twitter-card.jpg" | absURL }}{{ end }}">
+
+<!-- Article meta (for posts) -->
+{{- if .IsPage }}
+{{- if .Params.author }}
+<meta property="article:author" content="{{ .Params.author }}">
+{{- else }}
+<meta property="article:author" content="{{ .Site.Params.author.name }}">
+{{- end }}
+<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- with .Params.tags }}
+{{- range . }}
+<meta property="article:tag" content="{{ . }}">
+{{- end }}
+{{- end }}
+{{- end }}
+
+<!-- RSS Feed -->
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | absURL }}">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ .Site.Params.author.name }}",
+  "url": "{{ .Site.BaseURL }}",
+  "image": "{{ "images/author-photo.jpg" | absURL }}",
+  "sameAs": [
+    "{{ .Site.Params.social.twitter }}",
+    "{{ .Site.Params.social.linkedin }}",
+    "{{ .Site.Params.social.github }}"
+  ],
+  "jobTitle": "Author",
+  "description": "{{ .Site.Params.description }}",
+  "knowsAbout": ["Buddhism", "Technology", "Writing", "Cyberpunk", "Philosophy"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Independent Author"
+  }
+}
+</script>
+
+<!-- Critical CSS - Load immediately for fastest rendering -->
+<link rel="stylesheet" href="{{ "css/critical.css" | relURL }}" media="all">
+
+<!-- Production note: For optimal performance, the content of critical.css should be 
+     inlined directly in this <style> block instead of loading as external file -->
+
+<!-- Font loading with fallbacks -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;600&display=swap">
+</noscript>
+
+<!-- Non-critical CSS - Load asynchronously -->
+<link rel="preload" href="{{ "css/main-mobile-optimized.css" | relURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="{{ "css/main-mobile-optimized.css" | relURL }}">
+</noscript>
+
+<!-- Accessibility preferences detection -->
+<script>
+// Detect user preferences early
+(function() {
+  // Reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('reduced-motion');
+  }
+  
+  // High contrast
+  if (window.matchMedia('(prefers-contrast: high)').matches) {
+    document.documentElement.classList.add('high-contrast');
+  }
+  
+  // Color scheme
+  if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    document.documentElement.classList.add('light-mode');
+  }
+  
+  // Touch device detection
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+    document.documentElement.classList.add('touch-device');
+  }
+  
+  // Mobile device detection
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    document.documentElement.classList.add('mobile-device');
+  }
+})();
+</script>
+
+<!-- Service Worker registration -->
+<script>
+if ('serviceWorker' in navigator && !window.matchMedia('(max-width: 767px)').matches) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('SW registered: ', registration);
+      })
+      .catch(function(registrationError) {
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
+}
+</script>
+
+<!-- Performance monitoring script -->
+<script>
+// Basic performance monitoring
+(function() {
+  if ('PerformanceObserver' in window) {
+    // Monitor Core Web Vitals
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.entryType === 'largest-contentful-paint') {
+          console.log('LCP:', entry.startTime);
+        }
+        if (entry.entryType === 'first-input') {
+          console.log('FID:', entry.processingStart - entry.startTime);
+        }
+        if (entry.entryType === 'layout-shift' && !entry.hadRecentInput) {
+          console.log('CLS:', entry.value);
+        }
+      }
+    });
+    
+    observer.observe({entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift']});
+  }
+})();
+</script>
+
+<!-- Emergency fallback styles for no-JS -->
+<noscript>
+  <style>
+    .js-only { display: none !important; }
+    .no-js-hidden { display: block !important; }
+    .mandala-grid { transform: none !important; }
+    * { animation: none !important; transition: none !important; }
+  </style>
+</noscript>
+
+<!-- Security headers -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+<!-- Prefetch important pages -->
+{{- if .IsHome }}
+<link rel="prefetch" href="{{ "books/" | relURL }}">
+<link rel="prefetch" href="{{ "stories/" | relURL }}">
+<link rel="prefetch" href="{{ "about/" | relURL }}">
+{{- end }}

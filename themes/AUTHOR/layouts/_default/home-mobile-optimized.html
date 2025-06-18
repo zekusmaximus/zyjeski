@@ -1,0 +1,519 @@
+{{ define "main" }}
+  <div class="home-intro">
+    {{ .Content }}
+  </div>
+
+  <!-- Mobile-optimized mandala grid with progressive enhancement -->
+  <div class="mandala-container">
+    <div class="mandala-grid" 
+         role="grid" 
+         aria-label="Navigation grid"
+         data-mobile-optimized="true">
+      
+      <!-- Center: Mandala (Hidden on mobile, shown on desktop) -->
+      <div class="mandala-center-wrapper" 
+           style="grid-column: 2; grid-row: 2;"
+           role="presentation"
+           aria-hidden="true">
+        <div class="mandala-center">
+          <div class="mandala-center-content">
+            <img src="{{ "/images/mandala-center.jpg" | relURL }}" 
+                 alt="Mandala Center - Cyberpunk Buddhism" 
+                 class="mandala-center-img"
+                 loading="lazy"
+                 decoding="async">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Grid Item 1: Books/The Protocol -->
+      <div class="mandala-item item-1 photo-item touch-target" 
+           style="grid-column: 1; grid-row: 1;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="Books section - The Protocol and other works">
+        <a href="/books/" 
+           aria-describedby="books-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-1.jpg" 
+               alt="Books section featuring The Protocol" 
+               class="mandala-photo" 
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">Books</h3>
+            <div class="mandala-item-subtitle" id="books-description">The Protocol</div>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 2: Stories/Koans -->
+      <div class="mandala-item item-2 photo-item touch-target" 
+           style="grid-column: 2; grid-row: 1;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="Stories section - Digital koans and narratives">
+        <a href="/stories/" 
+           aria-describedby="stories-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-2.jpg" 
+               alt="Stories section featuring digital koans" 
+               class="mandala-photo" 
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">Stories</h3>
+            <div class="mandala-item-subtitle" id="stories-description">Koans</div>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 3: Audio/Simulations -->
+      <div class="mandala-item item-3 photo-item touch-target" 
+           style="grid-column: 3; grid-row: 1;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="Audio section - Neural simulations and spoken stories">
+        <a href="/audio/" 
+           aria-describedby="audio-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-3.jpg" 
+               alt="Audio section featuring neural simulations" 
+               class="mandala-photo" 
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">Audio</h3>
+            <div class="mandala-item-subtitle" id="audio-description">Simulations</div>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 4: Author Headshot -->
+      <div class="mandala-item item-4 photo-item touch-target" 
+           style="grid-column: 1; grid-row: 2;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="About the author - Jeffrey A. Zyjeski">
+        <a href="/about/" 
+           aria-describedby="author-description"
+           class="mandala-item-link">
+          <img src="{{ "/images/featured-book.jpg" | relURL }}" 
+               alt="Jeffrey A. Zyjeski - Author portrait" 
+               class="mandala-photo"
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay mobile-only">
+            <h3 class="mandala-item-title">About</h3>
+            <div class="mandala-item-subtitle" id="author-description">The Author</div>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 5: Book Cover -->
+      <div class="mandala-item item-5 photo-item touch-target" 
+           style="grid-column: 3; grid-row: 2;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="The Karmic Protocol - Featured book">
+        <a href="/books/the-protocol-vol1/" 
+           aria-describedby="protocol-description"
+           class="mandala-item-link">
+          <img src="{{ "/images/featured-event.jpg" | relURL }}" 
+               alt="The Karmic Protocol book cover" 
+               class="mandala-photo"
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay mobile-only">
+            <h3 class="mandala-item-title">Featured</h3>
+            <div class="mandala-item-subtitle" id="protocol-description">The Protocol</div>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Grid Item 6: Blog/Dharma Log -->
+      <div class="mandala-item item-6 photo-item touch-target" 
+           style="grid-column: 1; grid-row: 3;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="Blog section - Dharma Log entries">
+        <a href="/posts/" 
+           aria-describedby="blog-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-4.jpg" 
+               alt="Blog section - Dharma Log" 
+               class="mandala-photo" 
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">Blog</h3>
+            <div class="mandala-item-subtitle" id="blog-description">Dharma Log</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Grid Item 7: Newsletter -->
+      <div class="mandala-item item-7 photo-item touch-target" 
+           style="grid-column: 2; grid-row: 3;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="Newsletter - Future Law Insider">
+        <a href="/newsletter/" 
+           aria-describedby="newsletter-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-5.jpg" 
+               alt="Newsletter - Future Law Insider" 
+               class="mandala-photo" 
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">Newsletter</h3>
+            <div class="mandala-item-subtitle" id="newsletter-description">Future Law Insider</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Grid Item 8: About -->
+      <div class="mandala-item item-8 photo-item touch-target" 
+           style="grid-column: 3; grid-row: 3;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="About section - Learn more about the author">
+        <a href="/about/" 
+           aria-describedby="about-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-6.jpg" 
+               alt="About section - The Author" 
+               class="mandala-photo" 
+               loading="lazy"
+               decoding="async"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">About</h3>
+            <div class="mandala-item-subtitle" id="about-description">The Author</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance hints for critical resources -->
+  <link rel="preload" href="/images/cyber-bg-1.jpg" as="image">
+  <link rel="preload" href="/images/cyber-bg-2.jpg" as="image">
+  
+  <!-- Structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jeffrey A. Zyjeski",
+    "url": "{{ .Site.BaseURL }}",
+    "sameAs": [
+      "https://twitter.com/jzyjeski",
+      "https://linkedin.com/in/jzyjeski"
+    ],
+    "jobTitle": "Author",
+    "description": "Cyberpunk Buddhist author exploring the intersection of technology and spirituality",
+    "knowsAbout": ["Buddhism", "Technology", "Writing", "Cyberpunk", "Philosophy"],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Independent Author"
+    }
+  }
+  </script>
+
+  <style>
+    /* Critical CSS for mobile-first mandala grid */
+    .mandala-grid {
+      display: grid;
+      gap: 1rem;
+      max-width: 100%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      
+      /* Mobile: Single column */
+      grid-template-columns: 1fr;
+      grid-auto-rows: minmax(200px, auto);
+    }
+    
+    .mandala-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(0, 15, 8, 0.9);
+      border: 1px solid rgba(110, 13, 208, 0.3);
+      transition: all 0.3s ease;
+      min-height: 200px;
+      cursor: pointer;
+      
+      /* Touch optimization */
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .mandala-item-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      color: inherit;
+      min-height: 44px; /* Accessibility touch target */
+    }
+    
+    .mandala-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+      filter: grayscale(20%) brightness(0.9);
+    }
+    
+    .mandala-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+      color: white;
+    }
+    
+    .mandala-item-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin: 0 0 0.5rem 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+    
+    .mandala-item-subtitle {
+      font-size: 0.9rem;
+      color: #00F5D4;
+      margin: 0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+    
+    .mandala-center-wrapper {
+      display: none; /* Hidden on mobile */
+    }
+    
+    /* Mobile ordering */
+    .mandala-item.item-1 { order: 1; }
+    .mandala-item.item-2 { order: 2; }
+    .mandala-item.item-3 { order: 3; }
+    .mandala-item.item-4 { order: 4; }
+    .mandala-item.item-5 { order: 5; }
+    .mandala-item.item-6 { order: 6; }
+    .mandala-item.item-7 { order: 7; }
+    .mandala-item.item-8 { order: 8; }
+    
+    /* Mobile-specific overlays */
+    .mobile-only {
+      display: block;
+    }
+    
+    /* Touch interactions */
+    @media (hover: none) {
+      .mandala-item:active {
+        transform: scale(0.98);
+        border-color: #00F5D4;
+      }
+      
+      .mandala-item:active .mandala-photo {
+        filter: grayscale(0%) brightness(1.1);
+      }
+    }
+    
+    /* Hover interactions for non-touch devices */
+    @media (hover: hover) {
+      .mandala-item:hover {
+        transform: translateY(-5px);
+        border-color: #00F5D4;
+        box-shadow: 0 10px 25px rgba(0, 245, 212, 0.3);
+      }
+      
+      .mandala-item:hover .mandala-photo {
+        filter: grayscale(0%) brightness(1.1);
+        transform: scale(1.05);
+      }
+    }
+    
+    /* Tablet: 2 columns */
+    @media (min-width: 480px) {
+      .mandala-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        padding: 0 1.5rem;
+      }
+      
+      .mandala-item.item-1 { grid-column: 1; grid-row: 1; }
+      .mandala-item.item-2 { grid-column: 2; grid-row: 1; }
+      .mandala-item.item-3 { grid-column: 1; grid-row: 2; }
+      .mandala-item.item-4 { grid-column: 2; grid-row: 2; }
+      .mandala-item.item-5 { grid-column: 1; grid-row: 3; }
+      .mandala-item.item-6 { grid-column: 2; grid-row: 3; }
+      .mandala-item.item-7 { grid-column: 1; grid-row: 4; }
+      .mandala-item.item-8 { grid-column: 2; grid-row: 4; }
+    }
+    
+    /* Desktop: Full 3x3 mandala */
+    @media (min-width: 768px) {
+      .mandala-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, minmax(200px, auto));
+        gap: 2rem;
+        max-width: 1200px;
+        padding: 0;
+        perspective: 1000px;
+      }
+      
+      .mandala-center-wrapper {
+        display: block;
+        grid-column: 2;
+        grid-row: 2;
+      }
+      
+      .mandala-center {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #FF9933;
+        box-shadow: 0 0 20px rgba(255, 153, 51, 0.5);
+        background: radial-gradient(circle, #2D0F54, #000000);
+      }
+      
+      .mandala-center-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: sepia(10%) saturate(1.2);
+      }
+      
+      .mobile-only {
+        display: none;
+      }
+      
+      /* Desktop grid positioning */
+      .mandala-item.item-1 { grid-column: 1; grid-row: 1; }
+      .mandala-item.item-2 { grid-column: 2; grid-row: 1; }
+      .mandala-item.item-3 { grid-column: 3; grid-row: 1; }
+      .mandala-item.item-4 { grid-column: 1; grid-row: 2; }
+      .mandala-item.item-5 { grid-column: 3; grid-row: 2; }
+      .mandala-item.item-6 { grid-column: 1; grid-row: 3; }
+      .mandala-item.item-7 { grid-column: 2; grid-row: 3; }
+      .mandala-item.item-8 { grid-column: 3; grid-row: 3; }
+    }
+    
+    /* Large desktop enhancements */
+    @media (min-width: 1200px) {
+      .mandala-grid {
+        gap: 2.5rem;
+      }
+      
+      .mandala-item {
+        min-height: 250px;
+      }
+    }
+    
+    /* Performance optimizations */
+    @media (max-width: 767px) {
+      /* Disable expensive transforms on mobile */
+      .mandala-grid {
+        transform: none !important;
+      }
+      
+      /* Reduce animation complexity */
+      .mandala-item {
+        transition: transform 0.15s ease, border-color 0.15s ease !important;
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .mandala-item,
+      .mandala-photo,
+      .mandala-center {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+      }
+    }
+    
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .mandala-item {
+        border-width: 2px;
+        border-color: #00ffff;
+      }
+      
+      .mandala-item-title {
+        color: #ffffff;
+        text-shadow: 2px 2px 0 #000000;
+      }
+      
+      .mandala-item-subtitle {
+        color: #00ffff;
+        text-shadow: 1px 1px 0 #000000;
+      }
+    }
+    
+    /* Focus management for accessibility */
+    .mandala-item:focus {
+      outline: 3px solid #00F5D4;
+      outline-offset: 2px;
+    }
+    
+    .mandala-item:focus:not(:focus-visible) {
+      outline: none;
+    }
+    
+    /* Animation classes for JavaScript */
+    .mandala-item.animate-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .mandala-item.activated {
+      transform: scale(0.95);
+      border-color: #FF9933;
+    }
+    
+    /* Loading states */
+    .mandala-photo:not(.loaded) {
+      opacity: 0.5;
+      background: linear-gradient(90deg, #2D0F54, #4A1A8B, #2D0F54);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+  </style>
+{{ end }}

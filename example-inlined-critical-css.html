@@ -1,0 +1,78 @@
+<!-- Example: How to properly inline critical CSS in production -->
+<!-- This file shows the final result after the build process inlines the CSS -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <!-- Critical CSS inlined for fastest rendering -->
+    <style id="critical-css">
+        /* Critical styles would be inlined here by build process */
+        :root {
+            --electric-indigo: #6E0DD0;
+            --holographic-teal: #00F5D4;
+            --saffron: #FF9933;
+            --ink-black: #000F08;
+            --flickering-white: #FFFFFF;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--ink-black);
+            color: #E0E0E0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .mandala-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+            padding: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .mandala-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+    
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="/css/main-mobile-optimized.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/main-mobile-optimized.css">
+    </noscript>
+    
+    <!-- Remove critical CSS after main CSS loads to prevent duplication -->
+    <script>
+        window.addEventListener('load', function() {
+            var criticalCSS = document.getElementById('critical-css');
+            var mainCSS = document.querySelector('link[href*="main-mobile-optimized.css"]');
+            
+            if (criticalCSS && mainCSS) {
+                setTimeout(function() {
+                    criticalCSS.remove();
+                }, 100);
+            }
+        });
+    </script>
+    
+    <title>Hugo Author Website - Mobile Optimized</title>
+</head>
+<body class="mobile-optimized">
+    <!-- Page content here -->
+    <main>
+        <div class="mandala-grid">
+            <!-- Mandala items -->
+        </div>
+    </main>
+    
+    <!-- JavaScript loaded after DOM ready -->
+    <script src="/js/main-mobile-optimized.js" defer></script>
+</body>
+</html>

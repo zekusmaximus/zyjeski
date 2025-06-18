@@ -1,0 +1,76 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.associations": {
+      "*.html": "html",
+      "themes/**/*.html": "hugo",
+      "layouts/**/*.html": "hugo", 
+      "partials/**/*.html": "hugo",
+      "shortcodes/**/*.html": "hugo",
+      "archetypes/**/*.md": "hugo"
+    },
+    "emmet.includeLanguages": {
+      "hugo": "html"
+    },
+    "css.lint.validProperties": [
+      "--electric-indigo",
+      "--holographic-teal", 
+      "--saffron",
+      "--ink-black",
+      "--flickering-white",
+      "--dark-purple",
+      "--medium-purple",
+      "--deep-black",
+      "--light-gray",
+      "--space-xs",
+      "--space-sm", 
+      "--space-md",
+      "--space-lg",
+      "--space-xl",
+      "--font-size-xs",
+      "--font-size-sm",
+      "--font-size-base",
+      "--font-size-lg",
+      "--font-size-xl",
+      "--font-size-2xl",
+      "--font-size-3xl",
+      "--touch-target-min",
+      "--touch-target-comfortable",
+      "--animation-duration-fast",
+      "--animation-duration-normal",
+      "--animation-duration-slow"
+    ],
+    "css.validate": true,
+    "html.validate.scripts": false,
+    "html.validate.styles": false,
+    "css.lint.unknownAtRules": "ignore",
+    "[hugo]": {
+      "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+      },
+      "editor.suggest.insertMode": "replace"
+    },
+    "[html]": {
+      "editor.suggest.insertMode": "replace"
+    },
+    "files.exclude": {
+      "public/**": true,
+      "resources/**": true,
+      ".hugo_build.lock": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "budparr.language-hugo-vscode",
+      "ms-vscode.vscode-css-peek",
+      "bradlc.vscode-tailwindcss",
+      "golang.go"
+    ]
+  }
+}

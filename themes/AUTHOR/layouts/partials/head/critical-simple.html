@@ -1,0 +1,25 @@
+<!-- Simple Critical CSS Include - No Template Syntax Issues -->
+<!-- Include this partial in your head section for critical CSS loading -->
+
+<link rel="stylesheet" href="/css/critical.css" media="all">
+
+<!-- Performance optimization: Remove critical CSS after main CSS loads -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait for main CSS to load, then remove critical CSS to prevent duplication
+  var mainCSS = document.createElement('link');
+  mainCSS.rel = 'stylesheet';
+  mainCSS.href = '/css/main-mobile-optimized.css';
+  
+  mainCSS.addEventListener('load', function() {
+    var criticalCSS = document.querySelector('link[href*="critical.css"]');
+    if (criticalCSS) {
+      setTimeout(function() {
+        criticalCSS.remove();
+      }, 100);
+    }
+  });
+  
+  document.head.appendChild(mainCSS);
+});
+</script>
