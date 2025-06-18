@@ -1,13 +1,6 @@
 <!-- themes/AUTHOR/layouts/partials/header.html -->
 <div class="header-content">
-  <div class="header-branding">
-    <h1 class="site-title">{{ site.Title }}</h1>
-    <div class="author-name">
-      Jeffrey A. <span class="problem-chars">Zyjeski</span>
-    </div>
-  </div>
-  
-  <!-- Accessibility Controls -->
+  <!-- Accessibility Controls - Left Side -->
   <div class="accessibility-controls" role="region" aria-label="Accessibility settings">
     <button id="high-contrast-toggle" 
             class="accessibility-btn" 
@@ -35,6 +28,18 @@
       <span class="btn-icon focus-icon" aria-hidden="true">⊡</span>
       <span class="btn-text sr-only">Focus Mode</span>
     </button>
+  </div>
+  
+  <!-- Center Site Title -->
+  <div class="header-branding">
+    <h1 class="site-title">{{ site.Title }}</h1>
+  </div>
+  
+  <!-- Author Name - Right Side -->
+  <div class="author-name-container">
+    <div class="author-name">
+      Jeffrey A. <span class="problem-chars">Zyjeski</span>
+    </div>
   </div>
   
   <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
