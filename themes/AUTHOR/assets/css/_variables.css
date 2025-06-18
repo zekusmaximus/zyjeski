@@ -1,0 +1,30 @@
+/* CSS Variables and Color Palette */
+:root {
+  /* Primary colors */
+  --electric-indigo: #6E0DD0;
+  --holographic-teal: #00F5D4;
+  
+  /* Secondary colors */
+  --saffron: #FF9933;
+  --ink-black: #000F08;
+  
+  /* Accent and functional colors */
+  --flickering-white: #FFFFFF;
+  --dark-purple: #2D0F54;
+  --medium-purple: #4A1A8B;
+  --deep-black: #000000;
+  --light-gray: #E0E0E0;
+  
+  /* Gradients */
+  --cyber-gradient: linear-gradient(135deg, var(--electric-indigo), var(--holographic-teal));
+  --zen-gradient: linear-gradient(135deg, var(--ink-black), var(--saffron));
+  
+  /* Accessibility Colors */
+  --high-contrast-bg: #000000;
+  --high-contrast-text: #FFFFFF;
+  --high-contrast-link: #FFFF00;
+  --high-contrast-border: #00FFFF;
+  --focus-outline-color: #00F5D4;
+  --focus-outline-width: 3px;
+  --focus-outline-offset: 2px;
+}

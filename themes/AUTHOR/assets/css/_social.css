@@ -1,0 +1,95 @@
+/* Social Sharing Integration */
+
+/* Social Sharing Integration - Enhanced for cyberpunk theme */
+.social-share-container {
+  position: relative;
+  z-index: 10;
+}
+
+/* Integration with existing article layouts */
+.koan-single .social-share-container,
+.audio-single .social-share-container,
+.book-single .social-share-container {
+  margin: 3rem 0 2rem 0;
+}
+
+/* Enhanced hover effects for cyberpunk theme */
+.share-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 245, 212, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.share-btn:hover::before {
+  left: 100%;
+}
+
+/* Reading progress enhancement */
+.reading-progress-indicator {
+  position: relative;
+  overflow: hidden;
+}
+
+.reading-progress-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(0, 245, 212, 0.1) 25%,
+    rgba(0, 245, 212, 0.1) 50%,
+    transparent 50%,
+    transparent 75%,
+    rgba(0, 245, 212, 0.1) 75%
+  );
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* Copy notification enhanced styling */
+.copy-notification {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 245, 212, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 245, 212, 0.3);
+}
+
+/* Focus management for accessibility */
+.share-btn:focus {
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
+  outline-offset: var(--focus-outline-offset);
+  z-index: 10;
+}
+
+/* Print styles - hide social sharing */
+@media print {
+  .social-share-container,
+  .copy-notification {
+    display: none !important;
+  }
+}
+
+/* Dark mode enhancements (if implemented) */
+@media (prefers-color-scheme: dark) {
+  .social-share-container {
+    background: rgba(46, 15, 84, 0.4);
+    border-color: rgba(0, 245, 212, 0.6);
+  }
+  
+  .copy-notification {
+    background: linear-gradient(135deg, rgba(0, 245, 212, 0.9), rgba(110, 13, 208, 0.9));
+  }
+}

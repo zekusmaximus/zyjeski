@@ -1,0 +1,189 @@
+/* Book and Protocol Specific Styles */
+
+.book-single {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.book-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.book-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #ff00cc, #3333ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.book-date {
+  display: block;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.book-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.book-cover {
+  position: relative;
+}
+
+.book-cover-img {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-cover-img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 255, 0.3);
+}
+
+.book-cover-placeholder {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 255, 0.2);
+}
+
+.book-cover-title {
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  word-break: break-word;
+}
+
+.book-meta {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(15, 15, 30, 0.7);
+  border-radius: 5px;
+  color: white;
+}
+
+.book-series,
+.book-pages,
+.book-pub-date {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.book-purchase {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.purchase-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #ff00cc, #3333ff);
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.purchase-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(51, 51, 255, 0.4);
+}
+
+.book-content {
+  color: #eee;
+}
+
+.book-section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: white;
+  border-bottom: 1px solid rgba(255, 0, 204, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+/* AI Dialogue styling */
+.ai-dialogue {
+  margin-bottom: 2rem;
+  background: rgba(10, 10, 20, 0.5);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.dialogue-entry {
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid;
+}
+
+.dialogue-entry.user {
+  border-left-color: #ff00cc;
+}
+
+.dialogue-entry.ai {
+  border-left-color: #3333ff;
+}
+
+.dialogue-speaker {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.dialogue-entry.user .dialogue-speaker {
+  color: #ff00cc;
+}
+
+.dialogue-entry.ai .dialogue-speaker {
+  color: #3333ff;
+}
+
+.dialogue-text {
+  line-height: 1.6;
+}
+
+/* Reviews section */
+.book-reviews {
+  margin-top: 2rem;
+}
+
+.book-review {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  border-left: 3px solid rgba(0, 255, 255, 0.5);
+}
+
+.review-text {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.review-author {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* Excerpt section */
+.book-excerpt {
+  margin-top: 2rem;
+}
