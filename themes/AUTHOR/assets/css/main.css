@@ -841,19 +841,6 @@ tr:hover {
   margin-top: 2rem;
 }
 
-/* 3D VR headset/Buddha transition container */
-.vr-buddha-transition {
-  width: 100%;
-  height: 300px;
-  margin: 3rem 0;
-  overflow: hidden;
-}
-
-#three-d-transition-container {
-  width: 100%;
-  height: 100%;
-}
-
 /* Responsive design for books */
 @media (max-width: 768px) {
   .book-container {
@@ -1598,17 +1585,6 @@ body.is-scrolling .noise-overlay {
   transition: opacity 0.3s ease;
 }
 
-/* Digital rain background */
-.digital-rain-bg canvas.digital-rain {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.1;
-}
 
 /* Scroll reveal animation */
 .reveal-on-scroll {

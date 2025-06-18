@@ -8,37 +8,19 @@ pages = 312
 publication_date = 'coming 2025'
 show_3d_transition = true
 tags = ['cyberpunk', 'digital enlightenment', 'consciousness']
+description = 'First volume in The Protocol Series exploring digital enlightenment.'
 
 [[purchase_links]]
-store = 'Amazon'
-url = 'https://amazon.com'
+store = 'VR Experience'
+url = 'https://www.karmicprotocol.com/'
 
 [[purchase_links]]
-store = 'Barnes & Noble'
-url = 'https://barnesandnoble.com'
+store = 'Agent Inquiries'
+url = '/inquiries/'
 
-[[ai_synopsis]]
-speaker = 'User'
-text = '''Tell me about *The Karmic Protocol*'''
-
-[[ai_synopsis]]
-speaker = 'AI'
-text = '''In the near-future a group of meditators create a virtual reality headset powered by quantum computing breakthroughs, leading to a breakthrough in human consciousness, using biofeedback to burn through the users karma and bring them to full enlightenment.'''
-
-[[ai_synopsis]]
-speaker = 'User'
-text = '''What happens when they make this discovery?'''
-
-[[ai_synopsis]]
-speaker = 'AI'
-text = '''Their discovery attracts attention from corporations, government institutions and religious sects, who fear The Protocol as it enables digital enlightenment—consciousness liberation through technology.'''
-
-[[ai_synopsis]]
-speaker = 'User'
-text = '''How does the story end?'''
-
-[[ai_synopsis]]
-speaker = 'AI'
-text = '''This cyber-spiritual thriller winds up with everyone questioning whether a society built on desire could handle a public with access to digitally inspired freedom from those desires.'''
 +++
+
+<!--StartFragment-->
+In the near future, a team of dedicated meditators creates a quantum-powered virtual reality headset that accelerates spiritual awakening. Their breakthrough—known as The Karmic Protocol—offers a path to digital enlightenment, but its potential threatens powerful corporations, government agencies, and religious institutions. As pressure mounts to control or suppress the technology, the group must decide whether to risk unleashing a revolution of consciousness. Can society built on desire survive when freedom from those desires is suddenly within reach?
+<!--EndFragment-->
 

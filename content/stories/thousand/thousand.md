@@ -3,6 +3,7 @@ title = "A Thousand Empty Mirrors"
 date = 2025-04-20T10:00:00-07:00
 draft = false
 tags = ['fiction', 'recursive']
+description = 'Flash fiction exploring recursion and self-reflection.'
 +++
 
 

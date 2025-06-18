@@ -3,6 +3,7 @@ title = 'Guided Neural Rebooting Protocol'
 date = 2025-03-15T14:00:00-07:00
 draft = false
 audio_file = '/audio/neural-reboot-simulation.mp3'
+description = 'Guided meditation audio for rebooting ordinary consciousness.'
 transcript = '''
 
 Begin by focusing your awareness on the sound of my voice. Notice how each word is both sound wave and data packet—vibration and information simultaneously.

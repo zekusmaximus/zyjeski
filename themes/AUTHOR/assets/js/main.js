@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Add cyberpunk text effects
   initCyberpunkTextEffects();
   
-  // Create digital rain effect if needed
-  createDigitalRain();
 });
 
 function initMandalaEffects() {
@@ -219,94 +217,6 @@ function initCyberpunkTextEffects() {
   }
 }
 
-// Add some digital rain effect to the background on special pages
-function createDigitalRain() {
-  // Check if we're on a special page that should have the effect
-  const isSpecialPage = document.body.classList.contains('digital-rain-bg');
-  if (!isSpecialPage) return;
-  
-  // Skip on mobile for performance
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (isMobile) return;
-  
-  const canvas = document.createElement('canvas');
-  canvas.classList.add('digital-rain');
-  document.body.appendChild(canvas);
-  
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  
-  const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-  const columns = Math.floor(canvas.width / 20);
-  const drops = [];
-  
-  for (let i = 0; i < columns; i++) {
-    drops[i] = Math.random() * -100;
-  }
-  
-  function draw() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = '#0f0';
-    ctx.font = '15px monospace';
-    
-    for (let i = 0; i < drops.length; i++) {
-      const text = chars[Math.floor(Math.random() * chars.length)];
-      ctx.fillText(text, i * 20, drops[i] * 20);
-      
-      if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      
-      drops[i]++;
-    }
-  }
-  
-  // Use requestAnimationFrame for better performance
-  let animationId;
-  function animate() {
-    draw();
-    animationId = requestAnimationFrame(animate);
-  }
-  
-  animate();
-  
-  // Handle window resize
-  window.addEventListener('resize', throttle(function() {
-    // Cancel the previous animation
-    cancelAnimationFrame(animationId);
-    
-    // Update canvas dimensions
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    // Recalculate columns
-    const newColumns = Math.floor(canvas.width / 20);
-    
-    // Adjust drops array
-    if (newColumns > columns) {
-      // Add new drops
-      for (let i = columns; i < newColumns; i++) {
-        drops[i] = Math.random() * -100;
-      }
-    } else if (newColumns < columns) {
-      // Remove excess drops
-      drops.length = newColumns;
-    }
-    
-    // Restart animation
-    animate();
-  }, 200), { passive: true });
-  
-  // Clean up on page unload
-  window.addEventListener('beforeunload', function() {
-    cancelAnimationFrame(animationId);
-  });
-}
-
-// Detect if device supports touch events for better interaction handling
 function isTouchDevice() {
   return (('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0) ||

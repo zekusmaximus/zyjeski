@@ -2,10 +2,10 @@
 title = 'Home'
 date = 2025-03-30T08:00:00-07:00
 draft = false
+description = 'Speculative fiction author exploring technology and spirituality through books, stories, and immersive audio.'
 +++
 
-## Neuro-Digital Enlightenment
+## Jeffrey A. Zyjeski
 
-**At the nexus of silicon and soul, code and consciousness, lies transformation.**
+Author exploring technology and spirituality through novels, short fiction, and immersive audio. Browse published works and projects below.
 
-Welcome to the cybernetic sangha—where technology meets mysticism, where digital koans disrupt binary thinking, and where the protocol is both the path and the destination.
