@@ -1,0 +1,504 @@
+/* ===== CONSOLIDATED CSS FILE ===== */
+/* All styles combined into a single file to avoid @import issues */
+
+/* 1. CSS Variables and Color Palette */
+:root {
+  /* Primary colors */
+  --electric-indigo: #6E0DD0;
+  --holographic-teal: #00F5D4;
+  
+  /* Secondary colors */
+  --saffron: #FF9933;
+  --ink-black: #000F08;
+  
+  /* Accent and functional colors */
+  --flickering-white: #FFFFFF;
+  --dark-purple: #2D0F54;
+  --medium-purple: #4A1A8B;
+  --deep-black: #000000;
+  --light-gray: #E0E0E0;
+  
+  /* Gradients */
+  --cyber-gradient: linear-gradient(135deg, var(--electric-indigo), var(--holographic-teal));
+  --zen-gradient: linear-gradient(135deg, var(--ink-black), var(--saffron));
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  
+  /* Typography */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  
+  /* Layout */
+  --container-max-width: 1200px;
+  --content-max-width: 800px;
+  --sidebar-width: 300px;
+  
+  /* Shadows and effects */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-cyber: 0 0 10px var(--electric-indigo);
+  --shadow-zen: 0 0 10px var(--saffron);
+  
+  /* Border radius */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+}
+
+/* 2. Base Styles and Layout Foundation */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--ink-black);
+  color: var(--light-gray);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 20% 30%, var(--dark-purple) 0%, transparent 20%),
+    radial-gradient(circle at 80% 70%, var(--deep-black) 0%, transparent 20%);
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 49%,
+    rgba(110, 13, 208, 0.03) 50%,
+    transparent 51%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: var(--space-lg) 0;
+}
+
+/* 3. Typography and Text Styling */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 var(--space-md) 0;
+  color: var(--flickering-white);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  background: var(--cyber-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  color: var(--holographic-teal);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  color: var(--saffron);
+}
+
+p {
+  margin: 0 0 var(--space-md) 0;
+}
+
+a {
+  color: var(--holographic-teal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover, a:focus {
+  color: var(--saffron);
+  text-decoration: underline;
+}
+
+/* 4. Accessibility Features and Controls */
+.skip-links {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 9999;
+}
+
+.skip-link {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--electric-indigo);
+  color: var(--flickering-white);
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: var(--radius-md);
+  margin: var(--space-xs);
+  transition: transform 0.3s ease;
+}
+
+.skip-link:focus {
+  position: absolute;
+  top: 100px;
+  transform: translateY(0);
+}
+
+.loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--ink-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--dark-purple);
+  border-top: 3px solid var(--electric-indigo);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 5. Header and Navigation Components */
+header {
+  background: rgba(0, 15, 8, 0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--dark-purple);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) 0;
+}
+
+.logo {
+  font-family: 'Orbitron', monospace;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--flickering-white);
+  text-decoration: none;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-lg);
+}
+
+nav a {
+  color: var(--light-gray);
+  font-weight: 500;
+  padding: var(--space-sm) 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav a:hover, nav a:focus {
+  color: var(--holographic-teal);
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--cyber-gradient);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after, nav a:focus::after {
+  width: 100%;
+}
+
+/* 6. Mandala Grid System */
+.mandala-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  padding: var(--space-xl) 0;
+}
+
+.mandala-item {
+  background: linear-gradient(
+    135deg,
+    rgba(110, 13, 208, 0.1),
+    rgba(0, 245, 212, 0.05)
+  );
+  border: 1px solid rgba(110, 13, 208, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.mandala-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    transparent 30%,
+    rgba(110, 13, 208, 0.1) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.mandala-item:hover::before {
+  opacity: 1;
+}
+
+.mandala-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-cyber);
+}
+
+/* 7. Animation and Visual Effects */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* 8. Book and Protocol Specific Styles */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+}
+
+.book-card {
+  background: rgba(45, 15, 84, 0.3);
+  border: 1px solid var(--medium-purple);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.book-card:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-zen);
+}
+
+.book-cover {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+}
+
+/* 9. Social Sharing Components */
+.social-sharing {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  margin: var(--space-lg) 0;
+}
+
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(110, 13, 208, 0.2);
+  border: 1px solid var(--electric-indigo);
+  border-radius: var(--radius-md);
+  color: var(--light-gray);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: all 0.3s ease;
+}
+
+.social-button:hover {
+  background: rgba(110, 13, 208, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 10. Responsive Design and Media Queries */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-sm);
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+  
+  .mandala-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+  }
+  
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+  
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .social-sharing {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .social-button {
+    justify-content: center;
+  }
+  
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark mode preferences */
+@media (prefers-color-scheme: dark) {
+  /* Already dark by default */
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  header, footer, nav, .social-sharing {
+    display: none;
+  }
+  
+  .mandala-item {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+}

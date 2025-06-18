@@ -18,11 +18,13 @@
   <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
     {{ partialCached "head/css.html" . }}
   {{ partialCached "head/js.html" . }}
-  
-  <!-- Progressive Enhancement CSS -->
+    <!-- Progressive Enhancement CSS -->
   {{ $progressiveCSS := resources.Get "css/progressive-enhancement.css" }}
   {{ $progressiveCSS = $progressiveCSS | resources.Minify }}
   <link rel="stylesheet" href="{{ $progressiveCSS.RelPermalink }}">
+  
+  <!-- CSS Debug Information (development only) -->
+  {{ partialCached "debug/css-debug.html" . }}
 </head>
 <body>  <!-- Skip Links for Accessibility -->
   <div class="skip-links" aria-label="Skip links">

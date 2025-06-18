@@ -1,0 +1,53 @@
+/* ===== MAIN CSS FILE - MODULAR IMPORTS ===== */
+/* This file imports all the modular CSS components */
+
+/* 1. CSS Variables and Color Palette */
+@import '_variables.css';
+
+/* 2. Base Styles and Layout Foundation */
+@import '_base.css';
+
+/* 3. Typography and Text Styling */
+@import '_typography.css';
+
+/* 4. Accessibility Features and Controls */
+@import '_accessibility.css';
+
+/* 5. Header and Navigation Components */
+@import '_header.css';
+
+/* 6. Mandala Grid System */
+@import '_mandala.css';
+
+/* 7. Animation and Visual Effects */
+@import '_animations.css';
+
+/* 8. Book and Protocol Specific Styles */
+@import '_books.css';
+
+/* 9. Social Sharing Components */
+@import '_social.css';
+
+/* 10. Responsive Design and Media Queries */
+@import '_responsive.css';
+
+/* ===== END OF IMPORTS ===== */
+
+/* Any site-specific overrides or temporary debugging styles can go below */
+
+/* Debug mandala items - remove after testing */
+.mandala-item {
+  /* Temporary debug border */
+  box-shadow: 0 0 0 2px rgba(255, 153, 51, 0.5) !important;
+}
+
+.mandala-overlay {
+  /* Ensure overlay is always visible during debugging */
+  background: linear-gradient(
+    transparent,
+    rgba(0, 15, 8, 0.8),
+    rgba(0, 15, 8, 0.95)
+  ) !important;
+  /* Temporary debug border */
+  box-shadow: inset 0 0 0 1px rgba(0, 245, 212, 0.5) !important;
+}

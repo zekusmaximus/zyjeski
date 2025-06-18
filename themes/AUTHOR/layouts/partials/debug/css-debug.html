@@ -1,0 +1,74 @@
+{{/* CSS Debug Information - shows which CSS files are loading */}}
+{{- if eq hugo.Environment "development" }}
+<style>
+  /* Debug CSS loading indicator */
+  body::after {
+    content: "CSS Debug Info: ";
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(110, 13, 208, 0.9);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 9999;
+    font-family: monospace;
+  }
+</style>
+
+<script>
+  // Debug information for CSS loading
+  window.addEventListener('DOMContentLoaded', function() {
+    console.log('=== CSS Debug Information ===');
+    
+    // Check which stylesheets loaded
+    const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+    console.log('Loaded stylesheets:', stylesheets.length);
+    
+    stylesheets.forEach((sheet, index) => {
+      console.log(`${index + 1}. ${sheet.href}`);
+      
+      // Check if stylesheet loaded successfully
+      if (sheet.sheet) {
+        try {
+          console.log(`   - Rules: ${sheet.sheet.cssRules.length}`);
+        } catch(e) {
+          console.log('   - CORS blocked or failed to load');
+        }
+      } else {
+        console.log('   - Failed to load');
+      }
+    });
+    
+    // Check for inline styles
+    const inlineStyles = document.querySelectorAll('style');
+    console.log('Inline style blocks:', inlineStyles.length);
+    
+    // Update the debug indicator
+    const indicator = document.createElement('div');
+    indicator.style.cssText = `
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 245, 212, 0.9);
+      color: black;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      z-index: 9999;
+      font-family: monospace;
+      max-width: 300px;
+    `;
+    indicator.innerHTML = `
+      <strong>CSS Debug:</strong><br>
+      Stylesheets: ${stylesheets.length}<br>
+      Inline styles: ${inlineStyles.length}<br>
+      <button onclick="this.parentElement.remove()">×</button>
+    `;
+    document.body.appendChild(indicator);
+    
+    console.log('=== End CSS Debug ===');
+  });
+</script>
+{{- end }}

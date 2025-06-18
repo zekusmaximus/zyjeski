@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Test - Jeffrey A. Zyjeski</title>
+    
+    <!-- Load CSS files directly for testing -->
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_variables.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_base.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_typography.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_accessibility.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_header.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_mandala.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_animations.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_books.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_social.css">
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/_responsive.css">
+    
+    <!-- Fallback: Use consolidated CSS -->
+    <link rel="stylesheet" href="themes/AUTHOR/assets/css/consolidated.css">
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <div class="skip-links" aria-label="Skip links">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#navigation" class="skip-link">Skip to navigation</a>
+    </div>
+    
+    <div class="page-container">
+        <header id="navigation" role="banner">
+            <div class="container">
+                <div class="header-content">
+                    <a href="/" class="logo">Jeffrey A. Zyjeski, Esq.</a>
+                    <nav>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/books/">Books</a></li>
+                            <li><a href="/stories/">Stories</a></li>
+                            <li><a href="/audio/">Audio</a></li>
+                            <li><a href="/about/">About</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        
+        <main id="main-content" role="main">
+            <div class="container">
+                <h1>CSS Loading Test</h1>
+                <p>This page tests if your CSS is loading properly. You should see:</p>
+                
+                <ul>
+                    <li>Dark background with purple/teal gradients</li>
+                    <li>Orbitron font for headings</li>
+                    <li>Inter font for body text</li>
+                    <li>Cyber-punk color scheme</li>
+                </ul>
+                
+                <h2>Mandala Grid Test</h2>
+                <div class="mandala-container">
+                    <div class="mandala-item">
+                        <h3>Test Item 1</h3>
+                        <p>This should have a purple border and hover effects.</p>
+                    </div>
+                    <div class="mandala-item">
+                        <h3>Test Item 2</h3>
+                        <p>This should also have proper styling and animations.</p>
+                    </div>
+                    <div class="mandala-item">
+                        <h3>Test Item 3</h3>
+                        <p>All items should be responsive and look consistent.</p>
+                    </div>
+                </div>
+                
+                <h2>Book Grid Test</h2>
+                <div class="book-grid">
+                    <div class="book-card">
+                        <h3>Test Book</h3>
+                        <p>This should have proper book card styling.</p>
+                    </div>
+                    <div class="book-card">
+                        <h3>Another Book</h3>
+                        <p>With hover effects and proper spacing.</p>
+                    </div>
+                </div>
+                
+                <h2>Social Sharing Test</h2>
+                <div class="social-sharing">
+                    <a href="#" class="social-button">
+                        <span>📱</span>
+                        <span>Share on Twitter</span>
+                    </a>
+                    <a href="#" class="social-button">
+                        <span>📘</span>
+                        <span>Share on Facebook</span>
+                    </a>
+                    <a href="#" class="social-button">
+                        <span>🔗</span>
+                        <span>Copy Link</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <footer role="contentinfo">
+            <div class="container">
+                <p>&copy; 2025 Jeffrey A. Zyjeski. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Test script to verify JavaScript loading
+        console.log('CSS Test page loaded successfully');
+        
+        // Add some basic interactivity to test
+        document.querySelectorAll('.mandala-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                console.log('Mandala item hovered');
+            });
+        });
+    </script>
+</body>
+</html>
