@@ -5,7 +5,37 @@
     Jeffre<span class="problem-chars">y A. Z</span>yjeski
   </div>
   
-  <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+  <!-- Accessibility Controls -->
+  <div class="accessibility-controls" role="region" aria-label="Accessibility settings">
+    <button id="high-contrast-toggle" 
+            class="accessibility-btn" 
+            aria-label="Toggle high contrast mode"
+            aria-pressed="false"
+            title="Toggle high contrast mode">
+      <span class="btn-icon contrast-icon" aria-hidden="true">◐</span>
+      <span class="btn-text sr-only">High Contrast</span>
+    </button>
+    
+    <button id="reduced-motion-toggle" 
+            class="accessibility-btn" 
+            aria-label="Toggle reduced motion"
+            aria-pressed="false"
+            title="Toggle reduced motion">
+      <span class="btn-icon motion-icon" aria-hidden="true">⚡</span>
+      <span class="btn-text sr-only">Reduce Motion</span>
+    </button>
+    
+    <button id="focus-outline-toggle" 
+            class="accessibility-btn" 
+            aria-label="Toggle enhanced focus indicators"
+            aria-pressed="false"
+            title="Toggle enhanced focus indicators">
+      <span class="btn-icon focus-icon" aria-hidden="true">⊡</span>
+      <span class="btn-text sr-only">Focus Mode</span>
+    </button>
+  </div>
+  
+  <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
     <span class="toggle-bar"></span>
     <span class="toggle-bar"></span>
     <span class="toggle-bar"></span>
@@ -29,6 +59,8 @@
       }
       
       menuToggle.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
         this.classList.toggle('active');
         navContainer.classList.toggle('active');
         
@@ -41,12 +73,120 @@
       navLinks.forEach(link => {
         link.addEventListener('click', function() {
           if (window.innerWidth <= 768) {
+            menuToggle.setAttribute('aria-expanded', 'false');
             menuToggle.classList.remove('active');
             navContainer.classList.remove('active');
             document.body.classList.remove('menu-open');
           }
         });
       });
+      
+      // Escape key closes mobile menu
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navContainer.classList.contains('active')) {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.classList.remove('active');
+          navContainer.classList.remove('active');
+          document.body.classList.remove('menu-open');
+          menuToggle.focus();
+        }
+      });
     }
+    
+    // Accessibility Controls
+    initAccessibilityControls();
+  });
+  
+  function initAccessibilityControls() {
+    const highContrastToggle = document.getElementById('high-contrast-toggle');
+    const reducedMotionToggle = document.getElementById('reduced-motion-toggle');
+    const focusOutlineToggle = document.getElementById('focus-outline-toggle');
+    
+    // Load saved preferences
+    const preferences = {
+      highContrast: localStorage.getItem('accessibility-high-contrast') === 'true',
+      reducedMotion: localStorage.getItem('accessibility-reduced-motion') === 'true' || 
+                     window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      focusMode: localStorage.getItem('accessibility-focus-mode') === 'true'
+    };
+    
+    // Apply saved preferences
+    if (preferences.highContrast) {
+      document.body.classList.add('high-contrast-mode');
+      highContrastToggle.setAttribute('aria-pressed', 'true');
+      highContrastToggle.classList.add('active');
+    }
+    
+    if (preferences.reducedMotion) {
+      document.body.classList.add('reduced-motion-mode');
+      reducedMotionToggle.setAttribute('aria-pressed', 'true');
+      reducedMotionToggle.classList.add('active');
+    }
+    
+    if (preferences.focusMode) {
+      document.body.classList.add('enhanced-focus-mode');
+      focusOutlineToggle.setAttribute('aria-pressed', 'true');
+      focusOutlineToggle.classList.add('active');
+    }
+    
+    // High Contrast Toggle
+    if (highContrastToggle) {
+      highContrastToggle.addEventListener('click', function() {
+        const isActive = document.body.classList.toggle('high-contrast-mode');
+        this.setAttribute('aria-pressed', isActive);
+        this.classList.toggle('active', isActive);
+        localStorage.setItem('accessibility-high-contrast', isActive);
+        
+        // Announce the change
+        announceAccessibilityChange('High contrast mode ' + (isActive ? 'enabled' : 'disabled'));
+      });
+    }
+    
+    // Reduced Motion Toggle
+    if (reducedMotionToggle) {
+      reducedMotionToggle.addEventListener('click', function() {
+        const isActive = document.body.classList.toggle('reduced-motion-mode');
+        this.setAttribute('aria-pressed', isActive);
+        this.classList.toggle('active', isActive);
+        localStorage.setItem('accessibility-reduced-motion', isActive);
+        
+        // Announce the change
+        announceAccessibilityChange('Reduced motion mode ' + (isActive ? 'enabled' : 'disabled'));
+      });
+    }
+    
+    // Focus Mode Toggle
+    if (focusOutlineToggle) {
+      focusOutlineToggle.addEventListener('click', function() {
+        const isActive = document.body.classList.toggle('enhanced-focus-mode');
+        this.setAttribute('aria-pressed', isActive);
+        this.classList.toggle('active', isActive);
+        localStorage.setItem('accessibility-focus-mode', isActive);
+        
+        // Announce the change
+        announceAccessibilityChange('Enhanced focus mode ' + (isActive ? 'enabled' : 'disabled'));
+      });
+    }
+  }
+  
+  function announceAccessibilityChange(message) {
+    // Create a live region for screen reader announcements
+    let announcer = document.getElementById('accessibility-announcer');
+    if (!announcer) {
+      announcer = document.createElement('div');
+      announcer.id = 'accessibility-announcer';
+      announcer.setAttribute('aria-live', 'polite');
+      announcer.setAttribute('aria-atomic', 'true');
+      announcer.className = 'sr-only';
+      document.body.appendChild(announcer);
+    }
+    
+    // Clear and set new message
+    announcer.textContent = '';
+    setTimeout(() => {
+      announcer.textContent = message;
+    }, 100);
+  }
+</script>
   });
 </script>

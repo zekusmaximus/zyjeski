@@ -7,22 +7,37 @@
       {{ $dateHuman := .Date | time.Format ":date_long" }}
       <time datetime="{{ $dateMachine }}" class="audio-date">{{ $dateHuman }}</time>
     </div>
-    
-    <!-- Prayer Wheel Audio Player - Mobile optimized -->
-    <div class="prayer-wheel-container">
+      <!-- Prayer Wheel Audio Player - Mobile optimized and accessible -->
+    <div class="prayer-wheel-container" 
+         role="region" 
+         aria-label="Interactive audio player">
       {{ with .Params.audio_file }}
-        <div class="prayer-wheel-player" data-audio="{{ . }}">
-          <div class="prayer-wheel">
+        <div class="prayer-wheel-player" 
+             data-audio="{{ . }}"
+             role="application"
+             aria-label="Prayer wheel audio player">
+          
+          <!-- Screen reader instructions -->
+          <div class="sr-only" id="player-instructions">
+            Interactive audio player. Use the play button to start playback. 
+            The wheel will spin during playback unless you have motion reduction enabled.
+          </div>
+          
+          <div class="prayer-wheel" 
+               tabindex="0"
+               role="button"
+               aria-label="Prayer wheel - decorative audio visualization"
+               aria-describedby="player-instructions">
             <div class="wheel-outer">
               <div class="wheel-inner">
-                <div class="wheel-center"></div>
-                <div class="wheel-spokes">
+                <div class="wheel-center" aria-hidden="true"></div>
+                <div class="wheel-spokes" aria-hidden="true">
                   <!-- Reduced number of spokes for better mobile performance -->
                   {{ range seq 6 }}
                     <div class="wheel-spoke"></div>
                   {{ end }}
                 </div>
-                <div class="wheel-symbols">
+                <div class="wheel-symbols" aria-hidden="true">
                   <!-- Reduced number of symbols for better mobile performance -->
                   {{ range seq 4 }}
                     <div class="wheel-symbol">ॐ</div>
@@ -30,15 +45,44 @@
                 </div>
               </div>
             </div>
-            <div class="player-controls">
-              <button class="play-pause-btn" aria-label="Play or pause audio">
-                <span class="play-icon">▶</span>
-                <span class="pause-icon">⏸</span>
-              </button>
-              <div class="progress-bar">
-                <div class="progress-fill"></div>
+          </div>
+          
+          <div class="player-controls" role="group" aria-label="Audio player controls">
+            <button class="play-pause-btn" 
+                    aria-label="Play or pause audio"
+                    aria-pressed="false"
+                    type="button">
+              <span class="play-icon" aria-hidden="true">▶</span>
+              <span class="pause-icon" aria-hidden="true">⏸</span>
+              <span class="sr-only btn-state-text">Play</span>
+            </button>
+            
+            <div class="progress-container" role="group" aria-label="Audio progress">
+              <div class="progress-bar" 
+                   role="progressbar" 
+                   aria-valuemin="0" 
+                   aria-valuemax="100" 
+                   aria-valuenow="0"
+                   aria-label="Audio progress"
+                   tabindex="0">
+                <div class="progress-fill" aria-hidden="true"></div>
               </div>
-              <div class="time-display">00:00 / 00:00</div>
+              <div class="time-display" 
+                   aria-live="polite" 
+                   aria-atomic="true"
+                   aria-label="Playback time">00:00 / 00:00</div>
+            </div>
+            
+            <!-- Audio control alternatives for screen readers -->
+            <div class="sr-only">
+              <label for="volume-control">Volume:</label>
+              <input type="range" 
+                     id="volume-control" 
+                     min="0" 
+                     max="1" 
+                     step="0.1" 
+                     value="1"
+                     aria-label="Audio volume">
             </div>
           </div>
         </div>
@@ -60,9 +104,8 @@
     
     {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
   </article>
-  
-  <script>
-    // Prayer Wheel Audio Player Functionality - Mobile optimized
+    <script>
+    // Prayer Wheel Audio Player Functionality - Mobile optimized and accessible
     document.addEventListener('DOMContentLoaded', function() {
       const playerContainer = document.querySelector('.prayer-wheel-player');
       if (!playerContainer) return;
@@ -70,26 +113,54 @@
       const audioSrc = playerContainer.getAttribute('data-audio');
       if (!audioSrc) return;
       
-      // Check for touch device
+      // Check for accessibility preferences
       const isTouchDevice = 'ontouchstart' in window || 
                           navigator.maxTouchPoints > 0 || 
                           navigator.msMaxTouchPoints > 0;
       
-      // Check for reduced motion preference
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+                                 document.body.classList.contains('reduced-motion-mode');
       
-      // Create audio element
-      const audio = new Audio(audioSrc);
+      // Create audio element      const audio = new Audio(audioSrc);
       const wheel = document.querySelector('.prayer-wheel');
       const playPauseBtn = document.querySelector('.play-pause-btn');
       const progressBar = document.querySelector('.progress-fill');
+      const progressBarContainer = document.querySelector('.progress-bar');
       const timeDisplay = document.querySelector('.time-display');
+      const volumeControl = document.getElementById('volume-control');
+      const btnStateText = document.querySelector('.btn-state-text');
       
       let isPlaying = false;
       
       // Mobile Safari requires user interaction before playing
       audio.setAttribute('playsinline', '');
       audio.setAttribute('preload', 'metadata');
+      
+      // Setup volume control
+      if (volumeControl) {
+        volumeControl.addEventListener('input', function() {
+          audio.volume = this.value;
+          announceToScreenReader(`Volume set to ${Math.round(this.value * 100)}%`);
+        });
+      }
+      
+      // Announce changes to screen readers
+      function announceToScreenReader(message) {
+        let announcer = document.getElementById('audio-announcer');
+        if (!announcer) {
+          announcer = document.createElement('div');
+          announcer.id = 'audio-announcer';
+          announcer.setAttribute('aria-live', 'polite');
+          announcer.setAttribute('aria-atomic', 'true');
+          announcer.className = 'sr-only';
+          document.body.appendChild(announcer);
+        }
+        
+        announcer.textContent = '';
+        setTimeout(() => {
+          announcer.textContent = message;
+        }, 100);
+      }
       
       // Format time in MM:SS
       function formatTime(seconds) {
@@ -98,8 +169,7 @@
         const secs = Math.floor(seconds % 60);
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
       }
-      
-      // Update progress bar and time display - throttled for mobile
+        // Update progress bar and time display - throttled for mobile
       let lastUpdateTime = 0;
       function updateProgress() {
         const now = Date.now();
@@ -110,10 +180,17 @@
         const currentTime = audio.currentTime;
         const duration = audio.duration;
         
-        // Update progress bar
+        // Update progress bar and ARIA attributes
         if (duration) {
-          progressBar.style.width = `${(currentTime / duration) * 100}%`;
+          const progress = (currentTime / duration) * 100;
+          progressBar.style.width = `${progress}%`;
+          progressBarContainer.setAttribute('aria-valuenow', Math.round(progress));
           timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+          
+          // Update button state text for screen readers
+          if (btnStateText) {
+            btnStateText.textContent = isPlaying ? 'Pause' : 'Play';
+          }
         }
       }
       
@@ -122,18 +199,23 @@
         if (prefersReducedMotion) {
           // For reduced motion, just add a gentle pulse instead of spinning
           wheel.classList.add('reduced-motion-active');
+          announceToScreenReader('Audio playing with reduced motion');
         } else {
           wheel.classList.add('spinning');
+          announceToScreenReader('Audio playing');
         }
       }
       
       function stopWheelRotation() {
         wheel.classList.remove('spinning', 'reduced-motion-active');
+        announceToScreenReader('Audio paused');
       }
       
-      // Play/Pause functionality with better mobile handling
-      playPauseBtn.addEventListener('click', function() {
-        // For iOS, need to load audio on first interaction
+      function stopWheelRotation() {
+        wheel.classList.remove('spinning', 'reduced-motion-active');
+      }
+        // Play/Pause functionality with better mobile handling and accessibility
+      function togglePlayback() {
         if (audio.readyState === 0) {
           audio.load();
         }
@@ -141,6 +223,7 @@
         if (isPlaying) {
           audio.pause();
           playPauseBtn.classList.remove('playing');
+          playPauseBtn.setAttribute('aria-pressed', 'false');
           stopWheelRotation();
           isPlaying = false;
         } else {
@@ -151,30 +234,77 @@
             playPromise.then(_ => {
               // Playback started successfully
               playPauseBtn.classList.add('playing');
+              playPauseBtn.setAttribute('aria-pressed', 'true');
               startWheelRotation();
               isPlaying = true;
             })
             .catch(error => {
               // Auto-play was prevented - show error or prompt
               console.error("Playback prevented:", error);
+              announceToScreenReader('Playback failed. Please try again.');
               
               // Create a visual indicator for the error
               const errorMsg = document.createElement('div');
               errorMsg.className = 'audio-error-message';
               errorMsg.textContent = 'Tap again to play audio';
+              errorMsg.setAttribute('role', 'alert');
               playerContainer.appendChild(errorMsg);
               
-              // Remove error after a tap anywhere
-              document.addEventListener('click', function removeError() {
+              setTimeout(() => {
                 if (errorMsg.parentNode) {
                   errorMsg.parentNode.removeChild(errorMsg);
                 }
-                document.removeEventListener('click', removeError);
-              }, { once: true });
+              }, 3000);
             });
           }
         }
-      });
+      }
+      
+      // Keyboard controls
+      function handleKeyPress(e) {
+        switch(e.key) {
+          case ' ':
+          case 'Enter':
+            e.preventDefault();
+            togglePlayback();
+            break;
+          case 'ArrowLeft':
+            e.preventDefault();
+            audio.currentTime = Math.max(0, audio.currentTime - 10);
+            announceToScreenReader('Skipped back 10 seconds');
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+            announceToScreenReader('Skipped forward 10 seconds');
+            break;
+        }
+      }
+      
+      // Event listeners
+      playPauseBtn.addEventListener('click', togglePlayback);
+      playPauseBtn.addEventListener('keydown', handleKeyPress);
+      wheel.addEventListener('keydown', handleKeyPress);
+      
+      // Progress bar interaction
+      if (progressBarContainer) {
+        progressBarContainer.addEventListener('click', function(e) {
+          const rect = this.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const width = rect.width;
+          const clickPercent = clickX / width;
+          
+          if (audio.duration) {
+            audio.currentTime = clickPercent * audio.duration;
+            announceToScreenReader(`Seeked to ${formatTime(audio.currentTime)}`);
+          }
+        });
+        
+        progressBarContainer.addEventListener('keydown', function(e) {
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            handleKeyPress(e);
+          }        });
+      }
       
       // Update progress as audio plays
       audio.addEventListener('timeupdate', updateProgress);
@@ -182,28 +312,28 @@
       // Handle audio ended
       audio.addEventListener('ended', function() {
         playPauseBtn.classList.remove('playing');
+        playPauseBtn.setAttribute('aria-pressed', 'false');
         stopWheelRotation();
         isPlaying = false;
         audio.currentTime = 0;
         updateProgress();
+        announceToScreenReader('Audio finished');
       });
       
-      // Handle clicks on progress bar - improved for touch devices
-      const progressContainer = progressBar.parentElement;
+      // Handle audio loading states
+      audio.addEventListener('loadstart', function() {
+        announceToScreenReader('Loading audio...');
+      });
       
-      if (isTouchDevice) {
-        // For touch devices, use touch events for better accuracy
-        progressContainer.addEventListener('touchstart', updateAudioPosition);
-        progressContainer.addEventListener('touchmove', updateAudioPosition);
-      } else {
-        // For mouse devices
-        progressContainer.addEventListener('click', function(e) {
-          const rect = this.getBoundingClientRect();
-          const pos = (e.clientX - rect.left) / rect.width;
-          audio.currentTime = pos * audio.duration;
-          updateProgress();
-        });
-      }
+      audio.addEventListener('canplay', function() {
+        const duration = formatTime(audio.duration);
+        progressBarContainer.setAttribute('aria-valuemax', '100');
+        announceToScreenReader(`Audio loaded. Duration: ${duration}`);
+      });
+      
+      audio.addEventListener('error', function() {
+        announceToScreenReader('Error loading audio');
+      });
       
       // Function to update audio position from touch
       function updateAudioPosition(e) {

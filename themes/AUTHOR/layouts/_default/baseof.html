@@ -21,19 +21,24 @@
   {{ partialCached "head/js.html" . }}
 </head>
 <body>
+  <!-- Skip Links for Accessibility -->
+  <nav aria-label="Skip links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#navigation" class="skip-link">Skip to navigation</a>
+  </nav>
+  
   <!-- Digital noise background overlay -->
-  <div class="noise-overlay"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
   
   <div class="page-container">
-    <header>
+    <header id="navigation" role="banner">
       {{ partial "header.html" . }}
-    </header>
-    
-    <main>
+    </header>    
+    <main id="main-content" role="main">
       {{ block "main" . }}{{ end }}
     </main>
     
-    <footer>
+    <footer role="contentinfo">
       {{ partial "footer.html" . }}
     </footer>
   </div>

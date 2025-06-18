@@ -1,4 +1,7 @@
 {{ define "main" }}
+  <!-- Skip Link for Keyboard Navigation -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
   <div class="home-intro">
     {{ .Content }}
   </div>
@@ -131,97 +134,398 @@
       }
     }
   </style>
-
-  <div class="mandala-container">
-    <div class="mandala-grid">
-      <!-- Center: Mandala -->
-      <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;">
-        <div class="mandala-center">
-          <div class="mandala-center-content">
-            <img src="{{ "/images/mandala-center.jpg" | relURL }}" alt="Mandala" class="mandala-center-img">
+  <main id="main-content" role="main">
+    <div class="mandala-container">
+      <div class="mandala-grid" 
+           role="grid" 
+           aria-label="Site navigation sections"
+           aria-describedby="mandala-description">
+        
+        <!-- Hidden description for screen readers -->
+        <div id="mandala-description" class="sr-only">
+          Interactive grid showing different sections of the website. Use arrow keys to navigate between items, Enter or Space to select.
+        </div>
+        
+        <!-- Center: Mandala -->
+        <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;" role="gridcell">
+          <div class="mandala-center" 
+               tabindex="0"
+               role="button"
+               aria-label="Central mandala - decorative element">
+            <div class="mandala-center-content">
+              <img src="{{ "/images/mandala-center.jpg" | relURL }}" 
+                   alt="Central mandala design - decorative" 
+                   class="mandala-center-img"
+                   role="presentation">
+            </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Grid Item 1: Books/The Protocol (top row) -->
-      <div class="mandala-item item-1 photo-item" style="grid-column: 1; grid-row: 1;">
-        <a href="/books/">
-          <img src="/images/cyber-bg-1.jpg" alt="Books - The Protocol" class="mandala-photo" loading="lazy">
-          <div class="mandala-overlay">
-            <h3 class="mandala-item-title">Books</h3>
-            <div class="mandala-item-subtitle">The Protocol</div>
-          </div>
-        </a>
-      </div>
-      
-      <!-- Grid Item 2: Stories/Koans (top row) -->
-      <div class="mandala-item item-2 photo-item" style="grid-column: 2; grid-row: 1;">
-        <a href="/stories/">
-          <img src="/images/cyber-bg-2.jpg" alt="Stories - Koans" class="mandala-photo" loading="lazy">
-          <div class="mandala-overlay">
-            <h3 class="mandala-item-title">Stories</h3>
-            <div class="mandala-item-subtitle">Koans</div>
-          </div>
-        </a>
-      </div>
-      
+        
+        <!-- Grid Item 1: Books/The Protocol (top row) -->
+        <div class="mandala-item item-1 photo-item" 
+             style="grid-column: 1; grid-row: 1;"
+             role="gridcell"
+             tabindex="0"
+             aria-labelledby="books-title books-subtitle">
+          <a href="/books/" 
+             aria-describedby="books-description"
+             class="mandala-item-link">
+            <img src="/images/cyber-bg-1.jpg" 
+                 alt="Books section featuring The Protocol and other works" 
+                 class="mandala-photo" 
+                 loading="lazy"
+                 width="400"
+                 height="300">
+            <div class="mandala-overlay">
+              <h3 class="mandala-item-title" id="books-title">Books</h3>
+              <div class="mandala-item-subtitle" id="books-subtitle">The Protocol</div>
+              <div id="books-description" class="sr-only">
+                Explore published works including The Protocol series and other cyberpunk literature
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- Grid Item 2: Stories/Koans (top row) -->
+        <div class="mandala-item item-2 photo-item" 
+             style="grid-column: 2; grid-row: 1;"
+             role="gridcell"
+             tabindex="0"
+             aria-labelledby="stories-title stories-subtitle">
+          <a href="/stories/" 
+             aria-describedby="stories-description"
+             class="mandala-item-link">
+            <img src="/images/cyber-bg-2.jpg" 
+                 alt="Stories section featuring digital koans and narratives" 
+                 class="mandala-photo" 
+                 loading="lazy"
+                 width="400"
+                 height="300">
+            <div class="mandala-overlay">
+              <h3 class="mandala-item-title" id="stories-title">Stories</h3>
+              <div class="mandala-item-subtitle" id="stories-subtitle">Koans</div>
+              <div id="stories-description" class="sr-only">
+                Read digital koans, cyberpunk stories, and philosophical narratives
+              </div>
+            </div>
+          </a>
+        </div>      
       <!-- Grid Item 3: Audio/Simulations (top row) -->
-      <div class="mandala-item item-3 photo-item" style="grid-column: 3; grid-row: 1;">
-        <a href="/audio/">
-          <img src="/images/cyber-bg-3.jpg" alt="Audio - Simulations" class="mandala-photo" loading="lazy">
+      <div class="mandala-item item-3 photo-item" 
+           style="grid-column: 3; grid-row: 1;"
+           role="gridcell"
+           tabindex="0"
+           aria-labelledby="audio-title audio-subtitle">
+        <a href="/audio/" 
+           aria-describedby="audio-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-3.jpg" 
+               alt="Audio section featuring neural simulations and spoken stories" 
+               class="mandala-photo" 
+               loading="lazy"
+               width="400"
+               height="300">
           <div class="mandala-overlay">
-            <h3 class="mandala-item-title">Audio</h3>
-            <div class="mandala-item-subtitle">Simulations</div>
+            <h3 class="mandala-item-title" id="audio-title">Audio</h3>
+            <div class="mandala-item-subtitle" id="audio-subtitle">Simulations</div>
+            <div id="audio-description" class="sr-only">
+              Listen to neural simulations, spoken stories, and interactive audio experiences
+            </div>
           </div>
         </a>
       </div>
       
-      <!-- Grid Item 4: Headshot (middle row) - photo only -->
-      <div class="mandala-item item-4 photo-item" style="grid-column: 1; grid-row: 2;">
-        <a href="/about/">
-          <img src="{{ "/images/featured-book.jpg" | relURL }}" alt="Jeffrey A. Zyjeski" class="mandala-photo">
+      <!-- Grid Item 4: About/Headshot (middle row) -->
+      <div class="mandala-item item-4 photo-item" 
+           style="grid-column: 1; grid-row: 2;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="About Jeffrey A. Zyjeski - Author profile and biography">
+        <a href="/about/" 
+           aria-describedby="about-description"
+           class="mandala-item-link">
+          <img src="{{ "/images/featured-book.jpg" | relURL }}" 
+               alt="Jeffrey A. Zyjeski - Author profile photo" 
+               class="mandala-photo"
+               loading="lazy"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">About</h3>
+            <div class="mandala-item-subtitle">Jeffrey A. Zyjeski</div>
+          </div>
+          <div id="about-description" class="sr-only">
+            Learn about the author, background, and philosophy behind the works
+          </div>
         </a>
       </div>
       
-      <!-- Grid Item 5: Book Cover (middle row) - photo only -->
-      <div class="mandala-item item-5 photo-item" style="grid-column: 3; grid-row: 2;">
-        <a href="/books/the-protocol-vol1/">
-          <img src="{{ "/images/featured-event.jpg" | relURL }}" alt="The Karmic Protocol" class="mandala-photo">
+      <!-- Grid Item 5: Featured Book (middle row) -->
+      <div class="mandala-item item-5 photo-item" 
+           style="grid-column: 3; grid-row: 2;"
+           role="gridcell"
+           tabindex="0"
+           aria-label="The Karmic Protocol - Featured book">
+        <a href="/books/the-protocol-vol1/" 
+           aria-describedby="book-description"
+           class="mandala-item-link">
+          <img src="{{ "/images/featured-event.jpg" | relURL }}" 
+               alt="The Karmic Protocol book cover" 
+               class="mandala-photo"
+               loading="lazy"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title">Featured</h3>
+            <div class="mandala-item-subtitle">The Karmic Protocol</div>
+          </div>
+          <div id="book-description" class="sr-only">
+            Read the featured book The Karmic Protocol exploring themes of technology and enlightenment
+          </div>
         </a>
       </div>
       
       <!-- Grid Item 6: Blog/Dharma Log (bottom row) -->
-      <div class="mandala-item item-6 photo-item" style="grid-column: 1; grid-row: 3;">
-        <a href="/posts/">
-          <img src="/images/cyber-bg-4.jpg" alt="Blog - Dharma Log" class="mandala-photo" loading="lazy">
+      <div class="mandala-item item-6 photo-item" 
+           style="grid-column: 1; grid-row: 3;"
+           role="gridcell"
+           tabindex="0"
+           aria-labelledby="blog-title blog-subtitle">
+        <a href="/posts/" 
+           aria-describedby="blog-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-4.jpg" 
+               alt="Blog section - Dharma Log featuring thoughts and insights" 
+               class="mandala-photo" 
+               loading="lazy"
+               width="400"
+               height="300">
           <div class="mandala-overlay">
-            <h3 class="mandala-item-title">Blog</h3>
-            <div class="mandala-item-subtitle">Dharma Log</div>
+            <h3 class="mandala-item-title" id="blog-title">Blog</h3>
+            <div class="mandala-item-subtitle" id="blog-subtitle">Dharma Log</div>
+            <div id="blog-description" class="sr-only">
+              Read thoughts, insights, and reflections on technology, philosophy, and digital consciousness
+            </div>
+          </div>
+        </a>
+      </div>      <!-- Grid Item 7: Newsletter (bottom row) -->
+      <div class="mandala-item item-7 photo-item" 
+           style="grid-column: 2; grid-row: 3;"
+           role="gridcell"
+           tabindex="0"
+           aria-labelledby="newsletter-title newsletter-subtitle">
+        <a href="/newsletter/" 
+           aria-describedby="newsletter-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-5.jpg" 
+               alt="Newsletter - Future Law Insider covering technology and legal futures" 
+               class="mandala-photo" 
+               loading="lazy"
+               width="400"
+               height="300">
+          <div class="mandala-overlay">
+            <h3 class="mandala-item-title" id="newsletter-title">Newsletter</h3>
+            <div class="mandala-item-subtitle" id="newsletter-subtitle">Future Law Insider</div>
+            <div id="newsletter-description" class="sr-only">
+              Subscribe to Future Law Insider for insights on technology, law, and digital futures
+            </div>
           </div>
         </a>
       </div>
 
-      <!-- Grid Item 7: Newsletter (bottom row) -->
-      <div class="mandala-item item-7 photo-item" style="grid-column: 2; grid-row: 3;">
-        <a href="/newsletter/">
-          <img src="/images/cyber-bg-5.jpg" alt="Newsletter - Future Law Insider" class="mandala-photo" loading="lazy">
+      <!-- Grid Item 8: Inquiries (bottom row) -->
+      <div class="mandala-item item-8 photo-item" 
+           style="grid-column: 3; grid-row: 3;"
+           role="gridcell"
+           tabindex="0"
+           aria-labelledby="inquiries-title inquiries-subtitle">
+        <a href="/inquiries/" 
+           aria-describedby="inquiries-description"
+           class="mandala-item-link">
+          <img src="/images/cyber-bg-6.jpg" 
+               alt="Inquiries - Contact and collaboration opportunities" 
+               class="mandala-photo" 
+               loading="lazy"
+               width="400"
+               height="300">
           <div class="mandala-overlay">
-            <h3 class="mandala-item-title">Newsletter</h3>
-            <div class="mandala-item-subtitle">Future Law Insider</div>
+            <h3 class="mandala-item-title" id="inquiries-title">Inquiries</h3>
+            <div class="mandala-item-subtitle" id="inquiries-subtitle">Connect</div>
+            <div id="inquiries-description" class="sr-only">
+              Get in touch for collaborations, speaking engagements, and professional inquiries
+            </div>
           </div>
         </a>
-      </div>
-
-      <!-- Grid Item 8: About (bottom row) -->
-      <div class="mandala-item item-8 photo-item" style="grid-column: 3; grid-row: 3;">
-        <a href="/about/">
-          <img src="/images/cyber-bg-6.jpg" alt="About - The Author" class="mandala-photo" loading="lazy">
-          <div class="mandala-overlay">
-            <h3 class="mandala-item-title">About</h3>
-            <div class="mandala-item-subtitle">The Author</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
+      </div>    </div>
+  </main>
+  
+  <script>
+    // Enhanced keyboard navigation for mandala grid
+    document.addEventListener('DOMContentLoaded', function() {
+      const mandalaGrid = document.querySelector('.mandala-grid');
+      const mandalaItems = document.querySelectorAll('.mandala-item[role="gridcell"]');
+      let currentFocusIndex = 0;
+      
+      if (!mandalaGrid || mandalaItems.length === 0) return;
+      
+      // Set initial tabindex
+      mandalaItems.forEach((item, index) => {
+        item.setAttribute('tabindex', index === 0 ? '0' : '-1');
+      });
+      
+      // Grid dimensions for navigation
+      const getGridPosition = (index) => {
+        // Assuming 3x3 grid with center item at position 4 (index varies by layout)
+        const gridMap = [0, 1, 2, 3, 5, 6, 7, 8]; // Skip center (position 4)
+        return gridMap.indexOf(index);
+      };
+      
+      const getItemIndex = (gridPos) => {
+        const gridMap = [0, 1, 2, 3, 5, 6, 7, 8];
+        return gridMap[gridPos];
+      };
+      
+      // Handle arrow key navigation
+      function handleGridNavigation(e) {
+        if (!e.target.matches('.mandala-item[role="gridcell"]')) return;
+        
+        let newIndex = currentFocusIndex;
+        const currentGridPos = getGridPosition(currentFocusIndex);
+        
+        switch(e.key) {
+          case 'ArrowRight':
+            e.preventDefault();
+            if (currentGridPos % 3 < 2) { // Not at right edge
+              newIndex = getItemIndex(currentGridPos + 1);
+            }
+            break;
+            
+          case 'ArrowLeft':
+            e.preventDefault();
+            if (currentGridPos % 3 > 0) { // Not at left edge
+              newIndex = getItemIndex(currentGridPos - 1);
+            }
+            break;
+            
+          case 'ArrowDown':
+            e.preventDefault();
+            if (Math.floor(currentGridPos / 3) < 2) { // Not at bottom edge
+              newIndex = getItemIndex(currentGridPos + 3);
+            }
+            break;
+            
+          case 'ArrowUp':
+            e.preventDefault();
+            if (Math.floor(currentGridPos / 3) > 0) { // Not at top edge
+              newIndex = getItemIndex(currentGridPos - 3);
+            }
+            break;
+            
+          case 'Home':
+            e.preventDefault();
+            newIndex = 0;
+            break;
+            
+          case 'End':
+            e.preventDefault();
+            newIndex = mandalaItems.length - 1;
+            break;
+            
+          case 'Enter':
+          case ' ':
+            e.preventDefault();
+            const link = e.target.querySelector('a');
+            if (link) {
+              // Add visual feedback
+              e.target.classList.add('activated');
+              setTimeout(() => {
+                e.target.classList.remove('activated');
+                window.location.href = link.href;
+              }, 150);
+            }
+            return;
+        }
+        
+        if (newIndex !== currentFocusIndex && newIndex >= 0 && newIndex < mandalaItems.length) {
+          // Update tabindex
+          mandalaItems[currentFocusIndex].setAttribute('tabindex', '-1');
+          mandalaItems[newIndex].setAttribute('tabindex', '0');
+          mandalaItems[newIndex].focus();
+          currentFocusIndex = newIndex;
+        }
+      }
+      
+      // Track focus changes
+      mandalaItems.forEach((item, index) => {
+        item.addEventListener('focus', () => {
+          currentFocusIndex = index;
+        });
+        
+        item.addEventListener('keydown', handleGridNavigation);
+        
+        // Add hover effects for non-touch devices
+        if (window.matchMedia('(hover: hover)').matches) {
+          item.addEventListener('mouseenter', () => {
+            // Dim other items
+            mandalaItems.forEach(otherItem => {
+              if (otherItem !== item) {
+                otherItem.style.opacity = '0.6';
+              }
+            });
+          });
+          
+          item.addEventListener('mouseleave', () => {
+            // Restore other items
+            mandalaItems.forEach(otherItem => {
+              otherItem.style.opacity = '';
+            });
+          });
+        }
+      });
+      
+      // Handle reduced motion preferences
+      function updateMotionPreferences() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+                                   document.body.classList.contains('reduced-motion-mode');
+        
+        if (prefersReducedMotion) {
+          mandalaGrid.style.transform = 'none';
+          mandalaItems.forEach(item => {
+            item.style.transition = 'none';
+          });
+        }
+      }
+      
+      // Listen for motion preference changes
+      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', updateMotionPreferences);
+      updateMotionPreferences();
+      
+      // Announce grid navigation to screen readers
+      const announceNavigation = (item) => {
+        const title = item.querySelector('.mandala-item-title')?.textContent;
+        const subtitle = item.querySelector('.mandala-item-subtitle')?.textContent;
+        if (title) {
+          const message = subtitle ? `${title} - ${subtitle}` : title;
+          announceToScreenReader(message);
+        }
+      };
+      
+      function announceToScreenReader(message) {
+        let announcer = document.getElementById('grid-announcer');
+        if (!announcer) {
+          announcer = document.createElement('div');
+          announcer.id = 'grid-announcer';
+          announcer.setAttribute('aria-live', 'polite');
+          announcer.setAttribute('aria-atomic', 'true');
+          announcer.className = 'sr-only';
+          document.body.appendChild(announcer);
+        }
+        
+        announcer.textContent = '';
+        setTimeout(() => {
+          announcer.textContent = message;
+        }, 100);
+      }
+    });
+  </script>
 {{ end }}
