@@ -5,7 +5,7 @@ draft = false
 description = "Contact information for literary agents and editors interested in Jeffrey A. Zyjeski's work."
 +++
 
-For agent or editor inquiries, please email [jeff@zyjeski.com](mailto:jeff@zyjeski.com).
+For agent or editor inquiries, please visit [agent.zyjeski.com](https://agent.zyjeski.com) or email [jeff@zyjeski.com](mailto:jeff@zyjeski.com).
 
 ---
 
