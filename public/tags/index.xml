@@ -1,1 +1,145 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on Jeffrey A. Zyjeski, Esq.</title><link>https://zyjeski.netlify.app/tags/</link><description>Recent content in Tags on Jeffrey A. Zyjeski, Esq.</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 21 Apr 2025 10:00:00 -0700</lastBuildDate><atom:link href="https://zyjeski.netlify.app/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>Cyberpunk</title><link>https://zyjeski.netlify.app/tags/cyberpunk/</link><pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/cyberpunk/</guid><description/></item><item><title>Digital Linguistics</title><link>https://zyjeski.netlify.app/tags/digital-linguistics/</link><pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/digital-linguistics/</guid><description/></item><item><title>Future Governance</title><link>https://zyjeski.netlify.app/tags/future-governance/</link><pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/future-governance/</guid><description/></item><item><title>Law</title><link>https://zyjeski.netlify.app/tags/law/</link><pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/law/</guid><description/></item><item><title>Character-Study</title><link>https://zyjeski.netlify.app/tags/character-study/</link><pubDate>Sun, 20 Apr 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/character-study/</guid><description/></item><item><title>Fiction</title><link>https://zyjeski.netlify.app/tags/fiction/</link><pubDate>Sun, 20 Apr 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/fiction/</guid><description/></item><item><title>Recursive</title><link>https://zyjeski.netlify.app/tags/recursive/</link><pubDate>Sun, 20 Apr 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/recursive/</guid><description/></item><item><title>Mysticism</title><link>https://zyjeski.netlify.app/tags/mysticism/</link><pubDate>Sat, 05 Apr 2025 14:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/mysticism/</guid><description/></item><item><title>Consciousness</title><link>https://zyjeski.netlify.app/tags/consciousness/</link><pubDate>Tue, 25 Mar 2025 09:30:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/consciousness/</guid><description/></item><item><title>Meditation</title><link>https://zyjeski.netlify.app/tags/meditation/</link><pubDate>Tue, 25 Mar 2025 09:30:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/meditation/</guid><description/></item><item><title>Programming</title><link>https://zyjeski.netlify.app/tags/programming/</link><pubDate>Tue, 25 Mar 2025 09:30:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/programming/</guid><description/></item><item><title>Simulation</title><link>https://zyjeski.netlify.app/tags/simulation/</link><pubDate>Sat, 15 Mar 2025 14:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/simulation/</guid><description/></item><item><title>Digital Enlightenment</title><link>https://zyjeski.netlify.app/tags/digital-enlightenment/</link><pubDate>Sat, 15 Feb 2025 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/digital-enlightenment/</guid><description/></item><item><title>Koans</title><link>https://zyjeski.netlify.app/tags/koans/</link><pubDate>Fri, 10 Jan 2025 11:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/koans/</guid><description/></item><item><title>Non-Duality</title><link>https://zyjeski.netlify.app/tags/non-duality/</link><pubDate>Fri, 10 Jan 2025 11:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/non-duality/</guid><description/></item><item><title>Paradox</title><link>https://zyjeski.netlify.app/tags/paradox/</link><pubDate>Fri, 10 Jan 2025 11:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/paradox/</guid><description/></item><item><title>Neuro-Digital</title><link>https://zyjeski.netlify.app/tags/neuro-digital/</link><pubDate>Mon, 17 Jun 2024 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/neuro-digital/</guid><description/></item><item><title>Social-Sharing</title><link>https://zyjeski.netlify.app/tags/social-sharing/</link><pubDate>Mon, 17 Jun 2024 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/social-sharing/</guid><description/></item><item><title>Testing</title><link>https://zyjeski.netlify.app/tags/testing/</link><pubDate>Mon, 17 Jun 2024 10:00:00 -0700</pubDate><guid>https://zyjeski.netlify.app/tags/testing/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Jeffrey A. Zyjeski, Esq.</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Jeffrey A. Zyjeski, Esq.</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 Apr 2025 10:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cyberpunk</title>
+      <link>http://localhost:1313/tags/cyberpunk/</link>
+      <pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/cyberpunk/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Digital Linguistics</title>
+      <link>http://localhost:1313/tags/digital-linguistics/</link>
+      <pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/digital-linguistics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Future Governance</title>
+      <link>http://localhost:1313/tags/future-governance/</link>
+      <pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/future-governance/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Law</title>
+      <link>http://localhost:1313/tags/law/</link>
+      <pubDate>Mon, 21 Apr 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/law/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Character-Study</title>
+      <link>http://localhost:1313/tags/character-study/</link>
+      <pubDate>Sun, 20 Apr 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/character-study/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fiction</title>
+      <link>http://localhost:1313/tags/fiction/</link>
+      <pubDate>Sun, 20 Apr 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/fiction/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Recursive</title>
+      <link>http://localhost:1313/tags/recursive/</link>
+      <pubDate>Sun, 20 Apr 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/recursive/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mysticism</title>
+      <link>http://localhost:1313/tags/mysticism/</link>
+      <pubDate>Sat, 05 Apr 2025 14:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/mysticism/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Consciousness</title>
+      <link>http://localhost:1313/tags/consciousness/</link>
+      <pubDate>Tue, 25 Mar 2025 09:30:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/consciousness/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Meditation</title>
+      <link>http://localhost:1313/tags/meditation/</link>
+      <pubDate>Tue, 25 Mar 2025 09:30:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/meditation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming</title>
+      <link>http://localhost:1313/tags/programming/</link>
+      <pubDate>Tue, 25 Mar 2025 09:30:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Simulation</title>
+      <link>http://localhost:1313/tags/simulation/</link>
+      <pubDate>Sat, 15 Mar 2025 14:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/simulation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Digital Enlightenment</title>
+      <link>http://localhost:1313/tags/digital-enlightenment/</link>
+      <pubDate>Sat, 15 Feb 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/digital-enlightenment/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Koans</title>
+      <link>http://localhost:1313/tags/koans/</link>
+      <pubDate>Fri, 10 Jan 2025 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/koans/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Non-Duality</title>
+      <link>http://localhost:1313/tags/non-duality/</link>
+      <pubDate>Fri, 10 Jan 2025 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/non-duality/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Paradox</title>
+      <link>http://localhost:1313/tags/paradox/</link>
+      <pubDate>Fri, 10 Jan 2025 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/paradox/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Neuro-Digital</title>
+      <link>http://localhost:1313/tags/neuro-digital/</link>
+      <pubDate>Mon, 17 Jun 2024 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/neuro-digital/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Social-Sharing</title>
+      <link>http://localhost:1313/tags/social-sharing/</link>
+      <pubDate>Mon, 17 Jun 2024 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/social-sharing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Testing</title>
+      <link>http://localhost:1313/tags/testing/</link>
+      <pubDate>Mon, 17 Jun 2024 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/testing/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

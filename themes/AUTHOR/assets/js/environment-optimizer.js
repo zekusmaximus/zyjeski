@@ -10,10 +10,8 @@ class EnvironmentOptimizer {
     this.optimizations = new Map();
     
     this.init();
-  }
-
-  detectEnvironment() {
-    // Hugo environment variable injection
+  }  detectEnvironment() {
+    // Hugo environment variable injection - will be replaced during build
     const hugoEnv = '{{ hugo.Environment }}' || 'production';
     
     // Additional environment detection

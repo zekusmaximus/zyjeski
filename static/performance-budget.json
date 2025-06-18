@@ -1,0 +1,40 @@
+{
+  "budgets": {
+    "performance": {
+      "lcp": 1500,
+      "fid": 100,
+      "cls": 0.05,
+      "fcp": 1200,
+      "ttfb": 600
+    },
+    "resource": {
+      "totalSize": 2048,
+      "scriptSize": 512,
+      "styleSize": 256,
+      "imageSize": 1024,
+      "fontSize": 128
+    },
+    "network": {
+      "requestCount": 50,
+      "criticalRequestCount": 10
+    }
+  },
+  "thresholds": {
+    "error": {
+      "lcp": 4000,
+      "fid": 300,
+      "cls": 0.25
+    },
+    "warning": {
+      "lcp": 2500,
+      "fid": 200,
+      "cls": 0.1
+    }
+  },
+  "monitoring": {
+    "enabled": true,
+    "reportErrors": true,
+    "trackBudgetExceeded": true,
+    "logPerformanceMetrics": true
+  }
+}
