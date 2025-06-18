@@ -1,5 +1,47 @@
 /* Responsive Design */
 
+/* Base responsive image styles for all screen sizes */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 245, 212, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Content images within articles/posts */
+main img,
+.content img,
+article img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  margin: 1.5rem auto;
+  border: 1px solid rgba(110, 13, 208, 0.3);
+}
+
+/* Ensure images don't break out of containers */
+.container img,
+.mandala-item img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Prevent horizontal overflow on all screen sizes */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
 /* Desktop layout enhancements */
 @media (min-width: 769px) {
   .header-content {
@@ -166,9 +208,35 @@
   .share-buttons {
     justify-content: space-around;
   }
-  
-  .reading-progress-indicator {
+    .reading-progress-indicator {
     padding: 1rem 0.75rem;
+  }
+  
+  /* Mobile image optimizations */
+  img {
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 1rem auto !important;
+    border-radius: 6px;
+  }
+  
+  /* Story/article images on mobile */
+  main img,
+  .content img,
+  article img {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 1rem -1rem !important; /* Extend to screen edges on mobile */
+    border-radius: 0; /* No border radius for full-width mobile images */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Prevent horizontal overflow */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -242,9 +310,29 @@
   .mandala-center:focus {
     transform: scale(1.01) !important; /* Very subtle scale for small screens */
   }
-  
-  .mandala-item:hover,
+    .mandala-item:hover,
   .mandala-item:focus-within {
     transform: translateY(-1px) !important; /* Minimal movement */
+  }
+  
+  /* Very small screen image optimizations */
+  img {
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0.75rem auto !important;
+    border-radius: 4px;
+  }
+  
+  /* Story images on very small screens */
+  main img,
+  .content img,
+  article img {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0.75rem -0.5rem !important; /* Extend to screen edges */
+    border-radius: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   }
 }

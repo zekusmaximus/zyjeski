@@ -145,11 +145,19 @@ function initBasicMandalaEffects() {
       window.removeEventListener('scroll', handleScroll);
     }
   };
+    window.addEventListener('resize', handleResize, { passive: true });
   
-  window.addEventListener('resize', handleResize, { passive: true });
-  
-  // Ensure links work regardless of any overlays
+  console.log('Basic mandala effects initialized with forced 3D support');
+}
+
+function initMandalaLinks() {
+  // Ensure mandala links work regardless of 3D effects or device type
   const mandalaItems = document.querySelectorAll('.mandala-item');
+  
+  if (mandalaItems.length === 0) return;
+  
+  console.log('Initializing mandala links for all devices');
+  
   mandalaItems.forEach(item => {
     const link = item.querySelector('a');
     if (link) {
@@ -165,19 +173,44 @@ function initBasicMandalaEffects() {
         }
       });
       
-      // Add visual feedback
-      item.addEventListener('mouseenter', () => {
-        item.style.transform = 'translateY(-5px) translateZ(10px)';
-        item.style.transition = 'transform 0.3s ease';
-      });
+      // Add mobile-appropriate visual feedback
+      if (isMobileDevice()) {
+        // Simple feedback for mobile - no transforms
+        item.addEventListener('touchstart', () => {
+          item.style.opacity = '0.8';
+          item.style.transition = 'opacity 0.2s ease';
+        });
+        
+        item.addEventListener('touchend', () => {
+          item.style.opacity = '';
+        });
+      } else {
+        // Desktop hover effects
+        item.addEventListener('mouseenter', () => {
+          item.style.transform = 'translateY(-5px) translateZ(10px)';
+          item.style.transition = 'transform 0.3s ease';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+          item.style.transform = '';
+        });
+      }
       
-      item.addEventListener('mouseleave', () => {
-        item.style.transform = '';
+      // Ensure links are keyboard accessible
+      item.setAttribute('role', 'button');
+      if (!item.hasAttribute('tabindex')) {
+        item.setAttribute('tabindex', '0');
+      }
+      
+      // Handle keyboard navigation
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          link.click();
+        }
       });
     }
   });
-  
-  console.log('Basic mandala effects initialized with forced 3D support');
 }
 
 function initBasicFeatures() {
@@ -187,6 +220,7 @@ function initBasicFeatures() {
   initBasicAudioPlayers();
   initBasicFormHandling();
   initCyberpunkTextEffects(); // Keep legacy text effects for brand consistency
+  initMandalaLinks(); // Ensure mandala links work on all devices
 }
 
 function initEnhancedFeatures(event) {
