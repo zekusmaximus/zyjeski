@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Mandala Test - Full Featured</title>
+    <style>
+        /* Import fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap');
+        
+        /* CSS Variables */
+        :root {
+            --deep-black: #000F08;
+            --dark-purple: #6E0DD0;
+            --holographic-teal: #00F5D4;
+            --saffron: #FF9933;
+            --flickering-white: #E0E0E0;
+            --light-gray: #CCCCCC;
+            --focus-outline-width: 2px;
+            --focus-outline-color: #00F5D4;
+            --focus-outline-offset: 2px;
+        }
+        
+        body {
+            background: var(--deep-black);
+            color: var(--flickering-white);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(110, 13, 208, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 245, 212, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 153, 51, 0.1) 0%, transparent 50%);
+        }
+        
+        h1 {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            color: var(--holographic-teal);
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(0, 245, 212, 0.5);
+        }
+        
+        /* Mandala Container with Perspective */
+        .mandala-container {
+            perspective: 1200px;
+            margin: 3rem auto;
+            max-width: 1200px;
+        }
+        
+        .mandala-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-rows: repeat(3, minmax(220px, auto)) !important;
+            gap: 1.5rem !important;
+            padding: 0 2rem !important;
+            position: relative;
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+        
+        .mandala-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(0, 15, 8, 0.9);
+            border: 1px solid rgba(110, 13, 208, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 220px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .mandala-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(110, 13, 208, 0.1),
+                rgba(0, 245, 212, 0.05),
+                rgba(255, 153, 51, 0.08)
+            );
+            z-index: 0;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .mandala-item:hover::before {
+            opacity: 1;
+        }
+        
+        .mandala-item-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .mandala-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(20%) brightness(0.9) contrast(1.1);
+        }
+        
+        .mandala-item:hover .mandala-photo {
+            transform: scale(1.08);
+            filter: grayscale(0%) brightness(1.1) contrast(1.2);
+        }
+        
+        .mandala-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(
+                transparent,
+                rgba(0, 15, 8, 0.8),
+                rgba(0, 15, 8, 0.95)
+            );
+            padding: 1.5rem 1rem 1rem;
+            color: var(--flickering-white);
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+        
+        .mandala-item:hover .mandala-overlay {
+            background: linear-gradient(
+                transparent,
+                rgba(0, 245, 212, 0.15),
+                rgba(0, 245, 212, 0.25),
+                rgba(0, 15, 8, 0.95)
+            );
+            transform: translateY(-5px);
+        }
+        
+        .mandala-item-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--holographic-teal);
+            margin: 0 0 0.25rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 8px rgba(0, 245, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .mandala-item:hover .mandala-item-title {
+            text-shadow: 0 0 15px rgba(0, 245, 212, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .mandala-item-subtitle {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            margin: 0;
+            font-weight: 400;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        
+        .mandala-item:hover .mandala-item-subtitle {
+            color: var(--saffron);
+            opacity: 1;
+        }
+        
+        /* Center Mandala */
+        .mandala-center-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+        }
+        
+        .mandala-center {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: radial-gradient(
+                circle at center,
+                rgba(110, 13, 208, 0.4),
+                rgba(0, 245, 212, 0.2),
+                rgba(0, 15, 8, 0.9)
+            );
+            border: 3px solid var(--saffron);
+            box-shadow: 
+                0 0 30px rgba(255, 153, 51, 0.5),
+                inset 0 0 30px rgba(110, 13, 208, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            animation: gentle-pulse 4s ease-in-out infinite;
+        }
+        
+        .mandala-center:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 
+                0 0 50px rgba(255, 153, 51, 0.7),
+                inset 0 0 50px rgba(110, 13, 208, 0.5);
+        }
+        
+        .mandala-center-content {
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            margin: 10% auto;
+        }
+        
+        .mandala-center-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mandala-center:hover .mandala-center-img {
+            opacity: 1;
+        }
+        
+        /* Enhanced Hover Effects */
+        .mandala-item:hover {
+            transform: translateY(-8px) translateZ(20px);
+            border-color: var(--holographic-teal);
+            box-shadow: 
+                0 15px 35px rgba(0, 245, 212, 0.3),
+                0 5px 15px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Focus States for Accessibility */
+        .mandala-item:focus-within {
+            outline: var(--focus-outline-width) solid var(--focus-outline-color);
+            outline-offset: var(--focus-outline-offset);
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes gentle-pulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px rgba(255, 153, 51, 0.5),
+                    inset 0 0 30px rgba(110, 13, 208, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 40px rgba(255, 153, 51, 0.7),
+                    inset 0 0 40px rgba(110, 13, 208, 0.5);
+            }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .mandala-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            z-index: 4;
+            transition: transform 0.6s;
+        }
+        
+        .mandala-item:hover::after {
+            animation: shimmer 0.6s ease-out;
+        }
+        
+        /* Click activation effect */
+        .mandala-item.activated {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        /* Status indicator */
+        .status {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(110, 13, 208, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(110, 13, 208, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mandala-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important;
+                padding: 0 1rem !important;
+            }
+            
+            .mandala-center-wrapper {
+                grid-column: 1 / span 2 !important;
+                grid-row: 1 !important;
+            }
+            
+            .mandala-item {
+                min-height: 180px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mandala-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                padding: 0 0.5rem !important;
+            }
+            
+            .mandala-center-wrapper {
+                grid-column: 1 !important;
+                grid-row: 1 !important;
+            }
+            
+            .mandala-item {
+                min-height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🔮 Working Mandala Grid - Full Featured</h1>
+    
+    <div class="mandala-container">
+        <div class="mandala-grid">
+            <!-- Item 1: Books -->
+            <div class="mandala-item photo-item" style="grid-column: 1; grid-row: 1;">
+                <a href="/books/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=1" alt="Books - The Protocol" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Books</h3>
+                        <div class="mandala-item-subtitle">The Protocol</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 2: Stories -->
+            <div class="mandala-item photo-item" style="grid-column: 2; grid-row: 1;">
+                <a href="/stories/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=2" alt="Stories - Koans" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Stories</h3>
+                        <div class="mandala-item-subtitle">Koans</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 3: Audio -->
+            <div class="mandala-item photo-item" style="grid-column: 3; grid-row: 1;">
+                <a href="/audio/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=3" alt="Audio - Simulations" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Audio</h3>
+                        <div class="mandala-item-subtitle">Simulations</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 4: About -->
+            <div class="mandala-item photo-item" style="grid-column: 1; grid-row: 2;">
+                <a href="/about/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=4" alt="About - Jeffrey" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">About</h3>
+                        <div class="mandala-item-subtitle">Jeffrey</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Center: Mandala -->
+            <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;">
+                <div class="mandala-center">
+                    <div class="mandala-center-content">
+                        <img src="https://picsum.photos/200/200?random=center" alt="Central mandala" class="mandala-center-img">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 5: Featured -->
+            <div class="mandala-item photo-item" style="grid-column: 3; grid-row: 2;">
+                <a href="/featured/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=5" alt="Featured - Book" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Featured</h3>
+                        <div class="mandala-item-subtitle">Book</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 6: Blog -->
+            <div class="mandala-item photo-item" style="grid-column: 1; grid-row: 3;">
+                <a href="/posts/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=6" alt="Blog - Dharma Log" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Blog</h3>
+                        <div class="mandala-item-subtitle">Dharma Log</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 7: Newsletter -->
+            <div class="mandala-item photo-item" style="grid-column: 2; grid-row: 3;">
+                <a href="/newsletter/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=7" alt="Newsletter - Future Law" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Newsletter</h3>
+                        <div class="mandala-item-subtitle">Future Law</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 8: Inquiries -->
+            <div class="mandala-item photo-item" style="grid-column: 3; grid-row: 3;">
+                <a href="/inquiries/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=8" alt="Inquiries - Contact" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Inquiries</h3>
+                        <div class="mandala-item-subtitle">Contact</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="status">
+        <strong>Status:</strong> <span id="status-text">Initializing mandala effects...</span>
+    </div>
+
+    <script>
+        // Enhanced 3D Mandala Grid with Full Features
+        class MandalaGrid3D {
+            constructor() {
+                this.mandalaGrid = document.querySelector('.mandala-grid');
+                this.mandalaContainer = document.querySelector('.mandala-container');
+                this.mandalaItems = document.querySelectorAll('.mandala-item');
+                this.mandalaCenter = document.querySelector('.mandala-center');
+                this.statusElement = document.getElementById('status-text');
+                
+                this.isAnimating = false;
+                this.mouseX = 0;
+                this.mouseY = 0;
+                this.targetRotateX = 0;
+                this.targetRotateY = 0;
+                this.currentRotateX = 0;
+                this.currentRotateY = 0;
+                
+                if (!this.mandalaGrid || !this.mandalaContainer) {
+                    console.error('Mandala elements not found');
+                    return;
+                }
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupMouseTracking();
+                this.setupScrollEffects();
+                this.setupItemInteractions();
+                this.setupKeyboardNavigation();
+                this.startAnimationLoop();
+                
+                this.updateStatus('Mandala 3D effects active - try moving your mouse!');
+                console.log('Enhanced Mandala 3D Grid initialized');
+            }
+            
+            updateStatus(message) {
+                if (this.statusElement) {
+                    this.statusElement.textContent = message;
+                }
+            }
+            
+            setupMouseTracking() {
+                let timeout;
+                
+                const handleMouseMove = (e) => {
+                    const rect = this.mandalaContainer.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    
+                    // Calculate normalized mouse position (-1 to 1)
+                    this.mouseX = (e.clientX - centerX) / (rect.width / 2);
+                    this.mouseY = (e.clientY - centerY) / (rect.height / 2);
+                    
+                    // Calculate target rotation values with limits
+                    this.targetRotateY = Math.max(-12, Math.min(12, this.mouseX * 12));
+                    this.targetRotateX = Math.max(-12, Math.min(12, this.mouseY * -8));
+                    
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        this.updateStatus('Mouse tracking: Active');
+                    }, 100);
+                };
+                
+                const handleMouseLeave = () => {
+                    this.targetRotateX = 0;
+                    this.targetRotateY = 0;
+                    this.updateStatus('Mouse tracking: Reset to center');
+                };
+                
+                this.mandalaContainer.addEventListener('mousemove', handleMouseMove);
+                this.mandalaContainer.addEventListener('mouseleave', handleMouseLeave);
+            }
+            
+            setupScrollEffects() {
+                let scrollTimeout;
+                
+                const handleScroll = () => {
+                    const scrollY = window.pageYOffset;
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollProgress = Math.min(scrollY / Math.max(maxScroll, 1), 1);
+                    
+                    // Add subtle Z-axis rotation based on scroll
+                    const scrollRotation = scrollProgress * 5; // Max 5 degrees
+                    
+                    this.mandalaGrid.style.setProperty('--scroll-rotation', `${scrollRotation}deg`);
+                    
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        this.updateStatus(`Scroll effects: ${Math.round(scrollProgress * 100)}% scrolled`);
+                    }, 100);
+                };
+                
+                window.addEventListener('scroll', handleScroll, { passive: true });
+            }
+            
+            setupItemInteractions() {
+                this.mandalaItems.forEach((item, index) => {
+                    const link = item.querySelector('a');
+                    
+                    // Enhanced hover effects
+                    item.addEventListener('mouseenter', () => {
+                        this.dimOtherItems(item);
+                        this.addGlitchEffect(item);
+                        this.updateStatus(`Hovering: ${item.querySelector('.mandala-item-title').textContent}`);
+                    });
+                    
+                    item.addEventListener('mouseleave', () => {
+                        this.restoreAllItems();
+                        this.removeGlitchEffect(item);
+                    });
+                    
+                    // Click handling with visual feedback
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.handleItemClick(item, link);
+                    });
+                    
+                    // Touch support for mobile
+                    item.addEventListener('touchstart', (e) => {
+                        this.handleTouchStart(item);
+                    }, { passive: true });
+                    
+                    item.addEventListener('touchend', (e) => {
+                        this.handleTouchEnd(item, link);
+                    }, { passive: true });
+                });
+                
+                // Center mandala interactions
+                if (this.mandalaCenter) {
+                    this.mandalaCenter.addEventListener('click', () => {
+                        this.updateStatus('Center mandala clicked - decorative element');
+                        this.mandalaCenter.style.animation = 'none';
+                        setTimeout(() => {
+                            this.mandalaCenter.style.animation = 'gentle-pulse 4s ease-in-out infinite';
+                        }, 100);
+                    });
+                }
+            }
+            
+            setupKeyboardNavigation() {
+                let currentFocusIndex = 0;
+                const focusableItems = Array.from(this.mandalaItems);
+                
+                // Make items focusable
+                focusableItems.forEach((item, index) => {
+                    item.setAttribute('tabindex', index === 0 ? '0' : '-1');
+                    
+                    item.addEventListener('keydown', (e) => {
+                        switch (e.key) {
+                            case 'ArrowRight':
+                                e.preventDefault();
+                                currentFocusIndex = (currentFocusIndex + 1) % focusableItems.length;
+                                this.focusItem(currentFocusIndex);
+                                break;
+                            case 'ArrowLeft':
+                                e.preventDefault();
+                                currentFocusIndex = (currentFocusIndex - 1 + focusableItems.length) % focusableItems.length;
+                                this.focusItem(currentFocusIndex);
+                                break;
+                            case 'Enter':
+                            case ' ':
+                                e.preventDefault();
+                                const link = item.querySelector('a');
+                                this.handleItemClick(item, link);
+                                break;
+                        }
+                    });
+                    
+                    item.addEventListener('focus', () => {
+                        currentFocusIndex = index;
+                        this.updateStatus(`Keyboard focus: ${item.querySelector('.mandala-item-title').textContent}`);
+                    });
+                });
+            }
+            
+            focusItem(index) {
+                const items = Array.from(this.mandalaItems);
+                items.forEach((item, i) => {
+                    item.setAttribute('tabindex', i === index ? '0' : '-1');
+                });
+                items[index].focus();
+            }
+            
+            startAnimationLoop() {
+                const animate = () => {
+                    // Smooth interpolation for mouse tracking
+                    const lerp = (start, end, factor) => start + (end - start) * factor;
+                    
+                    this.currentRotateX = lerp(this.currentRotateX, this.targetRotateX, 0.15);
+                    this.currentRotateY = lerp(this.currentRotateY, this.targetRotateY, 0.15);
+                    
+                    // Apply the transform
+                    const scrollRotation = this.mandalaGrid.style.getPropertyValue('--scroll-rotation') || '0deg';
+                    this.mandalaGrid.style.transform = 
+                        `perspective(1200px) rotateX(${this.currentRotateX}deg) rotateY(${this.currentRotateY}deg) rotateZ(${scrollRotation})`;
+                    
+                    requestAnimationFrame(animate);
+                };
+                
+                animate();
+            }
+            
+            dimOtherItems(activeItem) {
+                this.mandalaItems.forEach(item => {
+                    if (item !== activeItem) {
+                        item.style.opacity = '0.4';
+                        item.style.transform = 'translateZ(-10px)';
+                    }
+                });
+            }
+            
+            restoreAllItems() {
+                this.mandalaItems.forEach(item => {
+                    item.style.opacity = '';
+                    item.style.transform = '';
+                });
+            }
+            
+            addGlitchEffect(element) {
+                element.classList.add('glitching');
+                
+                // Simple glitch effect
+                let glitchCount = 0;
+                const maxGlitches = 3;
+                
+                const glitchInterval = setInterval(() => {
+                    if (glitchCount >= maxGlitches) {
+                        clearInterval(glitchInterval);
+                        return;
+                    }
+                    
+                    const randomX = (Math.random() - 0.5) * 4;
+                    const randomY = (Math.random() - 0.5) * 4;
+                    
+                    element.style.transform += ` translate(${randomX}px, ${randomY}px)`;
+                    
+                    setTimeout(() => {
+                        element.style.transform = element.style.transform.replace(/translate\([^)]*\)/g, '');
+                    }, 50);
+                    
+                    glitchCount++;
+                }, 100);
+                
+                element.glitchInterval = glitchInterval;
+            }
+            
+            removeGlitchEffect(element) {
+                element.classList.remove('glitching');
+                if (element.glitchInterval) {
+                    clearInterval(element.glitchInterval);
+                    delete element.glitchInterval;
+                }
+            }
+            
+            handleItemClick(item, link) {
+                // Visual feedback
+                item.classList.add('activated');
+                
+                const title = item.querySelector('.mandala-item-title').textContent;
+                const url = link ? link.href : '#';
+                
+                setTimeout(() => {
+                    item.classList.remove('activated');
+                    
+                    // For demo, show alert instead of navigating
+                    this.updateStatus(`Clicked: ${title} - Would navigate to: ${url}`);
+                    alert(`Clicked: ${title}\nWould navigate to: ${url}`);
+                    
+                    // In production, uncomment this:
+                    // if (link && link.href) {
+                    //     window.location.href = link.href;
+                    // }
+                }, 150);
+            }
+            
+            handleTouchStart(item) {
+                item.style.transform = 'scale(0.95)';
+                this.dimOtherItems(item);
+                
+                // Haptic feedback if available
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(10);
+                }
+            }
+            
+            handleTouchEnd(item, link) {
+                item.style.transform = '';
+                this.restoreAllItems();
+                
+                // Handle as click after short delay
+                setTimeout(() => {
+                    this.handleItemClick(item, link);
+                }, 100);
+            }
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new MandalaGrid3D();
+        });
+        
+        // Also handle dynamic loading
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                new MandalaGrid3D();
+            });
+        } else {
+            new MandalaGrid3D();
+        }
+    </script>
+</body>
+</html>

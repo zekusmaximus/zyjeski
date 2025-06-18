@@ -2,16 +2,119 @@
 // Modern, capability-aware initialization system
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Always initialize basic mandala effects first
+  initBasicMandalaEffects();
+  
   // Wait for progressive enhancement system to initialize
   if (window.ProgressiveEnhancement && window.ProgressiveEnhancement.initialized) {
     initEnhancedFeatures();
   } else {
     document.addEventListener('progressive-enhancement-ready', initEnhancedFeatures);
+    
+    // Fallback initialization after short delay if PE system doesn't load
+    setTimeout(() => {
+      if (!window.ProgressiveEnhancement || !window.ProgressiveEnhancement.initialized) {
+        console.log('Progressive enhancement system not available, using fallback');
+        initFallbackMode();
+      }
+    }, 1000);
   }
   
   // Always initialize basic functionality
   initBasicFeatures();
 });
+
+function initBasicMandalaEffects() {
+  const mandalaGrid = document.querySelector('.mandala-grid');
+  const mandalaContainer = document.querySelector('.mandala-container');
+  
+  if (!mandalaGrid || !mandalaContainer) return;
+  
+  console.log('Initializing basic mandala effects');
+  
+  // Force enable perspective and remove limiting classes temporarily
+  mandalaContainer.style.perspective = '1000px';
+  mandalaGrid.style.transformStyle = 'preserve-3d';
+  
+  // Add basic 3D tilting effect
+  let isAnimating = false;
+  
+  const handleMouseMove = (e) => {
+    if (isAnimating) return;
+    
+    const rect = mandalaContainer.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const rotateY = (e.clientX - centerX) / (rect.width / 2) * 8;
+    const rotateX = (e.clientY - centerY) / (rect.height / 2) * -8;
+    
+    const limitedRotateY = Math.max(-8, Math.min(8, rotateY));
+    const limitedRotateX = Math.max(-8, Math.min(8, rotateX));
+    
+    requestAnimationFrame(() => {
+      // Override any progressive enhancement restrictions for this effect
+      mandalaGrid.style.setProperty('transform', `perspective(1000px) rotateX(${limitedRotateX}deg) rotateY(${limitedRotateY}deg)`, 'important');
+      mandalaGrid.style.transition = 'transform 0.1s ease-out';
+    });
+  };
+  
+  const handleMouseLeave = () => {
+    mandalaGrid.style.setProperty('transform', 'perspective(1000px) rotateX(0deg) rotateY(0deg)', 'important');
+    mandalaGrid.style.transition = 'transform 0.5s ease-out';
+  };
+  
+  mandalaContainer.addEventListener('mousemove', handleMouseMove);
+  mandalaContainer.addEventListener('mouseleave', handleMouseLeave);
+  
+  // Add scroll-based rotation
+  const handleScroll = () => {
+    if (isAnimating) return;
+    
+    const scrollY = window.pageYOffset;
+    const scrollProgress = Math.min(scrollY / window.innerHeight, 1);
+    const rotationAngle = scrollProgress * 3;
+    
+    requestAnimationFrame(() => {
+      const currentTransform = mandalaGrid.style.transform || '';
+      const baseTransform = currentTransform.replace(/rotateZ\([^)]*\)/g, '').trim();
+      mandalaGrid.style.setProperty('transform', `${baseTransform} rotateZ(${rotationAngle}deg)`, 'important');
+    });
+  };
+  
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  
+  // Ensure links work regardless of any overlays
+  const mandalaItems = document.querySelectorAll('.mandala-item');
+  mandalaItems.forEach(item => {
+    const link = item.querySelector('a');
+    if (link) {
+      // Add click handler directly to item as backup
+      item.addEventListener('click', (e) => {
+        // If the click target is not the link itself, manually trigger navigation
+        if (e.target !== link && !link.contains(e.target)) {
+          e.preventDefault();
+          console.log(`Manual navigation to: ${link.href}`);
+          window.location.href = link.href;
+        } else {
+          console.log(`Natural navigation to: ${link.href}`);
+        }
+      });
+      
+      // Add visual feedback
+      item.addEventListener('mouseenter', () => {
+        item.style.transform = 'translateY(-5px) translateZ(10px)';
+        item.style.transition = 'transform 0.3s ease';
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        item.style.transform = '';
+      });
+    }
+  });
+  
+  console.log('Basic mandala effects initialized with forced 3D support');
+}
 
 function initBasicFeatures() {
   // Core functionality that works on all devices

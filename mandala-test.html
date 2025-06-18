@@ -61,87 +61,270 @@
             margin: 0;
             opacity: 0.9;
         }
-        
-        .mandala-center-wrapper {
+          .mandala-center-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
             background: #6E0DD0;
             border-radius: 50%;
         }
+        
+        .mandala-item-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+        
+        .mandala-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .mandala-center {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: radial-gradient(circle, #6E0DD0, #000F08);
+        }
+        
+        .mandala-center-content {
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .mandala-center-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        /* Container for 3D effects */
+        .mandala-container {
+            perspective: 1000px;
+        }
+        
+        /* 3D tilting effect */
+        .mandala-grid:hover {
+            transform-style: preserve-3d;
+        }
+        
+        .mandala-item:hover .mandala-photo {
+            transform: scale(1.05);
+        }
+        
+        .mandala-item:hover {
+            transform: translateY(-5px);
+            border-color: #00F5D4;
+            box-shadow: 0 10px 25px rgba(0, 245, 212, 0.3);
+        }
     </style>
 </head>
 <body>
-    <h1>Mandala Grid Test</h1>
-    <div class="mandala-grid">
-        <!-- Item 1 -->
-        <div class="mandala-item" style="grid-column: 1; grid-row: 1;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">Books</h3>
-                <div class="mandala-item-subtitle">The Protocol</div>
+    <h1>Mandala Grid Test</h1>    <div class="mandala-container">
+        <div class="mandala-grid">
+            <!-- Item 1 -->
+            <div class="mandala-item photo-item" style="grid-column: 1; grid-row: 1;">
+                <a href="/books/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-1.jpg" alt="Books - The Protocol" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Books</h3>
+                        <div class="mandala-item-subtitle">The Protocol</div>
+                    </div>
+                </a>
             </div>
-        </div>
-        
-        <!-- Item 2 -->
-        <div class="mandala-item" style="grid-column: 2; grid-row: 1;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">Stories</h3>
-                <div class="mandala-item-subtitle">Koans</div>
+            
+            <!-- Item 2 -->
+            <div class="mandala-item photo-item" style="grid-column: 2; grid-row: 1;">
+                <a href="/stories/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-2.jpg" alt="Stories - Koans" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Stories</h3>
+                        <div class="mandala-item-subtitle">Koans</div>
+                    </div>
+                </a>
             </div>
-        </div>
-        
-        <!-- Item 3 -->
-        <div class="mandala-item" style="grid-column: 3; grid-row: 1;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">Audio</h3>
-                <div class="mandala-item-subtitle">Simulations</div>
+            
+            <!-- Item 3 -->
+            <div class="mandala-item photo-item" style="grid-column: 3; grid-row: 1;">
+                <a href="/audio/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-3.jpg" alt="Audio - Simulations" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Audio</h3>
+                        <div class="mandala-item-subtitle">Simulations</div>
+                    </div>
+                </a>
             </div>
-        </div>
-        
-        <!-- Center -->
-        <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;">
-            <div>CENTER</div>
-        </div>
-        
-        <!-- Item 4 -->
-        <div class="mandala-item" style="grid-column: 1; grid-row: 2;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">About</h3>
-                <div class="mandala-item-subtitle">Jeffrey</div>
+            
+            <!-- Center -->
+            <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;">
+                <div class="mandala-center">
+                    <div class="mandala-center-content">
+                        <img src="/images/mandala-center.jpg" alt="Central mandala" class="mandala-center-img">
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <!-- Item 5 -->
-        <div class="mandala-item" style="grid-column: 3; grid-row: 2;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">Featured</h3>
-                <div class="mandala-item-subtitle">Book</div>
+            
+            <!-- Item 4 -->
+            <div class="mandala-item photo-item" style="grid-column: 1; grid-row: 2;">
+                <a href="/about/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-4.jpg" alt="About - Jeffrey" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">About</h3>
+                        <div class="mandala-item-subtitle">Jeffrey</div>
+                    </div>
+                </a>
             </div>
-        </div>
-        
-        <!-- Item 6 -->
-        <div class="mandala-item" style="grid-column: 1; grid-row: 3;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">Blog</h3>
-                <div class="mandala-item-subtitle">Dharma Log</div>
+            
+            <!-- Item 5 -->
+            <div class="mandala-item photo-item" style="grid-column: 3; grid-row: 2;">
+                <a href="/books/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-5.jpg" alt="Featured - Book" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Featured</h3>
+                        <div class="mandala-item-subtitle">Book</div>
+                    </div>
+                </a>
             </div>
-        </div>
-        
-        <!-- Item 7 -->
-        <div class="mandala-item" style="grid-column: 2; grid-row: 3;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">Newsletter</h3>
-                <div class="mandala-item-subtitle">Future Law</div>
+            
+            <!-- Item 6 -->
+            <div class="mandala-item photo-item" style="grid-column: 1; grid-row: 3;">
+                <a href="/posts/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-6.jpg" alt="Blog - Dharma Log" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Blog</h3>
+                        <div class="mandala-item-subtitle">Dharma Log</div>
+                    </div>
+                </a>
             </div>
-        </div>
-        
-        <!-- Item 8 -->
-        <div class="mandala-item" style="grid-column: 3; grid-row: 3;">
-            <div class="mandala-overlay">
-                <h3 class="mandala-item-title">Inquiries</h3>
-                <div class="mandala-item-subtitle">Contact</div>
+            
+            <!-- Item 7 -->
+            <div class="mandala-item photo-item" style="grid-column: 2; grid-row: 3;">
+                <a href="/newsletter/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-7.jpg" alt="Newsletter - Future Law" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Newsletter</h3>
+                        <div class="mandala-item-subtitle">Future Law</div>
+                    </div>
+                </a>
             </div>
-        </div>
-    </div>
+            
+            <!-- Item 8 -->
+            <div class="mandala-item photo-item" style="grid-column: 3; grid-row: 3;">
+                <a href="/inquiries/" class="mandala-item-link">
+                    <img src="/images/cyber-bg-8.jpg" alt="Inquiries - Contact" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Inquiries</h3>
+                        <div class="mandala-item-subtitle">Contact</div>
+                    </div>
+                </a>
+            </div>
+        </div>    </div>
+
+    <script>
+        // Enhanced 3D tilting effect for the mandala grid
+        document.addEventListener('DOMContentLoaded', function() {
+            const mandalaGrid = document.querySelector('.mandala-grid');
+            const mandalaContainer = document.querySelector('.mandala-container');
+            
+            if (!mandalaGrid || !mandalaContainer) return;
+            
+            let isAnimating = false;
+            
+            // Mouse move handler for 3D tilting
+            function handleMouseMove(e) {
+                if (isAnimating) return;
+                
+                const rect = mandalaContainer.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                // Calculate rotation values
+                const rotateY = (e.clientX - centerX) / (rect.width / 2) * 8; // Max 8 degrees
+                const rotateX = (e.clientY - centerY) / (rect.height / 2) * -8; // Max 8 degrees (inverted)
+                
+                // Limit the rotation to prevent extreme tilting
+                const limitedRotateY = Math.max(-8, Math.min(8, rotateY));
+                const limitedRotateX = Math.max(-8, Math.min(8, rotateX));
+                
+                // Apply the transform with smooth transition
+                requestAnimationFrame(() => {
+                    mandalaGrid.style.transform = `perspective(1000px) rotateX(${limitedRotateX}deg) rotateY(${limitedRotateY}deg)`;
+                    mandalaGrid.style.transition = 'transform 0.1s ease-out';
+                });
+            }
+            
+            // Mouse leave handler to reset the grid
+            function handleMouseLeave() {
+                mandalaGrid.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                mandalaGrid.style.transition = 'transform 0.5s ease-out';
+            }
+            
+            // Add scroll-based rotation effect
+            function handleScroll() {
+                if (isAnimating) return;
+                
+                const scrollY = window.pageYOffset;
+                const scrollProgress = Math.min(scrollY / window.innerHeight, 1);
+                const rotationAngle = scrollProgress * 3; // Max 3 degrees rotation
+                
+                requestAnimationFrame(() => {
+                    const currentTransform = mandalaGrid.style.transform || '';
+                    const baseTransform = currentTransform.replace(/rotateZ\([^)]*\)/g, '').trim();
+                    mandalaGrid.style.transform = `${baseTransform} rotateZ(${rotationAngle}deg)`;
+                });
+            }
+            
+            // Add event listeners
+            mandalaContainer.addEventListener('mousemove', handleMouseMove);
+            mandalaContainer.addEventListener('mouseleave', handleMouseLeave);
+            window.addEventListener('scroll', handleScroll, { passive: true });
+              // Add click handlers for navigation
+            const mandalaItems = document.querySelectorAll('.mandala-item');
+            mandalaItems.forEach(item => {
+                const link = item.querySelector('a');
+                
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Add visual feedback
+                    item.style.transform = 'scale(0.95)';
+                    item.style.transition = 'transform 0.1s ease';
+                    
+                    setTimeout(() => {
+                        item.style.transform = '';
+                        // Navigate to the link href
+                        if (link && link.href) {
+                            // Show where we would navigate for testing
+                            console.log(`Navigating to: ${link.href}`);
+                            alert(`Would navigate to: ${link.href}`);
+                            // In production: window.location.href = link.href;
+                        }
+                    }, 150);
+                });
+                
+                // Add hover effects for individual items
+                item.addEventListener('mouseenter', function() {
+                    item.style.transform = 'translateZ(20px) scale(1.02)';
+                    item.style.transition = 'transform 0.3s ease';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    item.style.transform = 'translateZ(0) scale(1)';
+                });
+            });
+            
+            console.log('Mandala 3D effects initialized');
+        });
+    </script>
 </body>
 </html>

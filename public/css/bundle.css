@@ -1,4 +1,3 @@
-﻿/* === _variables.css === */
 /* CSS Variables and Color Palette */
 :root {
   /* Primary colors */
@@ -29,9 +28,6 @@
   --focus-outline-width: 3px;
   --focus-outline-offset: 2px;
 }
-
-
-/* === _base.css === */
 /* Base Styles and Layout */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;600&display=swap');
 
@@ -112,9 +108,6 @@ footer {
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(110, 13, 208, 0.3);
 }
-
-
-/* === _typography.css === */
 /* Typography Styles */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Orbitron', sans-serif;
@@ -289,9 +282,6 @@ time {
   font-family: 'Orbitron', sans-serif;
   font-size: 0.9rem;
 }
-
-
-/* === _accessibility.css === */
 /* Accessibility Features */
 
 /* Screen Reader Only Text */
@@ -530,9 +520,6 @@ button:disabled,
   font-size: 1.1em;
   line-height: 1;
 }
-
-
-/* === _header.css === */
 /* Header and Navigation Styles */
 
 header {
@@ -771,9 +758,6 @@ nav a:focus-visible {
 nav a:focus:not(:focus-visible) {
   outline: none;
 }
-
-
-/* === _mandala.css === */
 /* Mandala Grid System */
 
 /* Center-align text content in mandala items */
@@ -855,6 +839,23 @@ nav a:focus:not(:focus-visible) {
 
 .mandala-item-link:focus {
   outline: none; /* Handled by parent */
+}
+
+/* Mandala overlay styles for text content */
+.mandala-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    transparent,
+    rgba(0, 15, 8, 0.8),
+    rgba(0, 15, 8, 0.95)
+  );
+  padding: 1.5rem 1rem 1rem;
+  color: var(--flickering-white);
+  z-index: 2;
+  transition: all 0.3s ease;
 }
 
 /* Enhanced hover effects for accessibility */
@@ -1048,9 +1049,6 @@ nav a:focus:not(:focus-visible) {
   justify-content: center;
   min-height: 200px;
 }
-
-
-/* === _animations.css === */
 /* Animation and Effect Styles */
 
 /* Glitch animation */
@@ -1258,9 +1256,6 @@ nav a:focus:not(:focus-visible) {
 .reading-progress-indicator::before {
   animation: progress-stripes 2s linear infinite;
 }
-
-
-/* === _books.css === */
 /* Book and Protocol Specific Styles */
 
 .book-single {
@@ -1450,9 +1445,6 @@ nav a:focus:not(:focus-visible) {
 .book-excerpt {
   margin-top: 2rem;
 }
-
-
-/* === _social.css === */
 /* Social Sharing Integration */
 
 /* Social Sharing Integration - Enhanced for cyberpunk theme */
@@ -1548,9 +1540,6 @@ nav a:focus:not(:focus-visible) {
     background: linear-gradient(135deg, rgba(0, 245, 212, 0.9), rgba(110, 13, 208, 0.9));
   }
 }
-
-
-/* === _responsive.css === */
 /* Responsive Design */
 
 /* Desktop layout enhancements */
@@ -1761,6 +1750,3 @@ nav a:focus:not(:focus-visible) {
     padding: 0.75rem 0.5rem 0.5rem;
   }
 }
-
-
-

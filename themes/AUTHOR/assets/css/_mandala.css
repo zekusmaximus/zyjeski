@@ -81,6 +81,23 @@
   outline: none; /* Handled by parent */
 }
 
+/* Mandala overlay styles for text content */
+.mandala-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    transparent,
+    rgba(0, 15, 8, 0.8),
+    rgba(0, 15, 8, 0.95)
+  );
+  padding: 1.5rem 1rem 1rem;
+  color: var(--flickering-white);
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
 /* Enhanced hover effects for accessibility */
 .mandala-item:hover,
 .mandala-item:focus-within {
