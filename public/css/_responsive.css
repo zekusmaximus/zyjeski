@@ -100,12 +100,19 @@
   nav a:focus {
     transform: translateX(5px);
   }
-  
-  /* Mandala responsive adjustments */
+    /* Mandala responsive adjustments */
   .mandala-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1rem !important;
     padding: 0 1rem !important;
+    /* Reset any 3D transforms on mobile */
+    transform: none !important;
+    perspective: none !important;
+  }
+  
+  /* Reset mandala rotation effects on mobile */
+  .mandala-grid.rotate {
+    transform: none !important;
   }
   
   .mandala-item {
@@ -130,9 +137,21 @@
   .mandala-overlay {
     padding: 1rem 0.75rem 0.75rem;
   }
-  
-  .mandala-center {
+    .mandala-center {
     min-height: 150px;
+    /* Reset rotation effects on mobile */
+    transform: none !important;
+  }
+  
+  .mandala-center:hover,
+  .mandala-center:focus {
+    transform: scale(1.02) !important; /* Slight scale only, no rotation */
+  }
+  
+  /* Reset any item transforms that might bleed from desktop */
+  .mandala-item:hover,
+  .mandala-item:focus-within {
+    transform: translateY(-2px) !important; /* Reduced movement for mobile */
   }
   
   /* Social sharing mobile adjustments */
@@ -179,11 +198,18 @@
   .accessibility-btn .btn-icon {
     font-size: 1em;
   }
-  
-  .mandala-grid {
+    .mandala-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
     padding: 0 0.5rem !important;
+    /* Ensure no transforms on very small screens */
+    transform: none !important;
+    perspective: none !important;
+  }
+  
+  /* Double-check reset of any rotation effects */
+  .mandala-grid.rotate {
+    transform: none !important;
   }
   
   .mandala-item {
@@ -203,8 +229,22 @@
   .mandala-item-subtitle {
     font-size: 0.75rem;
   }
-  
-  .mandala-overlay {
+    .mandala-overlay {
     padding: 0.75rem 0.5rem 0.5rem;
+  }
+  
+  /* Additional mobile transform resets for very small screens */
+  .mandala-center {
+    transform: none !important;
+  }
+  
+  .mandala-center:hover,
+  .mandala-center:focus {
+    transform: scale(1.01) !important; /* Very subtle scale for small screens */
+  }
+  
+  .mandala-item:hover,
+  .mandala-item:focus-within {
+    transform: translateY(-1px) !important; /* Minimal movement */
   }
 }
