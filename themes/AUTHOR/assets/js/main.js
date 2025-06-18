@@ -152,75 +152,111 @@ function initBasicMandalaEffects() {
 
 function initMandalaLinks() {
   // Ensure mandala links work regardless of 3D effects or device type
+  console.log('Starting mandala links initialization...');
+  
   const mandalaItems = document.querySelectorAll('.mandala-item');
   
-  if (mandalaItems.length === 0) return;
+  console.log(`Found ${mandalaItems.length} mandala items`);
+  
+  if (mandalaItems.length === 0) {
+    console.warn('No mandala items found - links initialization skipped');
+    return;
+  }
   
   console.log('Initializing mandala links for all devices');
   
-  mandalaItems.forEach(item => {
+  let linksInitialized = 0;
+  
+  mandalaItems.forEach((item, index) => {
     const link = item.querySelector('a');
+    console.log(`Item ${index}: link found =`, !!link);
+    
     if (link) {
+      linksInitialized++;
+      console.log(`Initializing link ${linksInitialized}: ${link.href}`);
+      
+      // Remove any existing click handlers to prevent duplicates
+      item.replaceWith(item.cloneNode(true));
+      const freshItem = document.querySelectorAll('.mandala-item')[index];
+      const freshLink = freshItem.querySelector('a');
+      
       // Add click handler directly to item as backup
-      item.addEventListener('click', (e) => {
+      freshItem.addEventListener('click', (e) => {
+        console.log('Item clicked, target:', e.target);
         // If the click target is not the link itself, manually trigger navigation
-        if (e.target !== link && !link.contains(e.target)) {
+        if (e.target !== freshLink && !freshLink.contains(e.target)) {
           e.preventDefault();
-          console.log(`Manual navigation to: ${link.href}`);
-          window.location.href = link.href;
+          e.stopPropagation();
+          console.log(`Manual navigation to: ${freshLink.href}`);
+          window.location.href = freshLink.href;
         } else {
-          console.log(`Natural navigation to: ${link.href}`);
+          console.log(`Natural navigation to: ${freshLink.href}`);
         }
       });
       
       // Add mobile-appropriate visual feedback
       if (isMobileDevice()) {
+        console.log('Adding mobile touch feedback');
         // Simple feedback for mobile - no transforms
-        item.addEventListener('touchstart', () => {
-          item.style.opacity = '0.8';
-          item.style.transition = 'opacity 0.2s ease';
+        freshItem.addEventListener('touchstart', () => {
+          freshItem.style.opacity = '0.8';
+          freshItem.style.transition = 'opacity 0.2s ease';
         });
         
-        item.addEventListener('touchend', () => {
-          item.style.opacity = '';
+        freshItem.addEventListener('touchend', () => {
+          freshItem.style.opacity = '';
+        });
+        
+        // Add additional mobile click handler
+        freshItem.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          console.log('Touch end - navigating to:', freshLink.href);
+          setTimeout(() => {
+            window.location.href = freshLink.href;
+          }, 100);
         });
       } else {
         // Desktop hover effects
-        item.addEventListener('mouseenter', () => {
-          item.style.transform = 'translateY(-5px) translateZ(10px)';
-          item.style.transition = 'transform 0.3s ease';
+        freshItem.addEventListener('mouseenter', () => {
+          freshItem.style.transform = 'translateY(-5px) translateZ(10px)';
+          freshItem.style.transition = 'transform 0.3s ease';
         });
         
-        item.addEventListener('mouseleave', () => {
-          item.style.transform = '';
+        freshItem.addEventListener('mouseleave', () => {
+          freshItem.style.transform = '';
         });
       }
       
       // Ensure links are keyboard accessible
-      item.setAttribute('role', 'button');
-      if (!item.hasAttribute('tabindex')) {
-        item.setAttribute('tabindex', '0');
+      freshItem.setAttribute('role', 'button');
+      if (!freshItem.hasAttribute('tabindex')) {
+        freshItem.setAttribute('tabindex', '0');
       }
       
       // Handle keyboard navigation
-      item.addEventListener('keydown', (e) => {
+      freshItem.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          link.click();
+          console.log('Keyboard navigation to:', freshLink.href);
+          freshLink.click();
         }
       });
     }
   });
+  
+  console.log(`Mandala links initialization complete. ${linksInitialized} links initialized.`);
 }
 
 function initBasicFeatures() {
   // Core functionality that works on all devices
+  console.log('Initializing basic features...');
   initKeyboardNavigation();
   initBasicAccessibility();
   initBasicAudioPlayers();
   initBasicFormHandling();
   initCyberpunkTextEffects(); // Keep legacy text effects for brand consistency
   initMandalaLinks(); // Ensure mandala links work on all devices
+  console.log('Basic features initialization complete');
 }
 
 function initEnhancedFeatures(event) {
