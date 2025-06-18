@@ -6,6 +6,161 @@ function isMobileDevice() {
   return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+// Mobile Reading Experience class - embedded for immediate availability
+class MobileReadingExperience {
+  constructor() {
+    this.readingMode = false;
+    this.fontSize = 'normal';
+    this.init();
+  }
+
+  init() {
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.setupFeatures());
+    } else {
+      this.setupFeatures();
+    }
+  }
+
+  setupFeatures() {
+    this.setupReadingProgress();
+    this.setupReadingModeToggle();
+    this.setupFontSizeToggle();
+    this.restoreUserPreferences();
+  }
+
+  setupReadingProgress() {
+    const progressBar = document.querySelector('.reading-progress-bar');
+    if (!progressBar) return;
+
+    const mainContent = document.querySelector('.main-content');
+    if (!mainContent) return;
+
+    let ticking = false;
+
+    const updateProgress = () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+      
+      progressBar.style.width = `${scrollPercent}%`;
+      ticking = false;
+    };
+
+    const requestTick = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+    updateProgress();
+  }
+
+  setupReadingModeToggle() {
+    const toggleBtn = document.querySelector('.reading-mode-toggle');
+    if (!toggleBtn) return;
+
+    toggleBtn.addEventListener('click', () => {
+      this.readingMode = !this.readingMode;
+      this.applyReadingMode();
+      this.saveUserPreferences();
+      
+      this.announceToScreenReader(
+        this.readingMode ? 'Reading mode enabled' : 'Reading mode disabled'
+      );
+    });
+  }
+
+  applyReadingMode() {
+    const body = document.body;
+    const toggleBtn = document.querySelector('.reading-mode-toggle');
+    
+    if (this.readingMode) {
+      body.classList.add('reading-mode');
+      toggleBtn?.setAttribute('aria-pressed', 'true');
+    } else {
+      body.classList.remove('reading-mode');
+      toggleBtn?.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  setupFontSizeToggle() {
+    const toggleBtn = document.querySelector('.font-size-toggle');
+    if (!toggleBtn) return;
+
+    const fontSizes = ['small', 'normal', 'large'];
+    let currentIndex = 1; // Start with 'normal'
+
+    toggleBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % fontSizes.length;
+      this.fontSize = fontSizes[currentIndex];
+      this.applyFontSize();
+      this.saveUserPreferences();
+      
+      this.announceToScreenReader(`Font size changed to ${this.fontSize}`);
+    });
+  }
+
+  applyFontSize() {
+    const body = document.body;
+    
+    // Remove all font size classes
+    body.classList.remove('font-size-small', 'font-size-large');
+    
+    // Apply current font size
+    if (this.fontSize !== 'normal') {
+      body.classList.add(`font-size-${this.fontSize}`);
+    }
+  }
+
+  saveUserPreferences() {
+    try {
+      const preferences = {
+        readingMode: this.readingMode,
+        fontSize: this.fontSize
+      };
+      localStorage.setItem('mobileReadingPreferences', JSON.stringify(preferences));
+    } catch (e) {
+      console.warn('Unable to save reading preferences:', e);
+    }
+  }
+
+  restoreUserPreferences() {
+    try {
+      const saved = localStorage.getItem('mobileReadingPreferences');
+      if (saved) {
+        const preferences = JSON.parse(saved);
+        this.readingMode = preferences.readingMode || false;
+        this.fontSize = preferences.fontSize || 'normal';
+        this.applyReadingMode();
+        this.applyFontSize();
+      }
+    } catch (e) {
+      console.warn('Unable to restore reading preferences:', e);
+    }
+  }
+
+  announceToScreenReader(message) {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.setAttribute('aria-atomic', 'true');
+    announcement.className = 'sr-only';
+    announcement.textContent = message;
+    
+    document.body.appendChild(announcement);
+    
+    setTimeout(() => {
+      document.body.removeChild(announcement);
+    }, 1000);
+  }
+}
+
+// Global variable to access reading experience
+let mobileReadingExperience;
+
 // Disable mandala effects on mobile - run immediately
 function disableMandalaEffectsOnMobile() {
   if (isMobileDevice()) {
@@ -243,6 +398,10 @@ function initBasicFeatures() {
   initBasicFormHandling();
   initCyberpunkTextEffects(); // Keep legacy text effects for brand consistency
   initMandalaLinks(); // Ensure mandala links work on all devices
+  
+  // Initialize mobile reading experience for font size and reading mode controls
+  mobileReadingExperience = new MobileReadingExperience();
+  
   console.log('Basic features initialization complete');
 }
 

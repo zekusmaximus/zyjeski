@@ -63,11 +63,13 @@
       {{ partial "footer.html" . }}
     </footer>
   </div>
-
   <!-- Core JavaScript Only - Performance optimizations disabled -->
   {{ $mainJS := resources.Get "js/main.js" }}
   {{ $mainJS = $mainJS | resources.Minify }}
   <script src="{{ $mainJS.RelPermalink }}" defer></script>
+  
+  <!-- Mobile Reading Experience -->
+  <script src="/js/mobile-reading.min.js" defer></script>
   
   <!-- Simple device detection for basic responsive behavior -->
   <script>
