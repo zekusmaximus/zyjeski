@@ -32,12 +32,15 @@ function disableMandalaEffectsOnMobile() {
 const isMobileInitially = disableMandalaEffectsOnMobile();
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Re-check on DOM ready
+  // ALWAYS initialize basic features first (including links)
+  initBasicFeatures();
+  
+  // Re-check mobile for 3D effects only
   if (disableMandalaEffectsOnMobile()) {
-    return; // Exit early for mobile
+    return; // Exit early for mobile 3D effects only
   }
   
-  // Always initialize basic mandala effects first
+  // Initialize mandala 3D effects for desktop
   initBasicMandalaEffects();
   
   // Wait for progressive enhancement system to initialize
@@ -175,70 +178,54 @@ function initMandalaLinks() {
       linksInitialized++;
       console.log(`Initializing link ${linksInitialized}: ${link.href}`);
       
-      // Remove any existing click handlers to prevent duplicates
-      item.replaceWith(item.cloneNode(true));
-      const freshItem = document.querySelectorAll('.mandala-item')[index];
-      const freshLink = freshItem.querySelector('a');
-      
-      // Add click handler directly to item as backup
-      freshItem.addEventListener('click', (e) => {
-        console.log('Item clicked, target:', e.target);
-        // If the click target is not the link itself, manually trigger navigation
-        if (e.target !== freshLink && !freshLink.contains(e.target)) {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log(`Manual navigation to: ${freshLink.href}`);
-          window.location.href = freshLink.href;
-        } else {
-          console.log(`Natural navigation to: ${freshLink.href}`);
-        }
+      // Simple, robust click handler
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Item clicked - navigating to:', link.href);
+        window.location.href = link.href;
       });
       
-      // Add mobile-appropriate visual feedback
+      // Touch events for mobile
+      item.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Touch end - navigating to:', link.href);
+        window.location.href = link.href;
+      });
+      
+      // Visual feedback
       if (isMobileDevice()) {
-        console.log('Adding mobile touch feedback');
-        // Simple feedback for mobile - no transforms
-        freshItem.addEventListener('touchstart', () => {
-          freshItem.style.opacity = '0.8';
-          freshItem.style.transition = 'opacity 0.2s ease';
+        item.addEventListener('touchstart', () => {
+          item.style.opacity = '0.7';
+          item.style.transition = 'opacity 0.2s ease';
         });
         
-        freshItem.addEventListener('touchend', () => {
-          freshItem.style.opacity = '';
-        });
-        
-        // Add additional mobile click handler
-        freshItem.addEventListener('touchend', (e) => {
-          e.preventDefault();
-          console.log('Touch end - navigating to:', freshLink.href);
+        item.addEventListener('touchend', () => {
           setTimeout(() => {
-            window.location.href = freshLink.href;
-          }, 100);
+            item.style.opacity = '';
+          }, 200);
         });
       } else {
         // Desktop hover effects
-        freshItem.addEventListener('mouseenter', () => {
-          freshItem.style.transform = 'translateY(-5px) translateZ(10px)';
-          freshItem.style.transition = 'transform 0.3s ease';
+        item.addEventListener('mouseenter', () => {
+          item.style.transform = 'translateY(-2px)';
+          item.style.transition = 'transform 0.3s ease';
         });
         
-        freshItem.addEventListener('mouseleave', () => {
-          freshItem.style.transform = '';
+        item.addEventListener('mouseleave', () => {
+          item.style.transform = '';
         });
       }
       
-      // Ensure links are keyboard accessible
-      freshItem.setAttribute('role', 'button');
-      if (!freshItem.hasAttribute('tabindex')) {
-        freshItem.setAttribute('tabindex', '0');
-      }
-      
-      // Handle keyboard navigation
-      freshItem.addEventListener('keydown', (e) => {
+      // Keyboard accessibility
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      item.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          console.log('Keyboard navigation to:', freshLink.href);
-          freshLink.click();
+          console.log('Keyboard navigation to:', link.href);
+          window.location.href = link.href;
         }
       });
     }

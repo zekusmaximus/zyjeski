@@ -268,24 +268,24 @@ html, body {
     border-radius: 0; /* No border radius for full-width mobile images */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
-  
-  /* Mandala photo items on mobile - override inline styles */
+    /* Mandala photo items on mobile - override inline styles */
   .photo-item img,
   .mandala-item.photo-item img {
     max-width: 100% !important;
     width: 100% !important;
     height: auto !important;
-    object-fit: cover !important;
-    min-height: 120px !important; /* Minimum height for mobile */
-    max-height: 200px !important; /* Maximum height to prevent overflow */
+    object-fit: contain !important; /* Show full image instead of cropping */
+    min-height: auto !important; /* Remove height constraints */
+    max-height: none !important; /* Remove height limits */
   }
   
   /* Mandala photo items container adjustments */
   .photo-item,
   .mandala-item.photo-item {
-    min-height: 120px !important;
-    max-height: 200px !important;
-    overflow: hidden !important;
+    min-height: auto !important; /* Remove height constraints */
+    max-height: none !important; /* Remove height limits */
+    overflow: visible !important; /* Allow full image to show */
+    height: auto !important;
   }
   
   /* Section list page mobile optimizations */
@@ -423,23 +423,23 @@ html, body {
     border-radius: 0;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   }
-  
-  /* Mandala photo items on very small screens */
+    /* Mandala photo items on very small screens */
   .photo-item img,
   .mandala-item.photo-item img {
     max-width: 100% !important;
     width: 100% !important;
     height: auto !important;
-    object-fit: cover !important;
-    min-height: 100px !important;
-    max-height: 160px !important;
+    object-fit: contain !important; /* Show full image */
+    min-height: auto !important; /* Remove height constraints */
+    max-height: none !important; /* Remove height limits */
   }
   
   .photo-item,
   .mandala-item.photo-item {
-    min-height: 100px !important;
-    max-height: 160px !important;
-    overflow: hidden !important;
+    min-height: auto !important; /* Remove height constraints */
+    max-height: none !important; /* Remove height limits */
+    overflow: visible !important; /* Allow full image to show */
+    height: auto !important;
   }
   
   /* Section list pages for very small screens */
