@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Touch Fix Test - Mandala Grid</title>
+    <style>
+        body {
+            background: #000F08;
+            color: #E0E0E0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 200vh; /* Make page scrollable for testing */
+        }
+        
+        h1 {
+            text-align: center;
+            color: #00F5D4;
+            margin-bottom: 2rem;
+        }
+        
+        .test-info {
+            text-align: center;
+            color: #FF9933;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255, 153, 51, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 153, 51, 0.3);
+        }
+        
+        .mandala-container {
+            perspective: 1000px;
+            margin: 3rem auto;
+            max-width: 1200px;
+        }
+        
+        .mandala-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-rows: repeat(3, minmax(200px, auto)) !important;
+            gap: 1.5rem !important;
+            padding: 0 2rem !important;
+            position: relative;
+        }
+        
+        .mandala-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(0, 15, 8, 0.9);
+            border: 1px solid rgba(110, 13, 208, 0.3);
+            transition: all 0.3s ease;
+            min-height: 200px;
+            cursor: pointer;
+            
+            /* Mobile touch optimization - prevent accidental navigation during scrolling */
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mandala-item-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            min-height: 44px; /* Accessibility touch target */
+        }
+        
+        .mandala-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            filter: grayscale(20%) brightness(0.9);
+        }
+        
+        .mandala-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+            color: white;
+        }
+        
+        .mandala-item-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00F5D4;
+            margin: 0 0 0.5rem 0;
+            text-shadow: 0 0 8px rgba(0, 245, 212, 0.5);
+        }
+        
+        .mandala-item-subtitle {
+            font-size: 0.9rem;
+            color: #E0E0E0;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        /* Center mandala */
+        .mandala-center-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        
+        .mandala-center {
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #FF9933;
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.5);
+            background: radial-gradient(circle, #2D0F54, #000000);
+        }
+        
+        .mandala-center-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(10%) saturate(1.2);
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .mandala-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important;
+                padding: 0 1rem !important;
+            }
+            
+            .mandala-center-wrapper {
+                grid-column: 1 / span 2 !important;
+                grid-row: 1 !important;
+            }
+            
+            .mandala-item {
+                min-height: 180px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mandala-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                padding: 0 0.5rem !important;
+            }
+            
+            .mandala-center-wrapper {
+                grid-column: 1 !important;
+                grid-row: 1 !important;
+            }
+            
+            .mandala-item {
+                min-height: 160px;
+            }
+        }
+        
+        /* Visual feedback */
+        .mandala-item.touch-feedback {
+            transform: scale(0.95);
+            border-color: #00F5D4;
+        }
+        
+        .status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 15, 8, 0.95);
+            border: 1px solid rgba(0, 245, 212, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            color: #00F5D4;
+            text-align: center;
+            font-size: 0.9rem;
+            z-index: 1000;
+        }
+        
+        .scroll-content {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(110, 13, 208, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(110, 13, 208, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>🔮 Mobile Touch Fix Test</h1>
+    
+    <div class="test-info">
+        <strong>Testing Instructions:</strong><br>
+        On mobile: Try scrolling past the mandala boxes. You should be able to scroll without accidentally triggering navigation.<br>
+        Tap briefly to navigate, scroll to continue reading.
+    </div>
+    
+    <div class="mandala-container">
+        <div class="mandala-grid">
+            <!-- Item 1: Books -->
+            <div class="mandala-item" style="grid-column: 1; grid-row: 1;">
+                <a href="/books/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=1" alt="Books" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Books</h3>
+                        <div class="mandala-item-subtitle">The Protocol</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 2: Stories -->
+            <div class="mandala-item" style="grid-column: 2; grid-row: 1;">
+                <a href="/stories/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=2" alt="Stories" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Stories</h3>
+                        <div class="mandala-item-subtitle">Koans</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 3: Audio -->
+            <div class="mandala-item" style="grid-column: 3; grid-row: 1;">
+                <a href="/audio/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=3" alt="Audio" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Audio</h3>
+                        <div class="mandala-item-subtitle">Simulations</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 4: About -->
+            <div class="mandala-item" style="grid-column: 1; grid-row: 2;">
+                <a href="/about/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=4" alt="About" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">About</h3>
+                        <div class="mandala-item-subtitle">Jeffrey</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Center: Mandala -->
+            <div class="mandala-center-wrapper" style="grid-column: 2; grid-row: 2;">
+                <div class="mandala-center">
+                    <img src="https://picsum.photos/200/200?random=center" alt="Central mandala" class="mandala-center-img">
+                </div>
+            </div>
+            
+            <!-- Item 5: Featured -->
+            <div class="mandala-item" style="grid-column: 3; grid-row: 2;">
+                <a href="/featured/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=5" alt="Featured" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Featured</h3>
+                        <div class="mandala-item-subtitle">Book</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 6: Blog -->
+            <div class="mandala-item" style="grid-column: 1; grid-row: 3;">
+                <a href="/posts/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=6" alt="Blog" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Blog</h3>
+                        <div class="mandala-item-subtitle">Dharma Log</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 7: Newsletter -->
+            <div class="mandala-item" style="grid-column: 2; grid-row: 3;">
+                <a href="/newsletter/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=7" alt="Newsletter" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Newsletter</h3>
+                        <div class="mandala-item-subtitle">Future Law</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Item 8: Inquiries -->
+            <div class="mandala-item" style="grid-column: 3; grid-row: 3;">
+                <a href="/inquiries/" class="mandala-item-link">
+                    <img src="https://picsum.photos/400/300?random=8" alt="Inquiries" class="mandala-photo">
+                    <div class="mandala-overlay">
+                        <h3 class="mandala-item-title">Inquiries</h3>
+                        <div class="mandala-item-subtitle">Contact</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="scroll-content">
+        <h2>Scroll Test Content</h2>
+        <p>This content is here to test scrolling behavior. Try scrolling up and down past the mandala grid on mobile devices.</p>
+        <p>The fix should prevent accidental navigation when scrolling past the mandala boxes.</p>
+        <p>Only deliberate taps (short duration, minimal movement) should trigger navigation.</p>
+        
+        <h3>How the Fix Works:</h3>
+        <ul>
+            <li><strong>Touch Detection:</strong> Records touch start position and time</li>
+            <li><strong>Movement Analysis:</strong> Calculates distance moved during touch</li>
+            <li><strong>Duration Check:</strong> Ensures touch was brief (< 500ms)</li>
+            <li><strong>Distance Threshold:</strong> Only navigates if movement < 15px</li>
+            <li><strong>CSS Optimization:</strong> Uses <code>touch-action: manipulation</code></li>
+        </ul>
+        
+        <h3>Benefits:</h3>
+        <ul>
+            <li>Smooth scrolling past clickable elements</li>
+            <li>Prevents accidental navigation during scroll gestures</li>
+            <li>Maintains intentional tap-to-navigate functionality</li>
+            <li>Improves mobile user experience</li>
+        </ul>
+    </div>
+    
+    <div class="status" id="status">
+        Ready to test - Try scrolling and tapping!
+    </div>
+
+    <script>
+        // Enhanced touch detection with scroll prevention
+        function initMandalaLinks() {
+            console.log('Initializing mobile-optimized mandala links...');
+            
+            const mandalaItems = document.querySelectorAll('.mandala-item');
+            const statusElement = document.getElementById('status');
+            
+            let linksInitialized = 0;
+            
+            mandalaItems.forEach((item, index) => {
+                const link = item.querySelector('a');
+                
+                if (link) {
+                    linksInitialized++;
+                    console.log(`Initializing link ${linksInitialized}: ${link.href}`);
+                    
+                    // Touch events for mobile with scroll detection
+                    let touchStartTime = 0;
+                    let touchStartY = 0;
+                    let touchStartX = 0;
+                    
+                    item.addEventListener('touchstart', (e) => {
+                        touchStartTime = Date.now();
+                        touchStartY = e.touches[0].clientY;
+                        touchStartX = e.touches[0].clientX;
+                        
+                        // Visual feedback
+                        item.classList.add('touch-feedback');
+                        statusElement.textContent = `Touch started on: ${item.querySelector('.mandala-item-title').textContent}`;
+                    }, { passive: true });
+                    
+                    item.addEventListener('touchend', (e) => {
+                        const touchEndTime = Date.now();
+                        const touchEndY = e.changedTouches[0].clientY;
+                        const touchEndX = e.changedTouches[0].clientX;
+                        
+                        const touchDuration = touchEndTime - touchStartTime;
+                        const touchDistanceY = Math.abs(touchEndY - touchStartY);
+                        const touchDistanceX = Math.abs(touchEndX - touchStartX);
+                        const totalTouchDistance = Math.sqrt(touchDistanceX * touchDistanceX + touchDistanceY * touchDistanceY);
+                        
+                        // Remove visual feedback
+                        item.classList.remove('touch-feedback');
+                        
+                        // Only navigate if this was a tap (short duration, minimal movement)
+                        if (touchDuration < 500 && totalTouchDistance < 15) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            statusElement.textContent = `✅ Tap detected! Navigating to: ${link.href}`;
+                            console.log('Touch tap detected - navigating to:', link.href);
+                            
+                            // For demo purposes, show alert instead of navigating
+                            setTimeout(() => {
+                                alert(`Navigation would go to: ${link.href}`);
+                                statusElement.textContent = 'Ready to test - Try scrolling and tapping!';
+                            }, 500);
+                            
+                            // In production, uncomment this:
+                            // window.location.href = link.href;
+                        } else {
+                            statusElement.textContent = `❌ Scroll detected (${Math.round(totalTouchDistance)}px, ${touchDuration}ms) - Not navigating`;
+                            console.log('Touch scroll detected - not navigating');
+                            
+                            setTimeout(() => {
+                                statusElement.textContent = 'Ready to test - Try scrolling and tapping!';
+                            }, 2000);
+                        }
+                    }, { passive: false });
+                    
+                    // Handle touch cancel
+                    item.addEventListener('touchcancel', () => {
+                        item.classList.remove('touch-feedback');
+                        statusElement.textContent = 'Touch cancelled';
+                        setTimeout(() => {
+                            statusElement.textContent = 'Ready to test - Try scrolling and tapping!';
+                        }, 1000);
+                    }, { passive: true });
+                    
+                    // Desktop click for testing
+                    item.addEventListener('click', (e) => {
+                        if (!('ontouchstart' in window)) {
+                            e.preventDefault();
+                            statusElement.textContent = `🖱️ Click detected! Would navigate to: ${link.href}`;
+                            alert(`Navigation would go to: ${link.href}`);
+                            setTimeout(() => {
+                                statusElement.textContent = 'Ready to test - Try scrolling and tapping!';
+                            }, 2000);
+                        }
+                    });
+                }
+            });
+            
+            console.log(`Mobile-optimized mandala links initialized. ${linksInitialized} links ready.`);
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMandalaLinks);
+        } else {
+            initMandalaLinks();
+        }
+    </script>
+</body>
+</html>

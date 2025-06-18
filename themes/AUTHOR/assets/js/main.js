@@ -337,14 +337,38 @@ function initMandalaLinks() {
         console.log('Item clicked - navigating to:', link.href);
         window.location.href = link.href;
       });
+        // Touch events for mobile with scroll detection
+      let touchStartTime = 0;
+      let touchStartY = 0;
+      let touchStartX = 0;
       
-      // Touch events for mobile
+      item.addEventListener('touchstart', (e) => {
+        touchStartTime = Date.now();
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      
       item.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Touch end - navigating to:', link.href);
-        window.location.href = link.href;
-      });
+        const touchEndTime = Date.now();
+        const touchEndY = e.changedTouches[0].clientY;
+        const touchEndX = e.changedTouches[0].clientX;
+        
+        const touchDuration = touchEndTime - touchStartTime;
+        const touchDistanceY = Math.abs(touchEndY - touchStartY);
+        const touchDistanceX = Math.abs(touchEndX - touchStartX);
+        const totalTouchDistance = Math.sqrt(touchDistanceX * touchDistanceX + touchDistanceY * touchDistanceY);
+        
+        // Only navigate if this was a tap (short duration, minimal movement)
+        // and not a scroll gesture (longer distance)
+        if (touchDuration < 500 && totalTouchDistance < 15) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Touch tap detected - navigating to:', link.href);
+          window.location.href = link.href;
+        } else {
+          console.log('Touch scroll detected - not navigating');
+        }
+      }, { passive: false });
       
       // Visual feedback
       if (isMobileDevice()) {

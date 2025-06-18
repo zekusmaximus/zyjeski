@@ -48,6 +48,10 @@
   border: 1px solid rgba(110, 13, 208, 0.3);
   transition: all 0.3s ease;
   min-height: 200px;
+  
+  /* Mobile touch optimization */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   min-width: 0;
   width: 100%;
   cursor: pointer;

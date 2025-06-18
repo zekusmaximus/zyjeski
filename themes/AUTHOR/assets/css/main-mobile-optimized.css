@@ -407,6 +407,10 @@ nav a.ancestor {
   /* Ensure touch targets are large enough */
   min-height: var(--touch-target-comfortable);
   cursor: pointer;
+  
+  /* Mobile touch optimization - prevent accidental navigation during scrolling */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mandala-item a {
