@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reader Journey Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a14;
+      color: #ffffff;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: rgba(26, 26, 46, 0.5);
+    }
+    .test-button {
+      background: #00ff9f;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .test-button:hover {
+      background: #00d4aa;
+    }
+    .test-output {
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      min-height: 100px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Reader Journey Optimization Test</h1>
+  
+  <div class="test-section">
+    <h2>Local Storage Test</h2>
+    <button class="test-button" onclick="testLocalStorage()">Test localStorage</button>
+    <div id="localStorage-output" class="test-output"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>Reader Journey System Test</h2>
+    <button class="test-button" onclick="testReaderJourney()">Initialize Reader Journey</button>
+    <button class="test-button" onclick="testTracking()">Test Tracking</button>
+    <button class="test-button" onclick="testRecommendations()">Test Recommendations</button>
+    <button class="test-button" onclick="testAchievements()">Test Achievements</button>
+    <div id="readerJourney-output" class="test-output"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>Mock Content for Testing</h2>
+    <div class="mandala-grid">
+      <div class="mandala-item" data-content-type="stories" data-content-id="test-story">Test Story</div>
+      <div class="mandala-item" data-content-type="audio" data-content-id="test-audio">Test Audio</div>
+      <div class="mandala-item" data-content-type="books" data-content-id="test-book">Test Book</div>
+    </div>
+  </div>
+
+  <script>
+    let readerJourney = null;
+    
+    function log(elementId, message) {
+      const output = document.getElementById(elementId);
+      output.innerHTML += new Date().toLocaleTimeString() + ': ' + message + '<br>';
+      output.scrollTop = output.scrollHeight;
+    }
+    
+    function testLocalStorage() {
+      try {
+        // Test basic localStorage functionality
+        localStorage.setItem('test', 'working');
+        const test = localStorage.getItem('test');
+        localStorage.removeItem('test');
+        
+        log('localStorage-output', 'localStorage is working: ' + test);
+        
+        // Test reader journey data structure
+        const testData = {
+          readingHistory: [],
+          preferences: { contentTypes: [] },
+          achievements: [],
+          sessionData: {}
+        };
+        
+        localStorage.setItem('readerJourneyData', JSON.stringify(testData));
+        const stored = JSON.parse(localStorage.getItem('readerJourneyData'));
+        log('localStorage-output', 'Reader journey data structure test: ' + JSON.stringify(stored, null, 2));
+        
+      } catch (e) {
+        log('localStorage-output', 'localStorage error: ' + e.message);
+      }
+    }
+    
+    function testReaderJourney() {
+      try {
+        // Try to initialize the reader journey system
+        if (typeof ReaderJourneyOptimizer !== 'undefined') {
+          readerJourney = new ReaderJourneyOptimizer();
+          log('readerJourney-output', 'Reader Journey system initialized successfully');
+          log('readerJourney-output', 'Available methods: ' + Object.getOwnPropertyNames(Object.getPrototypeOf(readerJourney)).join(', '));
+        } else {
+          log('readerJourney-output', 'ReaderJourneyOptimizer class not found - loading script...');
+          
+          // Try to load the reader journey script
+          const script = document.createElement('script');
+          script.src = '/themes/AUTHOR/assets/js/reader-journey.js';
+          script.onload = () => {
+            log('readerJourney-output', 'Reader journey script loaded');
+            testReaderJourney(); // Retry initialization
+          };
+          script.onerror = () => {
+            log('readerJourney-output', 'Failed to load reader journey script');
+          };
+          document.head.appendChild(script);
+        }
+      } catch (e) {
+        log('readerJourney-output', 'Error initializing reader journey: ' + e.message);
+      }
+    }
+    
+    function testTracking() {
+      if (!readerJourney) {
+        log('readerJourney-output', 'Reader journey not initialized');
+        return;
+      }
+      
+      try {
+        // Test interaction tracking
+        readerJourney.trackInteraction('test-content', 'click', { type: 'test' });
+        log('readerJourney-output', 'Interaction tracking test completed');
+        
+        // Test view tracking
+        readerJourney.trackContentView('test-story', 'stories');
+        log('readerJourney-output', 'Content view tracking test completed');
+        
+      } catch (e) {
+        log('readerJourney-output', 'Tracking error: ' + e.message);
+      }
+    }
+    
+    function testRecommendations() {
+      if (!readerJourney) {
+        log('readerJourney-output', 'Reader journey not initialized');
+        return;
+      }
+      
+      try {
+        const recommendations = readerJourney.getRecommendations();
+        log('readerJourney-output', 'Recommendations: ' + JSON.stringify(recommendations, null, 2));
+      } catch (e) {
+        log('readerJourney-output', 'Recommendations error: ' + e.message);
+      }
+    }
+    
+    function testAchievements() {
+      if (!readerJourney) {
+        log('readerJourney-output', 'Reader journey not initialized');
+        return;
+      }
+      
+      try {
+        readerJourney.checkAchievements();
+        const achievements = readerJourney.data.achievements;
+        log('readerJourney-output', 'Achievements: ' + JSON.stringify(achievements, null, 2));
+      } catch (e) {
+        log('readerJourney-output', 'Achievements error: ' + e.message);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -16,6 +16,61 @@
       max-width: 1200px;
       margin: 3rem auto;
       perspective: 1000px;
+      /* Reader Journey Enhancement */
+      position: relative;
+    }
+    
+    /* Reader Journey Interaction Tracking */
+    .mandala-grid::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border: 2px dashed transparent;
+      border-radius: 12px;
+      transition: border-color 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .mandala-grid.reader-active::before {
+      border-color: rgba(0, 255, 159, 0.3);
+      animation: readerPulse 2s infinite;
+    }
+    
+    @keyframes readerPulse {
+      0%, 100% { border-color: rgba(0, 255, 159, 0.3); }
+      50% { border-color: rgba(0, 255, 159, 0.6); }
+    }
+    
+    /* Enhanced mandala items for tracking */
+    .mandala-item {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .mandala-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .mandala-item.reader-visited::after {
+      border-color: rgba(0, 255, 159, 0.5);
+      box-shadow: 0 0 15px rgba(0, 255, 159, 0.2);
+    }
+    
+    .mandala-item.reader-interested::after {
+      border-color: rgba(255, 193, 7, 0.5);
+      box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);
     }
     
     /* Make sure items have a proper height */
@@ -499,6 +554,181 @@
       // Listen for motion preference changes
       window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', updateMotionPreferences);
       updateMotionPreferences();
+      
+      // Enhanced Reader Journey Tracking for Mandala
+      function initializeReaderJourneyTracking() {
+        if (!window.readerJourney) {
+          console.warn('Reader Journey system not available');
+          return;
+        }
+        
+        const mandalaGrid = document.querySelector('.mandala-grid');
+        let interactionCount = 0;
+        let hoverStartTime = null;
+        let lastInteractedItem = null;
+        
+        // Track initial mandala load
+        window.readerJourney.recordMandalaInteraction({
+          type: 'view',
+          timestamp: Date.now(),
+          viewport: {
+            width: window.innerWidth,
+            height: window.innerHeight
+          }
+        });
+        
+        // Add active state to mandala when user starts interacting
+        function activateMandala() {
+          mandalaGrid.classList.add('reader-active');
+          setTimeout(() => {
+            mandalaGrid.classList.remove('reader-active');
+          }, 3000);
+        }
+        
+        // Track mandala item interactions
+        mandalaItems.forEach((item, index) => {
+          const itemData = {
+            index: index,
+            title: item.querySelector('.mandala-item-title')?.textContent,
+            href: item.querySelector('a')?.href,
+            gridPosition: {
+              column: parseInt(item.style.gridColumn),
+              row: parseInt(item.style.gridRow)
+            }
+          };
+          
+          // Click tracking
+          item.addEventListener('click', (e) => {
+            window.readerJourney.recordMandalaInteraction({
+              type: 'click',
+              item: itemData,
+              timestamp: Date.now(),
+              interactionSequence: ++interactionCount
+            });
+            
+            // Mark item as visited
+            item.classList.add('reader-visited');
+            
+            // Track user preference patterns
+            window.readerJourney.updateContentPreference(itemData.title, 'clicked');
+          });
+          
+          // Hover tracking for engagement patterns
+          item.addEventListener('mouseenter', (e) => {
+            if (window.matchMedia('(hover: hover)').matches) {
+              hoverStartTime = Date.now();
+              lastInteractedItem = itemData;
+              
+              // Mark as interested after brief hover
+              setTimeout(() => {
+                if (lastInteractedItem === itemData) {
+                  item.classList.add('reader-interested');
+                  window.readerJourney.recordMandalaInteraction({
+                    type: 'hover_interest',
+                    item: itemData,
+                    timestamp: Date.now()
+                  });
+                }
+              }, 1000);
+              
+              activateMandala();
+            }
+          });
+          
+          item.addEventListener('mouseleave', (e) => {
+            if (hoverStartTime && lastInteractedItem === itemData) {
+              const hoverDuration = Date.now() - hoverStartTime;
+              
+              if (hoverDuration > 500) { // Only track meaningful hovers
+                window.readerJourney.recordMandalaInteraction({
+                  type: 'hover',
+                  item: itemData,
+                  duration: hoverDuration,
+                  timestamp: Date.now()
+                });
+                
+                // Update engagement score based on hover time
+                if (hoverDuration > 2000) {
+                  window.readerJourney.updateContentPreference(itemData.title, 'highly_interested');
+                } else if (hoverDuration > 1000) {
+                  window.readerJourney.updateContentPreference(itemData.title, 'interested');
+                }
+              }
+              
+              item.classList.remove('reader-interested');
+              hoverStartTime = null;
+              lastInteractedItem = null;
+            }
+          });
+          
+          // Focus tracking for keyboard users
+          item.addEventListener('focus', (e) => {
+            window.readerJourney.recordMandalaInteraction({
+              type: 'focus',
+              item: itemData,
+              timestamp: Date.now(),
+              navigationMethod: 'keyboard'
+            });
+            
+            activateMandala();
+          });
+          
+          // Touch interaction tracking
+          item.addEventListener('touchstart', (e) => {
+            window.readerJourney.recordMandalaInteraction({
+              type: 'touch',
+              item: itemData,
+              timestamp: Date.now(),
+              navigationMethod: 'touch'
+            });
+          }, { passive: true });
+        });
+        
+        // Track overall mandala engagement patterns
+        let mandalaViewStartTime = Date.now();
+        let isViewingMandala = true;
+        
+        // Track when user leaves mandala area
+        document.addEventListener('scroll', () => {
+          const mandalaRect = mandalaGrid.getBoundingClientRect();
+          const isInView = mandalaRect.top < window.innerHeight && mandalaRect.bottom > 0;
+          
+          if (!isInView && isViewingMandala) {
+            const viewDuration = Date.now() - mandalaViewStartTime;
+            window.readerJourney.recordMandalaInteraction({
+              type: 'view_end',
+              duration: viewDuration,
+              timestamp: Date.now(),
+              scrolled_past: true
+            });
+            isViewingMandala = false;
+          } else if (isInView && !isViewingMandala) {
+            mandalaViewStartTime = Date.now();
+            isViewingMandala = true;
+            window.readerJourney.recordMandalaInteraction({
+              type: 'view_return',
+              timestamp: Date.now()
+            });
+          }
+        });
+        
+        // Award achievement for mandala interaction
+        setTimeout(() => {
+          if (window.achievementSystem) {
+            window.achievementSystem.checkAchievements();
+          }
+        }, 2000);
+      }
+      
+      // Initialize reader journey tracking when the system is ready
+      if (window.readerJourney) {
+        initializeReaderJourneyTracking();
+      } else {
+        // Wait for reader journey system to load
+        document.addEventListener('DOMContentLoaded', () => {
+          setTimeout(initializeReaderJourneyTracking, 1000);
+        });
+      }
       
       // Announce grid navigation to screen readers
       const announceNavigation = (item) => {

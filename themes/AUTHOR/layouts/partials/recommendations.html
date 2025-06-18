@@ -1,0 +1,717 @@
+{{/* Content Recommendations Partial - themes/AUTHOR/layouts/partials/recommendations.html */}}
+{{/* This partial displays personalized content recommendations based on reading patterns */}}
+
+<div id="content-recommendations" class="content-recommendations" style="display: none;">
+  <div class="recommendations-header">
+    <h3 class="recommendations-title">
+      <span class="recommendations-icon">🎯</span>
+      Recommended for You
+    </h3>
+    <button class="recommendations-close" aria-label="Close recommendations">×</button>
+  </div>
+  
+  <div class="recommendations-content">
+    <div class="recommendations-loading">
+      <div class="loading-spinner"></div>
+      <p>Analyzing your reading patterns...</p>
+    </div>
+    
+    <div class="recommendations-list">
+      <!-- Recommendations will be populated by JavaScript -->
+    </div>
+    
+    <div class="recommendations-footer">
+      <button class="recommendations-refresh">Refresh Suggestions</button>
+      <small class="recommendations-privacy">
+        Recommendations based on your local reading history
+      </small>
+    </div>
+  </div>
+</div>
+
+{{/* Reader Progress Indicator */}}
+<div id="reader-progress" class="reader-progress">
+  <div class="progress-circle">
+    <svg width="60" height="60" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="25" fill="none" stroke="#333" stroke-width="2" opacity="0.3"/>
+      <circle cx="30" cy="30" r="25" fill="none" stroke="#00ff9f" stroke-width="2" 
+              stroke-dasharray="157" stroke-dashoffset="157" 
+              transform="rotate(-90 30 30)" class="progress-bar"/>
+    </svg>
+    <div class="progress-text">
+      <span class="progress-percentage">0%</span>
+    </div>
+  </div>
+  <div class="progress-details">
+    <div class="progress-stats">
+      <span class="stat-item">
+        <span class="stat-value" id="pages-read">0</span>
+        <span class="stat-label">Pages</span>
+      </span>
+      <span class="stat-item">
+        <span class="stat-value" id="time-spent">0m</span>
+        <span class="stat-label">Reading</span>
+      </span>
+      <span class="stat-item">
+        <span class="stat-value" id="achievements-count">0</span>
+        <span class="stat-label">Achievements</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+{{/* Achievement Notifications Template */}}
+<template id="achievement-template">
+  <div class="achievement-notification">
+    <div class="achievement-content">
+      <div class="achievement-icon">🏆</div>
+      <div class="achievement-text">
+        <div class="achievement-name"></div>
+        <div class="achievement-description"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+{{/* Contextual Navigation Widget */}}
+<div id="contextual-nav" class="contextual-nav" style="display: none;">
+  <div class="contextual-nav-header">
+    <h4>Continue Exploring</h4>
+  </div>
+  <div class="contextual-nav-content">
+    <div class="nav-suggestion">
+      <div class="suggestion-type">Similar Content</div>
+      <a href="#" class="suggestion-link">
+        <span class="suggestion-title"></span>
+        <span class="suggestion-reason"></span>
+      </a>
+    </div>
+    <div class="nav-suggestion">
+      <div class="suggestion-type">Next in Series</div>
+      <a href="#" class="suggestion-link">
+        <span class="suggestion-title"></span>
+        <span class="suggestion-reason"></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+{{/* Reading Session Summary */}}
+<div id="session-summary" class="session-summary" style="display: none;">
+  <div class="summary-header">
+    <h4>Your Reading Session</h4>
+    <button class="summary-close">×</button>
+  </div>
+  <div class="summary-content">
+    <div class="summary-stat">
+      <span class="summary-value" id="session-time">0m</span>
+      <span class="summary-label">Time Spent</span>
+    </div>
+    <div class="summary-stat">
+      <span class="summary-value" id="session-pages">0</span>
+      <span class="summary-label">Pages Visited</span>
+    </div>
+    <div class="summary-stat">
+      <span class="summary-value" id="session-type">—</span>
+      <span class="summary-label">Content Focus</span>
+    </div>
+  </div>
+  <div class="summary-actions">
+    <button class="summary-action" id="bookmark-session">Save Progress</button>
+    <button class="summary-action" id="share-session">Share Journey</button>
+  </div>
+</div>
+
+<style>
+/* Content Recommendations Styles */
+.content-recommendations {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  max-width: 320px;
+  background: var(--bg-secondary, #1a1a2e);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-50%) translateX(100%);
+  transition: all 0.3s ease;
+}
+
+.content-recommendations.show {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.recommendations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+.recommendations-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-primary, #ffffff);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recommendations-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary, #888);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommendations-content {
+  padding: 16px 20px;
+}
+
+.recommendations-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-color, #333);
+  border-top: 3px solid var(--accent-color, #00ff9f);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.recommendations-list {
+  display: none;
+}
+
+.recommendation-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+.recommendation-item:last-child {
+  border-bottom: none;
+}
+
+.recommendation-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.recommendation-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 4px;
+}
+
+.recommendation-reason {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #888);
+  margin-bottom: 4px;
+}
+
+.recommendation-type {
+  font-size: 0.75rem;
+  color: var(--accent-color, #00ff9f);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recommendations-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color, #333);
+  text-align: center;
+}
+
+.recommendations-refresh {
+  background: var(--accent-color, #00ff9f);
+  color: var(--bg-primary, #0a0a14);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.recommendations-privacy {
+  display: block;
+  color: var(--text-secondary, #888);
+  font-size: 0.7rem;
+}
+
+/* Reader Progress Indicator */
+.reader-progress {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bg-secondary, #1a1a2e);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.reader-progress.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.progress-circle {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.progress-percentage {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+}
+
+.progress-stats {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-color, #00ff9f);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Achievement Notifications */
+.achievement-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--bg-secondary, #1a1a2e);
+  border: 2px solid var(--accent-color, #00ff9f);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 255, 159, 0.2);
+  z-index: 1001;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+  max-width: 300px;
+}
+
+.achievement-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.achievement-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.achievement-icon {
+  font-size: 2rem;
+}
+
+.achievement-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 4px;
+}
+
+.achievement-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #888);
+}
+
+/* Contextual Navigation */
+.contextual-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: var(--bg-secondary, #1a1a2e);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 998;
+  max-width: 280px;
+}
+
+.contextual-nav-header h4 {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  color: var(--text-primary, #ffffff);
+}
+
+.nav-suggestion {
+  margin-bottom: 12px;
+}
+
+.suggestion-type {
+  font-size: 0.75rem;
+  color: var(--accent-color, #00ff9f);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.suggestion-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.suggestion-link:hover {
+  background: var(--bg-tertiary, #2a2a3e);
+}
+
+.suggestion-title {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 2px;
+}
+
+.suggestion-reason {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary, #888);
+}
+
+/* Onboarding Styles */
+.onboarding-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.onboarding-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.onboarding-modal {
+  background: var(--bg-secondary, #1a1a2e);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+}
+
+.onboarding-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+.onboarding-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary, #ffffff);
+}
+
+.onboarding-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary, #888);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.onboarding-content {
+  padding: 24px;
+  min-height: 200px;
+  position: relative;
+}
+
+.onboarding-step {
+  display: none;
+  text-align: center;
+}
+
+.onboarding-step.active {
+  display: block;
+}
+
+.step-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.onboarding-step h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.3rem;
+  color: var(--text-primary, #ffffff);
+}
+
+.onboarding-step p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary, #888);
+  line-height: 1.6;
+}
+
+.onboarding-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--border-color, #333);
+}
+
+.onboarding-prev,
+.onboarding-next {
+  background: var(--accent-color, #00ff9f);
+  color: var(--bg-primary, #0a0a14);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.onboarding-prev:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.onboarding-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-color, #333);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dot.active {
+  background: var(--accent-color, #00ff9f);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .content-recommendations,
+  .reader-progress {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    margin: 16px;
+    max-width: none;
+  }
+  
+  .contextual-nav {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin: 16px;
+    max-width: none;
+  }
+  
+  .onboarding-modal {
+    margin: 20px;
+    width: auto;
+  }
+}
+</style>
+
+<script>
+// Initialize recommendation system integration
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.readerJourney) {
+    initializeRecommendationUI();
+    initializeProgressIndicator();
+    initializeContextualNavigation();
+  }
+});
+
+function initializeRecommendationUI() {
+  const recommendationsPanel = document.getElementById('content-recommendations');
+  if (!recommendationsPanel) return;
+  
+  // Show recommendations after initial page analysis
+  setTimeout(() => {
+    if (window.readerJourney.shouldShowRecommendations()) {
+      displayRecommendations();
+    }
+  }, 3000);
+  
+  // Bind close button
+  const closeBtn = recommendationsPanel.querySelector('.recommendations-close');
+  closeBtn?.addEventListener('click', () => {
+    recommendationsPanel.classList.remove('show');
+  });
+  
+  // Bind refresh button
+  const refreshBtn = recommendationsPanel.querySelector('.recommendations-refresh');
+  refreshBtn?.addEventListener('click', () => {
+    displayRecommendations();
+  });
+}
+
+function displayRecommendations() {
+  const panel = document.getElementById('content-recommendations');
+  const loadingDiv = panel.querySelector('.recommendations-loading');
+  const listDiv = panel.querySelector('.recommendations-list');
+  
+  panel.classList.add('show');
+  loadingDiv.style.display = 'block';
+  listDiv.style.display = 'none';
+  
+  // Simulate loading time
+  setTimeout(() => {
+    const recommendations = window.readerJourney.getRecommendations();
+    populateRecommendations(recommendations);
+    
+    loadingDiv.style.display = 'none';
+    listDiv.style.display = 'block';
+  }, 1500);
+}
+
+function populateRecommendations(recommendations) {
+  const listDiv = document.querySelector('.recommendations-list');
+  
+  listDiv.innerHTML = recommendations.map(rec => `
+    <div class="recommendation-item">
+      <a href="${rec.url}" class="recommendation-link">
+        <div class="recommendation-type">${rec.type}</div>
+        <div class="recommendation-title">${rec.title}</div>
+        <div class="recommendation-reason">${rec.reason}</div>
+      </a>
+    </div>
+  `).join('');
+}
+
+function initializeProgressIndicator() {
+  const progressPanel = document.getElementById('reader-progress');
+  if (!progressPanel) return;
+  
+  // Show progress after user has been on site for a bit
+  setTimeout(() => {
+    updateProgressIndicator();
+    progressPanel.classList.add('show');
+  }, 5000);
+  
+  // Update progress periodically
+  setInterval(updateProgressIndicator, 10000);
+}
+
+function updateProgressIndicator() {
+  if (!window.readerJourney) return;
+  
+  const stats = window.readerJourney.getReadingStats();
+  const progressBar = document.querySelector('.progress-bar');
+  const progressText = document.querySelector('.progress-percentage');
+  
+  // Calculate reading progress (based on pages read)
+  const maxPages = 20; // Assume 20 pages for "completion"
+  const progressPercent = Math.min((stats.pagesRead / maxPages) * 100, 100);
+  
+  // Update circular progress
+  const circumference = 157; // 2 * π * 25
+  const offset = circumference - (progressPercent / 100) * circumference;
+  progressBar.style.strokeDashoffset = offset;
+  progressText.textContent = Math.round(progressPercent) + '%';
+  
+  // Update stats
+  document.getElementById('pages-read').textContent = stats.pagesRead;
+  document.getElementById('time-spent').textContent = Math.round(stats.totalTime / 60000) + 'm';
+  document.getElementById('achievements-count').textContent = stats.achievements;
+}
+
+function initializeContextualNavigation() {
+  // This would be enhanced with actual content relationships
+  const nav = document.getElementById('contextual-nav');
+  if (!nav) return;
+  
+  // Show contextual nav on content pages
+  const isContentPage = window.location.pathname.includes('/stories/') || 
+                       window.location.pathname.includes('/books/') ||
+                       window.location.pathname.includes('/audio/');
+  
+  if (isContentPage) {
+    setTimeout(() => {
+      nav.style.display = 'block';
+    }, 8000);
+  }
+}
+</script>

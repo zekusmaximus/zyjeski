@@ -13,13 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
   <meta name="theme-color" content="#0a0a14">
-  
-  <!-- Add any favicon/touch icons here -->
-  
-  <!-- Critical CSS - Inlined for fastest rendering -->
-  {{ with resources.Get "css/critical-enhanced.css" }}
-    <style>{{ . | minify }}</style>
-  {{ end }}
+    <!-- Add any favicon/touch icons here -->
   
   <!-- Performance-optimized CSS loading -->
   {{ partialCached "head/css.html" . }}
@@ -58,11 +52,23 @@
     <main id="main-content" role="main">
       {{ block "main" . }}{{ end }}
     </main>
-    
-    <footer role="contentinfo">
+      <footer role="contentinfo">
       {{ partial "footer.html" . }}
     </footer>
-  </div>  <!-- Core JavaScript Only - Performance optimizations disabled -->
+  </div>
+
+  <!-- Reader Journey Optimization Features -->
+  {{ partial "onboarding-flow.html" . }}
+  {{ partial "recommendations.html" . }}
+  {{ partial "progress-tracker.html" . }}
+  {{ partial "contextual-navigation.html" . }}
+  {{ partial "achievement-system.html" . }}
+
+  <!-- Core JavaScript with Reader Journey Integration -->
+  {{ $readerJourneyJS := resources.Get "js/reader-journey.js" }}
+  {{ $readerJourneyJS = $readerJourneyJS | resources.Minify }}
+  <script src="{{ $readerJourneyJS.RelPermalink }}" defer></script>
+  
   {{ $mainJS := resources.Get "js/main.js" }}
   {{ $mainJS = $mainJS | resources.Minify }}
   <script src="{{ $mainJS.RelPermalink }}" defer></script>

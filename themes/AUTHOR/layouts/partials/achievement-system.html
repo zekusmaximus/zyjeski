@@ -1,0 +1,1359 @@
+{{/* Achievement System Partial - themes/AUTHOR/layouts/partials/achievement-system.html */}}
+{{/* Gamified reader engagement through achievements and milestones */}}
+
+<div id="achievement-system" class="achievement-system">
+  <!-- Achievement Notifications Container -->
+  <div id="achievement-notifications" class="achievement-notifications"></div>
+  
+  <!-- Achievement Progress Panel -->
+  <div id="achievement-panel" class="achievement-panel" style="display: none;">
+    <div class="panel-header">
+      <h3>Digital Enlightenment Progress</h3>
+      <button class="panel-close" id="achievement-panel-close">&times;</button>
+    </div>
+    
+    <div class="panel-content">
+      <!-- Overall Progress -->
+      <div class="overall-progress">
+        <div class="progress-circle-large">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="35" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3"/>
+            <circle cx="40" cy="40" r="35" fill="none" stroke="#00ff9f" stroke-width="3" 
+                    stroke-dasharray="220" stroke-dashoffset="220" 
+                    transform="rotate(-90 40 40)" class="progress-circle-fill"/>
+          </svg>
+          <div class="progress-center">
+            <span class="progress-level" id="achievement-level">1</span>
+            <span class="progress-label">Level</span>
+          </div>
+        </div>
+        <div class="progress-info">
+          <div class="progress-stats">
+            <div class="stat">
+              <span class="stat-value" id="total-achievements">0</span>
+              <span class="stat-label">Achievements</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="total-points">0</span>
+              <span class="stat-label">Points</span>
+            </div>
+          </div>
+          <div class="next-level">
+            <span class="next-level-text">Next level in <span id="points-to-next">10</span> points</span>
+            <div class="level-progress-bar">
+              <div class="level-progress-fill" id="level-progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Achievement Categories -->
+      <div class="achievement-categories">
+        <div class="category-tabs">
+          <button class="category-tab active" data-category="all">All</button>
+          <button class="category-tab" data-category="exploration">Exploration</button>
+          <button class="category-tab" data-category="engagement">Engagement</button>
+          <button class="category-tab" data-category="milestone">Milestones</button>
+        </div>
+        
+        <div class="achievement-grid" id="achievement-grid">
+          <!-- Achievements will be populated by JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Recent Activity -->
+      <div class="recent-activity">
+        <h4>Recent Activity</h4>
+        <div class="activity-feed" id="activity-feed">
+          <!-- Activity items will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Achievement Trigger Button -->
+  <button id="achievement-trigger" class="achievement-trigger" title="View Achievements">
+    <span class="trigger-icon">🏆</span>
+    <span class="trigger-badge" id="achievement-badge">0</span>
+  </button>
+  
+  <!-- Milestone Celebration Modal -->
+  <div id="milestone-modal" class="milestone-modal" style="display: none;">
+    <div class="milestone-content">
+      <div class="milestone-animation">
+        <div class="confetti"></div>
+        <div class="milestone-icon">🎉</div>
+      </div>
+      <div class="milestone-text">
+        <h2 id="milestone-title">Congratulations!</h2>
+        <p id="milestone-description">You've reached a new milestone!</p>
+      </div>
+      <div class="milestone-actions">
+        <button class="milestone-share">Share Achievement</button>
+        <button class="milestone-continue">Continue Exploring</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Achievement System Styles */
+.achievement-system {
+  --achievement-primary: #00ff9f;
+  --achievement-secondary: #00d4aa;
+  --achievement-gold: #ffd700;
+  --achievement-silver: #c0c0c0;
+  --achievement-bronze: #cd7f32;
+  --achievement-bg: rgba(26, 26, 46, 0.95);
+  --achievement-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Achievement Notifications */
+.achievement-notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
+  pointer-events: none;
+}
+
+.achievement-notification {
+  background: var(--achievement-bg);
+  border: 2px solid var(--achievement-primary);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  min-width: 300px;
+  box-shadow: 0 8px 32px rgba(0, 255, 159, 0.3);
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto;
+  backdrop-filter: blur(20px);
+}
+
+.achievement-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.achievement-notification.hide {
+  opacity: 0;
+  transform: translateX(400px);
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.notification-icon {
+  font-size: 2rem;
+  animation: bounce 0.6s ease-in-out;
+}
+
+.notification-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--achievement-primary);
+  margin: 0;
+}
+
+.notification-description {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification-points {
+  display: inline-block;
+  background: var(--achievement-primary);
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* Achievement Panel */
+.achievement-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  background: var(--achievement-bg);
+  border: 1px solid var(--achievement-border);
+  border-radius: 16px;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--achievement-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+  background: linear-gradient(45deg, var(--achievement-primary), var(--achievement-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.panel-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.panel-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.panel-content {
+  padding: 24px;
+  max-height: calc(80vh - 80px);
+  overflow-y: auto;
+}
+
+/* Overall Progress */
+.overall-progress {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid var(--achievement-border);
+}
+
+.progress-circle-large {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.progress-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.progress-level {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--achievement-primary);
+  line-height: 1;
+}
+
+.progress-label {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.progress-info {
+  flex: 1;
+}
+
+.progress-stats {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--achievement-primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.next-level {
+  margin-top: 16px;
+}
+
+.next-level-text {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.level-progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.level-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--achievement-primary), var(--achievement-secondary));
+  width: 0%;
+  transition: width 0.6s ease;
+}
+
+/* Achievement Categories */
+.achievement-categories {
+  margin-bottom: 32px;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.category-tab {
+  flex: 1;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.category-tab.active,
+.category-tab:hover {
+  background: var(--achievement-primary);
+  color: #000;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.achievement-card {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--achievement-border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-card.earned {
+  border-color: var(--achievement-primary);
+  background: rgba(0, 255, 159, 0.05);
+}
+
+.achievement-card.earned::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--achievement-primary), var(--achievement-secondary));
+}
+
+.achievement-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.achievement-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.achievement-card.earned .achievement-icon {
+  opacity: 1;
+  animation: glow 2s infinite alternate;
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.achievement-category {
+  font-size: 0.75rem;
+  color: var(--achievement-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.achievement-description {
+  font-size: 0.9rem;
+  color: #888;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.achievement-progress {
+  margin-bottom: 8px;
+}
+
+.achievement-progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.achievement-progress-fill {
+  height: 100%;
+  background: var(--achievement-primary);
+  width: 0%;
+  transition: width 0.6s ease;
+}
+
+.achievement-progress-text {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.achievement-reward {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.achievement-points {
+  color: var(--achievement-primary);
+  font-weight: 600;
+}
+
+.achievement-date {
+  color: #888;
+}
+
+/* Recent Activity */
+.recent-activity h4 {
+  margin: 0 0 16px 0;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.activity-feed {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-icon {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-text {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Achievement Trigger Button */
+.achievement-trigger {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--achievement-primary), var(--achievement-secondary));
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #000;
+  box-shadow: 0 4px 16px rgba(0, 255, 159, 0.3);
+  transition: all 0.3s ease;
+  z-index: 999;
+  position: relative;
+}
+
+.achievement-trigger:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(0, 255, 159, 0.4);
+}
+
+.trigger-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #ff4757;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+
+.trigger-badge.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Milestone Modal */
+.milestone-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.milestone-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.milestone-content {
+  background: var(--achievement-bg);
+  border: 2px solid var(--achievement-gold);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 20px 80px rgba(255, 215, 0, 0.3);
+}
+
+.milestone-animation {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.milestone-icon {
+  font-size: 4rem;
+  animation: celebration 1s ease-in-out;
+}
+
+.confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+}
+
+.confetti::before,
+.confetti::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--achievement-gold);
+  animation: confetti-fall 2s infinite;
+}
+
+.confetti::before {
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.confetti::after {
+  right: 20%;
+  animation-delay: 0.5s;
+  background: var(--achievement-primary);
+}
+
+.milestone-text h2 {
+  margin: 0 0 12px 0;
+  font-size: 2rem;
+  color: var(--achievement-gold);
+}
+
+.milestone-text p {
+  margin: 0 0 24px 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.milestone-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.milestone-share,
+.milestone-continue {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.milestone-share {
+  background: var(--achievement-primary);
+  color: #000;
+}
+
+.milestone-continue {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid var(--achievement-border);
+}
+
+.milestone-share:hover,
+.milestone-continue:hover {
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0,0,0);
+  }
+  40%, 43% {
+    transform: translate3d(0,-15px,0);
+  }
+  70% {
+    transform: translate3d(0,-7px,0);
+  }
+  90% {
+    transform: translate3d(0,-2px,0);
+  }
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 5px var(--achievement-primary));
+  }
+  to {
+    filter: drop-shadow(0 0 15px var(--achievement-primary));
+  }
+}
+
+@keyframes celebration {
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .achievement-panel {
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .overall-progress {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .progress-stats {
+    gap: 16px;
+  }
+  
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .milestone-content {
+    padding: 24px;
+  }
+  
+  .milestone-actions {
+    flex-direction: column;
+  }
+  
+  .achievement-trigger {
+    bottom: 80px;
+    right: 20px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .achievement-notification,
+  .achievement-card,
+  .achievement-trigger,
+  .milestone-icon,
+  .confetti::before,
+  .confetti::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+
+<script>
+// Achievement System JavaScript
+class AchievementSystem {
+  constructor() {
+    this.achievements = {
+      // Exploration achievements
+      first_visit: {
+        id: 'first_visit',
+        name: 'Digital Wanderer',
+        description: 'Began your journey into digital enlightenment',
+        icon: '🌟',
+        category: 'exploration',
+        points: 10,
+        condition: () => this.getVisitCount() >= 1
+      },
+      story_explorer: {
+        id: 'story_explorer',
+        name: 'Story Explorer',
+        description: 'Read your first story',
+        icon: '📚',
+        category: 'exploration',
+        points: 20,
+        condition: () => this.getContentTypeCount('story') >= 1
+      },
+      deep_listener: {
+        id: 'deep_listener',
+        name: 'Deep Listener',
+        description: 'Experienced audio content',
+        icon: '🎧',
+        category: 'exploration',
+        points: 25,
+        condition: () => this.getContentTypeCount('audio') >= 1
+      },
+      bookworm: {
+        id: 'bookworm',
+        name: 'Digital Bookworm',
+        description: 'Explored a book',
+        icon: '📖',
+        category: 'exploration',
+        points: 30,
+        condition: () => this.getContentTypeCount('book') >= 1
+      },
+      
+      // Engagement achievements
+      mandala_navigator: {
+        id: 'mandala_navigator',
+        name: 'Mandala Navigator',
+        description: 'Interacted with the homepage mandala',
+        icon: '🧭',
+        category: 'engagement',
+        points: 15,
+        condition: () => this.getMandalaInteractions() >= 1
+      },
+      serial_reader: {
+        id: 'serial_reader',
+        name: 'Serial Reader',
+        description: 'Read 5 pieces of content',
+        icon: '📑',
+        category: 'engagement',
+        points: 50,
+        condition: () => this.getTotalPagesRead() >= 5
+      },
+      speed_reader: {
+        id: 'speed_reader',
+        name: 'Speed Reader',
+        description: 'Completed a page in under 2 minutes',
+        icon: '⚡',
+        category: 'engagement',
+        points: 25,
+        condition: () => this.hasFastRead()
+      },
+      
+      // Milestone achievements
+      enlightenment_seeker: {
+        id: 'enlightenment_seeker',
+        name: 'Enlightenment Seeker',
+        description: 'Explored all content types',
+        icon: '🔮',
+        category: 'milestone',
+        points: 100,
+        condition: () => this.getAllContentTypesExplored()
+      },
+      return_visitor: {
+        id: 'return_visitor',
+        name: 'Return Visitor',
+        description: 'Came back for more wisdom',
+        icon: '🔄',
+        category: 'milestone',
+        points: 40,
+        condition: () => this.getVisitCount() >= 2
+      },
+      marathon_reader: {
+        id: 'marathon_reader',
+        name: 'Marathon Reader',
+        description: 'Spent over 30 minutes reading',
+        icon: '🏃‍♂️',
+        category: 'milestone',
+        points: 75,
+        condition: () => this.getTotalReadingTime() >= 30 * 60 * 1000
+      },
+      completionist: {
+        id: 'completionist',
+        name: 'Completionist',
+        description: 'Fully read 10 pieces of content',
+        icon: '✅',
+        category: 'milestone',
+        points: 150,
+        condition: () => this.getCompletedPages() >= 10
+      }
+    };
+    
+    this.earnedAchievements = this.loadEarnedAchievements();
+    this.userLevel = this.calculateUserLevel();
+    this.isOpen = false;
+    
+    this.init();
+  }
+  
+  init() {
+    this.bindEvents();
+    this.checkAchievements();
+    this.updateTriggerBadge();
+    this.startPeriodicCheck();
+  }
+  
+  bindEvents() {
+    const trigger = document.getElementById('achievement-trigger');
+    const panel = document.getElementById('achievement-panel');
+    const closeBtn = document.getElementById('achievement-panel-close');
+    
+    trigger?.addEventListener('click', () => this.togglePanel());
+    closeBtn?.addEventListener('click', () => this.closePanel());
+    
+    // Category tabs
+    const tabs = document.querySelectorAll('.category-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => this.switchCategory(tab.dataset.category));
+    });
+    
+    // Panel overlay close
+    panel?.addEventListener('click', (e) => {
+      if (e.target === panel) this.closePanel();
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        this.closePanel();
+      }
+    });
+  }
+  
+  togglePanel() {
+    if (this.isOpen) {
+      this.closePanel();
+    } else {
+      this.openPanel();
+    }
+  }
+  
+  openPanel() {
+    const panel = document.getElementById('achievement-panel');
+    panel.style.display = 'block';
+    this.updatePanelContent();
+    this.isOpen = true;
+  }
+  
+  closePanel() {
+    const panel = document.getElementById('achievement-panel');
+    panel.style.display = 'none';
+    this.isOpen = false;
+  }
+  
+  updatePanelContent() {
+    this.updateOverallProgress();
+    this.renderAchievements();
+    this.updateRecentActivity();
+  }
+  
+  updateOverallProgress() {
+    const totalPoints = this.getTotalPoints();
+    const level = this.calculateUserLevel();
+    const pointsToNext = this.getPointsToNextLevel();
+    const levelProgress = this.getLevelProgress();
+    
+    document.getElementById('achievement-level').textContent = level;
+    document.getElementById('total-achievements').textContent = this.earnedAchievements.length;
+    document.getElementById('total-points').textContent = totalPoints;
+    document.getElementById('points-to-next').textContent = pointsToNext;
+    
+    const progressFill = document.querySelector('.progress-circle-fill');
+    const levelProgressFill = document.getElementById('level-progress');
+    
+    if (progressFill) {
+      const circumference = 220;
+      const offset = circumference - (levelProgress / 100) * circumference;
+      progressFill.style.strokeDashoffset = offset;
+    }
+    
+    if (levelProgressFill) {
+      levelProgressFill.style.width = levelProgress + '%';
+    }
+  }
+  
+  renderAchievements(category = 'all') {
+    const grid = document.getElementById('achievement-grid');
+    if (!grid) return;
+    
+    const achievements = Object.values(this.achievements).filter(achievement => 
+      category === 'all' || achievement.category === category
+    );
+    
+    grid.innerHTML = achievements.map(achievement => {
+      const isEarned = this.isAchievementEarned(achievement.id);
+      const progress = this.getAchievementProgress(achievement);
+      const earnedDate = this.getAchievementDate(achievement.id);
+      
+      return `
+        <div class="achievement-card ${isEarned ? 'earned' : ''}">
+          <div class="achievement-header">
+            <div class="achievement-icon">${achievement.icon}</div>
+            <div class="achievement-info">
+              <div class="achievement-name">${achievement.name}</div>
+              <div class="achievement-category">${achievement.category}</div>
+            </div>
+          </div>
+          <div class="achievement-description">${achievement.description}</div>
+          ${!isEarned && progress < 100 ? `
+            <div class="achievement-progress">
+              <div class="achievement-progress-bar">
+                <div class="achievement-progress-fill" style="width: ${progress}%"></div>
+              </div>
+              <div class="achievement-progress-text">${Math.round(progress)}% complete</div>
+            </div>
+          ` : ''}
+          <div class="achievement-reward">
+            <span class="achievement-points">+${achievement.points} points</span>
+            ${isEarned ? `<span class="achievement-date">${earnedDate}</span>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+  
+  switchCategory(category) {
+    // Update tab states
+    document.querySelectorAll('.category-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.category === category);
+    });
+    
+    // Re-render achievements
+    this.renderAchievements(category);
+  }
+  
+  updateRecentActivity() {
+    const feed = document.getElementById('activity-feed');
+    if (!feed) return;
+    
+    const recentAchievements = this.getRecentAchievements(5);
+    
+    if (recentAchievements.length === 0) {
+      feed.innerHTML = '<div class="activity-item"><div class="activity-content"><div class="activity-text">Start exploring to earn achievements!</div></div></div>';
+      return;
+    }
+    
+    feed.innerHTML = recentAchievements.map(achievement => `
+      <div class="activity-item">
+        <div class="activity-icon">${this.achievements[achievement.id]?.icon || '🏆'}</div>
+        <div class="activity-content">
+          <div class="activity-text">Earned "${this.achievements[achievement.id]?.name || achievement.id}"</div>
+          <div class="activity-time">${this.getTimeAgo(achievement.timestamp)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  checkAchievements() {
+    let newAchievements = [];
+    
+    Object.values(this.achievements).forEach(achievement => {
+      if (!this.isAchievementEarned(achievement.id) && achievement.condition()) {
+        this.awardAchievement(achievement);
+        newAchievements.push(achievement);
+      }
+    });
+    
+    if (newAchievements.length > 0) {
+      this.updateTriggerBadge();
+      
+      // Check for milestone achievements
+      newAchievements.forEach(achievement => {
+        if (achievement.category === 'milestone') {
+          this.showMilestoneModal(achievement);
+        }
+      });
+    }
+  }
+  
+  awardAchievement(achievement) {
+    const earnedAchievement = {
+      id: achievement.id,
+      timestamp: Date.now()
+    };
+    
+    this.earnedAchievements.push(earnedAchievement);
+    this.saveEarnedAchievements();
+    
+    this.showAchievementNotification(achievement);
+  }
+  
+  showAchievementNotification(achievement) {
+    const container = document.getElementById('achievement-notifications');
+    if (!container) return;
+    
+    const notification = document.createElement('div');
+    notification.className = 'achievement-notification';
+    notification.innerHTML = `
+      <div class="notification-header">
+        <div class="notification-icon">${achievement.icon}</div>
+        <div class="notification-title">Achievement Unlocked!</div>
+      </div>
+      <div class="notification-description">
+        ${achievement.name}: ${achievement.description}
+      </div>
+      <div class="notification-points">+${achievement.points} points</div>
+    `;
+    
+    container.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+      notification.classList.add('hide');
+      setTimeout(() => notification.remove(), 400);
+    }, 5000);
+  }
+  
+  showMilestoneModal(achievement) {
+    const modal = document.getElementById('milestone-modal');
+    if (!modal) return;
+    
+    document.getElementById('milestone-title').textContent = `${achievement.name} Unlocked!`;
+    document.getElementById('milestone-description').textContent = achievement.description;
+    
+    modal.classList.add('show');
+    
+    // Bind modal actions
+    const shareBtn = modal.querySelector('.milestone-share');
+    const continueBtn = modal.querySelector('.milestone-continue');
+    
+    shareBtn.onclick = () => this.shareAchievement(achievement);
+    continueBtn.onclick = () => modal.classList.remove('show');
+  }
+  
+  shareAchievement(achievement) {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Achievement Unlocked!',
+        text: `I just earned "${achievement.name}" on my digital enlightenment journey!`,
+        url: window.location.origin
+      });
+    } else {
+      const text = `Achievement Unlocked: ${achievement.name} - ${achievement.description}`;
+      navigator.clipboard.writeText(text);
+      this.showToast('Achievement copied to clipboard!');
+    }
+  }
+  
+  updateTriggerBadge() {
+    const badge = document.getElementById('achievement-badge');
+    if (!badge) return;
+    
+    const newAchievements = this.getNewAchievementsCount();
+    
+    if (newAchievements > 0) {
+      badge.textContent = newAchievements;
+      badge.classList.add('show');
+    } else {
+      badge.classList.remove('show');
+    }
+  }
+  
+  startPeriodicCheck() {
+    // Check for new achievements every 10 seconds
+    setInterval(() => {
+      this.checkAchievements();
+    }, 10000);
+  }
+  
+  // Helper methods for achievement conditions
+  getVisitCount() {
+    return window.readerJourney?.readingHistory?.visitCount || 0;
+  }
+  
+  getContentTypeCount(type) {
+    return window.readerJourney?.readingHistory?.contentTypes?.[type]?.count || 0;
+  }
+  
+  getMandalaInteractions() {
+    const interactions = JSON.parse(localStorage.getItem('zyj_mandala_interactions') || '[]');
+    return interactions.length;
+  }
+  
+  getTotalPagesRead() {
+    const pages = window.readerJourney?.readingHistory?.pages || {};
+    return Object.keys(pages).length;
+  }
+  
+  getTotalReadingTime() {
+    return window.readerJourney?.readingHistory?.totalTime || 0;
+  }
+  
+  getCompletedPages() {
+    const pages = window.readerJourney?.readingHistory?.pages || {};
+    return Object.values(pages).filter(page => page.completed).length;
+  }
+  
+  getAllContentTypesExplored() {
+    const types = window.readerJourney?.readingHistory?.contentTypes || {};
+    const requiredTypes = ['story', 'book', 'audio', 'post'];
+    return requiredTypes.every(type => types[type]?.count > 0);
+  }
+  
+  hasFastRead() {
+    const pages = window.readerJourney?.readingHistory?.pages || {};
+    return Object.values(pages).some(page => page.totalTime < 2 * 60 * 1000 && page.completed);
+  }
+  
+  // Data management
+  loadEarnedAchievements() {
+    return JSON.parse(localStorage.getItem('zyj_achievements') || '[]');
+  }
+  
+  saveEarnedAchievements() {
+    localStorage.setItem('zyj_achievements', JSON.stringify(this.earnedAchievements));
+  }
+  
+  isAchievementEarned(id) {
+    return this.earnedAchievements.some(achievement => achievement.id === id);
+  }
+  
+  getAchievementDate(id) {
+    const achievement = this.earnedAchievements.find(a => a.id === id);
+    return achievement ? new Date(achievement.timestamp).toLocaleDateString() : null;
+  }
+  
+  getTotalPoints() {
+    return this.earnedAchievements.reduce((total, earnedAchievement) => {
+      const achievement = this.achievements[earnedAchievement.id];
+      return total + (achievement?.points || 0);
+    }, 0);
+  }
+  
+  calculateUserLevel() {
+    const points = this.getTotalPoints();
+    return Math.floor(points / 100) + 1;
+  }
+  
+  getPointsToNextLevel() {
+    const points = this.getTotalPoints();
+    const currentLevel = this.calculateUserLevel();
+    const pointsForNextLevel = currentLevel * 100;
+    return pointsForNextLevel - points;
+  }
+  
+  getLevelProgress() {
+    const points = this.getTotalPoints();
+    const currentLevelPoints = ((this.calculateUserLevel() - 1) * 100);
+    const pointsInCurrentLevel = points - currentLevelPoints;
+    return (pointsInCurrentLevel / 100) * 100;
+  }
+  
+  getAchievementProgress(achievement) {
+    // This would need specific logic for each achievement type
+    // For now, return a basic calculation
+    if (this.isAchievementEarned(achievement.id)) return 100;
+    
+    switch (achievement.id) {
+      case 'serial_reader':
+        return Math.min((this.getTotalPagesRead() / 5) * 100, 100);
+      case 'marathon_reader':
+        return Math.min((this.getTotalReadingTime() / (30 * 60 * 1000)) * 100, 100);
+      case 'completionist':
+        return Math.min((this.getCompletedPages() / 10) * 100, 100);
+      default:
+        return achievement.condition() ? 100 : 0;
+    }
+  }
+  
+  getRecentAchievements(limit = 5) {
+    return this.earnedAchievements
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .slice(0, limit);
+  }
+  
+  getNewAchievementsCount() {
+    const lastViewed = localStorage.getItem('zyj_achievements_last_viewed') || '0';
+    return this.earnedAchievements.filter(a => a.timestamp > parseInt(lastViewed)).length;
+  }
+  
+  markAchievementsViewed() {
+    localStorage.setItem('zyj_achievements_last_viewed', Date.now().toString());
+    this.updateTriggerBadge();
+  }
+  
+  getTimeAgo(timestamp) {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+    
+    if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+    if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    return 'Just now';
+  }
+  
+  showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: rgba(0, 255, 159, 0.9);
+      color: #000;
+      padding: 12px 16px;
+      border-radius: 8px;
+      z-index: 10000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+    }, 100);
+    
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(20px)';
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+}
+
+// Initialize achievement system
+document.addEventListener('DOMContentLoaded', () => {
+  // Wait for reader journey to be ready
+  setTimeout(() => {
+    window.achievementSystem = new AchievementSystem();
+  }, 1000);
+});
+</script>

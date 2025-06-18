@@ -1,0 +1,1374 @@
+{{/* New Reader Onboarding Partial - themes/AUTHOR/layouts/partials/onboarding-flow.html */}}
+{{/* Interactive onboarding experience for new visitors */}}
+
+<div id="onboarding-system" class="onboarding-system">
+  <!-- Onboarding Overlay -->
+  <div id="onboarding-overlay" class="onboarding-overlay" style="display: none;">
+    <div class="onboarding-container">
+      <!-- Welcome Step -->
+      <div class="onboarding-step" data-step="welcome">
+        <div class="step-animation">
+          <div class="floating-elements">
+            <div class="floating-element">🌟</div>
+            <div class="floating-element">📚</div>
+            <div class="floating-element">🎧</div>
+            <div class="floating-element">💭</div>
+          </div>
+        </div>
+        <div class="step-content">
+          <h1>Welcome to the Neuro-Digital Enlightenment</h1>
+          <p>Embark on a journey where technology meets consciousness. This is your gateway to stories, audio experiences, and digital explorations that challenge perception and expand awareness.</p>
+          <div class="step-features">
+            <div class="feature-item">
+              <span class="feature-icon">🎯</span>
+              <span class="feature-text">Personalized recommendations</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">📊</span>
+              <span class="feature-text">Track your reading journey</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">🏆</span>
+              <span class="feature-text">Unlock achievements</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Types Step -->
+      <div class="onboarding-step" data-step="content-types">
+        <div class="step-content">
+          <h2>Explore Different Dimensions</h2>
+          <p>Our content spans multiple formats, each offering unique pathways to understanding:</p>
+          <div class="content-type-showcase">
+            <div class="showcase-item" data-type="stories">
+              <div class="showcase-icon">📚</div>
+              <div class="showcase-info">
+                <h3>Stories</h3>
+                <p>Narrative fiction exploring digital consciousness, AI sentience, and the boundaries of reality</p>
+                <div class="showcase-preview">
+                  <span class="preview-item">"The Protocol"</span>
+                  <span class="preview-item">"Digital Mirrors"</span>
+                  <span class="preview-item">"Code Dreams"</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="showcase-item" data-type="books">
+              <div class="showcase-icon">📖</div>
+              <div class="showcase-info">
+                <h3>Books</h3>
+                <p>Longer-form explorations of themes like consciousness, technology, and human potential</p>
+                <div class="showcase-preview">
+                  <span class="preview-item">"There Are No Humans"</span>
+                  <span class="preview-item">"The Protocol Vol. 1"</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="showcase-item" data-type="audio">
+              <div class="showcase-icon">🎧</div>
+              <div class="showcase-info">
+                <h3>Audio Experiences</h3>
+                <p>Spoken stories and meditative experiences designed for deep listening</p>
+                <div class="showcase-preview">
+                  <span class="preview-item">"Spoken Stories"</span>
+                  <span class="preview-item">"Digital Meditations"</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="showcase-item" data-type="posts">
+              <div class="showcase-icon">💭</div>
+              <div class="showcase-info">
+                <h3>Reflections</h3>
+                <p>Thoughts, insights, and explorations of consciousness in the digital age</p>
+                <div class="showcase-preview">
+                  <span class="preview-item">"Tech Philosophy"</span>
+                  <span class="preview-item">"Digital Zen"</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Personalization Step -->
+      <div class="onboarding-step" data-step="personalization">
+        <div class="step-content">
+          <h2>Customize Your Experience</h2>
+          <p>Help us understand your interests to provide better recommendations:</p>
+          
+          <div class="preference-section">
+            <h3>What draws you most? (Select all that apply)</h3>
+            <div class="interest-grid">
+              <label class="interest-option">
+                <input type="checkbox" value="consciousness">
+                <span class="option-content">
+                  <span class="option-icon">🧠</span>
+                  <span class="option-text">Consciousness & AI</span>
+                </span>
+              </label>
+              
+              <label class="interest-option">
+                <input type="checkbox" value="philosophy">
+                <span class="option-content">
+                  <span class="option-icon">🤔</span>
+                  <span class="option-text">Digital Philosophy</span>
+                </span>
+              </label>
+              
+              <label class="interest-option">
+                <input type="checkbox" value="fiction">
+                <span class="option-content">
+                  <span class="option-icon">📖</span>
+                  <span class="option-text">Sci-Fi & Narrative</span>
+                </span>
+              </label>
+              
+              <label class="interest-option">
+                <input type="checkbox" value="meditation">
+                <span class="option-content">
+                  <span class="option-icon">🧘</span>
+                  <span class="option-text">Mindfulness & Meditation</span>
+                </span>
+              </label>
+              
+              <label class="interest-option">
+                <input type="checkbox" value="technology">
+                <span class="option-content">
+                  <span class="option-icon">💻</span>
+                  <span class="option-text">Future Technology</span>
+                </span>
+              </label>
+              
+              <label class="interest-option">
+                <input type="checkbox" value="exploration">
+                <span class="option-content">
+                  <span class="option-icon">🔍</span>
+                  <span class="option-text">Reality Exploration</span>
+                </span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="preference-section">
+            <h3>Preferred reading pace:</h3>
+            <div class="pace-options">
+              <label class="pace-option">
+                <input type="radio" name="reading-pace" value="slow">
+                <span class="pace-content">
+                  <span class="pace-icon">🐌</span>
+                  <span class="pace-text">Contemplative (I like to reflect deeply)</span>
+                </span>
+              </label>
+              
+              <label class="pace-option">
+                <input type="radio" name="reading-pace" value="medium" checked>
+                <span class="pace-content">
+                  <span class="pace-icon">🚶</span>
+                  <span class="pace-text">Balanced (I enjoy steady exploration)</span>
+                </span>
+              </label>
+              
+              <label class="pace-option">
+                <input type="radio" name="reading-pace" value="fast">
+                <span class="pace-content">
+                  <span class="pace-icon">🏃</span>
+                  <span class="pace-text">Explorer (I like to cover lots of ground)</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Features Step -->
+      <div class="onboarding-step" data-step="features">
+        <div class="step-content">
+          <h2>Your Digital Toolkit</h2>
+          <p>Discover the features that will enhance your journey:</p>
+          
+          <div class="features-showcase">
+            <div class="feature-demo" data-feature="recommendations">
+              <div class="demo-visual">
+                <div class="demo-icon">🎯</div>
+                <div class="demo-animation"></div>
+              </div>
+              <div class="demo-content">
+                <h3>Smart Recommendations</h3>
+                <p>AI-powered suggestions based on your reading patterns and interests, helping you discover content that resonates with your journey.</p>
+              </div>
+            </div>
+            
+            <div class="feature-demo" data-feature="progress">
+              <div class="demo-visual">
+                <div class="demo-icon">📊</div>
+                <div class="demo-progress-bar">
+                  <div class="demo-progress-fill"></div>
+                </div>
+              </div>
+              <div class="demo-content">
+                <h3>Progress Tracking</h3>
+                <p>Visual feedback on your reading journey, including time spent, pages explored, and content types discovered.</p>
+              </div>
+            </div>
+            
+            <div class="feature-demo" data-feature="achievements">
+              <div class="demo-visual">
+                <div class="demo-icon">🏆</div>
+                <div class="demo-badges">
+                  <span class="demo-badge">🌟</span>
+                  <span class="demo-badge">📚</span>
+                  <span class="demo-badge">🎧</span>
+                </div>
+              </div>
+              <div class="demo-content">
+                <h3>Achievement System</h3>
+                <p>Unlock achievements as you explore different content types and reach reading milestones.</p>
+              </div>
+            </div>
+            
+            <div class="feature-demo" data-feature="navigation">
+              <div class="demo-visual">
+                <div class="demo-icon">🧭</div>
+                <div class="demo-connections"></div>
+              </div>
+              <div class="demo-content">
+                <h3>Contextual Navigation</h3>
+                <p>Intelligent suggestions for related content and guided pathways through interconnected ideas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Getting Started Step -->
+      <div class="onboarding-step" data-step="getting-started">
+        <div class="step-content">
+          <h2>Begin Your Journey</h2>
+          <p>Choose your starting point in the Neuro-Digital Enlightenment:</p>
+          
+          <div class="starting-paths">
+            <a href="/stories/" class="path-option" data-path="stories">
+              <div class="path-visual">
+                <span class="path-icon">📚</span>
+                <div class="path-particles"></div>
+              </div>
+              <div class="path-content">
+                <h3>Start with Stories</h3>
+                <p>Dive into narrative fiction that explores the boundaries between human and artificial consciousness.</p>
+                <span class="path-suggestion">Perfect for: Fiction lovers, philosophy enthusiasts</span>
+              </div>
+            </a>
+            
+            <a href="/audio/" class="path-option" data-path="audio">
+              <div class="path-visual">
+                <span class="path-icon">🎧</span>
+                <div class="path-waveform"></div>
+              </div>
+              <div class="path-content">
+                <h3>Listen First</h3>
+                <p>Experience spoken stories and meditative audio content designed for deep contemplation.</p>
+                <span class="path-suggestion">Perfect for: Audio learners, meditation practitioners</span>
+              </div>
+            </a>
+            
+            <a href="/" class="path-option" data-path="explore">
+              <div class="path-visual">
+                <span class="path-icon">🌐</span>
+                <div class="path-mandala"></div>
+              </div>
+              <div class="path-content">
+                <h3>Explore the Mandala</h3>
+                <p>Navigate the homepage mandala to discover content organically through visual exploration.</p>
+                <span class="path-suggestion">Perfect for: Visual learners, curious explorers</span>
+              </div>
+            </a>
+            
+            <a href="/inquiries/" class="path-option" data-path="inquiries">
+              <div class="path-visual">
+                <span class="path-icon">❓</span>
+                <div class="path-questions"></div>
+              </div>
+              <div class="path-content">
+                <h3>Question Everything</h3>
+                <p>Start with inquiries that challenge assumptions about reality, consciousness, and technology.</p>
+                <span class="path-suggestion">Perfect for: Critical thinkers, philosophers</span>
+              </div>
+            </a>
+          </div>
+          
+          <div class="onboarding-footer">
+            <p class="privacy-note">
+              <span class="privacy-icon">🔒</span>
+              Your preferences and reading data are stored locally on your device for privacy.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation -->
+      <div class="onboarding-navigation">
+        <button class="nav-button nav-back" id="onboarding-back" disabled>
+          <span class="nav-arrow">←</span>
+          <span class="nav-text">Back</span>
+        </button>
+        
+        <div class="nav-indicators">
+          <span class="nav-dot active" data-step="0"></span>
+          <span class="nav-dot" data-step="1"></span>
+          <span class="nav-dot" data-step="2"></span>
+          <span class="nav-dot" data-step="3"></span>
+          <span class="nav-dot" data-step="4"></span>
+        </div>
+        
+        <button class="nav-button nav-next" id="onboarding-next">
+          <span class="nav-text">Next</span>
+          <span class="nav-arrow">→</span>
+        </button>
+        
+        <button class="nav-button nav-skip" id="onboarding-skip">
+          Skip Tour
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Quick Tour Trigger (for return visitors) -->
+  <button id="quick-tour-trigger" class="quick-tour-trigger" style="display: none;">
+    <span class="trigger-icon">🎯</span>
+    <span class="trigger-text">Take Tour</span>
+  </button>
+</div>
+
+<style>
+/* Onboarding System Styles */
+.onboarding-system {
+  --onboarding-primary: #00ff9f;
+  --onboarding-secondary: #00d4aa;
+  --onboarding-bg: rgba(10, 10, 20, 0.98);
+  --onboarding-card: rgba(26, 26, 46, 0.95);
+  --onboarding-border: rgba(255, 255, 255, 0.1);
+  --onboarding-text: #ffffff;
+  --onboarding-text-secondary: #888888;
+}
+
+/* Onboarding Overlay */
+.onboarding-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--onboarding-bg);
+  backdrop-filter: blur(20px);
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.onboarding-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.onboarding-container {
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  background: var(--onboarding-card);
+  border: 1px solid var(--onboarding-border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Onboarding Steps */
+.onboarding-step {
+  display: none;
+  padding: 40px;
+  flex: 1;
+  overflow-y: auto;
+  text-align: center;
+  position: relative;
+}
+
+.onboarding-step.active {
+  display: block;
+  animation: stepFadeIn 0.5s ease-out;
+}
+
+.step-content h1,
+.step-content h2 {
+  margin: 0 0 20px 0;
+  color: var(--onboarding-text);
+  background: linear-gradient(45deg, var(--onboarding-primary), var(--onboarding-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.step-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+}
+
+.step-content h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.step-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--onboarding-text);
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Welcome Step Animations */
+.step-animation {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.floating-elements {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.floating-element {
+  font-size: 3rem;
+  animation: float 3s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.floating-element:nth-child(1) { animation-delay: 0s; }
+.floating-element:nth-child(2) { animation-delay: 0.5s; }
+.floating-element:nth-child(3) { animation-delay: 1s; }
+.floating-element:nth-child(4) { animation-delay: 1.5s; }
+
+.step-features {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--onboarding-text-secondary);
+  font-size: 0.9rem;
+}
+
+.feature-icon {
+  font-size: 1.2rem;
+}
+
+/* Content Types Showcase */
+.content-type-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.showcase-item {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--onboarding-border);
+  border-radius: 12px;
+  text-align: left;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.showcase-item:hover {
+  border-color: var(--onboarding-primary);
+  background: rgba(0, 255, 159, 0.05);
+  transform: translateY(-2px);
+}
+
+.showcase-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+
+.showcase-info h3 {
+  margin: 0 0 8px 0;
+  color: var(--onboarding-text);
+  font-size: 1.3rem;
+}
+
+.showcase-info p {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  color: var(--onboarding-text-secondary);
+  text-align: left;
+}
+
+.showcase-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.preview-item {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  background: rgba(0, 255, 159, 0.1);
+  border: 1px solid rgba(0, 255, 159, 0.3);
+  border-radius: 12px;
+  color: var(--onboarding-primary);
+}
+
+/* Personalization Step */
+.preference-section {
+  margin-bottom: 32px;
+}
+
+.preference-section h3 {
+  color: var(--onboarding-text);
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+
+.interest-option {
+  cursor: pointer;
+}
+
+.interest-option input {
+  display: none;
+}
+
+.option-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--onboarding-border);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.interest-option input:checked + .option-content {
+  background: rgba(0, 255, 159, 0.1);
+  border-color: var(--onboarding-primary);
+}
+
+.option-icon {
+  font-size: 1.5rem;
+}
+
+.option-text {
+  color: var(--onboarding-text);
+  font-weight: 500;
+}
+
+.pace-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.pace-option {
+  cursor: pointer;
+}
+
+.pace-option input {
+  display: none;
+}
+
+.pace-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--onboarding-border);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.pace-option input:checked + .pace-content {
+  background: rgba(0, 255, 159, 0.1);
+  border-color: var(--onboarding-primary);
+}
+
+.pace-icon {
+  font-size: 1.5rem;
+}
+
+.pace-text {
+  color: var(--onboarding-text);
+  font-weight: 500;
+}
+
+/* Features Showcase */
+.features-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.feature-demo {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--onboarding-border);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.demo-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  height: 60px;
+}
+
+.demo-icon {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+.demo-animation,
+.demo-progress-bar,
+.demo-badges,
+.demo-connections {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.demo-progress-bar {
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  right: 20px;
+}
+
+.demo-progress-fill {
+  height: 100%;
+  background: var(--onboarding-primary);
+  width: 60%;
+  animation: progressDemo 2s ease-in-out infinite;
+}
+
+.demo-badges {
+  right: 20px;
+  display: flex;
+  gap: 4px;
+}
+
+.demo-badge {
+  font-size: 1rem;
+  opacity: 0.6;
+  animation: badgeGlow 3s ease-in-out infinite;
+}
+
+.demo-badge:nth-child(1) { animation-delay: 0s; }
+.demo-badge:nth-child(2) { animation-delay: 1s; }
+.demo-badge:nth-child(3) { animation-delay: 2s; }
+
+.demo-content h3 {
+  margin: 0 0 8px 0;
+  color: var(--onboarding-text);
+  font-size: 1.1rem;
+}
+
+.demo-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--onboarding-text-secondary);
+  text-align: left;
+}
+
+/* Getting Started Paths */
+.starting-paths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto 32px;
+}
+
+.path-option {
+  display: block;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--onboarding-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.path-option:hover {
+  border-color: var(--onboarding-primary);
+  background: rgba(0, 255, 159, 0.05);
+  transform: translateY(-4px);
+}
+
+.path-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  height: 60px;
+  position: relative;
+}
+
+.path-icon {
+  font-size: 2.5rem;
+}
+
+.path-content h3 {
+  margin: 0 0 8px 0;
+  color: var(--onboarding-text);
+  font-size: 1.2rem;
+}
+
+.path-content p {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  color: var(--onboarding-text-secondary);
+  text-align: left;
+}
+
+.path-suggestion {
+  font-size: 0.8rem;
+  color: var(--onboarding-primary);
+  font-style: italic;
+}
+
+.onboarding-footer {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--onboarding-border);
+}
+
+.privacy-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--onboarding-text-secondary);
+  margin: 0;
+}
+
+.privacy-icon {
+  font-size: 1rem;
+}
+
+/* Navigation */
+.onboarding-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--onboarding-border);
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  border: 1px solid var(--onboarding-border);
+  border-radius: 8px;
+  color: var(--onboarding-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-button:not(:disabled):hover {
+  background: rgba(0, 255, 159, 0.1);
+  border-color: var(--onboarding-primary);
+}
+
+.nav-next {
+  background: var(--onboarding-primary);
+  color: #000;
+  border-color: var(--onboarding-primary);
+}
+
+.nav-next:hover {
+  background: var(--onboarding-secondary);
+}
+
+.nav-skip {
+  color: var(--onboarding-text-secondary);
+  border-color: transparent;
+}
+
+.nav-indicators {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-dot.active {
+  background: var(--onboarding-primary);
+  transform: scale(1.2);
+}
+
+/* Quick Tour Trigger */
+.quick-tour-trigger {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(0, 255, 159, 0.1);
+  border: 1px solid rgba(0, 255, 159, 0.3);
+  border-radius: 25px;
+  color: var(--onboarding-primary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.quick-tour-trigger:hover {
+  background: rgba(0, 255, 159, 0.2);
+  transform: translateY(-2px);
+}
+
+.trigger-icon {
+  font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes stepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes progressDemo {
+  0%, 100% {
+    width: 20%;
+  }
+  50% {
+    width: 80%;
+  }
+}
+
+@keyframes badgeGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .onboarding-container {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .onboarding-step {
+    padding: 24px 20px;
+  }
+  
+  .step-content h1 {
+    font-size: 2rem;
+  }
+  
+  .step-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .floating-elements {
+    gap: 20px;
+  }
+  
+  .floating-element {
+    font-size: 2rem;
+  }
+  
+  .step-features {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .content-type-showcase,
+  .features-showcase,
+  .starting-paths {
+    grid-template-columns: 1fr;
+  }
+  
+  .interest-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .onboarding-navigation {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .nav-indicators {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .floating-element,
+  .demo-progress-fill,
+  .demo-badge {
+    animation: none !important;
+  }
+  
+  .onboarding-step.active {
+    animation: none !important;
+  }
+}
+</style>
+
+<script>
+// Onboarding Flow JavaScript
+class OnboardingFlow {
+  constructor() {
+    this.currentStep = 0;
+    this.totalSteps = 5;
+    this.steps = ['welcome', 'content-types', 'personalization', 'features', 'getting-started'];
+    this.userPreferences = {
+      interests: [],
+      readingPace: 'medium',
+      startingPath: null
+    };
+    
+    this.init();
+  }
+  
+  init() {
+    // Check if user should see onboarding
+    if (this.shouldShowOnboarding()) {
+      setTimeout(() => this.startOnboarding(), 1000);
+    } else if (this.shouldShowQuickTour()) {
+      this.showQuickTourTrigger();
+    }
+    
+    this.bindEvents();
+  }
+  
+  shouldShowOnboarding() {
+    // Show onboarding for first-time visitors
+    const hasVisited = localStorage.getItem('zyj_has_visited');
+    const tourCompleted = localStorage.getItem('zyj_onboarding_completed');
+    
+    return !hasVisited && !tourCompleted;
+  }
+  
+  shouldShowQuickTour() {
+    // Show quick tour trigger for return visitors who haven't completed tour
+    const hasVisited = localStorage.getItem('zyj_has_visited');
+    const tourCompleted = localStorage.getItem('zyj_onboarding_completed');
+    
+    return hasVisited && !tourCompleted;
+  }
+  
+  showQuickTourTrigger() {
+    const trigger = document.getElementById('quick-tour-trigger');
+    if (trigger) {
+      trigger.style.display = 'flex';
+      trigger.addEventListener('click', () => this.startOnboarding());
+    }
+  }
+  
+  startOnboarding() {
+    const overlay = document.getElementById('onboarding-overlay');
+    if (!overlay) return;
+    
+    overlay.style.display = 'flex';
+    setTimeout(() => {
+      overlay.classList.add('show');
+      this.showStep(0);
+    }, 100);
+    
+    // Mark as visited
+    localStorage.setItem('zyj_has_visited', 'true');
+  }
+  
+  bindEvents() {
+    const backBtn = document.getElementById('onboarding-back');
+    const nextBtn = document.getElementById('onboarding-next');
+    const skipBtn = document.getElementById('onboarding-skip');
+    
+    backBtn?.addEventListener('click', () => this.previousStep());
+    nextBtn?.addEventListener('click', () => this.nextStep());
+    skipBtn?.addEventListener('click', () => this.skipOnboarding());
+    
+    // Dot navigation
+    const dots = document.querySelectorAll('.nav-dot');
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => this.goToStep(index));
+    });
+    
+    // Content type showcase interaction
+    const showcaseItems = document.querySelectorAll('.showcase-item');
+    showcaseItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const type = item.dataset.type;
+        this.handleContentTypeSelection(type);
+      });
+    });
+    
+    // Interest selection
+    const interestInputs = document.querySelectorAll('.interest-option input');
+    interestInputs.forEach(input => {
+      input.addEventListener('change', () => this.updateInterests());
+    });
+    
+    // Reading pace selection
+    const paceInputs = document.querySelectorAll('.pace-option input');
+    paceInputs.forEach(input => {
+      input.addEventListener('change', () => this.updateReadingPace());
+    });
+    
+    // Path selection
+    const pathOptions = document.querySelectorAll('.path-option');
+    pathOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.preventDefault();
+        const path = option.dataset.path;
+        this.selectStartingPath(path, option.href);
+      });
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('onboarding-overlay');
+      if (!overlay.classList.contains('show')) return;
+      
+      switch (e.key) {
+        case 'ArrowLeft':
+          this.previousStep();
+          break;
+        case 'ArrowRight':
+          this.nextStep();
+          break;
+        case 'Escape':
+          this.skipOnboarding();
+          break;
+      }
+    });
+  }
+  
+  showStep(stepIndex) {
+    // Hide all steps
+    const steps = document.querySelectorAll('.onboarding-step');
+    steps.forEach(step => step.classList.remove('active'));
+    
+    // Show current step
+    const currentStep = document.querySelector(`[data-step="${this.steps[stepIndex]}"]`);
+    if (currentStep) {
+      currentStep.classList.add('active');
+    }
+    
+    // Update navigation
+    this.updateNavigation(stepIndex);
+    
+    // Update dots
+    this.updateDots(stepIndex);
+    
+    this.currentStep = stepIndex;
+  }
+  
+  updateNavigation(stepIndex) {
+    const backBtn = document.getElementById('onboarding-back');
+    const nextBtn = document.getElementById('onboarding-next');
+    
+    if (backBtn) {
+      backBtn.disabled = stepIndex === 0;
+    }
+    
+    if (nextBtn) {
+      if (stepIndex === this.totalSteps - 1) {
+        nextBtn.textContent = 'Start Exploring';
+        nextBtn.innerHTML = '<span class="nav-text">Start Exploring</span><span class="nav-arrow">→</span>';
+      } else {
+        nextBtn.innerHTML = '<span class="nav-text">Next</span><span class="nav-arrow">→</span>';
+      }
+    }
+  }
+  
+  updateDots(stepIndex) {
+    const dots = document.querySelectorAll('.nav-dot');
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === stepIndex);
+    });
+  }
+  
+  nextStep() {
+    if (this.currentStep < this.totalSteps - 1) {
+      this.showStep(this.currentStep + 1);
+    } else {
+      this.completeOnboarding();
+    }
+  }
+  
+  previousStep() {
+    if (this.currentStep > 0) {
+      this.showStep(this.currentStep - 1);
+    }
+  }
+  
+  goToStep(stepIndex) {
+    if (stepIndex >= 0 && stepIndex < this.totalSteps) {
+      this.showStep(stepIndex);
+    }
+  }
+  
+  handleContentTypeSelection(type) {
+    // Add visual feedback for content type selection
+    const showcaseItems = document.querySelectorAll('.showcase-item');
+    showcaseItems.forEach(item => {
+      item.classList.toggle('selected', item.dataset.type === type);
+    });
+    
+    // Store preference
+    this.userPreferences.preferredContentType = type;
+  }
+  
+  updateInterests() {
+    const selectedInterests = Array.from(document.querySelectorAll('.interest-option input:checked'))
+      .map(input => input.value);
+    
+    this.userPreferences.interests = selectedInterests;
+  }
+  
+  updateReadingPace() {
+    const selectedPace = document.querySelector('.pace-option input:checked')?.value;
+    if (selectedPace) {
+      this.userPreferences.readingPace = selectedPace;
+    }
+  }
+  
+  selectStartingPath(path, url) {
+    this.userPreferences.startingPath = path;
+    
+    // Save preferences before navigation
+    this.saveUserPreferences();
+    this.completeOnboarding();
+    
+    // Navigate to selected path
+    setTimeout(() => {
+      window.location.href = url;
+    }, 500);
+  }
+  
+  saveUserPreferences() {
+    // Save preferences to localStorage for the reader journey system
+    const preferences = {
+      ...this.userPreferences,
+      onboardingCompleted: true,
+      completedAt: Date.now()
+    };
+    
+    localStorage.setItem('zyj_reader_preferences', JSON.stringify(preferences));
+    
+    // Also update the reader journey preferences if available
+    if (window.readerJourney) {
+      window.readerJourney.preferences = {
+        ...window.readerJourney.preferences,
+        ...this.userPreferences
+      };
+      window.readerJourney.savePreferences();
+    }
+  }
+  
+  completeOnboarding() {
+    this.saveUserPreferences();
+    localStorage.setItem('zyj_onboarding_completed', 'true');
+    
+    const overlay = document.getElementById('onboarding-overlay');
+    if (overlay) {
+      overlay.classList.remove('show');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 400);
+    }
+    
+    // Hide quick tour trigger if visible
+    const quickTour = document.getElementById('quick-tour-trigger');
+    if (quickTour) {
+      quickTour.style.display = 'none';
+    }
+    
+    // Award achievement for completing onboarding
+    if (window.achievementSystem) {
+      setTimeout(() => {
+        window.achievementSystem.checkAchievements();
+      }, 1000);
+    }
+    
+    // Show welcome message
+    this.showWelcomeMessage();
+  }
+  
+  skipOnboarding() {
+    // Save minimal preferences
+    this.userPreferences.skipped = true;
+    this.completeOnboarding();
+  }
+  
+  showWelcomeMessage() {
+    const welcomeMessage = document.createElement('div');
+    welcomeMessage.className = 'welcome-message';
+    welcomeMessage.innerHTML = `
+      <div class="welcome-content">
+        <h3>Welcome to your journey!</h3>
+        <p>Your personalized experience is now ready. Explore and discover content tailored to your interests.</p>
+      </div>
+    `;
+    
+    welcomeMessage.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 255, 159, 0.1);
+      border: 1px solid rgba(0, 255, 159, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 300px;
+      z-index: 10000;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    `;
+    
+    document.body.appendChild(welcomeMessage);
+    
+    setTimeout(() => {
+      welcomeMessage.style.opacity = '1';
+      welcomeMessage.style.transform = 'translateY(0)';
+    }, 100);
+    
+    setTimeout(() => {
+      welcomeMessage.style.opacity = '0';
+      welcomeMessage.style.transform = 'translateY(-20px)';
+      setTimeout(() => welcomeMessage.remove(), 400);
+    }, 5000);
+  }
+  
+  // Public API for manual trigger
+  restart() {
+    this.currentStep = 0;
+    this.userPreferences = {
+      interests: [],
+      readingPace: 'medium',
+      startingPath: null
+    };
+    this.startOnboarding();
+  }
+}
+
+// Initialize onboarding system
+document.addEventListener('DOMContentLoaded', () => {
+  window.onboardingFlow = new OnboardingFlow();
+});
+
+// Add styles for selected showcase items
+const additionalStyles = `
+  .showcase-item.selected {
+    border-color: var(--onboarding-primary) !important;
+    background: rgba(0, 255, 159, 0.1) !important;
+    transform: scale(1.02);
+  }
+  
+  .welcome-content h3 {
+    margin: 0 0 8px 0;
+    color: #00ff9f;
+    font-size: 1.1rem;
+  }
+  
+  .welcome-content p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+`;
+
+// Inject additional styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = additionalStyles;
+document.head.appendChild(styleSheet);
+</script>
