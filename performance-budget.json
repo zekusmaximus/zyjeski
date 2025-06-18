@@ -1,0 +1,204 @@
+{
+  "name": "Hugo Author Website Performance Budget",
+  "version": "1.0.0",
+  "description": "Performance budgets for different device classes and connection types",
+  "budgets": {
+    "mobile": {
+      "description": "Mobile devices with potential slower connections",
+      "thresholds": {
+        "critical": {
+          "totalJavaScript": 100,
+          "totalCSS": 50,
+          "totalImages": 200,
+          "initialLoad": 300,
+          "description": "Critical resources for initial render"
+        },
+        "secondary": {
+          "totalJavaScript": 300,
+          "totalCSS": 150,
+          "totalImages": 500,
+          "totalLoad": 800,
+          "description": "Complete page load including enhancements"
+        }
+      },
+      "metrics": {
+        "LCP": 2500,
+        "FID": 100,
+        "CLS": 0.1,
+        "FCP": 1800,
+        "TTI": 3500
+      }
+    },
+    "tablet": {
+      "description": "Tablet devices with moderate processing power",
+      "thresholds": {
+        "critical": {
+          "totalJavaScript": 150,
+          "totalCSS": 75,
+          "totalImages": 300,
+          "initialLoad": 400
+        },
+        "secondary": {
+          "totalJavaScript": 500,
+          "totalCSS": 200,
+          "totalImages": 800,
+          "totalLoad": 1200
+        }
+      },
+      "metrics": {
+        "LCP": 2000,
+        "FID": 80,
+        "CLS": 0.08,
+        "FCP": 1500,
+        "TTI": 3000
+      }
+    },
+    "desktop": {
+      "description": "Desktop devices with faster connections and more processing power",
+      "thresholds": {
+        "critical": {
+          "totalJavaScript": 200,
+          "totalCSS": 100,
+          "totalImages": 400,
+          "initialLoad": 500
+        },
+        "secondary": {
+          "totalJavaScript": 800,
+          "totalCSS": 300,
+          "totalImages": 1200,
+          "totalLoad": 1800
+        }
+      },
+      "metrics": {
+        "LCP": 1500,
+        "FID": 50,
+        "CLS": 0.05,
+        "FCP": 1000,
+        "TTI": 2000
+      }
+    }
+  },
+  "connectionTypes": {
+    "slow3g": {
+      "description": "Slow 3G connections",
+      "multiplier": 0.6,
+      "prioritizeCSS": true,
+      "disableAnimations": true,
+      "reducedImageQuality": true
+    },
+    "fast3g": {
+      "description": "Fast 3G connections",
+      "multiplier": 0.8,
+      "prioritizeCSS": true,
+      "reduceAnimations": true,
+      "standardImageQuality": true
+    },
+    "4g": {
+      "description": "4G and faster connections",
+      "multiplier": 1.0,
+      "enableAnimations": true,
+      "highImageQuality": true
+    }
+  },
+  "features": {
+    "mandala3D": {
+      "budget": {
+        "js": 80,
+        "css": 20
+      },
+      "requirements": {
+        "minRAM": 4,
+        "webGL": true,
+        "connectionSpeed": "fast3g"
+      }
+    },
+    "particleEffects": {
+      "budget": {
+        "js": 60,
+        "css": 15
+      },
+      "requirements": {
+        "minRAM": 2,
+        "gpuAcceleration": true,
+        "connectionSpeed": "4g"
+      }
+    },
+    "backgroundEffects": {
+      "budget": {
+        "js": 40,
+        "css": 25
+      },
+      "requirements": {
+        "reducedMotion": false,
+        "connectionSpeed": "fast3g"
+      }
+    },
+    "audioVisualization": {
+      "budget": {
+        "js": 120,
+        "css": 10
+      },
+      "requirements": {
+        "webAudio": true,
+        "connectionSpeed": "4g",
+        "minRAM": 4
+      }
+    }
+  },
+  "optimization": {
+    "images": {
+      "formats": ["webp", "avif", "jpg"],
+      "qualities": {
+        "mobile": 75,
+        "tablet": 85,
+        "desktop": 90
+      },
+      "sizes": {
+        "thumbnail": 300,
+        "medium": 800,
+        "large": 1200,
+        "xlarge": 1600
+      }
+    },
+    "css": {
+      "criticalPath": {
+        "maxSize": 14,
+        "inlineThreshold": 10
+      },
+      "bundling": {
+        "splitVendor": true,
+        "splitFeatures": true,
+        "chunkSize": 50
+      }
+    },
+    "javascript": {
+      "bundling": {
+        "splitVendor": true,
+        "splitRoutes": true,
+        "splitFeatures": true,
+        "chunkSize": 100
+      },
+      "compression": {
+        "gzip": true,
+        "brotli": true
+      }
+    }
+  },
+  "monitoring": {
+    "realUserMetrics": {
+      "enabled": true,
+      "sampleRate": 0.1,
+      "reportInterval": 30000
+    },
+    "syntheticTesting": {
+      "lighthouse": true,
+      "webPageTest": true,
+      "bundleAnalyzer": true
+    },
+    "alerts": {
+      "budgetExceeded": true,
+      "performanceRegression": true,
+      "errorRateIncrease": true
+    }
+  }
+}

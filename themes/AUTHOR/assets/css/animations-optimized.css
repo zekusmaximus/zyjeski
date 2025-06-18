@@ -1,0 +1,508 @@
+/* ANIMATION PERFORMANCE OPTIMIZATION CSS
+   GPU-accelerated animations with performance budgets and graceful degradation */
+
+/* ===== PERFORMANCE VARIABLES ===== */
+:root {
+  /* Animation performance levels */
+  --animation-performance-level: high; /* high, medium, low */
+  
+  /* Base animation durations */
+  --animation-duration-instant: 0.1s;
+  --animation-duration-fast: 0.15s;
+  --animation-duration-normal: 0.3s;
+  --animation-duration-slow: 0.6s;
+  --animation-duration-very-slow: 1.2s;
+  
+  /* Easing functions optimized for performance */
+  --easing-fast: cubic-bezier(0.4, 0, 1, 1);
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --easing-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* GPU acceleration hints */
+  --gpu-acceleration: translateZ(0);
+  --will-change-auto: auto;
+  --will-change-transform: transform;
+  --will-change-opacity: opacity;
+}
+
+/* ===== PERFORMANCE LEVEL OVERRIDES ===== */
+
+/* High Performance - Full animations */
+.performance-high {
+  --animation-performance-level: high;
+  --animation-duration-multiplier: 1;
+}
+
+/* Medium Performance - Reduced complexity */
+.performance-medium {
+  --animation-performance-level: medium;
+  --animation-duration-multiplier: 0.7;
+  --animation-duration-normal: 0.2s;
+  --animation-duration-slow: 0.4s;
+}
+
+/* Low Performance - Minimal animations */
+.performance-low {
+  --animation-performance-level: low;
+  --animation-duration-multiplier: 0.3;
+  --animation-duration-normal: 0.1s;
+  --animation-duration-slow: 0.2s;
+}
+
+/* ===== OPTIMIZED ANIMATION CLASSES ===== */
+
+/* Basic transforms - GPU accelerated */
+.animate-fade-in {
+  opacity: 0;
+  transform: var(--gpu-acceleration);
+  animation: fadeIn var(--animation-duration-normal) var(--easing-smooth) forwards;
+  will-change: var(--will-change-opacity);
+}
+
+.animate-fade-out {
+  opacity: 1;
+  transform: var(--gpu-acceleration);
+  animation: fadeOut var(--animation-duration-normal) var(--easing-smooth) forwards;
+  will-change: var(--will-change-opacity);
+}
+
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(20px) var(--gpu-acceleration);
+  animation: slideUp var(--animation-duration-normal) var(--easing-smooth) forwards;
+  will-change: var(--will-change-transform), var(--will-change-opacity);
+}
+
+.animate-slide-down {
+  opacity: 0;
+  transform: translateY(-20px) var(--gpu-acceleration);
+  animation: slideDown var(--animation-duration-normal) var(--easing-smooth) forwards;
+  will-change: var(--will-change-transform), var(--will-change-opacity);
+}
+
+.animate-scale-in {
+  opacity: 0;
+  transform: scale(0.95) var(--gpu-acceleration);
+  animation: scaleIn var(--animation-duration-normal) var(--easing-smooth) forwards;
+  will-change: var(--will-change-transform), var(--will-change-opacity);
+}
+
+.animate-pulse {
+  transform: var(--gpu-acceleration);
+  animation: pulse var(--animation-duration-slow) var(--easing-smooth) infinite;
+  will-change: var(--will-change-transform);
+}
+
+/* ===== OPTIMIZED KEYFRAMES ===== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) var(--gpu-acceleration);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) var(--gpu-acceleration);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) var(--gpu-acceleration);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) var(--gpu-acceleration);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) var(--gpu-acceleration);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) var(--gpu-acceleration);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1) var(--gpu-acceleration);
+  }
+  50% {
+    transform: scale(1.05) var(--gpu-acceleration);
+  }
+}
+
+/* ===== CYBERPUNK EFFECT ANIMATIONS - PERFORMANCE OPTIMIZED ===== */
+
+/* Glitch effect - optimized for performance */
+.glitch-effect {
+  position: relative;
+  transform: var(--gpu-acceleration);
+  will-change: var(--will-change-transform);
+}
+
+.glitch-effect::before,
+.glitch-effect::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  transform: var(--gpu-acceleration);
+  will-change: var(--will-change-transform);
+}
+
+.glitch-effect::before {
+  color: var(--electric-indigo);
+  z-index: -1;
+  animation: glitch1 var(--animation-duration-very-slow) infinite linear;
+}
+
+.glitch-effect::after {
+  color: var(--holographic-teal);
+  z-index: -2;
+  animation: glitch2 var(--animation-duration-very-slow) infinite linear;
+}
+
+@keyframes glitch1 {
+  0%, 14%, 16%, 18%, 22%, 36%, 40%, 100% {
+    transform: translate(0) var(--gpu-acceleration);
+  }
+  15% {
+    transform: translate(-2px, 2px) var(--gpu-acceleration);
+  }
+  17% {
+    transform: translate(-1px, -1px) var(--gpu-acceleration);
+  }
+  19% {
+    transform: translate(1px, 2px) var(--gpu-acceleration);
+  }
+  21% {
+    transform: translate(2px, -1px) var(--gpu-acceleration);
+  }
+  37% {
+    transform: translate(1px, -1px) var(--gpu-acceleration);
+  }
+  39% {
+    transform: translate(-1px, 1px) var(--gpu-acceleration);
+  }
+}
+
+@keyframes glitch2 {
+  0%, 20%, 22%, 24%, 28%, 42%, 46%, 100% {
+    transform: translate(0) var(--gpu-acceleration);
+  }
+  21% {
+    transform: translate(2px, -2px) var(--gpu-acceleration);
+  }
+  23% {
+    transform: translate(1px, 1px) var(--gpu-acceleration);
+  }
+  25% {
+    transform: translate(-1px, -2px) var(--gpu-acceleration);
+  }
+  27% {
+    transform: translate(-2px, 1px) var(--gpu-acceleration);
+  }
+  43% {
+    transform: translate(-1px, 1px) var(--gpu-acceleration);
+  }
+  45% {
+    transform: translate(1px, -1px) var(--gpu-acceleration);
+  }
+}
+
+/* Neon glow effect - optimized */
+.neon-glow {
+  transform: var(--gpu-acceleration);
+  will-change: var(--will-change-opacity);
+  animation: neonGlow var(--animation-duration-slow) ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+  from {
+    text-shadow: 
+      0 0 5px var(--holographic-teal),
+      0 0 10px var(--holographic-teal),
+      0 0 15px var(--holographic-teal);
+  }
+  to {
+    text-shadow: 
+      0 0 2px var(--holographic-teal),
+      0 0 5px var(--holographic-teal),
+      0 0 8px var(--holographic-teal),
+      0 0 12px var(--electric-indigo);
+  }
+}
+
+/* ===== MANDALA ANIMATIONS - PERFORMANCE OPTIMIZED ===== */
+
+.mandala-item {
+  transform: var(--gpu-acceleration);
+  transition: transform var(--animation-duration-fast) var(--easing-smooth);
+  will-change: var(--will-change-auto);
+}
+
+.mandala-item:hover {
+  transform: translateY(-5px) var(--gpu-acceleration);
+  will-change: var(--will-change-transform);
+}
+
+/* 3D rotation for mandala grid - performance aware */
+.mandala-grid-3d {
+  transform-style: preserve-3d;
+  transform: var(--gpu-acceleration);
+  will-change: var(--will-change-transform);
+}
+
+.mandala-3d-rotate {
+  animation: rotate3D var(--animation-duration-very-slow) linear infinite;
+}
+
+@keyframes rotate3D {
+  from {
+    transform: rotateY(0deg) var(--gpu-acceleration);
+  }
+  to {
+    transform: rotateY(360deg) var(--gpu-acceleration);
+  }
+}
+
+/* ===== PERFORMANCE ADAPTATIONS ===== */
+
+/* Disable complex animations on low performance */
+.performance-low .glitch-effect::before,
+.performance-low .glitch-effect::after {
+  display: none;
+}
+
+.performance-low .neon-glow {
+  animation: none;
+  text-shadow: 0 0 5px var(--holographic-teal);
+}
+
+.performance-low .mandala-3d-rotate {
+  animation: none;
+}
+
+/* Reduce animation complexity on medium performance */
+.performance-medium .glitch-effect::before,
+.performance-medium .glitch-effect::after {
+  animation-duration: calc(var(--animation-duration-very-slow) * 0.7);
+}
+
+.performance-medium .mandala-3d-rotate {
+  animation-duration: calc(var(--animation-duration-very-slow) * 1.5);
+}
+
+/* ===== REDUCED MOTION SUPPORT ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-duration-instant: 0.01ms;
+    --animation-duration-fast: 0.01ms;
+    --animation-duration-normal: 0.01ms;
+    --animation-duration-slow: 0.01ms;
+    --animation-duration-very-slow: 0.01ms;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .glitch-effect::before,
+  .glitch-effect::after {
+    display: none;
+  }
+  
+  .neon-glow {
+    animation: none;
+  }
+  
+  .mandala-3d-rotate {
+    animation: none;
+  }
+  
+  .animate-pulse {
+    animation: none;
+  }
+}
+
+/* ===== BATTERY-AWARE ANIMATIONS ===== */
+
+.low-battery .glitch-effect::before,
+.low-battery .glitch-effect::after {
+  display: none;
+}
+
+.low-battery .neon-glow {
+  animation: none;
+}
+
+.low-battery .mandala-3d-rotate {
+  animation: none;
+}
+
+.low-battery .animate-pulse {
+  animation: none;
+}
+
+/* ===== CONNECTION-AWARE ANIMATIONS ===== */
+
+.slow-connection .glitch-effect::before,
+.slow-connection .glitch-effect::after {
+  animation-duration: calc(var(--animation-duration-very-slow) * 2);
+}
+
+.slow-connection .neon-glow {
+  animation-duration: calc(var(--animation-duration-slow) * 1.5);
+}
+
+.slow-connection .mandala-3d-rotate {
+  animation-duration: calc(var(--animation-duration-very-slow) * 2);
+}
+
+/* ===== INTERSECTION OBSERVER ANIMATIONS ===== */
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px) var(--gpu-acceleration);
+  transition: 
+    opacity var(--animation-duration-normal) var(--easing-smooth),
+    transform var(--animation-duration-normal) var(--easing-smooth);
+  will-change: var(--will-change-opacity), var(--will-change-transform);
+}
+
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0) var(--gpu-acceleration);
+  will-change: var(--will-change-auto);
+}
+
+/* ===== STAGGERED ANIMATIONS ===== */
+
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px) var(--gpu-acceleration);
+  animation: slideUp var(--animation-duration-normal) var(--easing-smooth) forwards;
+  will-change: var(--will-change-transform), var(--will-change-opacity);
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+
+/* ===== ANIMATION CLEANUP ===== */
+
+/* Remove will-change after animations complete */
+.animation-complete {
+  will-change: auto !important;
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+
+@media (max-width: 767px) {
+  :root {
+    --animation-duration-normal: 0.2s;
+    --animation-duration-slow: 0.4s;
+    --animation-duration-very-slow: 0.8s;
+  }
+  
+  .mandala-3d-rotate {
+    animation: none;
+    transform: none !important;
+  }
+  
+  .glitch-effect::before,
+  .glitch-effect::after {
+    display: none;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+  
+  .glitch-effect::before,
+  .glitch-effect::after {
+    display: none;
+  }
+}
+
+/* ===== DEBUG HELPERS ===== */
+
+.debug-animations {
+  outline: 2px dashed red;
+}
+
+.debug-animations::before {
+  content: 'ANIMATING';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background: red;
+  color: white;
+  padding: 2px 4px;
+  font-size: 10px;
+  z-index: 10000;
+}
+
+/* ===== ANIMATION PERFORMANCE MONITORING ===== */
+
+/* Trigger reflow monitoring for performance debugging */
+.monitor-reflow {
+  /* This class can be used to monitor elements causing layout thrashing */
+  outline: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.monitor-reflow::after {
+  content: 'REFLOW';
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 1px 3px;
+  font-size: 8px;
+  pointer-events: none;
+}

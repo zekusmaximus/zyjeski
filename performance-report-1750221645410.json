@@ -1,0 +1,2204 @@
+{
+  "timestamp": "2025-06-18T04:40:45.341Z",
+  "summary": {
+    "passed": 111,
+    "failed": 15,
+    "warnings": 18,
+    "total": 126,
+    "passRate": 88
+  },
+  "tests": [
+    {
+      "name": "css-source-size",
+      "passed": false,
+      "data": {
+        "totalSize": 170,
+        "threshold": 150,
+        "fileCount": 21,
+        "files": [
+          {
+            "name": "animations-optimized.css",
+            "size": 12
+          },
+          {
+            "name": "consolidated.css",
+            "size": 10
+          },
+          {
+            "name": "critical-enhanced.css",
+            "size": 9
+          },
+          {
+            "name": "critical.css",
+            "size": 5
+          },
+          {
+            "name": "main-mobile-optimized.css",
+            "size": 24
+          },
+          {
+            "name": "main-new.css",
+            "size": 1
+          },
+          {
+            "name": "main-old.css",
+            "size": 36
+          },
+          {
+            "name": "main.css",
+            "size": 1
+          },
+          {
+            "name": "progressive-enhancement.css",
+            "size": 9
+          },
+          {
+            "name": "_accessibility.css",
+            "size": 5
+          },
+          {
+            "name": "_animations.css",
+            "size": 4
+          },
+          {
+            "name": "_base.css",
+            "size": 2
+          },
+          {
+            "name": "_books.css",
+            "size": 3
+          },
+          {
+            "name": "_content-types.css",
+            "size": 12
+          },
+          {
+            "name": "_header.css",
+            "size": 5
+          },
+          {
+            "name": "_mandala.css",
+            "size": 6
+          },
+          {
+            "name": "_mobile-reading.css",
+            "size": 16
+          },
+          {
+            "name": "_responsive.css",
+            "size": 4
+          },
+          {
+            "name": "_social.css",
+            "size": 2
+          },
+          {
+            "name": "_typography.css",
+            "size": 3
+          },
+          {
+            "name": "_variables.css",
+            "size": 1
+          }
+        ]
+      },
+      "timestamp": "2025-06-18T04:40:45.356Z"
+    },
+    {
+      "name": "css-minified-animations-optimized.css",
+      "passed": true,
+      "data": {
+        "file": "animations-optimized.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.356Z"
+    },
+    {
+      "name": "css-minified-consolidated.css",
+      "passed": true,
+      "data": {
+        "file": "consolidated.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.356Z"
+    },
+    {
+      "name": "css-minified-critical-enhanced.css",
+      "passed": true,
+      "data": {
+        "file": "critical-enhanced.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.356Z"
+    },
+    {
+      "name": "css-minified-critical.css",
+      "passed": true,
+      "data": {
+        "file": "critical.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.357Z"
+    },
+    {
+      "name": "css-minified-main-mobile-optimized.css",
+      "passed": true,
+      "data": {
+        "file": "main-mobile-optimized.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.357Z"
+    },
+    {
+      "name": "css-minified-main-new.css",
+      "passed": true,
+      "data": {
+        "file": "main-new.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.357Z"
+    },
+    {
+      "name": "css-minified-main-old.css",
+      "passed": true,
+      "data": {
+        "file": "main-old.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.357Z"
+    },
+    {
+      "name": "css-minified-main.css",
+      "passed": true,
+      "data": {
+        "file": "main.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.357Z"
+    },
+    {
+      "name": "css-minified-progressive-enhancement.css",
+      "passed": true,
+      "data": {
+        "file": "progressive-enhancement.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.357Z"
+    },
+    {
+      "name": "css-minified-_accessibility.css",
+      "passed": true,
+      "data": {
+        "file": "_accessibility.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.357Z"
+    },
+    {
+      "name": "css-minified-_animations.css",
+      "passed": true,
+      "data": {
+        "file": "_animations.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_base.css",
+      "passed": true,
+      "data": {
+        "file": "_base.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_books.css",
+      "passed": true,
+      "data": {
+        "file": "_books.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_content-types.css",
+      "passed": true,
+      "data": {
+        "file": "_content-types.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_header.css",
+      "passed": true,
+      "data": {
+        "file": "_header.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_mandala.css",
+      "passed": true,
+      "data": {
+        "file": "_mandala.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_mobile-reading.css",
+      "passed": true,
+      "data": {
+        "file": "_mobile-reading.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_responsive.css",
+      "passed": true,
+      "data": {
+        "file": "_responsive.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.358Z"
+    },
+    {
+      "name": "css-minified-_social.css",
+      "passed": true,
+      "data": {
+        "file": "_social.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.359Z"
+    },
+    {
+      "name": "css-minified-_typography.css",
+      "passed": true,
+      "data": {
+        "file": "_typography.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.359Z"
+    },
+    {
+      "name": "css-minified-_variables.css",
+      "passed": false,
+      "data": {
+        "file": "_variables.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.359Z"
+    },
+    {
+      "name": "css-built-size",
+      "passed": false,
+      "data": {
+        "totalSize": 188,
+        "threshold": 150,
+        "fileCount": 20,
+        "files": [
+          {
+            "name": "bundle.css",
+            "size": 36
+          },
+          {
+            "name": "bundle.min.e960d646bd81d1825568f560164f03525863d06df624e7174669f127194d243d.css",
+            "size": 25
+          },
+          {
+            "name": "consolidated.css",
+            "size": 10
+          },
+          {
+            "name": "critical.css",
+            "size": 5
+          },
+          {
+            "name": "main-mobile-optimized.css",
+            "size": 24
+          },
+          {
+            "name": "main-new.css",
+            "size": 1
+          },
+          {
+            "name": "main-old.css",
+            "size": 36
+          },
+          {
+            "name": "main.css",
+            "size": 1
+          },
+          {
+            "name": "progressive-enhancement.css",
+            "size": 9
+          },
+          {
+            "name": "progressive-enhancement.min.css",
+            "size": 6
+          },
+          {
+            "name": "_accessibility.css",
+            "size": 5
+          },
+          {
+            "name": "_animations.css",
+            "size": 4
+          },
+          {
+            "name": "_base.css",
+            "size": 2
+          },
+          {
+            "name": "_books.css",
+            "size": 3
+          },
+          {
+            "name": "_header.css",
+            "size": 5
+          },
+          {
+            "name": "_mandala.css",
+            "size": 6
+          },
+          {
+            "name": "_responsive.css",
+            "size": 4
+          },
+          {
+            "name": "_social.css",
+            "size": 2
+          },
+          {
+            "name": "_typography.css",
+            "size": 3
+          },
+          {
+            "name": "_variables.css",
+            "size": 1
+          }
+        ]
+      },
+      "timestamp": "2025-06-18T04:40:45.361Z"
+    },
+    {
+      "name": "css-minified-bundle.css",
+      "passed": true,
+      "data": {
+        "file": "bundle.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.361Z"
+    },
+    {
+      "name": "css-minified-bundle.min.e960d646bd81d1825568f560164f03525863d06df624e7174669f127194d243d.css",
+      "passed": true,
+      "data": {
+        "file": "bundle.min.e960d646bd81d1825568f560164f03525863d06df624e7174669f127194d243d.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.362Z"
+    },
+    {
+      "name": "css-minified-consolidated.css",
+      "passed": true,
+      "data": {
+        "file": "consolidated.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.362Z"
+    },
+    {
+      "name": "css-minified-critical.css",
+      "passed": true,
+      "data": {
+        "file": "critical.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.363Z"
+    },
+    {
+      "name": "css-minified-main-mobile-optimized.css",
+      "passed": true,
+      "data": {
+        "file": "main-mobile-optimized.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.364Z"
+    },
+    {
+      "name": "css-minified-main-new.css",
+      "passed": true,
+      "data": {
+        "file": "main-new.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.364Z"
+    },
+    {
+      "name": "css-minified-main-old.css",
+      "passed": true,
+      "data": {
+        "file": "main-old.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.364Z"
+    },
+    {
+      "name": "css-minified-main.css",
+      "passed": true,
+      "data": {
+        "file": "main.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.365Z"
+    },
+    {
+      "name": "css-minified-progressive-enhancement.css",
+      "passed": true,
+      "data": {
+        "file": "progressive-enhancement.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.365Z"
+    },
+    {
+      "name": "css-minified-progressive-enhancement.min.css",
+      "passed": true,
+      "data": {
+        "file": "progressive-enhancement.min.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.365Z"
+    },
+    {
+      "name": "css-minified-_accessibility.css",
+      "passed": true,
+      "data": {
+        "file": "_accessibility.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.365Z"
+    },
+    {
+      "name": "css-minified-_animations.css",
+      "passed": true,
+      "data": {
+        "file": "_animations.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.366Z"
+    },
+    {
+      "name": "css-minified-_base.css",
+      "passed": true,
+      "data": {
+        "file": "_base.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.366Z"
+    },
+    {
+      "name": "css-minified-_books.css",
+      "passed": true,
+      "data": {
+        "file": "_books.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.366Z"
+    },
+    {
+      "name": "css-minified-_header.css",
+      "passed": true,
+      "data": {
+        "file": "_header.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.366Z"
+    },
+    {
+      "name": "css-minified-_mandala.css",
+      "passed": true,
+      "data": {
+        "file": "_mandala.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.367Z"
+    },
+    {
+      "name": "css-minified-_responsive.css",
+      "passed": true,
+      "data": {
+        "file": "_responsive.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.367Z"
+    },
+    {
+      "name": "css-minified-_social.css",
+      "passed": true,
+      "data": {
+        "file": "_social.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.367Z"
+    },
+    {
+      "name": "css-minified-_typography.css",
+      "passed": true,
+      "data": {
+        "file": "_typography.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.367Z"
+    },
+    {
+      "name": "css-minified-_variables.css",
+      "passed": false,
+      "data": {
+        "file": "_variables.css",
+        "message": "CSS should be minified in production"
+      },
+      "timestamp": "2025-06-18T04:40:45.368Z"
+    },
+    {
+      "name": "critical-css-size",
+      "passed": true,
+      "data": {
+        "size": 5,
+        "threshold": 15,
+        "message": "Critical CSS should be under 15KB"
+      },
+      "timestamp": "2025-06-18T04:40:45.368Z"
+    },
+    {
+      "name": "js-source-size",
+      "passed": true,
+      "data": {
+        "totalSize": 254,
+        "threshold": 500,
+        "fileCount": 20,
+        "files": [
+          {
+            "name": "code-splitting.js",
+            "size": 14
+          },
+          {
+            "name": "environment-optimizer.js",
+            "size": 17
+          },
+          {
+            "name": "animations.js",
+            "size": 12
+          },
+          {
+            "name": "audio-visualization.js",
+            "size": 9
+          },
+          {
+            "name": "background-effects.js",
+            "size": 13
+          },
+          {
+            "name": "mandala-3d.js",
+            "size": 7
+          },
+          {
+            "name": "particles.js",
+            "size": 9
+          },
+          {
+            "name": "prayer-wheel.js",
+            "size": 9
+          },
+          {
+            "name": "image-optimizer.js",
+            "size": 17
+          },
+          {
+            "name": "lazy-loading.js",
+            "size": 13
+          },
+          {
+            "name": "main-clean.js",
+            "size": 9
+          },
+          {
+            "name": "main-enhanced.js",
+            "size": 9
+          },
+          {
+            "name": "main-mobile-optimized.js",
+            "size": 19
+          },
+          {
+            "name": "main-new.js",
+            "size": 9
+          },
+          {
+            "name": "main.js",
+            "size": 13
+          },
+          {
+            "name": "mobile-reading-optimizer.js",
+            "size": 22
+          },
+          {
+            "name": "mobile-reading.js",
+            "size": 11
+          },
+          {
+            "name": "performance-testing.js",
+            "size": 16
+          },
+          {
+            "name": "progressive-enhancement.js",
+            "size": 14
+          },
+          {
+            "name": "social-sharing.js",
+            "size": 12
+          }
+        ]
+      },
+      "timestamp": "2025-06-18T04:40:45.370Z"
+    },
+    {
+      "name": "js-modern-code-splitting.js",
+      "passed": true,
+      "data": {
+        "file": "code-splitting.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.370Z"
+    },
+    {
+      "name": "js-no-antipatterns-code-splitting.js",
+      "passed": true,
+      "data": {
+        "file": "code-splitting.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.370Z"
+    },
+    {
+      "name": "js-modern-environment-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "environment-optimizer.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.370Z"
+    },
+    {
+      "name": "js-no-antipatterns-environment-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "environment-optimizer.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.370Z"
+    },
+    {
+      "name": "js-modern-animations.js",
+      "passed": true,
+      "data": {
+        "file": "animations.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.370Z"
+    },
+    {
+      "name": "js-no-antipatterns-animations.js",
+      "passed": true,
+      "data": {
+        "file": "animations.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.370Z"
+    },
+    {
+      "name": "js-modern-audio-visualization.js",
+      "passed": true,
+      "data": {
+        "file": "audio-visualization.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-audio-visualization.js",
+      "passed": true,
+      "data": {
+        "file": "audio-visualization.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-background-effects.js",
+      "passed": true,
+      "data": {
+        "file": "background-effects.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-background-effects.js",
+      "passed": true,
+      "data": {
+        "file": "background-effects.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-mandala-3d.js",
+      "passed": true,
+      "data": {
+        "file": "mandala-3d.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-mandala-3d.js",
+      "passed": true,
+      "data": {
+        "file": "mandala-3d.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-particles.js",
+      "passed": true,
+      "data": {
+        "file": "particles.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-particles.js",
+      "passed": true,
+      "data": {
+        "file": "particles.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-prayer-wheel.js",
+      "passed": true,
+      "data": {
+        "file": "prayer-wheel.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-prayer-wheel.js",
+      "passed": true,
+      "data": {
+        "file": "prayer-wheel.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-image-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "image-optimizer.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-image-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "image-optimizer.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-lazy-loading.js",
+      "passed": true,
+      "data": {
+        "file": "lazy-loading.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": true,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-lazy-loading.js",
+      "passed": true,
+      "data": {
+        "file": "lazy-loading.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-main-clean.js",
+      "passed": true,
+      "data": {
+        "file": "main-clean.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-main-clean.js",
+      "passed": true,
+      "data": {
+        "file": "main-clean.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-main-enhanced.js",
+      "passed": true,
+      "data": {
+        "file": "main-enhanced.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-main-enhanced.js",
+      "passed": true,
+      "data": {
+        "file": "main-enhanced.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-main-mobile-optimized.js",
+      "passed": true,
+      "data": {
+        "file": "main-mobile-optimized.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-no-antipatterns-main-mobile-optimized.js",
+      "passed": true,
+      "data": {
+        "file": "main-mobile-optimized.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.371Z"
+    },
+    {
+      "name": "js-modern-main-new.js",
+      "passed": true,
+      "data": {
+        "file": "main-new.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-no-antipatterns-main-new.js",
+      "passed": true,
+      "data": {
+        "file": "main-new.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-modern-main.js",
+      "passed": true,
+      "data": {
+        "file": "main.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-no-antipatterns-main.js",
+      "passed": true,
+      "data": {
+        "file": "main.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-modern-mobile-reading-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "mobile-reading-optimizer.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-no-antipatterns-mobile-reading-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "mobile-reading-optimizer.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-modern-mobile-reading.js",
+      "passed": true,
+      "data": {
+        "file": "mobile-reading.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-no-antipatterns-mobile-reading.js",
+      "passed": true,
+      "data": {
+        "file": "mobile-reading.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-modern-performance-testing.js",
+      "passed": true,
+      "data": {
+        "file": "performance-testing.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-no-antipatterns-performance-testing.js",
+      "passed": true,
+      "data": {
+        "file": "performance-testing.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.372Z"
+    },
+    {
+      "name": "js-modern-progressive-enhancement.js",
+      "passed": true,
+      "data": {
+        "file": "progressive-enhancement.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.373Z"
+    },
+    {
+      "name": "js-no-antipatterns-progressive-enhancement.js",
+      "passed": true,
+      "data": {
+        "file": "progressive-enhancement.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.373Z"
+    },
+    {
+      "name": "js-modern-social-sharing.js",
+      "passed": true,
+      "data": {
+        "file": "social-sharing.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.373Z"
+    },
+    {
+      "name": "js-no-antipatterns-social-sharing.js",
+      "passed": true,
+      "data": {
+        "file": "social-sharing.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.373Z"
+    },
+    {
+      "name": "js-built-size",
+      "passed": true,
+      "data": {
+        "totalSize": 38,
+        "threshold": 500,
+        "fileCount": 5,
+        "files": [
+          {
+            "name": "main.a0d45a4b42cb74d9f131cb1805ad56b955ad09b4ab494e81776f714367a2497d.js",
+            "size": 6
+          },
+          {
+            "name": "main.js",
+            "size": 11
+          },
+          {
+            "name": "main.min.js",
+            "size": 7
+          },
+          {
+            "name": "progressive-enhancement.min.js",
+            "size": 8
+          },
+          {
+            "name": "social-sharing.min.js",
+            "size": 6
+          }
+        ]
+      },
+      "timestamp": "2025-06-18T04:40:45.373Z"
+    },
+    {
+      "name": "js-modern-main.a0d45a4b42cb74d9f131cb1805ad56b955ad09b4ab494e81776f714367a2497d.js",
+      "passed": true,
+      "data": {
+        "file": "main.a0d45a4b42cb74d9f131cb1805ad56b955ad09b4ab494e81776f714367a2497d.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.373Z"
+    },
+    {
+      "name": "js-no-antipatterns-main.a0d45a4b42cb74d9f131cb1805ad56b955ad09b4ab494e81776f714367a2497d.js",
+      "passed": true,
+      "data": {
+        "file": "main.a0d45a4b42cb74d9f131cb1805ad56b955ad09b4ab494e81776f714367a2497d.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.373Z"
+    },
+    {
+      "name": "js-modern-main.js",
+      "passed": true,
+      "data": {
+        "file": "main.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "js-no-antipatterns-main.js",
+      "passed": true,
+      "data": {
+        "file": "main.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "js-modern-main.min.js",
+      "passed": true,
+      "data": {
+        "file": "main.min.js",
+        "hasAsyncAwait": false,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "js-no-antipatterns-main.min.js",
+      "passed": true,
+      "data": {
+        "file": "main.min.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "js-modern-progressive-enhancement.min.js",
+      "passed": true,
+      "data": {
+        "file": "progressive-enhancement.min.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "js-no-antipatterns-progressive-enhancement.min.js",
+      "passed": true,
+      "data": {
+        "file": "progressive-enhancement.min.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "js-modern-social-sharing.min.js",
+      "passed": true,
+      "data": {
+        "file": "social-sharing.min.js",
+        "hasAsyncAwait": true,
+        "hasArrowFunctions": true,
+        "hasModules": false,
+        "message": "JavaScript should use modern syntax for better performance"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "js-no-antipatterns-social-sharing.min.js",
+      "passed": true,
+      "data": {
+        "file": "social-sharing.min.js",
+        "hasDocumentWrite": false,
+        "hasSyncXHR": false,
+        "message": "JavaScript should not use performance anti-patterns"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "performance-js-lazy-loading.js",
+      "passed": true,
+      "data": {
+        "file": "lazy-loading.js",
+        "message": "Performance optimization file should exist: lazy-loading.js"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "performance-js-performance-monitoring.js",
+      "passed": false,
+      "data": {
+        "file": "performance-monitoring.js",
+        "message": "Performance optimization file should exist: performance-monitoring.js"
+      },
+      "timestamp": "2025-06-18T04:40:45.374Z"
+    },
+    {
+      "name": "performance-js-image-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "image-optimizer.js",
+        "message": "Performance optimization file should exist: image-optimizer.js"
+      },
+      "timestamp": "2025-06-18T04:40:45.375Z"
+    },
+    {
+      "name": "performance-js-code-splitting.js",
+      "passed": true,
+      "data": {
+        "file": "code-splitting.js",
+        "message": "Performance optimization file should exist: code-splitting.js"
+      },
+      "timestamp": "2025-06-18T04:40:45.375Z"
+    },
+    {
+      "name": "image-total-size",
+      "passed": false,
+      "data": {
+        "totalSize": 31956,
+        "threshold": 800,
+        "imageCount": 40,
+        "largeImages": [
+          {
+            "name": "Bart-Higgins.png",
+            "size": 2530
+          },
+          {
+            "name": "EC_Cover.png",
+            "size": 2315
+          },
+          {
+            "name": "Eppy.png",
+            "size": 2144
+          },
+          {
+            "name": "first-spoken-story.png",
+            "size": 1005
+          },
+          {
+            "name": "LexSpecifica.png",
+            "size": 1927
+          }
+        ],
+        "unoptimizedImages": []
+      },
+      "timestamp": "2025-06-18T04:40:45.378Z"
+    },
+    {
+      "name": "webp-support",
+      "passed": false,
+      "data": {
+        "message": "WebP images should be available for better compression"
+      },
+      "timestamp": "2025-06-18T04:40:45.380Z"
+    },
+    {
+      "name": "html-perf-index.html",
+      "passed": false,
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": false,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      },
+      "timestamp": "2025-06-18T04:40:45.388Z"
+    },
+    {
+      "name": "html-a11y-index.html",
+      "passed": true,
+      "data": {
+        "file": "index.html",
+        "hasSkipLinks": true,
+        "hasLandmarks": true,
+        "hasAltText": true,
+        "message": "HTML should include accessibility features"
+      },
+      "timestamp": "2025-06-18T04:40:45.388Z"
+    },
+    {
+      "name": "html-perf-index.html",
+      "passed": false,
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": true,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      },
+      "timestamp": "2025-06-18T04:40:45.388Z"
+    },
+    {
+      "name": "html-a11y-index.html",
+      "passed": false,
+      "data": {
+        "file": "index.html",
+        "hasSkipLinks": false,
+        "hasLandmarks": false,
+        "hasAltText": true,
+        "message": "HTML should include accessibility features"
+      },
+      "timestamp": "2025-06-18T04:40:45.389Z"
+    },
+    {
+      "name": "html-perf-index.html",
+      "passed": false,
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": false,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      },
+      "timestamp": "2025-06-18T04:40:45.389Z"
+    },
+    {
+      "name": "html-a11y-index.html",
+      "passed": true,
+      "data": {
+        "file": "index.html",
+        "hasSkipLinks": true,
+        "hasLandmarks": true,
+        "hasAltText": true,
+        "message": "HTML should include accessibility features"
+      },
+      "timestamp": "2025-06-18T04:40:45.389Z"
+    },
+    {
+      "name": "html-perf-index.html",
+      "passed": true,
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": true,
+        "hasPreconnect": true,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      },
+      "timestamp": "2025-06-18T04:40:45.390Z"
+    },
+    {
+      "name": "html-a11y-index.html",
+      "passed": true,
+      "data": {
+        "file": "index.html",
+        "hasSkipLinks": true,
+        "hasLandmarks": true,
+        "hasAltText": true,
+        "message": "HTML should include accessibility features"
+      },
+      "timestamp": "2025-06-18T04:40:45.390Z"
+    },
+    {
+      "name": "html-perf-index.html",
+      "passed": false,
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": false,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      },
+      "timestamp": "2025-06-18T04:40:45.390Z"
+    },
+    {
+      "name": "html-a11y-index.html",
+      "passed": true,
+      "data": {
+        "file": "index.html",
+        "hasSkipLinks": true,
+        "hasLandmarks": true,
+        "hasAltText": true,
+        "message": "HTML should include accessibility features"
+      },
+      "timestamp": "2025-06-18T04:40:45.390Z"
+    },
+    {
+      "name": "service-worker",
+      "passed": true,
+      "data": {
+        "message": "Service worker should be present for offline functionality"
+      },
+      "timestamp": "2025-06-18T04:40:45.391Z"
+    },
+    {
+      "name": "web-manifest",
+      "passed": true,
+      "data": {
+        "message": "Web manifest should be present for PWA functionality"
+      },
+      "timestamp": "2025-06-18T04:40:45.391Z"
+    },
+    {
+      "name": "total-asset-size",
+      "passed": false,
+      "data": {
+        "totalSize": 44615,
+        "threshold": 1500,
+        "message": "Total asset size should be within budget"
+      },
+      "timestamp": "2025-06-18T04:40:45.397Z"
+    },
+    {
+      "name": "accessibility-css",
+      "passed": true,
+      "data": {
+        "message": "Accessibility CSS should be present"
+      },
+      "timestamp": "2025-06-18T04:40:45.398Z"
+    },
+    {
+      "name": "a11y-features",
+      "passed": true,
+      "data": {
+        "hasSkipLinks": true,
+        "hasFocusStyles": true,
+        "hasHighContrast": true,
+        "hasReducedMotion": true,
+        "message": "Accessibility features should be implemented"
+      },
+      "timestamp": "2025-06-18T04:40:45.398Z"
+    },
+    {
+      "name": "mobile-optimization",
+      "passed": true,
+      "data": {
+        "message": "Mobile-specific optimization files should exist"
+      },
+      "timestamp": "2025-06-18T04:40:45.398Z"
+    },
+    {
+      "name": "responsive-design",
+      "passed": false,
+      "data": {
+        "hasMediaQueries": false,
+        "hasFlexbox": false,
+        "hasGrid": false,
+        "message": "CSS should include responsive design features"
+      },
+      "timestamp": "2025-06-18T04:40:45.398Z"
+    },
+    {
+      "name": "perf-feature-lazy-loading.js",
+      "passed": true,
+      "data": {
+        "feature": "Lazy Loading",
+        "file": "lazy-loading.js",
+        "message": "Lazy Loading implementation should exist"
+      },
+      "timestamp": "2025-06-18T04:40:45.399Z"
+    },
+    {
+      "name": "perf-feature-quality-lazy-loading.js",
+      "passed": true,
+      "data": {
+        "file": "lazy-loading.js",
+        "hasIntersectionObserver": true,
+        "hasPerformanceAPI": true,
+        "hasAsync": true,
+        "message": "Lazy Loading should use modern performance APIs"
+      },
+      "timestamp": "2025-06-18T04:40:45.399Z"
+    },
+    {
+      "name": "perf-feature-image-optimizer.js",
+      "passed": true,
+      "data": {
+        "feature": "Image Optimization",
+        "file": "image-optimizer.js",
+        "message": "Image Optimization implementation should exist"
+      },
+      "timestamp": "2025-06-18T04:40:45.399Z"
+    },
+    {
+      "name": "perf-feature-quality-image-optimizer.js",
+      "passed": true,
+      "data": {
+        "file": "image-optimizer.js",
+        "hasIntersectionObserver": true,
+        "hasPerformanceAPI": false,
+        "hasAsync": true,
+        "message": "Image Optimization should use modern performance APIs"
+      },
+      "timestamp": "2025-06-18T04:40:45.399Z"
+    },
+    {
+      "name": "perf-feature-code-splitting.js",
+      "passed": true,
+      "data": {
+        "feature": "Code Splitting",
+        "file": "code-splitting.js",
+        "message": "Code Splitting implementation should exist"
+      },
+      "timestamp": "2025-06-18T04:40:45.399Z"
+    },
+    {
+      "name": "perf-feature-quality-code-splitting.js",
+      "passed": true,
+      "data": {
+        "file": "code-splitting.js",
+        "hasIntersectionObserver": true,
+        "hasPerformanceAPI": true,
+        "hasAsync": true,
+        "message": "Code Splitting should use modern performance APIs"
+      },
+      "timestamp": "2025-06-18T04:40:45.399Z"
+    },
+    {
+      "name": "perf-feature-performance-monitoring.js",
+      "passed": false,
+      "data": {
+        "feature": "Performance Monitoring",
+        "file": "performance-monitoring.js",
+        "message": "Performance Monitoring implementation should exist"
+      },
+      "timestamp": "2025-06-18T04:40:45.399Z"
+    }
+  ],
+  "recommendations": [
+    {
+      "test": "css-source-size",
+      "priority": "medium",
+      "recommendation": "Fix css-source-size",
+      "data": {
+        "totalSize": 170,
+        "threshold": 150,
+        "fileCount": 21,
+        "files": [
+          {
+            "name": "animations-optimized.css",
+            "size": 12
+          },
+          {
+            "name": "consolidated.css",
+            "size": 10
+          },
+          {
+            "name": "critical-enhanced.css",
+            "size": 9
+          },
+          {
+            "name": "critical.css",
+            "size": 5
+          },
+          {
+            "name": "main-mobile-optimized.css",
+            "size": 24
+          },
+          {
+            "name": "main-new.css",
+            "size": 1
+          },
+          {
+            "name": "main-old.css",
+            "size": 36
+          },
+          {
+            "name": "main.css",
+            "size": 1
+          },
+          {
+            "name": "progressive-enhancement.css",
+            "size": 9
+          },
+          {
+            "name": "_accessibility.css",
+            "size": 5
+          },
+          {
+            "name": "_animations.css",
+            "size": 4
+          },
+          {
+            "name": "_base.css",
+            "size": 2
+          },
+          {
+            "name": "_books.css",
+            "size": 3
+          },
+          {
+            "name": "_content-types.css",
+            "size": 12
+          },
+          {
+            "name": "_header.css",
+            "size": 5
+          },
+          {
+            "name": "_mandala.css",
+            "size": 6
+          },
+          {
+            "name": "_mobile-reading.css",
+            "size": 16
+          },
+          {
+            "name": "_responsive.css",
+            "size": 4
+          },
+          {
+            "name": "_social.css",
+            "size": 2
+          },
+          {
+            "name": "_typography.css",
+            "size": 3
+          },
+          {
+            "name": "_variables.css",
+            "size": 1
+          }
+        ]
+      }
+    },
+    {
+      "test": "css-minified-_variables.css",
+      "priority": "low",
+      "recommendation": "CSS should be minified in production",
+      "data": {
+        "file": "_variables.css",
+        "message": "CSS should be minified in production"
+      }
+    },
+    {
+      "test": "css-built-size",
+      "priority": "medium",
+      "recommendation": "Fix css-built-size",
+      "data": {
+        "totalSize": 188,
+        "threshold": 150,
+        "fileCount": 20,
+        "files": [
+          {
+            "name": "bundle.css",
+            "size": 36
+          },
+          {
+            "name": "bundle.min.e960d646bd81d1825568f560164f03525863d06df624e7174669f127194d243d.css",
+            "size": 25
+          },
+          {
+            "name": "consolidated.css",
+            "size": 10
+          },
+          {
+            "name": "critical.css",
+            "size": 5
+          },
+          {
+            "name": "main-mobile-optimized.css",
+            "size": 24
+          },
+          {
+            "name": "main-new.css",
+            "size": 1
+          },
+          {
+            "name": "main-old.css",
+            "size": 36
+          },
+          {
+            "name": "main.css",
+            "size": 1
+          },
+          {
+            "name": "progressive-enhancement.css",
+            "size": 9
+          },
+          {
+            "name": "progressive-enhancement.min.css",
+            "size": 6
+          },
+          {
+            "name": "_accessibility.css",
+            "size": 5
+          },
+          {
+            "name": "_animations.css",
+            "size": 4
+          },
+          {
+            "name": "_base.css",
+            "size": 2
+          },
+          {
+            "name": "_books.css",
+            "size": 3
+          },
+          {
+            "name": "_header.css",
+            "size": 5
+          },
+          {
+            "name": "_mandala.css",
+            "size": 6
+          },
+          {
+            "name": "_responsive.css",
+            "size": 4
+          },
+          {
+            "name": "_social.css",
+            "size": 2
+          },
+          {
+            "name": "_typography.css",
+            "size": 3
+          },
+          {
+            "name": "_variables.css",
+            "size": 1
+          }
+        ]
+      }
+    },
+    {
+      "test": "css-minified-_variables.css",
+      "priority": "low",
+      "recommendation": "CSS should be minified in production",
+      "data": {
+        "file": "_variables.css",
+        "message": "CSS should be minified in production"
+      }
+    },
+    {
+      "test": "performance-js-performance-monitoring.js",
+      "priority": "high",
+      "recommendation": "Performance optimization file should exist: performance-monitoring.js",
+      "data": {
+        "file": "performance-monitoring.js",
+        "message": "Performance optimization file should exist: performance-monitoring.js"
+      }
+    },
+    {
+      "test": "image-total-size",
+      "priority": "medium",
+      "recommendation": "Fix image-total-size",
+      "data": {
+        "totalSize": 31956,
+        "threshold": 800,
+        "imageCount": 40,
+        "largeImages": [
+          {
+            "name": "Bart-Higgins.png",
+            "size": 2530
+          },
+          {
+            "name": "EC_Cover.png",
+            "size": 2315
+          },
+          {
+            "name": "Eppy.png",
+            "size": 2144
+          },
+          {
+            "name": "first-spoken-story.png",
+            "size": 1005
+          },
+          {
+            "name": "LexSpecifica.png",
+            "size": 1927
+          }
+        ],
+        "unoptimizedImages": []
+      }
+    },
+    {
+      "test": "webp-support",
+      "priority": "low",
+      "recommendation": "WebP images should be available for better compression",
+      "data": {
+        "message": "WebP images should be available for better compression"
+      }
+    },
+    {
+      "test": "html-perf-index.html",
+      "priority": "high",
+      "recommendation": "HTML should include performance optimizations",
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": false,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      }
+    },
+    {
+      "test": "html-perf-index.html",
+      "priority": "high",
+      "recommendation": "HTML should include performance optimizations",
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": true,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      }
+    },
+    {
+      "test": "html-a11y-index.html",
+      "priority": "high",
+      "recommendation": "HTML should include accessibility features",
+      "data": {
+        "file": "index.html",
+        "hasSkipLinks": false,
+        "hasLandmarks": false,
+        "hasAltText": true,
+        "message": "HTML should include accessibility features"
+      }
+    },
+    {
+      "test": "html-perf-index.html",
+      "priority": "high",
+      "recommendation": "HTML should include performance optimizations",
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": false,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      }
+    },
+    {
+      "test": "html-perf-index.html",
+      "priority": "high",
+      "recommendation": "HTML should include performance optimizations",
+      "data": {
+        "file": "index.html",
+        "hasViewportMeta": false,
+        "hasPreconnect": false,
+        "hasPreload": false,
+        "hasCriticalCSS": false,
+        "hasLazyLoading": false,
+        "message": "HTML should include performance optimizations"
+      }
+    },
+    {
+      "test": "total-asset-size",
+      "priority": "medium",
+      "recommendation": "Total asset size should be within budget",
+      "data": {
+        "totalSize": 44615,
+        "threshold": 1500,
+        "message": "Total asset size should be within budget"
+      }
+    },
+    {
+      "test": "responsive-design",
+      "priority": "low",
+      "recommendation": "CSS should include responsive design features",
+      "data": {
+        "hasMediaQueries": false,
+        "hasFlexbox": false,
+        "hasGrid": false,
+        "message": "CSS should include responsive design features"
+      }
+    },
+    {
+      "test": "perf-feature-performance-monitoring.js",
+      "priority": "high",
+      "recommendation": "Performance Monitoring implementation should exist",
+      "data": {
+        "feature": "Performance Monitoring",
+        "file": "performance-monitoring.js",
+        "message": "Performance Monitoring implementation should exist"
+      }
+    }
+  ],
+  "budget": {
+    "name": "Hugo Author Website Performance Budget",
+    "version": "1.0.0",
+    "description": "Performance budgets for different device classes and connection types",
+    "budgets": {
+      "mobile": {
+        "description": "Mobile devices with potential slower connections",
+        "thresholds": {
+          "critical": {
+            "totalJavaScript": 100,
+            "totalCSS": 50,
+            "totalImages": 200,
+            "initialLoad": 300,
+            "description": "Critical resources for initial render"
+          },
+          "secondary": {
+            "totalJavaScript": 300,
+            "totalCSS": 150,
+            "totalImages": 500,
+            "totalLoad": 800,
+            "description": "Complete page load including enhancements"
+          }
+        },
+        "metrics": {
+          "LCP": 2500,
+          "FID": 100,
+          "CLS": 0.1,
+          "FCP": 1800,
+          "TTI": 3500
+        }
+      },
+      "tablet": {
+        "description": "Tablet devices with moderate processing power",
+        "thresholds": {
+          "critical": {
+            "totalJavaScript": 150,
+            "totalCSS": 75,
+            "totalImages": 300,
+            "initialLoad": 400
+          },
+          "secondary": {
+            "totalJavaScript": 500,
+            "totalCSS": 200,
+            "totalImages": 800,
+            "totalLoad": 1200
+          }
+        },
+        "metrics": {
+          "LCP": 2000,
+          "FID": 80,
+          "CLS": 0.08,
+          "FCP": 1500,
+          "TTI": 3000
+        }
+      },
+      "desktop": {
+        "description": "Desktop devices with faster connections and more processing power",
+        "thresholds": {
+          "critical": {
+            "totalJavaScript": 200,
+            "totalCSS": 100,
+            "totalImages": 400,
+            "initialLoad": 500
+          },
+          "secondary": {
+            "totalJavaScript": 800,
+            "totalCSS": 300,
+            "totalImages": 1200,
+            "totalLoad": 1800
+          }
+        },
+        "metrics": {
+          "LCP": 1500,
+          "FID": 50,
+          "CLS": 0.05,
+          "FCP": 1000,
+          "TTI": 2000
+        }
+      }
+    },
+    "connectionTypes": {
+      "slow3g": {
+        "description": "Slow 3G connections",
+        "multiplier": 0.6,
+        "prioritizeCSS": true,
+        "disableAnimations": true,
+        "reducedImageQuality": true
+      },
+      "fast3g": {
+        "description": "Fast 3G connections",
+        "multiplier": 0.8,
+        "prioritizeCSS": true,
+        "reduceAnimations": true,
+        "standardImageQuality": true
+      },
+      "4g": {
+        "description": "4G and faster connections",
+        "multiplier": 1,
+        "enableAnimations": true,
+        "highImageQuality": true
+      }
+    },
+    "features": {
+      "mandala3D": {
+        "budget": {
+          "js": 80,
+          "css": 20
+        },
+        "requirements": {
+          "minRAM": 4,
+          "webGL": true,
+          "connectionSpeed": "fast3g"
+        }
+      },
+      "particleEffects": {
+        "budget": {
+          "js": 60,
+          "css": 15
+        },
+        "requirements": {
+          "minRAM": 2,
+          "gpuAcceleration": true,
+          "connectionSpeed": "4g"
+        }
+      },
+      "backgroundEffects": {
+        "budget": {
+          "js": 40,
+          "css": 25
+        },
+        "requirements": {
+          "reducedMotion": false,
+          "connectionSpeed": "fast3g"
+        }
+      },
+      "audioVisualization": {
+        "budget": {
+          "js": 120,
+          "css": 10
+        },
+        "requirements": {
+          "webAudio": true,
+          "connectionSpeed": "4g",
+          "minRAM": 4
+        }
+      }
+    },
+    "optimization": {
+      "images": {
+        "formats": [
+          "webp",
+          "avif",
+          "jpg"
+        ],
+        "qualities": {
+          "mobile": 75,
+          "tablet": 85,
+          "desktop": 90
+        },
+        "sizes": {
+          "thumbnail": 300,
+          "medium": 800,
+          "large": 1200,
+          "xlarge": 1600
+        }
+      },
+      "css": {
+        "criticalPath": {
+          "maxSize": 14,
+          "inlineThreshold": 10
+        },
+        "bundling": {
+          "splitVendor": true,
+          "splitFeatures": true,
+          "chunkSize": 50
+        }
+      },
+      "javascript": {
+        "bundling": {
+          "splitVendor": true,
+          "splitRoutes": true,
+          "splitFeatures": true,
+          "chunkSize": 100
+        },
+        "compression": {
+          "gzip": true,
+          "brotli": true
+        }
+      }
+    },
+    "monitoring": {
+      "realUserMetrics": {
+        "enabled": true,
+        "sampleRate": 0.1,
+        "reportInterval": 30000
+      },
+      "syntheticTesting": {
+        "lighthouse": true,
+        "webPageTest": true,
+        "bundleAnalyzer": true
+      },
+      "alerts": {
+        "budgetExceeded": true,
+        "performanceRegression": true,
+        "errorRateIncrease": true
+      }
+    }
+  },
+  "options": {
+    "verbose": false,
+    "outputFormat": "json",
+    "threshold": "mobile",
+    "format": "json"
+  },
+  "thresholds": {
+    "css": 150,
+    "js": 500,
+    "images": 800,
+    "total": 1500,
+    "files": 50
+  }
+}

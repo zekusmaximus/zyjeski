@@ -14,11 +14,21 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="theme-color" content="#0a0a14">
   
-  <!-- Add any favicon/touch icons here -->
-  <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
-    {{ partialCached "head/css.html" . }}
-  {{ partialCached "head/js.html" . }}
-    <!-- Progressive Enhancement CSS -->
+  <!-- Add any favicon/touch icons here -->  <!-- Critical CSS - Inlined for fastest rendering -->
+  {{ with resources.Get "css/critical-enhanced.css" }}
+    <style>{{ . | minify }}</style>
+  {{ end }}
+  
+  <!-- Performance-optimized CSS loading -->
+  {{ partialCached "head/css.html" . }}
+  
+  <!-- Animation performance CSS -->
+  {{ $animationsCSS := resources.Get "css/animations-optimized.css" }}
+  {{ $animationsCSS = $animationsCSS | resources.Minify }}
+  <link rel="preload" href="{{ $animationsCSS.RelPermalink }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ $animationsCSS.RelPermalink }}"></noscript>
+  
+  <!-- Progressive Enhancement CSS -->
   {{ $progressiveCSS := resources.Get "css/progressive-enhancement.css" }}
   {{ $progressiveCSS = $progressiveCSS | resources.Minify }}
   <link rel="stylesheet" href="{{ $progressiveCSS.RelPermalink }}">
@@ -49,49 +59,424 @@
       {{ partial "footer.html" . }}
     </footer>
   </div>
-  
+    <!-- Enhanced Performance JavaScript Systems -->
+  {{ $environmentOptimizer := resources.Get "js/environment-optimizer.js" }}
+  {{ $environmentOptimizer = $environmentOptimizer | resources.Minify }}
+  <script src="{{ $environmentOptimizer.RelPermalink }}" defer></script>
+
+  {{ $codeSplitting := resources.Get "js/code-splitting.js" }}
+  {{ $codeSplitting = $codeSplitting | resources.Minify }}
+  <script src="{{ $codeSplitting.RelPermalink }}" defer></script>
+
+  {{ $lazyLoading := resources.Get "js/lazy-loading.js" }}
+  {{ $lazyLoading = $lazyLoading | resources.Minify }}
+  <script src="{{ $lazyLoading.RelPermalink }}" defer></script>
+
+  {{ $imageOptimizer := resources.Get "js/image-optimizer.js" }}
+  {{ $imageOptimizer = $imageOptimizer | resources.Minify }}
+  <script src="{{ $imageOptimizer.RelPermalink }}" defer></script>
+
   <!-- Progressive Enhancement JavaScript -->
   {{ $progressiveJS := resources.Get "js/progressive-enhancement.js" }}
   {{ $progressiveJS = $progressiveJS | resources.Minify }}
   <script src="{{ $progressiveJS.RelPermalink }}" async></script>
-
   <!-- Mobile Reading Enhancement JavaScript -->
   {{ $mobileReadingJS := resources.Get "js/mobile-reading.js" }}
-  {{ $mobileReadingJS = $mobileReadingJS | resources.Minify }}
-  <script src="{{ $mobileReadingJS.RelPermalink }}" defer></script>
+  {{ if $mobileReadingJS }}
+    {{ $mobileReadingJS = $mobileReadingJS | resources.Minify }}
+    <script src="{{ $mobileReadingJS.RelPermalink }}" defer></script>
+  {{ end }}
+
+  <!-- Mobile Reading Optimizer -->
+  {{ $mobileOptimizerJS := resources.Get "js/mobile-reading-optimizer.js" }}
+  {{ if $mobileOptimizerJS }}
+    {{ $mobileOptimizerJS = $mobileOptimizerJS | resources.Minify }}
+    <script src="{{ $mobileOptimizerJS.RelPermalink }}" defer></script>
+  {{ end }}
 
   {{ $mainJS := resources.Get "js/main.js" }}
   {{ $mainJS = $mainJS | resources.Minify }}
   <script src="{{ $mainJS.RelPermalink }}" defer></script>
-  
-  <!-- Basic functionality fallback script -->
+    <!-- Enhanced Performance Monitoring & Optimization Script -->
   <script>
-    // Immediate fallback for critical functionality
+    // PERFORMANCE MONITORING AND OPTIMIZATION SYSTEM
     (function() {
-      // Basic device detection
-      const isMobile = window.matchMedia('(max-width: 767px)').matches;
-      const isTouch = 'ontouchstart' in window;
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      
+      // Performance metrics collection
+      const performanceMetrics = {
+        navigationStart: performance.timeOrigin,
+        loadStart: performance.now(),
+        criticalResources: [],
+        userTimings: new Map(),
+        errors: [],
+        budget: null
+      };
+
+      // Device capability detection
+      const deviceInfo = {
+        isMobile: window.matchMedia('(max-width: 767px)').matches,
+        isTablet: window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches,
+        isDesktop: window.matchMedia('(min-width: 1024px)').matches,
+        isTouch: 'ontouchstart' in window,
+        prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        prefersHighContrast: window.matchMedia('(prefers-contrast: high)').matches,
+        connectionType: navigator.connection?.effectiveType || 'unknown',
+        deviceMemory: navigator.deviceMemory || 4,
+        hardwareConcurrency: navigator.hardwareConcurrency || 4,
+        isOnline: navigator.onLine
+      };
+
       // Apply immediate classes for CSS targeting
       document.documentElement.classList.add(
-        isMobile ? 'mobile' : 'desktop',
-        isTouch ? 'touch' : 'no-touch',
-        prefersReducedMotion ? 'reduce-motion' : 'motion-ok'
+        deviceInfo.isMobile ? 'mobile' : deviceInfo.isTablet ? 'tablet' : 'desktop',
+        deviceInfo.isTouch ? 'touch' : 'no-touch',
+        deviceInfo.prefersReducedMotion ? 'reduce-motion' : 'motion-ok',
+        deviceInfo.prefersHighContrast ? 'high-contrast' : 'standard-contrast',
+        `connection-${deviceInfo.connectionType}`,
+        `memory-${deviceInfo.deviceMemory >= 8 ? 'high' : deviceInfo.deviceMemory >= 4 ? 'medium' : 'low'}`
       );
-      
-      // Hide loading indicator after timeout
-      setTimeout(() => {
+
+      // Load performance budget
+      async function loadPerformanceBudget() {
+        try {
+          const response = await fetch('/performance-budget.json');
+          performanceMetrics.budget = await response.json();
+          return performanceMetrics.budget;
+        } catch {
+          return {
+            budgets: {
+              mobile: { metrics: { LCP: 2500, FID: 100, CLS: 0.1 } },
+              tablet: { metrics: { LCP: 2000, FID: 80, CLS: 0.08 } },
+              desktop: { metrics: { LCP: 1500, FID: 50, CLS: 0.05 } }
+            }
+          };
+        }
+      }
+
+      // Core Web Vitals measurement
+      function measureCoreWebVitals() {
+        if (!('PerformanceObserver' in window)) return;
+
+        // Largest Contentful Paint
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          const lastEntry = entries[entries.length - 1];
+          performanceMetrics.LCP = lastEntry.startTime;
+          
+          // Check against budget
+          const deviceCategory = deviceInfo.isMobile ? 'mobile' : deviceInfo.isTablet ? 'tablet' : 'desktop';
+          const budget = performanceMetrics.budget?.budgets?.[deviceCategory]?.metrics?.LCP || 2500;
+          
+          if (lastEntry.startTime > budget) {
+            console.warn(`LCP budget exceeded: ${lastEntry.startTime}ms > ${budget}ms`);
+            document.body.classList.add('performance-budget-exceeded');
+          }
+        }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+        // First Input Delay
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach(entry => {
+            performanceMetrics.FID = entry.processingStart - entry.startTime;
+            
+            const deviceCategory = deviceInfo.isMobile ? 'mobile' : deviceInfo.isTablet ? 'tablet' : 'desktop';
+            const budget = performanceMetrics.budget?.budgets?.[deviceCategory]?.metrics?.FID || 100;
+            
+            if (performanceMetrics.FID > budget) {
+              console.warn(`FID budget exceeded: ${performanceMetrics.FID}ms > ${budget}ms`);
+            }
+          });
+        }).observe({ entryTypes: ['first-input'] });
+
+        // Cumulative Layout Shift
+        let cumulativeScore = 0;
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach(entry => {
+            if (!entry.hadRecentInput) {
+              cumulativeScore += entry.value;
+            }
+          });
+          
+          performanceMetrics.CLS = cumulativeScore;
+          
+          const deviceCategory = deviceInfo.isMobile ? 'mobile' : deviceInfo.isTablet ? 'tablet' : 'desktop';
+          const budget = performanceMetrics.budget?.budgets?.[deviceCategory]?.metrics?.CLS || 0.1;
+          
+          if (cumulativeScore > budget) {
+            console.warn(`CLS budget exceeded: ${cumulativeScore} > ${budget}`);
+          }
+        }).observe({ entryTypes: ['layout-shift'] });
+
+        // Long Tasks
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach(entry => {
+            if (entry.duration > 50) {
+              console.warn(`Long task detected: ${entry.duration}ms`);
+              performanceMetrics.longTasks = (performanceMetrics.longTasks || 0) + 1;
+            }
+          });
+        }).observe({ entryTypes: ['longtask'] });
+      }
+
+      // Resource loading monitoring
+      function monitorResourceLoading() {
+        if (!('PerformanceObserver' in window)) return;
+
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach(entry => {
+            // Track critical resources
+            if (entry.initiatorType === 'link' && entry.name.includes('.css')) {
+              performanceMetrics.criticalResources.push({
+                name: entry.name,
+                duration: entry.responseEnd - entry.requestStart,
+                size: entry.transferSize || 0,
+                type: 'css'
+              });
+            }
+            
+            if (entry.initiatorType === 'script') {
+              performanceMetrics.criticalResources.push({
+                name: entry.name,
+                duration: entry.responseEnd - entry.requestStart,
+                size: entry.transferSize || 0,
+                type: 'javascript'
+              });
+            }
+          });
+        }).observe({ entryTypes: ['resource'] });
+      }
+
+      // Connection monitoring
+      function monitorConnection() {
+        if (navigator.connection) {
+          const connection = navigator.connection;
+          
+          // Adapt features based on connection
+          if (['slow-2g', '2g'].includes(connection.effectiveType)) {
+            document.body.classList.add('slow-connection');
+            // Disable heavy features
+            document.body.classList.add('disable-animations', 'disable-particles');
+          }
+          
+          // Listen for connection changes
+          connection.addEventListener('change', () => {
+            const newType = connection.effectiveType;
+            performanceMetrics.connectionChange = {
+              from: deviceInfo.connectionType,
+              to: newType,
+              timestamp: performance.now()
+            };
+            
+            // Update device info
+            deviceInfo.connectionType = newType;
+            
+            // Trigger adaptive loading
+            document.dispatchEvent(new CustomEvent('connection-change', {
+              detail: { effectiveType: newType, connection }
+            }));
+          });
+        }
+      }
+
+      // Memory monitoring
+      function monitorMemory() {
+        if (performance.memory) {
+          const checkMemory = () => {
+            const memInfo = performance.memory;
+            const memoryPressure = memInfo.usedJSHeapSize / memInfo.jsHeapSizeLimit;
+            
+            if (memoryPressure > 0.8) {
+              console.warn('High memory pressure detected:', memoryPressure);
+              document.body.classList.add('memory-pressure');
+              
+              // Trigger cleanup
+              document.dispatchEvent(new CustomEvent('memory-pressure', {
+                detail: { pressure: memoryPressure, memory: memInfo }
+              }));
+            }
+          };
+          
+          // Check memory every 30 seconds
+          setInterval(checkMemory, 30000);
+        }
+      }
+
+      // Error tracking with performance impact
+      function setupErrorTracking() {
+        window.addEventListener('error', (event) => {
+          const error = {
+            message: event.message,
+            filename: event.filename,
+            lineno: event.lineno,
+            colno: event.colno,
+            timestamp: performance.now(),
+            stack: event.error?.stack
+          };
+          
+          performanceMetrics.errors.push(error);
+          console.warn('Script error:', error);
+          
+          // Apply fallback class
+          document.body.classList.add('enhancement-fallback');
+          
+          // If too many errors, disable enhancements
+          if (performanceMetrics.errors.length > 3) {
+            document.body.classList.add('disable-enhancements');
+          }
+        });
+
+        // Unhandled promise rejections
+        window.addEventListener('unhandledrejection', (event) => {
+          const error = {
+            reason: event.reason,
+            timestamp: performance.now(),
+            type: 'unhandled-rejection'
+          };
+          
+          performanceMetrics.errors.push(error);
+          console.warn('Unhandled promise rejection:', error);
+        });
+      }
+
+      // Adaptive loading based on performance
+      function setupAdaptiveLoading() {
+        // Wait for initial measurements
+        setTimeout(() => {
+          const avgResourceTime = performanceMetrics.criticalResources.reduce((sum, resource) => {
+            return sum + resource.duration;
+          }, 0) / Math.max(performanceMetrics.criticalResources.length, 1);
+          
+          // If resources are loading slowly, reduce quality
+          if (avgResourceTime > 1000) {
+            document.body.classList.add('slow-loading', 'reduce-quality');
+          }
+          
+          // If many errors, simplify
+          if (performanceMetrics.errors.length > 1) {
+            document.body.classList.add('error-prone', 'simplify-ui');
+          }
+        }, 3000);
+      }
+
+      // Loading indicator management
+      function manageLoadingIndicator() {
         const loader = document.querySelector('.loading-indicator');
-        if (loader) loader.style.display = 'none';
-      }, 3000);
+        if (!loader) return;
+        
+        // Hide loading indicator based on critical metrics
+        const hideLoader = () => {
+          loader.classList.add('hidden');
+          setTimeout(() => {
+            loader.style.display = 'none';
+          }, 500);
+        };
+        
+        // Hide when DOM content loaded AND critical resources loaded
+        let domReady = false;
+        let criticalResourcesLoaded = false;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+          domReady = true;
+          if (criticalResourcesLoaded) hideLoader();
+        });
+        
+        // Check critical resources
+        const checkCriticalResources = () => {
+          const criticalCss = document.querySelector('link[href*="critical"]');
+          const mainCss = document.querySelector('link[href*="main"]');
+          
+          if ((!criticalCss || criticalCss.sheet) && (!mainCss || mainCss.sheet)) {
+            criticalResourcesLoaded = true;
+            if (domReady) hideLoader();
+          }
+        };
+        
+        // Check immediately and periodically
+        checkCriticalResources();
+        const interval = setInterval(() => {
+          checkCriticalResources();
+          if (criticalResourcesLoaded) clearInterval(interval);
+        }, 100);
+        
+        // Fallback timeout
+        setTimeout(hideLoader, 3000);
+      }
+
+      // Performance reporting
+      function setupPerformanceReporting() {
+        const reportMetrics = () => {
+          const report = {
+            timestamp: Date.now(),
+            device: deviceInfo,
+            metrics: performanceMetrics,
+            navigation: performance.getEntriesByType('navigation')[0],
+            memory: performance.memory,
+            budget: performanceMetrics.budget
+          };
+            // Log to console in development
+          const isDevelopment = '{{ hugo.Environment }}' === 'development';
+          if (isDevelopment) {
+            console.log('Performance Report:', report);
+          }
+          
+          // Send to analytics in production
+          if (!isDevelopment) {
+            // Send to your analytics service
+            // Example: analytics.track('performance', report);
+          }
+          
+          // Dispatch event for other scripts
+          document.dispatchEvent(new CustomEvent('performance-report', {
+            detail: report
+          }));
+        };
+        
+        // Report on page load
+        window.addEventListener('load', () => {
+          setTimeout(reportMetrics, 1000);
+        });
+        
+        // Report periodically
+        setInterval(reportMetrics, 60000);
+      }
+
+      // Initialize all monitoring systems
+      async function initializePerformanceMonitoring() {
+        performanceMetrics.budget = await loadPerformanceBudget();
+        
+        measureCoreWebVitals();
+        monitorResourceLoading();
+        monitorConnection();
+        monitorMemory();
+        setupErrorTracking();
+        setupAdaptiveLoading();
+        manageLoadingIndicator();
+        setupPerformanceReporting();
+        
+        console.log('Performance monitoring initialized');
+      }
+
+      // Start monitoring
+      initializePerformanceMonitoring();
       
-      // Basic error handling
-      window.addEventListener('error', (e) => {
-        console.warn('Script error:', e.message);
-        document.body.classList.add('enhancement-fallback');
-      });
-    })();  </script>
+      // Expose performance data globally for debugging
+      window.performanceData = {
+        metrics: performanceMetrics,
+        device: deviceInfo,
+        getReport: () => {
+          return {
+            timestamp: Date.now(),
+            device: deviceInfo,
+            metrics: performanceMetrics,
+            navigation: performance.getEntriesByType('navigation')[0],
+            memory: performance.memory
+          };
+        }
+      };
+    })();
+  </script>
   
   <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>

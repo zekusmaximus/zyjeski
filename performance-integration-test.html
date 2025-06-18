@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Test Page</title>
+    
+    <!-- Critical CSS inline -->
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; text-align: center; }
+        .content { max-width: 800px; margin: 20px auto; }
+        .performance-indicator { 
+            position: fixed; 
+            top: 10px; 
+            right: 10px; 
+            background: #28a745; 
+            color: white; 
+            padding: 10px; 
+            border-radius: 5px; 
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+    
+    <!-- Performance budget loading -->
+    <link rel="preload" href="/performance-budget.json" as="fetch" crossorigin>
+    
+    <!-- Enhanced CSS loading -->
+    <link rel="preload" href="/themes/AUTHOR/assets/css/critical-enhanced.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/themes/AUTHOR/assets/css/critical-enhanced.css"></noscript>
+    
+    <!-- Progressive enhancement detection -->
+    <script>
+        document.documentElement.className += ' js-enabled';
+        
+        // Device capability detection
+        const deviceInfo = {
+            isMobile: window.matchMedia('(max-width: 767px)').matches,
+            connection: navigator.connection?.effectiveType || 'unknown',
+            memory: navigator.deviceMemory || 4
+        };
+        
+        document.documentElement.classList.add(
+            deviceInfo.isMobile ? 'mobile' : 'desktop',
+            `connection-${deviceInfo.connection}`,
+            `memory-${deviceInfo.memory >= 8 ? 'high' : deviceInfo.memory >= 4 ? 'medium' : 'low'}`
+        );
+    </script>
+</head>
+<body>
+    <div class="performance-indicator" id="perfIndicator">
+        Performance Systems Loading...
+    </div>
+    
+    <div class="hero">
+        <h1>Performance Integration Test</h1>
+        <p>Testing all performance optimization systems</p>
+    </div>
+    
+    <div class="content">
+        <h2>Performance Features Test</h2>
+        
+        <div id="lazyLoadTest">
+            <h3>Lazy Loading Test</h3>
+            <img data-src="/static/images/zyjeski-mandala.png" 
+                 alt="Lazy loaded mandala" 
+                 class="lazy-load"
+                 loading="lazy">
+        </div>
+        
+        <div id="codeSpittingTest">
+            <h3>Code Splitting Test</h3>
+            <button onclick="loadFeature('mandala')">Load Mandala</button>
+            <button onclick="loadFeature('particles')">Load Particles</button>
+            <div id="featureContainer"></div>
+        </div>
+        
+        <div id="imageOptimizationTest">
+            <h3>Image Optimization Test</h3>
+            <div class="image-gallery">
+                <img data-src="/static/images/EC_Cover.png" alt="Book cover" class="optimized-image">
+                <img data-src="/static/images/LexSpecifica.png" alt="Lex Specifica" class="optimized-image">
+            </div>
+        </div>
+        
+        <div id="performanceMetrics">
+            <h3>Performance Metrics</h3>
+            <div id="metricsDisplay">
+                <p>Loading performance data...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Performance JavaScript Systems -->
+    <script src="/themes/AUTHOR/assets/js/environment-optimizer.js" defer></script>
+    <script src="/themes/AUTHOR/assets/js/code-splitting.js" defer></script>
+    <script src="/themes/AUTHOR/assets/js/lazy-loading.js" defer></script>
+    <script src="/themes/AUTHOR/assets/js/image-optimizer.js" defer></script>
+    <script src="/themes/AUTHOR/assets/js/performance-testing.js" defer></script>
+    <script src="/themes/AUTHOR/assets/js/mobile-reading-optimizer.js" defer></script>
+    
+    <!-- Performance monitoring -->
+    <script>
+        let performanceData = {};
+        
+        async function loadFeature(featureName) {
+            const container = document.getElementById('featureContainer');
+            container.innerHTML = `<p>Loading ${featureName} feature...</p>`;
+            
+            try {
+                // Simulate code splitting
+                await new Promise(resolve => setTimeout(resolve, 500));
+                container.innerHTML = `<p>${featureName} feature loaded successfully!</p>`;
+            } catch (error) {
+                container.innerHTML = `<p>Error loading ${featureName}: ${error.message}</p>`;
+            }
+        }
+        
+        // Performance monitoring
+        if ('PerformanceObserver' in window) {
+            // Core Web Vitals monitoring
+            new PerformanceObserver((list) => {
+                list.getEntries().forEach((entry) => {
+                    if (entry.name === 'largest-contentful-paint') {
+                        performanceData.LCP = entry.startTime;
+                        updatePerformanceDisplay();
+                    }
+                });
+            }).observe({ entryTypes: ['largest-contentful-paint'] });
+            
+            new PerformanceObserver((list) => {
+                list.getEntries().forEach((entry) => {
+                    if (entry.name === 'first-input') {
+                        performanceData.FID = entry.processingStart - entry.startTime;
+                        updatePerformanceDisplay();
+                    }
+                });
+            }).observe({ entryTypes: ['first-input'] });
+        }
+        
+        function updatePerformanceDisplay() {
+            const metricsDisplay = document.getElementById('metricsDisplay');
+            const perfIndicator = document.getElementById('perfIndicator');
+            
+            let html = '<ul>';
+            if (performanceData.LCP) html += `<li>LCP: ${Math.round(performanceData.LCP)}ms</li>`;
+            if (performanceData.FID) html += `<li>FID: ${Math.round(performanceData.FID)}ms</li>`;
+            html += `<li>Connection: ${navigator.connection?.effectiveType || 'unknown'}</li>`;
+            html += `<li>Memory: ${navigator.deviceMemory || 'unknown'}GB</li>`;
+            html += '</ul>';
+            
+            metricsDisplay.innerHTML = html;
+            
+            // Update indicator
+            const systemsLoaded = window.PerformanceTestSuite && window.MobileReadingOptimizer;
+            perfIndicator.textContent = systemsLoaded ? 'All Systems Active' : 'Loading Systems...';
+            perfIndicator.style.background = systemsLoaded ? '#28a745' : '#ffc107';
+        }
+        
+        // Check systems every second
+        const checkInterval = setInterval(() => {
+            updatePerformanceDisplay();
+            
+            // Stop checking after 10 seconds
+            if (Date.now() - performance.timeOrigin > 10000) {
+                clearInterval(checkInterval);
+            }
+        }, 1000);
+        
+        // Initial update
+        updatePerformanceDisplay();
+    </script>
+</body>
+</html>

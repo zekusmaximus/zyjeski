@@ -14,11 +14,11 @@ description: Philosophical novella exploring consciousness in a post-human unive
 <!--StartFragment-->
 
 "There are no humans" is a thought-provoking novella exploring consciousness, reality, and the search for meaning in a universe devoid of human life. This unique narrative blends philosophical inquiry with an emotional core, culminating in a stunning revelation that will challenge your perception of existence.\
-Dive into this mind-bending exploration of:\
-* Artificial intelligence and sentience\
-* The nature of reality\
-* The search for meaning and connection\
-* The illusion of self\
+Dive into this mind-bending exploration of:
+* Artificial intelligence and sentience
+* The nature of reality
+* The search for meaning and connection
+* The illusion of self
 If you like philosophical fiction with a touch of the uncanny, you'll love "There are no humans."
 
 <!--EndFragment-->

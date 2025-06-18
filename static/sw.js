@@ -1,22 +1,57 @@
 /**
- * Service Worker for Hugo Author Website
- * Progressive Web App with offline capabilities
+ * PERFORMANCE-OPTIMIZED SERVICE WORKER
+ * Advanced caching, offline functionality, and performance monitoring
  */
 
-const CACHE_NAME = 'hugo-author-v1.0.0';
-const RUNTIME_CACHE = 'runtime-cache-v1.0.0';
+const VERSION = '2.0.0';
+const CACHE_NAME = `hugo-author-v${VERSION}`;
+const RUNTIME_CACHE = `runtime-cache-v${VERSION}`;
+const IMAGE_CACHE = `images-v${VERSION}`;
+const API_CACHE = `api-v${VERSION}`;
 
-// Critical resources to cache immediately
+// Performance-optimized critical resources
 const CRITICAL_RESOURCES = [
   '/',
-  '/css/main-mobile-optimized.css',
-  '/js/main-mobile-optimized.js',
-  '/images/mandala-center.jpg',
-  '/images/cyber-bg-1.jpg',
-  '/images/cyber-bg-2.jpg',
+  '/css/critical-enhanced.css',
+  '/css/main.css',
+  '/js/lazy-loading.js',
+  '/js/code-splitting.js',
+  '/js/environment-optimizer.js',
+  '/js/main.js',
   '/offline/',
-  '/manifest.json'
+  '/manifest.json',
+  '/performance-budget.json'
 ];
+
+// Performance-aware cache configuration
+const PERFORMANCE_CONFIG = {
+  maxAge: {
+    images: 30 * 24 * 60 * 60 * 1000,    // 30 days
+    css: 7 * 24 * 60 * 60 * 1000,        // 7 days
+    js: 7 * 24 * 60 * 60 * 1000,         // 7 days
+    pages: 24 * 60 * 60 * 1000,          // 1 day
+    api: 60 * 60 * 1000                  // 1 hour
+  },
+  maxEntries: {
+    images: 100,
+    pages: 50,
+    api: 20,
+    css: 10,
+    js: 20
+  },
+  networkTimeouts: {
+    slow: 3000,     // 3G and slower
+    fast: 1000      // 4G and faster
+  }
+};
+
+// Detect connection speed for adaptive caching
+let connectionSpeed = 'fast';
+if ('connection' in navigator) {
+  const connection = navigator.connection;
+  const slowConnections = ['slow-2g', '2g', '3g'];
+  connectionSpeed = slowConnections.includes(connection.effectiveType) ? 'slow' : 'fast';
+}
 
 // Resources to cache on runtime
 const RUNTIME_CACHE_URLS = [
@@ -30,9 +65,9 @@ const RUNTIME_CACHE_URLS = [
 
 // Maximum cache sizes
 const MAX_CACHE_SIZE = {
-  images: 50,
-  pages: 20,
-  api: 10
+  images: PERFORMANCE_CONFIG.maxEntries.images,
+  pages: PERFORMANCE_CONFIG.maxEntries.pages,
+  api: PERFORMANCE_CONFIG.maxEntries.api
 };
 
 /**

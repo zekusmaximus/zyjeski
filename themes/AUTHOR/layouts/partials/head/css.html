@@ -1,7 +1,10 @@
 {{/* Critical CSS inlined for fastest loading */}}
-{{- with resources.Get "css/critical.css" }}
-  <!-- Hugo template: CSS content will be rendered here -->
+{{- with resources.Get "css/critical-enhanced.css" }}
   <style>{{ . | minify }}</style>
+{{- else }}
+  {{- with resources.Get "css/critical.css" }}
+    <style>{{ . | minify }}</style>
+  {{- end }}
 {{- end }}
 
 {{/* Load CSS files individually and concatenate them */}}
@@ -15,6 +18,7 @@
 {{- with resources.Get "css/_header.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_mandala.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_animations.css" }}{{ $css = $css | append . }}{{ end }}
+{{- with resources.Get "css/animations-optimized.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_books.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_social.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_content-types.css" }}{{ $css = $css | append . }}{{ end }}
