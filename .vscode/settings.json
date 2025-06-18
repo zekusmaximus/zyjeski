@@ -4,14 +4,15 @@
       "path": "."
     }
   ],
-  "settings": {
-    "files.associations": {
+  "settings": {    "files.associations": {
       "*.html": "html",
       "themes/**/*.html": "hugo",
       "layouts/**/*.html": "hugo", 
       "partials/**/*.html": "hugo",
       "shortcodes/**/*.html": "hugo",
-      "archetypes/**/*.md": "hugo"
+      "archetypes/**/*.md": "hugo",
+      "**/layouts/**/*.html": "hugo",
+      "**/themes/**/*.html": "hugo"
     },
     "emmet.includeLanguages": {
       "hugo": "html"
@@ -43,17 +44,24 @@
       "--animation-duration-fast",
       "--animation-duration-normal",
       "--animation-duration-slow"
-    ],    "css.validate": false,
+    ],    "css.validate": true,
     "html.validate.scripts": false,
     "html.validate.styles": false,
     "css.lint.unknownAtRules": "ignore",
-    "[hugo]": {
+    "css.lint.invalidProperties": "ignore",    "html.customData": [
+      ".vscode/hugo.html-data.json"
+    ],
+    "html.suggest.html5": true,
+    "css.completion.triggerPropertyValueCompletion": false,
+    "css.completion.completePropertyWithSemicolon": false,"[hugo]": {
       "editor.quickSuggestions": {
         "other": true,
         "comments": false,
         "strings": true
       },
-      "editor.suggest.insertMode": "replace"
+      "editor.suggest.insertMode": "replace",
+      "css.validate": false,
+      "html.validate.styles": false
     },
     "[html]": {
       "editor.suggest.insertMode": "replace"
