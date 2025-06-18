@@ -1,7 +1,42 @@
 // PROGRESSIVE ENHANCEMENT MAIN.JS
 // Modern, capability-aware initialization system
 
+// Global mobile detection function
+function isMobileDevice() {
+  return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Disable mandala effects on mobile - run immediately
+function disableMandalaEffectsOnMobile() {
+  if (isMobileDevice()) {
+    const mandalaGrid = document.querySelector('.mandala-grid');
+    const mandalaContainer = document.querySelector('.mandala-container');
+    
+    if (mandalaGrid) {
+      mandalaGrid.style.setProperty('transform', 'none', 'important');
+      mandalaGrid.style.setProperty('perspective', 'none', 'important');
+      mandalaGrid.style.setProperty('transform-style', 'flat', 'important');
+    }
+    
+    if (mandalaContainer) {
+      mandalaContainer.style.setProperty('perspective', 'none', 'important');
+    }
+    
+    console.log('Mobile device detected - mandala 3D effects disabled');
+    return true; // Mobile detected
+  }
+  return false; // Not mobile
+}
+
+// Run mobile check immediately when script loads
+const isMobileInitially = disableMandalaEffectsOnMobile();
+
 document.addEventListener('DOMContentLoaded', function() {
+  // Re-check on DOM ready
+  if (disableMandalaEffectsOnMobile()) {
+    return; // Exit early for mobile
+  }
+  
   // Always initialize basic mandala effects first
   initBasicMandalaEffects();
   
@@ -19,16 +54,29 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 1000);
   }
-  
-  // Always initialize basic functionality
+    // Always initialize basic functionality
   initBasicFeatures();
 });
+
+// Global resize handler to disable effects when switching to mobile
+window.addEventListener('resize', function() {
+  disableMandalaEffectsOnMobile();
+}, { passive: true });
 
 function initBasicMandalaEffects() {
   const mandalaGrid = document.querySelector('.mandala-grid');
   const mandalaContainer = document.querySelector('.mandala-container');
   
   if (!mandalaGrid || !mandalaContainer) return;
+  
+  // Check if we're on a mobile device using the global function
+  if (isMobileDevice()) {
+    console.log('Mobile device detected - skipping mandala 3D effects');
+    // Ensure no transforms are applied on mobile
+    mandalaGrid.style.setProperty('transform', 'none', 'important');
+    mandalaContainer.style.perspective = 'none';
+    return; // Exit early for mobile devices
+  }
   
   console.log('Initializing basic mandala effects');
   
@@ -66,10 +114,12 @@ function initBasicMandalaEffects() {
   
   mandalaContainer.addEventListener('mousemove', handleMouseMove);
   mandalaContainer.addEventListener('mouseleave', handleMouseLeave);
-  
   // Add scroll-based rotation
   const handleScroll = () => {
     if (isAnimating) return;
+    
+    // Double-check we're not on mobile before applying scroll effects
+    if (isMobileDevice()) return;
     
     const scrollY = window.pageYOffset;
     const scrollProgress = Math.min(scrollY / window.innerHeight, 1);
@@ -83,6 +133,20 @@ function initBasicMandalaEffects() {
   };
   
   window.addEventListener('scroll', handleScroll, { passive: true });
+    // Add resize handler to re-check mobile status
+  const handleResize = () => {
+    if (isMobileDevice()) {
+      // If resized to mobile, disable effects
+      mandalaGrid.style.setProperty('transform', 'none', 'important');
+      mandalaContainer.style.perspective = 'none';
+      // Remove event listeners
+      mandalaContainer.removeEventListener('mousemove', handleMouseMove);
+      mandalaContainer.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('scroll', handleScroll);
+    }
+  };
+  
+  window.addEventListener('resize', handleResize, { passive: true });
   
   // Ensure links work regardless of any overlays
   const mandalaItems = document.querySelectorAll('.mandala-item');
