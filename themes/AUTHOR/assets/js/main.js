@@ -206,14 +206,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Fallback initialization after short delay if PE system doesn't load
     setTimeout(() => {
-      if (!window.ProgressiveEnhancement || !window.ProgressiveEnhancement.initialized) {
-        console.log('Progressive enhancement system not available, using fallback');
+      if (!window.ProgressiveEnhancement || !window.ProgressiveEnhancement.initialized) {        console.log('Progressive enhancement system not available, using fallback');
         initFallbackMode();
       }
     }, 1000);
   }
-    // Always initialize basic functionality
-  initBasicFeatures();
 });
 
 // Global resize handler to disable effects when switching to mobile
@@ -395,12 +392,13 @@ function initBasicFeatures() {
   initKeyboardNavigation();
   initBasicAccessibility();
   initBasicAudioPlayers();
-  initBasicFormHandling();
-  initCyberpunkTextEffects(); // Keep legacy text effects for brand consistency
+  initBasicFormHandling();  initCyberpunkTextEffects(); // Keep legacy text effects for brand consistency
   initMandalaLinks(); // Ensure mandala links work on all devices
   
   // Initialize mobile reading experience for font size and reading mode controls
-  mobileReadingExperience = new MobileReadingExperience();
+  if (!mobileReadingExperience) {
+    mobileReadingExperience = new MobileReadingExperience();
+  }
   
   console.log('Basic features initialization complete');
 }

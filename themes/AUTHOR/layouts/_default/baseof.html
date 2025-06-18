@@ -67,15 +67,7 @@
   {{ $mainJS = $mainJS | resources.Minify }}
   <script src="{{ $mainJS.RelPermalink }}" defer></script>
   
-  <!-- Mobile Reading Experience -->
-  {{ $mobileReadingJS := resources.Get "js/mobile-reading.js" }}
-  {{ if $mobileReadingJS }}
-    {{ $mobileReadingJS = $mobileReadingJS | resources.Minify }}
-    <script src="{{ $mobileReadingJS.RelPermalink }}" defer></script>
-  {{ else }}
-    <!-- Fallback: Mobile reading features are embedded in main.js -->
-    <script>console.log('Mobile reading features loaded via main.js fallback');</script>
-  {{ end }}
+  <!-- Mobile Reading Experience is embedded in main.js -->
   
   <!-- Simple device detection for basic responsive behavior -->
   <script>
