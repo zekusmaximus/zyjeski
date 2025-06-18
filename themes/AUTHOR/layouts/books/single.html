@@ -85,10 +85,10 @@
               {{ . | markdownify }}
             </div>
           </div>
-        {{ end }}
-      </div>
+        {{ end }}      </div>
     </div>
     
+    {{ partial "social-share.html" . }}
     
     {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
   </article>

@@ -96,11 +96,12 @@
     {{ if .Params.transcript }}
       <div class="audio-transcript">
         <h2 class="transcript-title">Transcript</h2>
-        <div class="transcript-content">
-          {{ .Params.transcript | markdownify }}
+        <div class="transcript-content">          {{ .Params.transcript | markdownify }}
         </div>
       </div>
     {{ end }}
+    
+    {{ partial "social-share.html" . }}
     
     {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
   </article>

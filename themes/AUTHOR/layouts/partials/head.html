@@ -1,6 +1,180 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+
+{{/* Enhanced Social Media Meta Tags */}}
+{{ $title := .Title }}
+{{ $description := .Description | default site.Params.description | default "Explore the intersection of consciousness and technology through digital koans, neural simulations, and neuro-digital enlightenment practices." }}
+{{ $image := "" }}
+{{ $contentType := "website" }}
+{{ $shareText := "" }}
+
+{{/* Content-specific customization */}}
+{{ if eq .Section "stories" }}
+  {{ $contentType = "article" }}
+  {{ $shareText = "Digital Koan" }}
+  {{ $description = printf "Explore this neuro-digital koan: %s. A fragment of wisdom from the path to technological enlightenment." .Title }}
+  {{ with .Params.image }}
+    {{ $image = . | absURL }}
+  {{ end }}
+{{ else if eq .Section "audio" }}
+  {{ $contentType = "article" }}
+  {{ $shareText = "Neural Simulation" }}
+  {{ $description = printf "Experience this guided neural rebooting protocol: %s. A journey into consciousness through sound and meditation." .Title }}
+  {{ with .Params.image }}
+    {{ $image = . | absURL }}
+  {{ end }}
+{{ else if eq .Section "posts" }}
+  {{ $contentType = "article" }}
+  {{ $shareText = "Digital Transmission" }}
+  {{ $description = printf "Receive this digital transmission: %s. Insights on the convergence of consciousness and technology." .Title }}
+  {{ with .Params.image }}
+    {{ $image = . | absURL }}
+  {{ end }}
+{{ else if eq .Section "books" }}
+  {{ $contentType = "book" }}
+  {{ $shareText = "Digital Manuscript" }}
+  {{ $description = printf "Discover this collection: %s. A manuscript from the neuro-digital archives exploring consciousness and technology." .Title }}
+  {{ with .Params.cover_image }}
+    {{ $image = . | absURL }}
+  {{ end }}
+{{ end }}
+
+{{/* Fallback image */}}
+{{ if not $image }}
+  {{ $image = "/images/substack-banner.jpg" | absURL }}
+{{ end }}
+
+{{/* Basic Meta Tags */}}
+<meta name="description" content="{{ $description }}">
+<meta name="author" content="{{ site.Params.author | default site.Title }}">
+<meta name="keywords" content="neuro-digital enlightenment, digital koans, consciousness, technology, meditation, {{ .Section }}, {{ delimit .Params.tags ", " }}">
+
+{{/* Open Graph Meta Tags */}}
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }} - Neuro-Digital Enlightenment{{ else }}{{ $title }} | {{ site.Title }}{{ end }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:type" content="{{ $contentType }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ $image }}">
+<meta property="og:image:alt" content="{{ $title }} - {{ $shareText }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:locale" content="en_US">
+
+{{/* Twitter Card Meta Tags */}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }} - Neuro-Digital Enlightenment{{ else }}{{ $title }}{{ end }}">
+<meta name="twitter:description" content="{{ $description }}">
+<meta name="twitter:image" content="{{ $image }}">
+<meta name="twitter:image:alt" content="{{ $title }} - {{ $shareText }}">
+{{ with site.Params.twitter }}
+<meta name="twitter:site" content="@{{ . }}">
+<meta name="twitter:creator" content="@{{ . }}">
+{{ end }}
+
+{{/* Article-specific meta tags */}}
+{{ if in (slice "stories" "audio" "posts" "books") .Section }}
+<meta property="article:author" content="{{ site.Params.author | default site.Title }}">
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}">
+<meta property="article:section" content="{{ .Section | title }}">
+{{ range .Params.tags }}
+<meta property="article:tag" content="{{ . }}">
+{{ end }}
+{{ end }}
+
+{{/* JSON-LD Structured Data */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  {{ if .IsHome }}
+  "@type": "Website",
+  "name": "{{ site.Title }}",
+  "description": "{{ $description }}",
+  "url": "{{ site.BaseURL }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.Params.author | default site.Title }}"
+  }
+  {{ else if eq .Section "stories" }}
+  "@type": "Article",
+  "headline": "{{ $title }}",
+  "description": "{{ $description }}",
+  "image": "{{ $image }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.Params.author | default site.Title }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ $image }}"
+    }
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05-07:00" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  },
+  "genre": ["Philosophy", "Spirituality", "Technology"],
+  "keywords": "digital koan, neuro-digital enlightenment, consciousness, meditation"
+  {{ else if eq .Section "audio" }}
+  "@type": "AudioObject",
+  "name": "{{ $title }}",
+  "description": "{{ $description }}",
+  "image": "{{ $image }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.Params.author | default site.Title }}"
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05-07:00" }}",
+  {{ with .Params.audio_file }}
+  "contentUrl": "{{ . | absURL }}",
+  "encodingFormat": "audio/mpeg",
+  {{ end }}
+  "genre": ["Meditation", "Guided Meditation", "Consciousness"],
+  "keywords": "neural simulation, guided meditation, consciousness, technology"
+  {{ else if eq .Section "books" }}
+  "@type": "Book",
+  "name": "{{ $title }}",
+  "description": "{{ $description }}",
+  "image": "{{ $image }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.Params.author | default site.Title }}"
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05-07:00" }}",
+  "genre": ["Philosophy", "Science Fiction", "Spirituality"],
+  "bookFormat": "EBook"
+  {{ else }}
+  "@type": "Article",
+  "headline": "{{ $title }}",
+  "description": "{{ $description }}",
+  "image": "{{ $image }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.Params.author | default site.Title }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}"
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05-07:00" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}"
+  {{ end }}
+}
+</script>
+
+{{/* Canonical URL */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* Preconnect to external domains for performance */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://identity.netlify.com">
+
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/js.html" . }}
 

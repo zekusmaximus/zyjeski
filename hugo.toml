@@ -6,7 +6,27 @@ theme = "AUTHOR"
 # Basic author information
 [params]
   author = 'Jeffrey A. Zyjeski'
-  description = 'Speculative fiction author'
+  description = 'Speculative fiction author exploring the intersection of consciousness and technology through neuro-digital enlightenment practices'
+  twitter = 'your_twitter_handle'  # Add your Twitter handle for meta tags
+  
+  # Social sharing configuration
+  [params.social_sharing]
+    enabled = true
+    brand_hashtag = "NeuroDigitalEnlightenment"
+    default_image = "/images/substack-banner.jpg"
+    
+    # Content type customization
+    [params.social_sharing.content_types]
+      koan_prefix = "Share this digital koan"
+      koan_description = "Explore this neuro-digital koan from the path to enlightenment"
+      simulation_prefix = "Share this neural simulation" 
+      simulation_description = "Experience this guided neural rebooting protocol"
+      transmission_prefix = "Share this transmission"
+      transmission_description = "Receive this digital transmission on the path to enlightenment"
+      manuscript_prefix = "Share this digital manuscript"
+      manuscript_description = "Discover this collection from the neuro-digital archives"
+      insight_prefix = "Share this insight"
+      insight_description = "Explore this fragment of neuro-digital wisdom"
 
    # Featured spot 1
   featured_title_1 = "Latest Book"

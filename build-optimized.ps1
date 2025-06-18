@@ -32,14 +32,13 @@ $criticalCSS
     # Replace the critical CSS placeholder
     $pattern = '<!-- Critical CSS - Load immediately for fastest rendering -->.*?<!-- Production note:.*?-->'
     $updatedContent = $headContent -replace $pattern, $inlinedCSS, 'SingleLine'
-    
-    # Write back to file
+      # Write back to file
     Set-Content "themes\AUTHOR\layouts\partials\head\mobile-optimized.html" -Value $updatedContent
     
     Write-Host "✅ Critical CSS inlined successfully!" -ForegroundColor Green
 }
 catch {
-    Write-Host "⚠️  Could not inline critical CSS: $($_.Exception.Message)" -ForegroundColor Yellow
+    Write-Host "⚠️ Could not inline critical CSS: $($_.Exception.Message)" -ForegroundColor Yellow
     Write-Host "   Continuing with external CSS file..." -ForegroundColor Yellow
 }
 
@@ -68,7 +67,7 @@ foreach ($icon in $requiredIcons) {
 }
 
 if ($missingIcons.Count -gt 0) {
-    Write-Host "⚠️  Missing PWA icons:" -ForegroundColor Yellow
+    Write-Host "⚠️ Missing PWA icons:" -ForegroundColor Yellow
     foreach ($icon in $missingIcons) {
         Write-Host "   - $icon" -ForegroundColor Yellow
     }
@@ -84,16 +83,16 @@ if (Test-Path "static\sw.js") {
     Write-Host "✅ Service worker found!" -ForegroundColor Green
 }
 else {
-    Write-Host "⚠️  Service worker not found at static\sw.js" -ForegroundColor Yellow
+    Write-Host "⚠️ Service worker not found at static\sw.js" -ForegroundColor Yellow
 }
 
 # Step 6: Performance recommendations
 Write-Host "`n📊 Performance validation complete!" -ForegroundColor Green
 Write-Host "🎯 Performance targets:" -ForegroundColor Cyan
-Write-Host "   - Mobile LCP: < 2.5s" -ForegroundColor White
-Write-Host "   - Mobile FID: < 100ms" -ForegroundColor White
-Write-Host "   - Mobile CLS: < 0.1" -ForegroundColor White
-Write-Host "   - Bundle size: < 500KB" -ForegroundColor White
+Write-Host "   - Mobile LCP: less than 2.5s" -ForegroundColor White
+Write-Host "   - Mobile FID: less than 100ms" -ForegroundColor White
+Write-Host "   - Mobile CLS: less than 0.1" -ForegroundColor White
+Write-Host "   - Bundle size: less than 500KB" -ForegroundColor White
 
 Write-Host "`n💡 Testing recommendations:" -ForegroundColor Cyan
 Write-Host "   1. Test on real mobile devices" -ForegroundColor White

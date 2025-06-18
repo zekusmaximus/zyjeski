@@ -1,0 +1,439 @@
+{{/* Social sharing component for Neuro-Digital Enlightenment content */}}
+{{ $contentType := "" }}
+{{ $sharePrefix := "" }}
+{{ $shareDescription := "" }}
+
+{{/* Check if social sharing is enabled */}}
+{{ if not (site.Params.social_sharing.enabled | default true) }}
+  {{/* Social sharing is disabled */}}
+  {{ return }}
+{{ end }}
+
+{{/* Get configuration or use defaults */}}
+{{ $brandHashtag := site.Params.social_sharing.brand_hashtag | default "NeuroDigitalEnlightenment" }}
+{{ $contentTypes := site.Params.social_sharing.content_types }}
+
+{{/* Determine content type and customize sharing text */}}
+{{ if eq .Section "stories" }}
+  {{ $contentType = "koan" }}
+  {{ $sharePrefix = $contentTypes.koan_prefix | default "Share this digital koan" }}
+  {{ $shareDescription = $contentTypes.koan_description | default "Explore this neuro-digital koan from the path to enlightenment" }}
+{{ else if eq .Section "audio" }}
+  {{ $contentType = "simulation" }}
+  {{ $sharePrefix = $contentTypes.simulation_prefix | default "Share this neural simulation" }}
+  {{ $shareDescription = $contentTypes.simulation_description | default "Experience this guided neural rebooting protocol" }}
+{{ else if eq .Section "posts" }}
+  {{ $contentType = "transmission" }}
+  {{ $sharePrefix = $contentTypes.transmission_prefix | default "Share this transmission" }}
+  {{ $shareDescription = $contentTypes.transmission_description | default "Receive this digital transmission on the path to enlightenment" }}
+{{ else if eq .Section "books" }}
+  {{ $contentType = "manuscript" }}
+  {{ $sharePrefix = $contentTypes.manuscript_prefix | default "Share this digital manuscript" }}
+  {{ $shareDescription = $contentTypes.manuscript_description | default "Discover this collection from the neuro-digital archives" }}
+{{ else }}
+  {{ $contentType = "insight" }}
+  {{ $sharePrefix = $contentTypes.insight_prefix | default "Share this insight" }}
+  {{ $shareDescription = $contentTypes.insight_description | default "Explore this fragment of neuro-digital wisdom" }}
+{{ end }}
+
+{{/* Prepare sharing variables */}}
+{{ $url := .Permalink }}
+{{ $title := .Title }}
+{{ $description := .Description | default $shareDescription }}
+{{ $site_title := site.Title }}
+
+{{/* Encode URLs for sharing */}}
+{{ $encoded_url := $url | urlquery }}
+{{ $encoded_title := $title | urlquery }}
+{{ $encoded_description := $description | urlquery }}
+{{ $encoded_text := printf "%s - %s" $title $site_title | urlquery }}
+
+<div class="social-share-container" data-content-type="{{ $contentType }}">
+  <div class="share-header">
+    <span class="share-icon">⊹</span>
+    <h3 class="share-title">{{ $sharePrefix }}</h3>
+  </div>
+  
+  <div class="share-buttons">    {{/* Twitter/X */}}
+    <a href="https://twitter.com/intent/tweet?url={{ $encoded_url }}&text={{ $encoded_text }}&hashtags={{ $brandHashtag }},{{ $contentType }}" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="share-btn share-twitter"
+       aria-label="Share on Twitter">
+      <svg class="share-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+      <span>Twitter</span>
+    </a>
+
+    {{/* Facebook */}}
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ $encoded_url }}" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="share-btn share-facebook"
+       aria-label="Share on Facebook">
+      <svg class="share-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+      <span>Facebook</span>
+    </a>
+
+    {{/* LinkedIn */}}
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $encoded_url }}" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="share-btn share-linkedin"
+       aria-label="Share on LinkedIn">
+      <svg class="share-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      <span>LinkedIn</span>
+    </a>
+
+    {{/* Reddit */}}
+    <a href="https://reddit.com/submit?url={{ $encoded_url }}&title={{ $encoded_title }}" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="share-btn share-reddit"
+       aria-label="Share on Reddit">
+      <svg class="share-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+      </svg>
+      <span>Reddit</span>
+    </a>
+
+    {{/* Email */}}
+    <a href="mailto:?subject={{ $encoded_title }}&body=I thought you might find this {{ $contentType }} interesting:%0D%0A%0D%0A{{ $encoded_url }}" 
+       class="share-btn share-email"
+       aria-label="Share via email">
+      <svg class="share-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+      <span>Email</span>
+    </a>
+
+    {{/* Copy to clipboard */}}
+    <button class="share-btn share-copy" 
+            data-url="{{ $url }}" 
+            data-title="{{ $title }}"
+            aria-label="Copy link to clipboard">
+      <svg class="share-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+      </svg>
+      <span class="copy-text">Copy Link</span>
+    </button>
+  </div>
+
+  {{/* Reading progress for return visitors */}}
+  <div class="reading-progress-container" style="display: none;">
+    <div class="reading-progress-indicator">
+      <span class="progress-icon">◉</span>
+      <span class="progress-text">Continue where you left off</span>
+      <button class="progress-dismiss" aria-label="Dismiss reading progress">×</button>
+    </div>
+  </div>
+</div>
+
+{{/* Copy to clipboard notification */}}
+<div class="copy-notification" id="copy-notification" style="display: none;">
+  <span class="notification-icon">✓</span>
+  <span class="notification-text">Link copied to clipboard!</span>
+</div>
+
+<style>
+/* Social Share Styles - Cyberpunk Aesthetic */
+.social-share-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(46, 15, 84, 0.3);
+  border: 1px solid var(--holographic-teal);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.share-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.share-header .share-icon {
+  color: var(--holographic-teal);
+  font-size: 1.2rem;
+  animation: pulse-glow 2s infinite;
+}
+
+.share-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--flickering-white);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, rgba(110, 13, 208, 0.2), rgba(0, 245, 212, 0.1));
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--light-gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-btn:hover,
+.share-btn:focus {
+  border-color: var(--holographic-teal);
+  background: linear-gradient(135deg, rgba(110, 13, 208, 0.4), rgba(0, 245, 212, 0.2));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 245, 212, 0.3);
+}
+
+.share-btn:active {
+  transform: translateY(0);
+}
+
+.share-icon-svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Platform-specific styling */
+.share-twitter:hover { border-color: #1DA1F2; }
+.share-facebook:hover { border-color: #1877F2; }
+.share-linkedin:hover { border-color: #0A66C2; }
+.share-reddit:hover { border-color: #FF4500; }
+.share-email:hover { border-color: var(--saffron); }
+
+.share-copy {
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.2), rgba(0, 245, 212, 0.1));
+}
+
+.share-copy:hover {
+  border-color: var(--saffron);
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.4), rgba(0, 245, 212, 0.2));
+}
+
+.share-copy.copied {
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.4), rgba(110, 13, 208, 0.2));
+  border-color: var(--holographic-teal);
+}
+
+/* Reading Progress Indicator */
+.reading-progress-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 245, 212, 0.3);
+}
+
+.reading-progress-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(0, 245, 212, 0.1);
+  border: 1px solid rgba(0, 245, 212, 0.3);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.progress-icon {
+  color: var(--holographic-teal);
+  animation: pulse-glow 2s infinite;
+}
+
+.progress-text {
+  flex: 1;
+  color: var(--light-gray);
+}
+
+.progress-dismiss {
+  background: none;
+  border: none;
+  color: var(--light-gray);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.progress-dismiss:hover {
+  opacity: 1;
+}
+
+/* Copy Notification */
+.copy-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--holographic-teal), var(--electric-indigo));
+  color: var(--ink-black);
+  border-radius: 6px;
+  font-weight: 600;
+  z-index: 1000;
+  animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+}
+
+.notification-icon {
+  font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .share-buttons {
+    gap: 0.5rem;
+  }
+  
+  .share-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .share-btn span {
+    display: none;
+  }
+  
+  .share-btn .share-icon-svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .copy-notification {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .social-share-container {
+    background: var(--high-contrast-bg);
+    border-color: var(--high-contrast-border);
+  }
+  
+  .share-btn {
+    background: var(--high-contrast-bg);
+    border-color: var(--high-contrast-border);
+    color: var(--high-contrast-text);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .share-btn,
+  .progress-icon,
+  .copy-notification {
+    animation: none;
+    transition: none;
+  }
+  
+  .share-btn:hover {
+    transform: none;
+  }
+}
+</style>
+
+<script>
+// Basic inline functionality for immediate response
+// Enhanced functionality loaded from social-sharing.js
+(function() {
+  'use strict';
+  
+  // Immediate copy functionality for better UX
+  const copyBtn = document.querySelector('.share-copy');
+  if (copyBtn && !window.NeuroDigitalSharing) {
+    copyBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      const url = this.dataset.url;
+      const title = this.dataset.title;
+      const textToCopy = `${title} - ${url}`;
+      
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(textToCopy);
+        } else {
+          // Fallback
+          const textArea = document.createElement('textarea');
+          textArea.value = textToCopy;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-999999px';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          textArea.remove();
+        }
+        
+        // Quick feedback
+        this.classList.add('copied');
+        const copyText = this.querySelector('.copy-text');
+        const originalText = copyText.textContent;
+        copyText.textContent = 'Copied!';
+        
+        setTimeout(() => {
+          this.classList.remove('copied');
+          copyText.textContent = originalText;
+        }, 2000);
+        
+      } catch (err) {
+        console.error('Copy failed:', err);
+      }
+    });
+  }
+})();
+</script>
+
+{{/* Load enhanced functionality */}}
+{{ $socialJS := resources.Get "js/social-sharing.js" | minify }}
+<script src="{{ $socialJS.RelPermalink }}" defer></script>
