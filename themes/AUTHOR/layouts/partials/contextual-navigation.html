@@ -189,6 +189,11 @@
   <span class="toggle-icon">🧭</span>
 </button>
 
+<!-- Mobile Close Button (only visible when sidebar is open on mobile) -->
+<button id="contextual-nav-close" class="contextual-nav-close mobile-only" aria-label="Close navigation" style="display: none;">
+  <span class="close-icon">&times;</span>
+</button>
+
 <style>
 /* Contextual Navigation Styles */
 .contextual-navigation {
@@ -594,6 +599,49 @@
   transform: translateY(-50%) translateX(360px);
 }
 
+/* Mobile Close Button */
+.contextual-nav-close {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 75, 87, 0.9);
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 1002;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(255, 75, 87, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.contextual-nav-close:hover {
+  background: rgba(255, 75, 87, 1);
+  transform: scale(1.1);
+}
+
+.contextual-nav-close:active {
+  transform: scale(0.95);
+}
+
+/* Mobile fade-in animation for close button */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .contextual-navigation {
@@ -615,6 +663,10 @@
   
   .quick-actions-grid {
     grid-template-columns: 1fr 1fr;
+  }
+  
+  .contextual-nav-close {
+    display: flex;
   }
 }
 
@@ -657,10 +709,12 @@ class ContextualNavigation {
   bindEvents() {
     const toggle = document.getElementById('contextual-nav-toggle');
     const nav = document.getElementById('contextual-navigation');
+    const closeBtn = document.getElementById('contextual-nav-close');
     
     if (!toggle || !nav) return;
     
     toggle.addEventListener('click', () => this.toggleNavigation());
+    closeBtn.addEventListener('click', () => this.closeNavigation());
     
     // Section toggles
     const sectionHeaders = nav.querySelectorAll('.nav-section-header');
@@ -670,10 +724,9 @@ class ContextualNavigation {
         this.toggleSection(section);
       });
     });
-    
-    // Close navigation when clicking outside
+      // Close navigation when clicking outside
     document.addEventListener('click', (e) => {
-      if (this.isOpen && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      if (this.isOpen && !nav.contains(e.target) && !toggle.contains(e.target) && !closeBtn.contains(e.target)) {
         this.closeNavigation();
       }
     });
@@ -683,6 +736,23 @@ class ContextualNavigation {
       if (e.key === 'Escape' && this.isOpen) {
         this.closeNavigation();
       }
+    });
+    
+    // Mobile touch and swipe support
+    this.setupMobileGestures(nav);
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    nav.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    nav.addEventListener('touchmove', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+    });
+    
+    nav.addEventListener('touchend', () => {
+      this.handleSwipeGesture();
     });
   }
   
@@ -696,14 +766,19 @@ class ContextualNavigation {
       this.openNavigation();
     }
   }
-  
-  openNavigation() {
+    openNavigation() {
     const nav = document.getElementById('contextual-navigation');
     const toggle = document.getElementById('contextual-nav-toggle');
+    const closeBtn = document.getElementById('contextual-nav-close');
     
     nav.classList.add('open');
     toggle.classList.add('active');
     this.isOpen = true;
+    
+    // Show close button on mobile
+    if (window.innerWidth <= 768 && closeBtn) {
+      closeBtn.style.display = 'flex';
+    }
     
     // Update content when opening
     this.refreshContent();
@@ -712,10 +787,90 @@ class ContextualNavigation {
   closeNavigation() {
     const nav = document.getElementById('contextual-navigation');
     const toggle = document.getElementById('contextual-nav-toggle');
+    const closeBtn = document.getElementById('contextual-nav-close');
     
     nav.classList.remove('open');
     toggle.classList.remove('active');
     this.isOpen = false;
+    
+    // Hide close button
+    if (closeBtn) {
+      closeBtn.style.display = 'none';
+    }
+  }
+  
+  setupMobileGestures(nav) {
+    if (!nav) return;
+    
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+    
+    // Touch start
+    nav.addEventListener('touchstart', (e) => {
+      if (!this.isOpen) return;
+      
+      const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      currentX = startX;
+      currentY = startY;
+      isDragging = true;
+    }, { passive: true });
+    
+    // Touch move
+    nav.addEventListener('touchmove', (e) => {
+      if (!isDragging || !this.isOpen) return;
+      
+      const touch = e.touches[0];
+      currentX = touch.clientX;
+      currentY = touch.clientY;
+      
+      const deltaX = currentX - startX;
+      const deltaY = Math.abs(currentY - startY);
+      
+      // Only handle horizontal swipes (ignore vertical scrolling)
+      if (deltaY < 50 && deltaX < -50) {
+        // Prevent default to stop scrolling
+        e.preventDefault();
+        
+        // Add visual feedback for the swipe
+        const translateAmount = Math.max(deltaX, -200);
+        nav.style.transform = `translateX(calc(100% + ${translateAmount}px))`;
+      }
+    }, { passive: false });
+    
+    // Touch end
+    nav.addEventListener('touchend', (e) => {
+      if (!isDragging || !this.isOpen) return;
+      
+      const deltaX = currentX - startX;
+      const deltaY = Math.abs(currentY - startY);
+      
+      // Reset transform
+      nav.style.transform = '';
+      
+      // If swiped left far enough and it was mostly horizontal, close
+      if (deltaX < -80 && deltaY < 100) {
+        this.closeNavigation();
+      }
+      
+      isDragging = false;
+    }, { passive: true });
+    
+    // Handle window resize to show/hide close button appropriately
+    window.addEventListener('resize', () => {
+      const closeBtn = document.getElementById('contextual-nav-close');
+      if (closeBtn) {
+        if (window.innerWidth <= 768 && this.isOpen) {
+          closeBtn.style.display = 'flex';
+        } else {
+          closeBtn.style.display = 'none';
+        }
+      }
+    });
   }
   
   toggleSection(section) {
@@ -1032,6 +1187,21 @@ class ContextualNavigation {
       notification.style.transform = 'translateY(-10px)';
       setTimeout(() => notification.remove(), 300);
     }, 3000);
+  }
+  
+  handleSwipeGesture() {
+    const threshold = 50; // Swipe threshold in pixels
+    const diffX = touchEndX - touchStartX;
+    
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0) {
+        // Swipe right - open navigation
+        this.openNavigation();
+      } else {
+        // Swipe left - close navigation
+        this.closeNavigation();
+      }
+    }
   }
 }
 
