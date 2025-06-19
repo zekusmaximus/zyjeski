@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextual Navigation Test</title>
+    <style>
+        body {
+            margin: 0;
+            background: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-button {
+            background: #00ff9f;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .test-results {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contextual Navigation Test</h1>
+    
+    <div class="test-results">
+        <h2>Testing Recent Pages Functionality</h2>
+        <button class="test-button" onclick="simulatePageVisits()">Simulate Page Visits</button>
+        <button class="test-button" onclick="clearHistory()">Clear History</button>
+        <button class="test-button" onclick="testRecentPages()">Test Recent Pages</button>
+        
+        <div id="test-output"></div>
+    </div>
+
+    <!-- Include the contextual navigation -->
+    <div id="contextual-navigation" class="contextual-navigation">
+      <div class="nav-section" id="related-content">
+        <div class="nav-section-header">
+          <h4>Continue Your Journey</h4>
+          <button class="nav-section-toggle">−</button>
+        </div>
+        <div class="nav-section-content">
+          <div class="related-items">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button id="contextual-nav-toggle" class="contextual-nav-toggle">🧭</button>
+
+    <script>
+        // Mock Reader Journey for testing
+        window.readerJourney = {
+            readingHistory: {
+                pages: {}
+            }
+        };
+
+        function simulatePageVisits() {
+            const mockPages = [
+                { path: '/stories/digital-awakening/', type: 'story', time: Date.now() - 3600000 },
+                { path: '/books/consciousness-code/', type: 'book', time: Date.now() - 1800000 },
+                { path: '/audio/meditation-one/', type: 'audio', time: Date.now() - 900000 },
+                { path: '/posts/future-thoughts/', type: 'post', time: Date.now() - 300000 }
+            ];
+
+            mockPages.forEach(page => {
+                window.readerJourney.readingHistory.pages[page.path] = {
+                    visits: Math.floor(Math.random() * 3) + 1,
+                    totalTime: Math.floor(Math.random() * 300000) + 30000,
+                    contentType: page.type,
+                    firstVisit: page.time - 86400000,
+                    lastVisit: page.time,
+                    completed: Math.random() > 0.5
+                };
+            });
+
+            document.getElementById('test-output').innerHTML = '<p>✅ Simulated page visits created!</p>';
+        }
+
+        function clearHistory() {
+            window.readerJourney.readingHistory.pages = {};
+            document.getElementById('test-output').innerHTML = '<p>🗑️ History cleared!</p>';
+        }
+
+        function testRecentPages() {
+            const nav = new ContextualNavigation();
+            const recentPages = nav.getRecentPages();
+            
+            document.getElementById('test-output').innerHTML = `
+                <h3>Recent Pages Test Results:</h3>
+                <p>Found ${recentPages.length} recent pages:</p>
+                <ul>
+                    ${recentPages.map(page => `
+                        <li>
+                            <strong>${page.title}</strong> (${page.type})<br>
+                            <small>URL: ${page.url} | ${page.meta}</small>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+    </script>
+
+    <!-- Include the contextual navigation JavaScript -->
+    <script>
+        // Copy the ContextualNavigation class from the partial file
+        class ContextualNavigation {
+            constructor() {
+                this.isOpen = false;
+                this.sections = new Map();
+                this.contentData = null;
+            }
+
+            getRecentPages() {
+                if (!window.readerJourney || !window.readerJourney.readingHistory) {
+                    return [];
+                }
+                
+                const pages = window.readerJourney.readingHistory.pages;
+                const currentPath = window.location.pathname;
+                
+                // Get pages excluding current page, sorted by last visit
+                const recentPages = Object.entries(pages)
+                    .filter(([path, data]) => path !== currentPath && path !== '/')
+                    .sort((a, b) => b[1].lastVisit - a[1].lastVisit)
+                    .slice(0, 3) // Last 3 pages
+                    .map(([path, data]) => {
+                        const title = this.getPageTitle(path, data.contentType);
+                        const icon = this.getContentTypeIcon(data.contentType);
+                        const meta = this.getPageMeta(data);
+                        
+                        return {
+                            url: path,
+                            title: title,
+                            icon: icon,
+                            meta: meta,
+                            type: data.contentType
+                        };
+                    });
+                
+                return recentPages;
+            }
+            
+            getPageTitle(path, contentType) {
+                // Extract a readable title from the path
+                const segments = path.split('/').filter(s => s);
+                if (segments.length === 0) return 'Home';
+                
+                const lastSegment = segments[segments.length - 1];
+                
+                // Convert path to readable title
+                let title = lastSegment
+                    .replace(/[-_]/g, ' ')
+                    .replace(/\b\w/g, l => l.toUpperCase());
+                
+                // If it's empty or too short, use the content type
+                if (!title || title.length < 3) {
+                    const typeNames = {
+                        story: 'Story',
+                        book: 'Book',
+                        audio: 'Audio Experience',
+                        post: 'Post',
+                        inquiry: 'Inquiry',
+                        other: 'Page'
+                    };
+                    title = typeNames[contentType] || 'Page';
+                }
+                
+                return title;
+            }
+            
+            getContentTypeIcon(contentType) {
+                const icons = {
+                    story: '📚',
+                    book: '📖',
+                    audio: '🎧',
+                    post: '💭',
+                    inquiry: '🔍',
+                    homepage: '🏠',
+                    other: '📄'
+                };
+                return icons[contentType] || '📄';
+            }
+            
+            getPageMeta(pageData) {
+                const visitText = pageData.visits === 1 ? '1 visit' : `${pageData.visits} visits`;
+                const timeText = this.formatReadTime(pageData.totalTime);
+                return `${visitText} • ${timeText}`;
+            }
+            
+            formatReadTime(milliseconds) {
+                const seconds = Math.floor(milliseconds / 1000);
+                const minutes = Math.floor(seconds / 60);
+                
+                if (minutes > 0) {
+                    return `${minutes} min read`;
+                } else if (seconds > 30) {
+                    return `${seconds}s read`;
+                } else {
+                    return 'Quick visit';
+                }
+            }
+
+            populateRelatedContent() {
+                const container = document.querySelector('.related-items');
+                if (!container) return;
+                
+                // Get recent pages from reading history
+                const recentPages = this.getRecentPages();
+                
+                if (recentPages.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-recent-pages">
+                            <p>Start exploring to see your recent pages here!</p>
+                            <div class="explore-suggestions">
+                                <a href="/stories/" class="explore-link">📚 Stories</a>
+                                <a href="/books/" class="explore-link">📖 Books</a>
+                                <a href="/audio/" class="explore-link">🎧 Audio</a>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = recentPages.map(page => `
+                    <a href="${page.url}" class="related-item">
+                        <div class="related-icon">${page.icon}</div>
+                        <div class="related-content">
+                            <div class="related-title">${page.title}</div>
+                            <div class="related-meta">${page.meta}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+        }
+    </script>
+</body>
+</html>
