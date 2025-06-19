@@ -585,6 +585,21 @@ class ReaderJourneyOptimizer {
     });
   }
 
+  /**
+   * Finds similar content based on overlapping tags.
+   * @param {Object} content - The content object to find similarities for.
+   * @returns {Array} - An array of similar content objects.
+   */
+  findSimilarContent(content) {
+    const allContent = this.getAllContent(); // Assume this method retrieves all content items.
+    const similarContent = allContent.filter(item => {
+      if (item.id === content.id) return false; // Exclude the same content.
+      const sharedTags = item.tags.filter(tag => content.tags.includes(tag));
+      return sharedTags.length > 0; // Include items with overlapping tags.
+    });
+    return similarContent;
+  }
+
   // PUBLIC API
   getReadingStats() {
     return {
