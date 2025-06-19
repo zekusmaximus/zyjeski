@@ -490,6 +490,201 @@
   100% { transform: scale(1) rotate(360deg); }
 }
 
+/* RECOMMENDATION SYSTEM STYLES */
+.reader-recommendations {
+  background: var(--reader-bg-secondary);
+  border: 1px solid var(--reader-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 32px 0;
+  box-shadow: var(--reader-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: var(--reader-transition);
+}
+
+.reader-recommendations:hover {
+  border-color: var(--reader-border-active);
+  box-shadow: var(--reader-shadow-glow);
+}
+
+.recommendations-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.recommendations-header h3 {
+  color: var(--reader-primary);
+  font-size: 1.4em;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.recommendations-header p {
+  color: var(--reader-text-secondary);
+  margin: 0;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.recommendation-item {
+  background: var(--reader-bg-tertiary);
+  border: 1px solid var(--reader-border);
+  border-radius: 8px;
+  padding: 18px;
+  transition: var(--reader-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.recommendation-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--reader-primary), var(--reader-secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+.recommendation-item:hover {
+  border-color: var(--reader-border-active);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.recommendation-item:hover::before {
+  transform: scaleX(1);
+}
+
+.recommendation-type {
+  background: linear-gradient(135deg, var(--reader-primary), var(--reader-secondary));
+  color: var(--reader-bg-primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.recommendation-title {
+  margin: 0 0 8px 0;
+  font-size: 1.1em;
+  line-height: 1.3;
+}
+
+.recommendation-title a {
+  color: var(--reader-text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--reader-transition-fast);
+}
+
+.recommendation-title a:hover {
+  color: var(--reader-primary);
+  text-shadow: 0 0 8px rgba(0, 255, 159, 0.3);
+}
+
+.recommendation-description {
+  color: var(--reader-text-secondary);
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+  opacity: 0.9;
+}
+
+.recommendation-reason {
+  color: var(--reader-accent);
+  font-style: italic;
+  font-size: 0.8em;
+  opacity: 0.8;
+  padding-top: 8px;
+  border-top: 1px solid var(--reader-border);
+}
+
+/* Mobile Optimization for Recommendations */
+@media (max-width: 768px) {
+  .reader-recommendations {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .recommendations-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .recommendation-item {
+    padding: 16px;
+  }
+  
+  .recommendations-header h3 {
+    font-size: 1.2em;
+  }
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+  .reader-recommendations {
+    background: rgba(10, 10, 20, 0.95);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  
+  .recommendation-item {
+    background: rgba(20, 20, 30, 0.9);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .reader-recommendations {
+    border-width: 2px;
+    background: rgba(0, 0, 0, 0.95);
+  }
+  
+  .recommendation-item {
+    border-width: 2px;
+  }
+  
+  .recommendation-title a {
+    color: #ffffff;
+  }
+  
+  .recommendation-type {
+    background: #ffffff;
+    color: #000000;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .recommendation-item,
+  .recommendation-item::before,
+  .recommendation-title a {
+    transition: none;
+  }
+  
+  .recommendation-item:hover {
+    transform: none;
+  }
+}
+
 /* Enhanced Mobile Experience */
 @media (max-width: 768px) {
   .reader-fab {

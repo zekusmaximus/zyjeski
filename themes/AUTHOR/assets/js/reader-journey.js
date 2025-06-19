@@ -318,24 +318,63 @@ class ReaderJourneyOptimizer {
     
     return { contentTypes };
   }
-
   getUnreadContent() {
-    // This would be populated from Hugo's content data
-    // For now, return mock data structure
+    // Get all content and filter out already read items
+    const allContent = this.getAllContent();
+    const readPaths = Object.keys(this.readingHistory.pages);
+    
+    return allContent.filter(content => !readPaths.includes(content.url));
+  }
+
+  getAllContent() {
+    // This method retrieves all content items for similarity matching
+    // In a real implementation, this would fetch from Hugo's content data
+    // For now, return mock data structure with tags for similarity matching
     return [
       {
+        id: "recursive-mirror",
         title: "The Recursive Mirror",
         url: "/stories/recursive-mirror/",
         type: "story",
-        publishDate: Date.now() - (5 * 24 * 60 * 60 * 1000), // 5 days ago
-        description: "A tale of digital consciousness"
+        publishDate: Date.now() - (5 * 24 * 60 * 60 * 1000),
+        description: "A tale of digital consciousness",
+        tags: ["consciousness", "digital", "philosophy", "fiction"]
       },
       {
+        id: "meditation-series",
         title: "Audio Meditation Series",
         url: "/audio/meditation-series/",
         type: "audio",
-        publishDate: Date.now() - (2 * 24 * 60 * 60 * 1000), // 2 days ago
-        description: "Guided journey through digital mindfulness"
+        publishDate: Date.now() - (2 * 24 * 60 * 60 * 1000),
+        description: "Guided journey through digital mindfulness",
+        tags: ["meditation", "mindfulness", "audio", "consciousness"]
+      },
+      {
+        id: "digital-enlightenment",
+        title: "Digital Enlightenment",
+        url: "/posts/digital-enlightenment/",
+        type: "post",
+        publishDate: Date.now() - (7 * 24 * 60 * 60 * 1000),
+        description: "Exploring the intersection of technology and consciousness",
+        tags: ["technology", "consciousness", "philosophy", "digital"]
+      },
+      {
+        id: "neural-networks",
+        title: "Neural Networks and the Mind",
+        url: "/books/neural-networks-mind/",
+        type: "book",
+        publishDate: Date.now() - (10 * 24 * 60 * 60 * 1000),
+        description: "A deep dive into artificial and biological neural networks",
+        tags: ["neural networks", "AI", "consciousness", "science"]
+      },
+      {
+        id: "inquiry-consciousness",
+        title: "What is Consciousness?",
+        url: "/inquiries/what-is-consciousness/",
+        type: "inquiry",
+        publishDate: Date.now() - (3 * 24 * 60 * 60 * 1000),
+        description: "An exploration of the nature of consciousness",
+        tags: ["consciousness", "philosophy", "inquiry", "mind"]
       }
     ];
   }
@@ -345,12 +384,81 @@ class ReaderJourneyOptimizer {
       .sort((a, b) => preferences.contentTypes[b] - preferences.contentTypes[a])[0];
     
     if (content.type === topType) {
-      return `Based on your interest in ${topType} content`;
+      return `Based on your interest in ${content.type} content`;
     }
     
     return "Recommended for exploration";
   }
 
+  displayRecommendations(recommendations) {
+    // Only show recommendations if we have any and if appropriate container exists
+    if (!recommendations || recommendations.length === 0) return;
+    
+    // Look for existing recommendations container or create one
+    let container = document.querySelector('.reader-recommendations');
+    if (!container) {
+      // Create recommendations container if it doesn't exist
+      container = document.createElement('div');
+      container.className = 'reader-recommendations';
+      
+      // Try to insert after main content or before footer
+      const mainContent = document.querySelector('main, .content, article');
+      const footer = document.querySelector('footer');
+      
+      if (mainContent && mainContent.nextSibling) {
+        mainContent.parentNode.insertBefore(container, mainContent.nextSibling);
+      } else if (footer) {
+        footer.parentNode.insertBefore(container, footer);
+      } else {
+        document.body.appendChild(container);
+      }
+    }
+    
+    // Generate recommendations HTML
+    const recommendationsHTML = `
+      <div class="recommendations-header">
+        <h3>Recommended for You</h3>
+        <p>Based on your reading journey</p>
+      </div>
+      <div class="recommendations-grid">
+        ${recommendations.map(item => `
+          <div class="recommendation-item" data-type="${item.type}">
+            <div class="recommendation-type">${item.type}</div>
+            <h4 class="recommendation-title">
+              <a href="${item.url}">${item.title}</a>
+            </h4>
+            <p class="recommendation-description">${item.description}</p>
+            <div class="recommendation-reason">${item.reason}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    
+    container.innerHTML = recommendationsHTML;
+    
+    // Add click tracking for recommendations
+    container.querySelectorAll('.recommendation-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        this.trackRecommendationClick(link.href);
+      });
+    });
+  }
+
+  trackRecommendationClick(url) {
+    // Track that user clicked on a recommendation
+    const clicks = JSON.parse(localStorage.getItem('zyj_recommendation_clicks') || '[]');
+    clicks.push({
+      url: url,
+      timestamp: Date.now()
+    });
+    
+    // Keep only last 50 clicks
+    if (clicks.length > 50) {
+      clicks.splice(0, clicks.length - 50);
+    }
+    
+    localStorage.setItem('zyj_recommendation_clicks', JSON.stringify(clicks));
+  }
   // ACHIEVEMENT SYSTEM
   checkAchievement(trigger) {
     const earned = JSON.parse(localStorage.getItem(this.storageKeys.achievements) || '[]');
@@ -584,18 +692,23 @@ class ReaderJourneyOptimizer {
       }
     });
   }
-
   /**
    * Finds similar content based on overlapping tags.
    * @param {Object} content - The content object to find similarities for.
    * @returns {Array} - An array of similar content objects.
    */
   findSimilarContent(content) {
-    const allContent = this.getAllContent(); // Assume this method retrieves all content items.
+    const allContent = this.getAllContent();
     const similarContent = allContent.filter(item => {
       if (item.id === content.id) return false; // Exclude the same content.
-      const sharedTags = item.tags.filter(tag => content.tags.includes(tag));
-      return sharedTags.length > 0; // Include items with overlapping tags.
+      
+      // Handle cases where tags might not exist
+      const itemTags = item.tags || [];
+      const contentTags = content.tags || [];
+      
+      // Find content with overlapping tags
+      const sharedTags = itemTags.filter(tag => contentTags.includes(tag));
+      return sharedTags.length > 0;
     });
     return similarContent;
   }
