@@ -207,12 +207,23 @@
 }
 
 .recommendation-item {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-color, #333);
+  /* Unify card sizing for all recommendations */
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 18px 16px;
+  border-radius: 8px;
+  background: var(--reader-bg-tertiary, #23233a);
+  border: 1px solid var(--reader-border, #222);
+  margin-bottom: 12px;
+  box-sizing: border-box;
 }
 
 .recommendation-item:last-child {
   border-bottom: none;
+  margin-bottom: 0;
 }
 
 .recommendation-link {
@@ -590,6 +601,12 @@
   .onboarding-modal {
     margin: 20px;
     width: auto;
+  }
+  
+  .recommendation-item {
+    min-height: 120px;
+    padding: 16px 12px;
+    font-size: 1em;
   }
 }
 </style>

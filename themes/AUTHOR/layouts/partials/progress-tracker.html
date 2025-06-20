@@ -619,12 +619,12 @@ class ProgressTracker {
       const typeData = window.readerJourney.readingHistory.contentTypes[type] || { count: 0 };
       const progress = Math.min((typeData.count / 5) * 100, 100); // 5 items = 100%
       
-      fill.style.width = progress + '%';
-      count.textContent = `${typeData.count}/∞`;
+      if (fill) fill.style.width = progress + '%';
+      if (count) count.textContent = `${typeData.count}/∞`;
     });
     
     setTimeout(() => {
-      progressContainer.classList.add('visible');
+      progressContainer?.classList.add('visible');
     }, 2000);
   }
   

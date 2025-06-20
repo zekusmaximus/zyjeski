@@ -533,6 +533,7 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
   margin-top: 20px;
+  align-items: stretch; /* Ensure all items stretch to same height */
 }
 
 .recommendation-item {
@@ -543,6 +544,10 @@
   transition: var(--reader-transition);
   position: relative;
   overflow: hidden;
+  min-height: 220px; /* Ensures all cards have the same minimum height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .recommendation-item::before {
