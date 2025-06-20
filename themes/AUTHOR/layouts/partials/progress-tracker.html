@@ -105,6 +105,52 @@
   </div>
 </div>
 
+<!-- Collapsible UI Toggle Buttons -->
+<div class="ui-component-toggles">
+  <!-- Progress Tracker Toggle -->
+  <button 
+    class="ui-component-toggle progress-toggle" 
+    id="progress-toggle"
+    data-tooltip="Toggle Progress Tracker"
+    aria-label="Toggle Progress Tracker">
+    <span class="toggle-icon">📊</span>
+  </button>
+  
+  <!-- Reading Stats Toggle -->
+  <button 
+    class="ui-component-toggle stats-toggle" 
+    id="stats-toggle"
+    data-tooltip="Toggle Reading Stats"
+    aria-label="Toggle Reading Stats">
+    <span class="toggle-icon">📈</span>
+  </button>
+</div>
+
+<!-- Enhanced Reader Stats Mini Widget -->
+<div class="reader-stats-mini show" id="reader-stats-mini">
+  <div class="reader-stats-header">
+    <h4 class="reader-stats-title">Reading Progress</h4>
+  </div>
+  <div class="reader-stats-grid">
+    <div class="reader-stat-item">
+      <div class="reader-stat-value" id="reader-progress-percent">40%</div>
+      <div class="reader-stat-label">Progress</div>
+    </div>
+    <div class="reader-stat-item">
+      <div class="reader-stat-value" id="reader-pages-count">8</div>
+      <div class="reader-stat-label">Pages</div>
+    </div>
+    <div class="reader-stat-item">
+      <div class="reader-stat-value" id="reader-time-spent">31m</div>
+      <div class="reader-stat-label">Reading</div>
+    </div>
+    <div class="reader-stat-item">
+      <div class="reader-stat-value" id="reader-achievements-count">12</div>
+      <div class="reader-stat-label">Achievements</div>
+    </div>
+  </div>
+</div>
+
 <style>
 /* Progress Tracker Styles */
 .progress-tracker {
@@ -427,6 +473,99 @@
   font-style: italic;
 }
 
+/* UI Component Toggles */
+.ui-component-toggles {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ui-component-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.ui-component-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.ui-component-toggle:active {
+  transform: scale(0.98);
+}
+
+.toggle-icon {
+  font-size: 1.2rem;
+  color: var(--progress-color);
+}
+
+/* Reader Stats Mini Widget */
+.reader-stats-mini {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  max-width: 300px;
+  z-index: 1003;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.reader-stats-mini.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reader-stats-header {
+  margin-bottom: 12px;
+}
+
+.reader-stats-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--progress-text);
+  margin: 0;
+}
+
+.reader-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.reader-stat-item {
+  text-align: center;
+}
+
+.reader-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--progress-color);
+  margin-bottom: 4px;
+}
+
+.reader-stat-label {
+  font-size: 0.75rem;
+  color: var(--progress-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .reading-estimate {
@@ -461,6 +600,17 @@
   
   .scroll-progress-bar {
     height: 2px;
+  }
+  
+  .ui-component-toggles {
+    top: 70px;
+    right: 10px;
+  }
+  
+  .reader-stats-mini {
+    top: 70px;
+    right: 10px;
+    max-width: none;
   }
 }
 
@@ -511,6 +661,9 @@ class ProgressTracker {
     
     // Show appropriate widgets based on page type
     this.showRelevantWidgets();
+    
+    // Initialize collapsible components after setup
+    this.initializeCollapsibleComponents();
   }
   
   calculateWordCount() {
@@ -766,10 +919,120 @@ class ProgressTracker {
       }
     };
   }
+  
+  // Collapsible Component Management
+  initializeCollapsibleComponents() {
+    const progressToggle = document.getElementById('progress-toggle');
+    const statsToggle = document.getElementById('stats-toggle');
+    const progressTracker = document.querySelector('.content-type-progress');
+    const statsWidget = document.getElementById('reader-stats-mini');
+    
+    // Load saved states from localStorage
+    const savedStates = JSON.parse(localStorage.getItem('zyj_ui_component_states') || '{}');
+    
+    // Apply saved states
+    if (savedStates.progressCollapsed) {
+      progressTracker?.classList.add('collapsed');
+      progressToggle?.classList.add('collapsed');
+    }
+    
+    if (savedStates.statsCollapsed) {
+      statsWidget?.classList.add('collapsed');
+      statsToggle?.classList.add('collapsed');
+    }
+    
+    // Progress tracker toggle
+    progressToggle?.addEventListener('click', () => {
+      const isCollapsed = progressTracker?.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        progressTracker?.classList.remove('collapsed');
+        progressToggle?.classList.remove('collapsed');
+      } else {
+        progressTracker?.classList.add('collapsed');
+        progressToggle?.classList.add('collapsed');
+      }
+      
+      // Save state
+      this.saveComponentState('progressCollapsed', !isCollapsed);
+      
+      // Update tooltip
+      const newTooltip = isCollapsed ? 'Hide Progress Tracker' : 'Show Progress Tracker';
+      progressToggle?.setAttribute('data-tooltip', newTooltip);
+    });
+    
+    // Stats widget toggle
+    statsToggle?.addEventListener('click', () => {
+      const isCollapsed = statsWidget?.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        statsWidget?.classList.remove('collapsed');
+        statsToggle?.classList.remove('collapsed');
+      } else {
+        statsWidget?.classList.add('collapsed');
+        statsToggle?.classList.add('collapsed');
+      }
+      
+      // Save state
+      this.saveComponentState('statsCollapsed', !isCollapsed);
+      
+      // Update tooltip
+      const newTooltip = isCollapsed ? 'Hide Reading Stats' : 'Show Reading Stats';
+      statsToggle?.setAttribute('data-tooltip', newTooltip);
+    });
+    
+    // Update stats periodically
+    this.updateStatsDisplay();
+    setInterval(this.updateStatsDisplay, 5000);
+  }
+  
+  saveComponentState(key, value) {
+    const savedStates = JSON.parse(localStorage.getItem('zyj_ui_component_states') || '{}');
+    savedStates[key] = value;
+    localStorage.setItem('zyj_ui_component_states', JSON.stringify(savedStates));
+  }
+  
+  updateStatsDisplay() {
+    if (!window.readerJourney) return;
+    
+    const stats = window.readerJourney.getReadingStats();
+    
+    // Update progress percentage
+    const progressElement = document.getElementById('reader-progress-percent');
+    if (progressElement) {
+      const maxPages = 20; // Assume 20 pages for "completion"
+      const progressPercent = Math.min((stats.pagesRead / maxPages) * 100, 100);
+      progressElement.textContent = Math.round(progressPercent) + '%';
+    }
+    
+    // Update pages count
+    const pagesElement = document.getElementById('reader-pages-count');
+    if (pagesElement) {
+      pagesElement.textContent = stats.pagesRead || 0;
+    }
+    
+    // Update reading time
+    const timeElement = document.getElementById('reader-time-spent');
+    if (timeElement) {
+      const totalMinutes = Math.round((stats.totalTime || 0) / 60000);
+      timeElement.textContent = totalMinutes + 'm';
+    }
+    
+    // Update achievements count
+    const achievementsElement = document.getElementById('reader-achievements-count');
+    if (achievementsElement) {
+      achievementsElement.textContent = stats.achievements || 0;
+    }
+  }
 }
 
 // Initialize progress tracker when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   window.progressTracker = new ProgressTracker();
+  
+  // Initialize collapsible components with slight delay to ensure everything is loaded
+  setTimeout(() => {
+    initializeCollapsibleComponents();
+  }, 500);
 });
 </script>
