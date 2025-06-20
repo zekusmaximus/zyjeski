@@ -38,7 +38,6 @@ class ReaderJourneyOptimizer {
     
     this.init();
   }
-
   init() {
     this.trackPageView();
     this.setupScrollTracking();
@@ -48,6 +47,7 @@ class ReaderJourneyOptimizer {
     this.checkForNewReader();
     this.updateAchievements();
     this.bindEvents();
+    this.startRecommendationStyleCleanup();
     
     console.log('Reader Journey Optimizer initialized');
   }
@@ -433,8 +433,15 @@ class ReaderJourneyOptimizer {
         `).join('')}
       </div>
     `;
+      container.innerHTML = recommendationsHTML;
     
-    container.innerHTML = recommendationsHTML;
+    // Clean up any problematic inline styles that might have been added elsewhere
+    container.querySelectorAll('.recommendation-item').forEach(item => {
+      // Remove any inline width styles that might interfere with grid layout
+      item.style.removeProperty('width');
+      item.style.removeProperty('min-width');
+      item.style.removeProperty('max-width');
+    });
     
     // Add click tracking for recommendations
     container.querySelectorAll('.recommendation-item a').forEach(link => {
@@ -739,7 +746,34 @@ class ReaderJourneyOptimizer {
       preferences: this.preferences,
       achievements: JSON.parse(localStorage.getItem(this.storageKeys.achievements) || '[]'),
       mandalaInteractions: JSON.parse(localStorage.getItem(this.storageKeys.mandalaInteractions) || '[]')
-    };
+    };  }
+
+  // Cleanup function to remove problematic inline styles from recommendations
+  startRecommendationStyleCleanup() {
+    // Run cleanup immediately
+    this.cleanRecommendationStyles();
+    
+    // Set up periodic cleanup to handle any dynamically added problematic styles
+    setInterval(() => {
+      this.cleanRecommendationStyles();
+    }, 2000); // Check every 2 seconds
+  }
+
+  cleanRecommendationStyles() {
+    const recommendationItems = document.querySelectorAll('.recommendation-item');
+    recommendationItems.forEach(item => {
+      // Remove any problematic inline width styles
+      if (item.style.width === '0%' || item.style.width === '0px' || 
+          item.style.width === '40%' || item.style.width === '100%') {
+        item.style.removeProperty('width');
+      }
+      
+      // Ensure proper flex behavior
+      if (!item.style.flex && !item.classList.contains('clean-styled')) {
+        item.style.flex = '1';
+        item.classList.add('clean-styled');
+      }
+    });
   }
 
   // Clear all data

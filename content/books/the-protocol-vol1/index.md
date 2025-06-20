@@ -5,7 +5,7 @@ draft = false
 cover_image = 'cover-placeholder.jpg'
 series = 'The Protocol Series'
 pages = 312
-publication_date = 'coming 2025'
+publication_date = 'unpublished'
 show_3d_transition = true
 tags = ['cyberpunk', 'digital enlightenment', 'consciousness']
 description = 'First volume in The Protocol Series exploring digital enlightenment.'
@@ -16,7 +16,7 @@ url = 'https://www.karmicprotocol.com/'
 
 [[purchase_links]]
 store = 'Agent Inquiries'
-url = '/inquiries/'
+url = 'https://agent.zyjeski.com/'
 
 +++
 

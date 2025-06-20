@@ -536,6 +536,12 @@
   align-items: stretch; /* Ensure all items stretch to same height */
 }
 
+/* Ensure grid items maintain proper sizing regardless of inline styles */
+.recommendations-grid > * {
+  width: auto !important;
+  grid-column: auto !important;
+}
+
 .recommendation-item {
   background: var(--reader-bg-tertiary);
   border: 1px solid var(--reader-border);
@@ -548,6 +554,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* Override any problematic inline width styles */
+  width: auto !important;
+  min-width: 280px;
+  flex: 1;
 }
 
 .recommendation-item::before {
@@ -633,9 +643,12 @@
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
-  .recommendation-item {
+    .recommendation-item {
     padding: 16px;
+    /* Ensure proper width on mobile too */
+    width: auto !important;
+    min-width: unset;
+    flex: none;
   }
   
   .recommendations-header h3 {
