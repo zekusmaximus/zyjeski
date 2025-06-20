@@ -29,37 +29,6 @@
   </div>
 </div>
 
-{{/* Reader Progress Indicator */}}
-<div id="reader-progress" class="reader-progress">
-  <div class="progress-circle">
-    <svg width="60" height="60" viewBox="0 0 60 60">
-      <circle cx="30" cy="30" r="25" fill="none" stroke="#333" stroke-width="2" opacity="0.3"/>
-      <circle cx="30" cy="30" r="25" fill="none" stroke="#00ff9f" stroke-width="2" 
-              stroke-dasharray="157" stroke-dashoffset="157" 
-              transform="rotate(-90 30 30)" class="progress-bar"/>
-    </svg>
-    <div class="progress-text">
-      <span class="progress-percentage">0%</span>
-    </div>
-  </div>
-  <div class="progress-details">
-    <div class="progress-stats">
-      <span class="stat-item">
-        <span class="stat-value" id="pages-read">0</span>
-        <span class="stat-label">Pages</span>
-      </span>
-      <span class="stat-item">
-        <span class="stat-value" id="time-spent">0m</span>
-        <span class="stat-label">Reading</span>
-      </span>
-      <span class="stat-item">
-        <span class="stat-value" id="achievements-count">0</span>
-        <span class="stat-label">Achievements</span>
-      </span>
-    </div>
-  </div>
-</div>
-
 {{/* Achievement Notifications Template */}}
 <template id="achievement-template">
   <div class="achievement-notification">
@@ -272,74 +241,7 @@
 
 .recommendations-privacy {
   display: block;
-  color: var(--text-secondary, #888);
-  font-size: 0.7rem;
-}
-
-/* Reader Progress Indicator */
-.reader-progress {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--bg-secondary, #1a1a2e);
-  border: 1px solid var(--border-color, #333);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-}
-
-.reader-progress.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.progress-circle {
-  position: relative;
-  margin-bottom: 12px;
-}
-
-.progress-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.progress-percentage {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-primary, #ffffff);
-}
-
-.progress-stats {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent-color, #00ff9f);
-}
-
-.stat-label {
-  font-size: 0.7rem;
-  color: var(--text-secondary, #888);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--text-secondary, #888);  font-size: 0.7rem;
 }
 
 /* Achievement Notifications */
@@ -580,8 +482,7 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .content-recommendations,
-  .reader-progress {
+  .content-recommendations {
     position: relative;
     right: auto;
     bottom: auto;
@@ -616,7 +517,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   if (window.readerJourney) {
     initializeRecommendationUI();
-    initializeProgressIndicator();
     initializeContextualNavigation();
   }
 });
@@ -674,45 +574,7 @@ function populateRecommendations(recommendations) {
         <div class="recommendation-title">${rec.title}</div>
         <div class="recommendation-reason">${rec.reason}</div>
       </a>
-    </div>
-  `).join('');
-}
-
-function initializeProgressIndicator() {
-  const progressPanel = document.getElementById('reader-progress');
-  if (!progressPanel) return;
-  
-  // Show progress after user has been on site for a bit
-  setTimeout(() => {
-    updateProgressIndicator();
-    progressPanel.classList.add('show');
-  }, 5000);
-  
-  // Update progress periodically
-  setInterval(updateProgressIndicator, 10000);
-}
-
-function updateProgressIndicator() {
-  if (!window.readerJourney) return;
-  
-  const stats = window.readerJourney.getReadingStats();
-  const progressBar = document.querySelector('.progress-bar');
-  const progressText = document.querySelector('.progress-percentage');
-  
-  // Calculate reading progress (based on pages read)
-  const maxPages = 20; // Assume 20 pages for "completion"
-  const progressPercent = Math.min((stats.pagesRead / maxPages) * 100, 100);
-  
-  // Update circular progress
-  const circumference = 157; // 2 * π * 25
-  const offset = circumference - (progressPercent / 100) * circumference;
-  progressBar.style.strokeDashoffset = offset;
-  progressText.textContent = Math.round(progressPercent) + '%';
-  
-  // Update stats
-  document.getElementById('pages-read').textContent = stats.pagesRead;
-  document.getElementById('time-spent').textContent = Math.round(stats.totalTime / 60000) + 'm';
-  document.getElementById('achievements-count').textContent = stats.achievements;
+    </div>  `).join('');
 }
 
 function initializeContextualNavigation() {
