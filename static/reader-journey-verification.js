@@ -54,12 +54,10 @@
     } else {
         console.log('❌ Data structure is invalid');
     }
-    
-    // Test 5: Check UI elements
+      // Test 5: Check UI elements
     console.log('\n5. Testing UI elements...');
     const uiElements = [
         { name: 'Onboarding System', selector: '#onboarding-system' },
-        { name: 'Recommendations Widget', selector: '#recommendations-widget' },
         { name: 'Progress Tracker', selector: '#progress-tracker' },
         { name: 'Achievement System', selector: '#achievement-system' },
         { name: 'Contextual Navigation', selector: '#contextual-nav' }
@@ -124,8 +122,7 @@
     } else {
         console.log('❌ Reader journey CSS may not be loaded');
     }
-    
-    // Test 8: Test core functionality
+      // Test 8: Test core functionality
     console.log('\n8. Testing core functionality...');
     try {
         // Test tracking
@@ -134,14 +131,6 @@
             timestamp: Date.now()
         });
         console.log('✅ Interaction tracking works');
-        
-        // Test recommendations
-        const recommendations = window.readerJourney.getRecommendations();
-        if (Array.isArray(recommendations)) {
-            console.log(`✅ Recommendations working (${recommendations.length} items)`);
-        } else {
-            console.log('❌ Recommendations not working');
-        }
         
         // Test achievements
         window.readerJourney.checkAchievements();
@@ -167,14 +156,12 @@
             console.log('⚠️  Page load time could be improved');
         }
     }
-    
-    // Final summary
+      // Final summary
     console.log('\n🎉 Reader Journey System Verification Complete!');
     console.log('\nTo test specific features:');
     console.log('- window.readerJourney.showOnboarding() - Show onboarding');
     console.log('- window.readerJourney.clearData() - Clear all data');
     console.log('- window.readerJourney.exportData() - Export user data');
-    console.log('- window.readerJourney.getRecommendations() - Get recommendations');
     console.log('- window.readerJourney.data - View current data');
     
     // Return the reader journey instance for further testing

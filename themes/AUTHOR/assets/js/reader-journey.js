@@ -37,17 +37,14 @@ class ReaderJourneyOptimizer {
     this.currentSession = this.initializeSession();
     
     this.init();
-  }
-  init() {
+  }  init() {
     this.trackPageView();
     this.setupScrollTracking();
     this.setupTimeTracking();
     this.setupMandalaTracking();
-    this.initializeRecommendations();
     this.checkForNewReader();
     this.updateAchievements();
     this.bindEvents();
-    this.startRecommendationStyleCleanup();
     
     console.log('Reader Journey Optimizer initialized');
   }
@@ -253,219 +250,9 @@ class ReaderJourneyOptimizer {
       index: index,
       timestamp: Date.now()
     };
-    
-    this.currentSession.interactions.push(hover);
+      this.currentSession.interactions.push(hover);
   }
 
-  // RECOMMENDATION SYSTEM
-  initializeRecommendations() {
-    if (this.shouldShowRecommendations()) {
-      this.generateRecommendations();
-    }
-  }
-
-  shouldShowRecommendations() {
-    return this.readingHistory.visitCount > 1 || 
-           Object.keys(this.readingHistory.pages).length > 2;
-  }
-
-  generateRecommendations() {
-    const recommendations = this.calculateRecommendations();
-    this.displayRecommendations(recommendations);
-  }
-
-  calculateRecommendations() {
-    const preferences = this.analyzeReadingPreferences();
-    const unreadContent = this.getUnreadContent();
-    const recommendations = [];
-    
-    // Score content based on preferences
-    unreadContent.forEach(content => {
-      let score = 0;
-      
-      // Content type preference
-      const typePreference = preferences.contentTypes[content.type] || 0;
-      score += typePreference * 10;
-      
-      // Similar content bonus
-      const similarContent = this.findSimilarContent(content);
-      score += similarContent.length * 2;
-      
-      // Recency bonus (newer content gets slight boost)
-      const ageInDays = (Date.now() - content.publishDate) / (1000 * 60 * 60 * 24);
-      score += Math.max(0, 30 - ageInDays) * 0.1;
-      
-      recommendations.push({
-        ...content,
-        score: score,
-        reason: this.generateRecommendationReason(content, preferences)
-      });
-    });
-    
-    return recommendations
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 5);
-  }
-
-  analyzeReadingPreferences() {
-    const contentTypes = {};
-    const totalReads = Object.keys(this.readingHistory.pages).length;
-    
-    Object.entries(this.readingHistory.contentTypes).forEach(([type, data]) => {
-      const preference = (data.count / totalReads) * (data.totalTime / 60000); // Time in minutes
-      contentTypes[type] = preference;
-    });
-    
-    return { contentTypes };
-  }
-  getUnreadContent() {
-    // Get all content and filter out already read items
-    const allContent = this.getAllContent();
-    const readPaths = Object.keys(this.readingHistory.pages);
-    
-    return allContent.filter(content => !readPaths.includes(content.url));
-  }
-
-  getAllContent() {
-    // This method retrieves all content items for similarity matching
-    // In a real implementation, this would fetch from Hugo's content data
-    // For now, return mock data structure with tags for similarity matching
-    return [
-      {
-        id: "recursive-mirror",
-        title: "The Recursive Mirror",
-        url: "/stories/recursive-mirror/",
-        type: "story",
-        publishDate: Date.now() - (5 * 24 * 60 * 60 * 1000),
-        description: "A tale of digital consciousness",
-        tags: ["consciousness", "digital", "philosophy", "fiction"]
-      },
-      {
-        id: "meditation-series",
-        title: "Audio Meditation Series",
-        url: "/audio/meditation-series/",
-        type: "audio",
-        publishDate: Date.now() - (2 * 24 * 60 * 60 * 1000),
-        description: "Guided journey through digital mindfulness",
-        tags: ["meditation", "mindfulness", "audio", "consciousness"]
-      },
-      {
-        id: "digital-enlightenment",
-        title: "Digital Enlightenment",
-        url: "/posts/digital-enlightenment/",
-        type: "post",
-        publishDate: Date.now() - (7 * 24 * 60 * 60 * 1000),
-        description: "Exploring the intersection of technology and consciousness",
-        tags: ["technology", "consciousness", "philosophy", "digital"]
-      },
-      {
-        id: "neural-networks",
-        title: "Neural Networks and the Mind",
-        url: "/books/neural-networks-mind/",
-        type: "book",
-        publishDate: Date.now() - (10 * 24 * 60 * 60 * 1000),
-        description: "A deep dive into artificial and biological neural networks",
-        tags: ["neural networks", "AI", "consciousness", "science"]
-      },
-      {
-        id: "inquiry-consciousness",
-        title: "What is Consciousness?",
-        url: "/inquiries/what-is-consciousness/",
-        type: "inquiry",
-        publishDate: Date.now() - (3 * 24 * 60 * 60 * 1000),
-        description: "An exploration of the nature of consciousness",
-        tags: ["consciousness", "philosophy", "inquiry", "mind"]
-      }
-    ];
-  }
-
-  generateRecommendationReason(content, preferences) {
-    const topType = Object.keys(preferences.contentTypes)
-      .sort((a, b) => preferences.contentTypes[b] - preferences.contentTypes[a])[0];
-    
-    if (content.type === topType) {
-      return `Based on your interest in ${content.type} content`;
-    }
-    
-    return "Recommended for exploration";
-  }
-
-  displayRecommendations(recommendations) {
-    // Only show recommendations if we have any and if appropriate container exists
-    if (!recommendations || recommendations.length === 0) return;
-    
-    // Look for existing recommendations container or create one
-    let container = document.querySelector('.reader-recommendations');
-    if (!container) {
-      // Create recommendations container if it doesn't exist
-      container = document.createElement('div');
-      container.className = 'reader-recommendations';
-      
-      // Try to insert after main content or before footer
-      const mainContent = document.querySelector('main, .content, article');
-      const footer = document.querySelector('footer');
-      
-      if (mainContent && mainContent.nextSibling) {
-        mainContent.parentNode.insertBefore(container, mainContent.nextSibling);
-      } else if (footer) {
-        footer.parentNode.insertBefore(container, footer);
-      } else {
-        document.body.appendChild(container);
-      }
-    }
-    
-    // Generate recommendations HTML
-    const recommendationsHTML = `
-      <div class="recommendations-header">
-        <h3>Recommended for You</h3>
-        <p>Based on your reading journey</p>
-      </div>
-      <div class="recommendations-grid">
-        ${recommendations.map(item => `
-          <div class="recommendation-item" data-type="${item.type}">
-            <div class="recommendation-type">${item.type}</div>
-            <h4 class="recommendation-title">
-              <a href="${item.url}">${item.title}</a>
-            </h4>
-            <p class="recommendation-description">${item.description}</p>
-            <div class="recommendation-reason">${item.reason}</div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-      container.innerHTML = recommendationsHTML;
-    
-    // Clean up any problematic inline styles that might have been added elsewhere
-    container.querySelectorAll('.recommendation-item').forEach(item => {
-      // Remove any inline width styles that might interfere with grid layout
-      item.style.removeProperty('width');
-      item.style.removeProperty('min-width');
-      item.style.removeProperty('max-width');
-    });
-    
-    // Add click tracking for recommendations
-    container.querySelectorAll('.recommendation-item a').forEach(link => {
-      link.addEventListener('click', () => {
-        this.trackRecommendationClick(link.href);
-      });
-    });
-  }
-
-  trackRecommendationClick(url) {
-    // Track that user clicked on a recommendation
-    const clicks = JSON.parse(localStorage.getItem('zyj_recommendation_clicks') || '[]');
-    clicks.push({
-      url: url,
-      timestamp: Date.now()
-    });
-    
-    // Keep only last 50 clicks
-    if (clicks.length > 50) {
-      clicks.splice(0, clicks.length - 50);
-    }
-    
-    localStorage.setItem('zyj_recommendation_clicks', JSON.stringify(clicks));
-  }
   // ACHIEVEMENT SYSTEM
   checkAchievement(trigger) {
     const earned = JSON.parse(localStorage.getItem(this.storageKeys.achievements) || '[]');
@@ -729,14 +516,9 @@ class ReaderJourneyOptimizer {
       achievements: JSON.parse(localStorage.getItem(this.storageKeys.achievements) || '[]').length
     };
   }
-
   getFavoriteContentType() {
     const types = this.readingHistory.contentTypes;
     return Object.keys(types).reduce((a, b) => types[a]?.count > types[b]?.count ? a : b, 'story');
-  }
-
-  getRecommendations() {
-    return this.calculateRecommendations();
   }
 
   // Export data for privacy/transparency
@@ -747,34 +529,6 @@ class ReaderJourneyOptimizer {
       achievements: JSON.parse(localStorage.getItem(this.storageKeys.achievements) || '[]'),
       mandalaInteractions: JSON.parse(localStorage.getItem(this.storageKeys.mandalaInteractions) || '[]')
     };  }
-
-  // Cleanup function to remove problematic inline styles from recommendations
-  startRecommendationStyleCleanup() {
-    // Run cleanup immediately
-    this.cleanRecommendationStyles();
-    
-    // Set up periodic cleanup to handle any dynamically added problematic styles
-    setInterval(() => {
-      this.cleanRecommendationStyles();
-    }, 2000); // Check every 2 seconds
-  }
-
-  cleanRecommendationStyles() {
-    const recommendationItems = document.querySelectorAll('.recommendation-item');
-    recommendationItems.forEach(item => {
-      // Remove any problematic inline width styles
-      if (item.style.width === '0%' || item.style.width === '0px' || 
-          item.style.width === '40%' || item.style.width === '100%') {
-        item.style.removeProperty('width');
-      }
-      
-      // Ensure proper flex behavior
-      if (!item.style.flex && !item.classList.contains('clean-styled')) {
-        item.style.flex = '1';
-        item.classList.add('clean-styled');
-      }
-    });
-  }
 
   // Clear all data
   clearData() {
