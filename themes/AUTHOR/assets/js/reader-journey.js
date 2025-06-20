@@ -220,15 +220,30 @@ class ReaderJourneyOptimizer {
       });
     });
   }
-
-  recordMandalaInteraction(element, index) {
-    const interaction = {
-      type: 'click',
-      element: element.className,
-      index: index,
-      timestamp: Date.now(),
-      target: element.href || element.dataset.target
-    };
+  recordMandalaInteraction(elementOrData, index) {
+    let interaction;
+    
+    // Handle both legacy format (element, index) and new format (data object)
+    if (typeof elementOrData === 'object' && elementOrData.type) {
+      // New format: called with data object
+      interaction = {
+        ...elementOrData,
+        timestamp: elementOrData.timestamp || Date.now()
+      };
+    } else if (elementOrData && typeof elementOrData === 'object') {
+      // Legacy format: called with element and index
+      interaction = {
+        type: 'click',
+        element: elementOrData.className || '',
+        index: index || 0,
+        timestamp: Date.now(),
+        target: elementOrData.href || elementOrData.dataset?.target || ''
+      };
+    } else {
+      // Invalid call, skip recording
+      console.warn('recordMandalaInteraction called with invalid parameters');
+      return;
+    }
     
     let mandalaHistory = JSON.parse(localStorage.getItem(this.storageKeys.mandalaInteractions) || '[]');
     mandalaHistory.push(interaction);
