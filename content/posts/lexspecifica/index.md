@@ -6,7 +6,7 @@ tags: ['law', 'digital linguistics', 'cyberpunk', 'future governance']
 description: Tool for generating speculative legal frameworks for fiction writers.
 ---
 
-![Lex Specifica](/LexSpecifica.png)
+![Lex Specifica](/images/LexSpecifica.png)
 
 ## Speculative Legal Framework Generator for Fiction Writers
 
