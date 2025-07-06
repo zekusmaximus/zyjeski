@@ -1,0 +1,1245 @@
+<!--
++++
+title = "Debugging Alexander Kane"
+date = 2025-04-12T08:00:00-07:00
+draft = false
+tags = ['experiment', 'html', 'interactive']
++++
+-->
+
+<!-- Your HTML story content goes here -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    <title>Debug Alexander Kane - Temporal Consciousness Interface</title>
+    <style>
+        /* Color palette */
+        :root {
+            --dark-navy: #0a192f;
+            --light-navy: #112240;
+            --slate: #8892b0;
+            --light-slate: #ccd6f6;
+            --white: #ffffff;
+            --highlight-cyan: #64ffda;
+            --accent-yellow: #ffca28;
+            --error-red: #e57373;
+            --success-green: #51cf66;
+            --temporal-purple: #8b5cf6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--dark-navy);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 2s ease;
+        }
+        
+        /* Intro/Outro Screens */
+        .screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
+        }
+        
+        .intro-screen {
+            background: var(--dark-navy);
+            color: var(--highlight-cyan);
+        }
+        
+        .outro-screen {
+            background: var(--accent-yellow);
+            color: var(--dark-navy);
+            display: none;
+        }
+        
+        .screen h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .screen p {
+            font-family: 'Lora', serif;
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .screen button {
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px solid currentColor;
+            color: inherit;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .screen button:hover {
+            background: currentColor;
+            color: var(--dark-navy);
+        }
+        
+        .screen .footer {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .screen .footer a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid currentColor;
+        }
+        
+        .screen .footer a:hover {
+            opacity: 0.7;
+        }
+        
+        /* Main app layout */
+        .app {
+            display: none;
+            grid-template-columns: 350px 1fr;
+            min-height: 100vh;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .app.active {
+            display: grid;
+        }
+        
+        /* Control Panel */
+        .control-panel {
+            background: linear-gradient(180deg, rgba(17, 34, 64, 0.9) 0%, rgba(17, 34, 64, 0.6) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .panel-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .panel-title {
+            color: var(--highlight-cyan);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .panel-subtitle {
+            color: var(--light-slate);
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+        
+        /* Metrics */
+        .metrics-section h3 {
+            color: var(--highlight-cyan);
+            font-size: 1em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .metric {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            border-left: 3px solid var(--success-green);
+            transition: all 0.3s ease;
+        }
+        
+        .metric label {
+            display: block;
+            color: var(--light-slate);
+            font-size: 0.85em;
+            margin-bottom: 6px;
+        }
+        
+        .metric-value {
+            font-family: 'Fira Code', monospace;
+            font-size: 1em;
+            color: var(--accent-yellow);
+            transition: all 1s ease-in-out;
+        }
+        
+        /* Controls */
+        .controls {
+            margin-top: 25px;
+        }
+        
+        .controls h3 {
+            color: var(--highlight-cyan);
+            font-size: 1em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .controls button {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: transparent;
+            border: 2px solid var(--highlight-cyan);
+            color: var(--highlight-cyan);
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-weight: bold;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .controls button:hover:not(:disabled) {
+            background: rgba(100, 255, 218, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .controls button:disabled {
+            border-color: var(--slate);
+            color: var(--slate);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Main content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Memory fragments */
+        .memory-fragments {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 300px;
+            margin: 20px 0;
+        }
+        
+        .fragment {
+            position: absolute;
+            width: 200px;
+            height: 240px;
+            background: var(--light-navy);
+            border-radius: 12px;
+            padding: 15px;
+            transform: rotate(5deg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            display: none;
+        }
+        
+        .fragment.visible {
+            display: block;
+        }
+        
+        .fragment:hover {
+            transform: rotate(0deg) translateY(-5px);
+        }
+        
+        .fragment.fragment--error {
+            filter: blur(2px);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(5deg); }
+            25% { transform: rotate(3deg) translateX(-2px); }
+            75% { transform: rotate(7deg) translateX(2px); }
+        }
+        
+        .fragment:nth-child(1) { left: 15%; top: 10%; }
+        .fragment:nth-child(2) { right: 15%; top: 20%; transform: rotate(-4deg); }
+        .fragment:nth-child(3) { left: 50%; top: 5%; transform: translateX(-50%) rotate(3deg); }
+        .fragment:nth-child(4) { left: 25%; bottom: 10%; transform: rotate(-3deg); }
+        .fragment:nth-child(5) { right: 25%; bottom: 20%; transform: rotate(4deg); }
+        .fragment:nth-child(6) { left: 60%; top: 40%; transform: rotate(-5deg); }
+        .fragment:nth-child(7) { left: 10%; top: 50%; transform: rotate(2deg); }
+        .fragment:nth-child(8) { right: 10%; top: 5%; transform: rotate(-3deg); }
+        
+        .fragment-header {
+            color: var(--highlight-cyan);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.3);
+            padding-bottom: 8px;
+        }
+        
+        .fragment-image {
+            width: 100%;
+            height: 80px;
+            background: #2d3748;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #4a5568;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            opacity: 0.7;
+        }
+        
+        .fragment-text {
+            color: var(--light-slate);
+            font-family: 'Lora', serif;
+            font-size: 0.8em;
+            line-height: 1.4;
+            font-style: italic;
+        }
+        
+        /* Status indicator instead of brain */
+        .status-indicator {
+            width: 200px;
+            height: 60px;
+            background: linear-gradient(90deg, var(--dark-navy) 0%, var(--light-navy) 50%, var(--dark-navy) 100%);
+            border: 2px solid var(--highlight-cyan);
+            border-radius: 30px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-indicator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.3), transparent);
+            animation: scan 2s infinite;
+        }
+        
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .status-indicator.status--error {
+            border-color: var(--error-red);
+            box-shadow: 0 0 15px rgba(229, 115, 115, 0.5);
+        }
+        
+        .status-indicator.status--error::before {
+            background: linear-gradient(90deg, transparent, rgba(229, 115, 115, 0.3), transparent);
+        }
+        
+        .status-indicator.status--patched {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 15px rgba(255, 202, 40, 0.5);
+        }
+        
+        .status-indicator.status--patched::before {
+            background: linear-gradient(90deg, transparent, rgba(255, 202, 40, 0.3), transparent);
+        }
+        
+        .status-text {
+            color: var(--white);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 1;
+        }
+        
+        /* Content layout improvements */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px 0;
+        }
+        
+        .left-column {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .right-column {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Error log */
+        .error-log {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid var(--error-red);
+            height: 200px;
+            overflow-y: auto;
+        }
+        
+        .error-log h3 {
+            color: var(--error-red);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .error-entry {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85em;
+            color: var(--light-slate);
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: typewriter 1s ease-out forwards;
+        }
+        
+        @keyframes typewriter {
+            from { 
+                width: 0; 
+                opacity: 0;
+            }
+            to { 
+                width: 100%; 
+                opacity: 1;
+            }
+        }
+        
+        /* Story display */
+        .story-display {
+            background: rgba(17, 34, 64, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid var(--temporal-purple);
+            display: none;
+            height: 200px;
+            overflow-y: auto;
+        }
+        
+        .story-display.active {
+            display: block;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .story-display h3 {
+            color: var(--temporal-purple);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .story-display p {
+            font-family: 'Lora', serif;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: var(--light-slate);
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--dark-navy);
+            color: var(--white);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--highlight-cyan);
+        }
+        
+        .modal-header {
+            color: var(--highlight-cyan);
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .modal-text {
+            font-family: 'Lora', serif;
+            font-size: 1em;
+            line-height: 1.7;
+            color: var(--light-slate);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--highlight-cyan);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        /* Final state styling */
+        .final-state {
+            background: var(--accent-yellow);
+            transition: background-color 2s ease;
+        }
+        
+        .final-state .brain-svg {
+            filter: drop-shadow(0 0 20px var(--accent-yellow));
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .app {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .control-panel {
+                position: static;
+                order: 2;
+            }
+            
+            .main-content {
+                order: 1;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .fragment {
+                width: 180px;
+                height: 220px;
+                padding: 12px;
+            }
+            
+            .fragment-image {
+                height: 60px;
+            }
+            
+            .screen h1 {
+                font-size: 2em;
+            }
+            
+            .screen p {
+                font-size: 1em;
+            }
+            
+            .status-indicator {
+                width: 150px;
+                height: 50px;
+            }
+            
+            .memory-fragments {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Intro Screen -->
+    <div class="screen intro-screen" id="intro-screen">
+        <h1>Debug Alexander Kane</h1>
+        <p>In Chronopolis, time is fractured. Dr. Alexander Kane's mind has crashed after a Time Quake erased his son, Leo. Debug his consciousness to stabilize his grief and the city's timelines.</p>
+        <button onclick="startDebugging()">Start Debugging</button>
+        <div class="footer">
+            A story by Jeffrey Zyjeski | <a href="https://zyjeski.com" target="_blank">zyjeski.com</a>
+        </div>
+    </div>
+    
+    <!-- Outro Screen -->
+    <div class="screen outro-screen" id="outro-screen">
+        <h1>System Restored</h1>
+        <p>Chronopolis is stable. Alexander has found peace. Thank you for debugging his journey. Explore more stories at zyjeski.com.</p>
+        <button onclick="replay()">Replay</button>
+        <div class="footer">
+            <a href="https://zyjeski.com" target="_blank">zyjeski.com</a>
+        </div>
+    </div>
+    
+    <!-- Main App -->
+    <div class="app" id="main-app">
+        <!-- Control Panel -->
+        <aside class="control-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">Temporal Debug Interface</h2>
+                <p class="panel-subtitle">Consciousness Analysis & Repair Protocol</p>
+            </div>
+            
+            <!-- Metrics -->
+            <div class="metrics-section">
+                <h3>System Metrics</h3>
+                <div class="metric">
+                    <label>Chrono-Synthesizer Stability:</label>
+                    <span class="metric-value" id="stability">10%</span>
+                </div>
+                <div class="metric">
+                    <label>City Stability:</label>
+                    <span class="metric-value" id="city-stability">40%</span>
+                </div>
+                <div class="metric">
+                    <label>Emotional CPU Load:</label>
+                    <span class="metric-value" id="cpu-load">150%</span>
+                </div>
+                <div class="metric">
+                    <label>Relationship Sync:</label>
+                    <span class="metric-value" id="relationship-sync">20%</span>
+                </div>
+            </div>
+            
+            <!-- Controls -->
+            <div class="controls">
+                <h3>Debug Protocols</h3>
+                <button id="analyze-btn" aria-label="Analyze temporal error">ANALYZE</button>
+                <button id="patch-btn" aria-label="Deploy memory patch" disabled>PATCH</button>
+                <button id="reboot-btn" aria-label="Temporal reboot" disabled style="display:none;">REBOOT</button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Status Indicator -->
+            <div class="status-indicator" id="status-indicator">
+                <div class="status-text" id="status-text">Consciousness Online</div>
+            </div>
+            
+            <!-- Memory Fragments -->
+            <div class="memory-fragments">
+                <!-- State 1: Temporal Crash -->
+                <div class="fragment" id="fragment-1">
+                    <div class="fragment-header">Riverview Park - 3:15 PM</div>
+                    <div class="fragment-image">🦆</div>
+                    <div class="fragment-text">"3:15 PM. Leo laughed as the ducks fought over bread crumbs. Then the flash came. The Time Quake."</div>
+                </div>
+                
+                <!-- State 2: City of Echoes -->
+                <div class="fragment" id="fragment-2">
+                    <div class="fragment-header">Chronopolis Streets</div>
+                    <div class="fragment-image">🏙️</div>
+                    <div class="fragment-text">"Gas lamps flicker beside neon signs. Mrs. Abernathy's roses bloom, but ozone crackles in the air."</div>
+                </div>
+                
+                <!-- State 3: Memory Cascade -->
+                <div class="fragment" id="fragment-3">
+                    <div class="fragment-header">Leo's Room</div>
+                    <div class="fragment-image">🦕</div>
+                    <div class="fragment-text">"Leo's dinosaur sheets are still on the bed. Packing them means accepting this timeline."</div>
+                </div>
+                
+                <!-- State 4: Research Nexus -->
+                <div class="fragment" id="fragment-4">
+                    <div class="fragment-header">Evelyn's Lab</div>
+                    <div class="fragment-image">🧬</div>
+                    <div class="fragment-text">"Evelyn's lab hums with data. 'The Quake was a breach from another timeline,' she says."</div>
+                </div>
+                
+                <!-- State 5: Timeline Loop -->
+                <div class="fragment" id="fragment-5">
+                    <div class="fragment-header">Infinite Calculations</div>
+                    <div class="fragment-image">🔄</div>
+                    <div class="fragment-text">"I keep running calculations to reverse the Quake. The numbers lead back to 3:15 PM."</div>
+                </div>
+                
+                <!-- State 6: Team Synergy -->
+                <div class="fragment" id="fragment-6">
+                    <div class="fragment-header">Multi-Era Café</div>
+                    <div class="fragment-image">☕</div>
+                    <div class="fragment-text">"At the café, Marcus toasts to time's mysteries. Aisha's sensors hum, linking grief to anomalies."</div>
+                </div>
+                
+                <!-- State 7: Reality Desync -->
+                <div class="fragment" id="fragment-7">
+                    <div class="fragment-header">Emily's Market</div>
+                    <div class="fragment-image">🤝</div>
+                    <div class="fragment-text">"Emily's hand is warm at the market. 'Grief doesn't have to be solitary,' she says."</div>
+                </div>
+                
+                <!-- State 8: Temporal Acceptance -->
+                <div class="fragment" id="fragment-8">
+                    <div class="fragment-header">Nexus Convergence</div>
+                    <div class="fragment-image">⭐</div>
+                    <div class="fragment-text">"Leo's laughter echoes in the stars. I've protected Chronopolis—and let you go."</div>
+                </div>
+            </div>
+            
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <div class="left-column">
+                    <!-- Error Log -->
+                    <div class="error-log">
+                        <h3>Error Log</h3>
+                        <div id="error-entries" aria-live="polite">
+                            <!-- Errors will be appended here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <!-- Story Display -->
+                    <div class="story-display" id="story-display">
+                        <h3 id="story-title">Story Context</h3>
+                        <div id="story-content">
+                            <!-- Story content will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
+            <h2 class="modal-header" id="modal-header"></h2>
+            <div class="modal-text" id="modal-text"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Game state
+        let currentState = 1;
+        let analyzed = false;
+        let patched = false;
+        
+        // State data
+        const stateData = {
+            1: {
+                error: "CRITICAL: Temporal consciousness crash detected. Timestamp: 2024-03-15 15:47:00. Reality fork at Riverview Park.",
+                metrics: { stability: "20%", city: "40%", cpu: "150%", relationship: "20%" },
+                modal: {
+                    title: "The Time Quake",
+                    text: "Alexander Kane stepped onto the cobblestone streets of Chronopolis, a city where time had fractured and scattered like shards of broken glass. The air was alive with a symphony of sounds: the clatter of steam engines, the hum of quantum generators, the distant chimes of clock towers that had long ceased to keep accurate time. For Alexander, the Time Quake was deeply personal. It had occurred during a routine afternoon in Riverview Park with his seven-year-old son, Leo. One moment, they were laughing as they fed ducks by the pond; the next, a blinding flash engulfed the city. When the light receded, Leo was gone, seemingly erased from existence."
+                }
+            },
+            2: {
+                error: "WARNING: Chronopolis temporal field fracturing. City coherence at 40%.",
+                metrics: { stability: "25%", city: "55%", cpu: "140%", relationship: "25%" },
+                modal: {
+                    title: "City of Echoes",
+                    text: "Gas lamps flickered alongside neon signs, horse-drawn carriages shared roads with hovering vehicles, and citizens in Victorian attire strolled beside those in futuristic bodysuits. Scents mingled unpredictably, the rich aroma of freshly baked bread from a 19th-century bakery intertwined with the sterile scent of ozone from a nearby teleportation hub. Alexander adjusted the lapel of his coat, his fingers brushing against the smooth surface of the chrono-synthesizer nestled in his inner pocket. The device emitted a faint glow that pulsed in rhythm with his heartbeat, designed to harmonize a person's temporal field with the city's fractured timelines."
+                }
+            },
+            3: {
+                error: "ERROR: Memory cascade overflow. leo_feeding_ducks.mem consuming resources.",
+                metrics: { stability: "30%", city: "60%", cpu: "120%", relationship: "30%" },
+                modal: {
+                    title: "Echoes of Memory",
+                    text: "He couldn't shake the feeling that the city's temporal fractures were growing more unstable. The chrono-synthesizer's gentle pulse began to quicken, a subtle warning he had learned to heed. Memories of Leo surfaced unbidden—the way his son laughed, the curious tilt of his head when he asked endless questions. The dinosaur sheets in Leo's room remained untouched, a shrine to a boy who existed now only in memory. Emily said they should pack them away, but keeping them meant admitting this timeline was real—that Leo was truly gone."
+                }
+            },
+            4: {
+                error: "ALERT: Temporal convergence detected. Quantum fluctuations spiking at Institute.",
+                metrics: { stability: "35%", city: "65%", cpu: "110%", relationship: "35%" },
+                modal: {
+                    title: "Research Breakthrough",
+                    text: "The Temporal Research Institute stood at the heart of Chronopolis, its architecture a blend of classical columns and sleek glass facades. Dr. Evelyn Voss looked up from her console, her auburn hair tied back, revealing a face that bore the subtle lines of someone who had dedicated her life to unraveling time's mysteries. 'I believe the Time Quake wasn't just a random event,' she said urgently. 'It may have been triggered by a temporal convergence—an attempt from another timeline to intersect with ours.' The implications sent a chill down Alexander's spine. Could Leo be in that other timeline?"
+                }
+            },
+            5: {
+                error: "WARNING: Infinite loop in search_for_leo.exe. Aisha's data confirms grief amplification.",
+                metrics: { stability: "40%", city: "70%", cpu: "180%", relationship: "25%" },
+                modal: {
+                    title: "The Endless Loop",
+                    text: "Alexander worked closely with Dr. Aisha Nadir, a quantum physicist known for her work on the intersection of emotion and temporal fields. 'Emotional resonance could affect temporal stability,' she explained, 'particularly in a city already fractured by time. Intense emotions, like grief or hope, might amplify temporal anomalies.' Every calculation led back to 3:15 PM. The moment when time broke. The moment Leo disappeared into another timeline. Alexander found himself trapped in an infinite loop of that perfect instant—Leo's laughter, the ducks, the flash—endlessly replaying, endlessly seeking a different outcome."
+                }
+            },
+            6: {
+                error: "NOTICE: Emotional energy sensors online. Team cohesion stabilizing temporal field.",
+                metrics: { stability: "50%", city: "75%", cpu: "95%", relationship: "50%" },
+                modal: {
+                    title: "Finding Unity",
+                    text: "The team grew to include specialists from various disciplines, all intrigued by the potential link between human consciousness and temporal anomalies. At a local café that existed simultaneously in multiple eras, the atmosphere was lively, with patrons from different times sharing stories and laughter. 'This place never ceases to amaze me,' Marcus remarked, sipping a beverage that changed flavor with each era it touched. Alexander observed, feeling something he hadn't experienced in years—hope. Working with Aisha, Marcus, and Evelyn, they developed sensors that detected subtle variations in quantum resonance, revealing patterns correlating with temporal glitches."
+                }
+            },
+            7: {
+                error: "ALERT: Reality thread disconnection. emily_support.dll timing out.",
+                metrics: { stability: "60%", city: "80%", cpu: "85%", relationship: "60%" },
+                modal: {
+                    title: "Reconnection",
+                    text: "Alexander found himself reflecting more on his relationships. He reconnected with Emily, sharing not just progress reports but also personal moments. One afternoon, they walked through a market where vendors from different eras sold their wares. The scents of exotic spices mingled with those of freshly baked pastries. 'Remember when we used to come here with Leo?' Emily asked, her eyes distant. He smiled softly. 'He always wanted to try the strangest foods.' They shared a moment of nostalgia, the weight of their loss eased by the warmth of the memory. 'I've realized that isolating myself hasn't brought me any closer to finding peace—or Leo,' he admitted. 'Grief doesn't have to be a solitary journey,' she replied."
+                }
+            },
+            8: {
+                error: "LOG: Temporal grief stabilizing. Leo's quantum state integrated.",
+                metrics: { stability: "100%", city: "100%", cpu: "78%", relationship: "100%" },
+                modal: {
+                    title: "The Convergence",
+                    text: "Descending into the subterranean passages, Alexander felt the air grow thick with temporal energy. He reached the Temporal Nexus, a cavernous space where strands of light wove an intricate web, each thread representing a different timeline. Suddenly, a figure emerged from the luminous strands—a boy with familiar storm-grey eyes. 'Leo?' Alexander's voice wavered. 'Dad, you found me,' Leo replied, his form flickering. 'I know you've been searching. But you can't stay here. It's not safe.' Tears blurred Alexander's vision. 'I can't lose you again.' Leo smiled gently. 'You haven't lost me. I'll be in your memories. By stabilizing the Nexus, you'll protect countless lives.' Summoning his resolve, Alexander activated the final sequence."
+                }
+            }
+        };
+        
+        // Functions
+        function startDebugging() {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('main-app').classList.add('active');
+            showFragment(1);
+        }
+        
+        function replay() {
+            // Reset state
+            currentState = 1;
+            analyzed = false;
+            patched = false;
+
+            // Reset UI
+            document.getElementById('outro-screen').style.display = 'none';
+            document.getElementById('intro-screen').style.display = 'flex';
+            document.getElementById('main-app').classList.remove('active');
+            document.body.classList.remove('final-state');
+
+            // Reset status indicator
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            statusIndicator.classList.remove('status--error', 'status--patched');
+            statusText.textContent = 'Consciousness Online';
+
+            // Reset buttons
+            updateButtons();
+
+            // Clear fragments, errors, and story
+            hideAllFragments();
+            document.getElementById('error-entries').innerHTML = '';
+            document.getElementById('story-display').classList.remove('active');
+
+            // Reset metrics
+            updateMetrics(1);
+        }
+        
+        function analyze() {
+            if (analyzed) return;
+            
+            analyzed = true;
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            
+            statusIndicator.classList.add('status--error');
+            statusText.textContent = 'Error Detected';
+            
+            // Add error to log
+            addError(stateData[currentState].error);
+            
+            // Show story content
+            showStoryContent(currentState);
+            
+            // Enable patch button
+            document.getElementById('patch-btn').disabled = false;
+            document.getElementById('analyze-btn').disabled = true;
+            
+            // Show reboot button only for state 5
+            if (currentState === 5) {
+                document.getElementById('reboot-btn').style.display = 'block';
+                document.getElementById('reboot-btn').disabled = false;
+            }
+        }
+        
+        function patch() {
+            if (!analyzed || patched) return;
+            
+            patched = true;
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            
+            statusIndicator.classList.remove('status--error');
+            statusIndicator.classList.add('status--patched');
+            statusText.textContent = 'Patch Applied';
+            
+            // Update metrics
+            updateMetrics(currentState);
+            
+            // Show patch success message
+            setTimeout(() => {
+                if (currentState !== 5) {
+                    addError(`PATCH APPLIED: ${stateData[currentState].metrics.stability} stability achieved.`);
+                } else {
+                    addError("PATCH FAILED: Loop persists. Temporal anchor failing. REBOOT required.");
+                }
+            }, 500);
+            
+            // Advance state (except for state 5 which needs reboot)
+            if (currentState !== 5) {
+                setTimeout(() => advanceState(), 2000);
+            }
+        }
+        
+        function reboot() {
+            // Fade to black transition
+            document.body.style.opacity = '0';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+                advanceState();
+            }, 1000);
+        }
+        
+        function advanceState() {
+            if (currentState >= 8) {
+                // Final state - show outro
+                setTimeout(() => showOutro(), 2000);
+                return;
+            }
+            
+            currentState++;
+            analyzed = false;
+            patched = false;
+            
+            // Hide story display for transition
+            document.getElementById('story-display').classList.remove('active');
+            
+            // Hide reboot button
+            document.getElementById('reboot-btn').style.display = 'none';
+            
+            // Reset status indicator
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            statusIndicator.classList.remove('status--error', 'status--patched');
+            statusText.textContent = 'Consciousness Online';
+            
+            // Update UI
+            updateButtons();
+            showFragment(currentState);
+            
+            // Final state special handling
+            if (currentState === 8) {
+                setTimeout(() => {
+                    document.body.classList.add('final-state');
+                    statusText.textContent = 'System Restored';
+                    addError("SUCCESS: Consciousness Stabilized. Alexander exists in the present, honoring the past.");
+                }, 1500);
+            }
+        }
+        
+        function replay() {
+            // Reset state
+            currentState = 1;
+            analyzed = false;
+            patched = false;
+            
+            // Reset UI
+            document.getElementById('outro-screen').style.display = 'none';
+            document.getElementById('intro-screen').style.display = 'flex';
+            document.getElementById('main-app').classList.remove('active');
+            document.body.classList.remove('final-state');
+            
+            // Reset status indicator
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            statusIndicator.classList.remove('status--error', 'status--patched');
+            statusText.textContent = 'Consciousness Online';
+            
+            // Reset buttons
+            updateButtons();
+            
+            // Clear fragments, errors, and story
+            hideAllFragments();
+            document.getElementById('error-entries').innerHTML = '';
+            document.getElementById('story-display').classList.remove('active');
+            
+            // Reset metrics
+            updateMetrics(1);
+        }
+        
+        function showStoryContent(state) {
+            const modal = stateData[state].modal;
+            const storyDisplay = document.getElementById('story-display');
+            const storyTitle = document.getElementById('story-title');
+            const storyContent = document.getElementById('story-content');
+
+            storyTitle.textContent = modal.title;
+            storyContent.innerHTML = `<p>${modal.text}</p>`;
+
+            storyDisplay.classList.add('active');
+        }
+
+        function reboot() {
+            // Fade to black transition
+            document.body.style.opacity = '0';
+
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+                advanceState();
+            }, 1000);
+        }
+
+        function advanceState() {
+            if (currentState >= 8) {
+                // Final state - show outro
+                setTimeout(() => showOutro(), 2000);
+                return;
+            }
+
+            currentState++;
+            analyzed = false;
+            patched = false;
+
+            // Hide story display for transition
+            document.getElementById('story-display').classList.remove('active');
+
+            // Hide reboot button
+            document.getElementById('reboot-btn').style.display = 'none';
+
+            // Reset status indicator
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            statusIndicator.classList.remove('status--error', 'status--patched');
+            statusText.textContent = 'Consciousness Online';
+
+            // Update UI
+            updateButtons();
+            showFragment(currentState);
+
+            // Final state special handling
+            if (currentState === 8) {
+                setTimeout(() => {
+                    document.body.classList.add('final-state');
+                    statusText.textContent = 'System Restored';
+                    addError("SUCCESS: Consciousness Stabilized. Alexander exists in the present, honoring the past.");
+                }, 1500);
+            }
+        }
+
+        function showOutro() {
+            document.getElementById('main-app').classList.remove('active');
+            document.getElementById('outro-screen').style.display = 'flex';
+        }
+
+        function updateButtons() {
+            document.getElementById('analyze-btn').disabled = analyzed;
+            document.getElementById('patch-btn').disabled = !analyzed || patched;
+            document.getElementById('reboot-btn').disabled = currentState !== 5 || !analyzed;
+        }
+
+        function updateMetrics(state) {
+            const metrics = stateData[state].metrics;
+            document.getElementById('stability').textContent = metrics.stability;
+            document.getElementById('city-stability').textContent = metrics.city;
+            document.getElementById('cpu-load').textContent = metrics.cpu;
+            document.getElementById('relationship-sync').textContent = metrics.relationship;
+        }
+
+        function showFragment(state) {
+            hideAllFragments();
+            const fragment = document.getElementById(`fragment-${state}`);
+            if (fragment) {
+                fragment.classList.add('visible');
+            }
+        }
+
+        function hideAllFragments() {
+            for (let i = 1; i <= 8; i++) {
+                const fragment = document.getElementById(`fragment-${i}`);
+                if (fragment) {
+                    fragment.classList.remove('visible');
+                }
+            }
+        }
+
+        function addError(message) {
+            const errorEntries = document.getElementById('error-entries');
+            const entry = document.createElement('div');
+            entry.className = 'error-entry';
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            errorEntries.appendChild(entry);
+
+            // Scroll to bottom
+            errorEntries.scrollTop = errorEntries.scrollHeight;
+        }
+
+        function openModal(state) {
+            if (!analyzed) {
+                // Fragment error effect
+                const fragment = document.getElementById(`fragment-${state}`);
+                fragment.classList.add('fragment--error');
+                setTimeout(() => {
+                    fragment.classList.remove('fragment--error');
+                }, 500);
+                return;
+            }
+
+            const modal = stateData[state].modal;
+            document.getElementById('modal-header').textContent = modal.title;
+            document.getElementById('modal-text').textContent = modal.text;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button listeners
+            document.getElementById('analyze-btn').addEventListener('click', analyze);
+            document.getElementById('patch-btn').addEventListener('click', patch);
+            document.getElementById('reboot-btn').addEventListener('click', reboot);
+
+            // Fragment listeners
+            for (let i = 1; i <= 8; i++) {
+                const fragment = document.getElementById(`fragment-${i}`);
+                if (fragment) {
+                    fragment.addEventListener('click', () => openModal(i));
+                    fragment.setAttribute('tabindex', '0');
+                    fragment.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openModal(i);
+                        }
+                    });
+                }
+            }
+
+            // Modal close on outside click
+            document.getElementById('modal').addEventListener('click', (e) => {
+                if (e.target.id === 'modal') {
+                    closeModal();
+                }
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+
+            // Initialize
+            updateButtons();
+            showFragment(1);
+            updateMetrics(1);
+        });
+    </script>
+</body>
+</html>
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button listeners
+            document.getElementById('analyze-btn').addEventListener('click', analyze);
+            document.getElementById('patch-btn').addEventListener('click', patch);
+            document.getElementById('reboot-btn').addEventListener('click', reboot);
+            
+            // Fragment listeners
+            for (let i = 1; i <= 8; i++) {
+                const fragment = document.getElementById(`fragment-${i}`);
+                if (fragment) {
+                    fragment.addEventListener('click', () => openModal(i));
+                    fragment.setAttribute('tabindex', '0');
+                    fragment.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openModal(i);
+                        }
+                    });
+                }
+            }
+            
+            // Modal close on outside click
+            document.getElementById('modal').addEventListener('click', (e) => {
+                if (e.target.id === 'modal') {
+                    closeModal();
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+            
+            // Initialize
+            updateButtons();
+            showFragment(1);
+            updateMetrics(1);
+        });
+    </script>
