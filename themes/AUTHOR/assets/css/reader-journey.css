@@ -134,42 +134,6 @@
   box-shadow: var(--reader-shadow-glow);
 }
 
-.mandala-item.reader-recommended {
-  position: relative;
-  animation: readerRecommendPulse 2s infinite ease-in-out;
-}
-
-.mandala-item.reader-recommended::before {
-  content: '⭐';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  z-index: 10;
-  font-size: 16px;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
-  animation: readerStarTwinkle 1.5s infinite ease-in-out;
-}
-
-@keyframes readerRecommendPulse {
-  0%, 100% { 
-    box-shadow: 0 0 10px rgba(0, 255, 159, 0.3); 
-  }
-  50% { 
-    box-shadow: 0 0 20px rgba(0, 255, 159, 0.6); 
-  }
-}
-
-@keyframes readerStarTwinkle {
-  0%, 100% { 
-    opacity: 0.7; 
-    transform: scale(1); 
-  }
-  50% { 
-    opacity: 1; 
-    transform: scale(1.2); 
-  }
-}
-
 /* Reader Journey Widget Container */
 .reader-journey-widgets {
   position: fixed;
@@ -374,32 +338,125 @@
   }
 }
 
-/* Reading Stats Display */
-.reader-stats-mini {
+/* Enhanced Mandala Item States */
+/* Toggle buttons for minimizing screen clutter */
+.ui-component-toggle {
   position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--reader-bg-secondary);
+  border: 1px solid var(--reader-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--reader-text-primary);
+  transition: var(--reader-transition);
+  z-index: 1002;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--reader-shadow);
+}
+
+.ui-component-toggle:hover {
+  background: var(--reader-bg-tertiary);
+  border-color: var(--reader-border-active);
+  transform: scale(1.05);
+}
+
+.ui-component-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Progress Tracker Toggle (left side) */
+.progress-toggle {
+  bottom: 160px;
+  left: 20px;
+}
+
+.progress-toggle.collapsed {
   bottom: 20px;
+}
+
+/* Stats Toggle (right side) */
+.stats-toggle {
+  bottom: 160px;
+  right: 20px;
+}
+
+.stats-toggle.collapsed {
+  bottom: 20px;
+}
+
+/* Ensure toggles don't overlap with FABs */
+.reader-fab {
+  /* Update positioning to avoid conflicts */
+  z-index: 1001;
+}
+
+.reader-fab:not(.reader-fab-pulse) {
+  /* Position any existing FABs to avoid overlap */
+  bottom: 90px;
+}
+
+/* Collapsible Progress Tracker */
+.content-type-progress {
+  position: fixed;
+  bottom: 100px;
   left: 20px;
   background: var(--reader-bg-secondary);
   border: 1px solid var(--reader-border);
   border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 0.8rem;
-  color: var(--reader-text-primary);
+  padding: 16px;
+  max-width: 280px;
   backdrop-filter: blur(10px);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: var(--reader-transition);
+  box-shadow: var(--reader-shadow);
   z-index: 999;
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
 }
 
-.reader-stats-mini.show {
-  opacity: 1;
-  transform: translateY(0);
+.content-type-progress.collapsed {
+  transform: translateY(100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.content-type-progress .type-progress-header {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.content-type-progress .type-progress-header h4 {
+  color: var(--reader-primary);
+  font-size: 1.1em;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Enhanced Stats Display */
+.reader-stats-header {
+  text-align: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--reader-border);
+}
+
+.reader-stats-title {
+  color: var(--reader-primary);
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0;
 }
 
 .reader-stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   text-align: center;
 }
@@ -407,13 +464,18 @@
 .reader-stat-item {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--reader-bg-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .reader-stat-value {
-  font-size: 1.1em;
-  font-weight: 600;
+  font-size: 1.2em;
+  font-weight: 700;
   color: var(--reader-primary);
+  line-height: 1;
 }
 
 .reader-stat-label {
@@ -421,348 +483,170 @@
   color: var(--reader-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  line-height: 1;
 }
 
-/* Adaptive Content Highlighting */
-.reader-content-match {
-  position: relative;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(0, 255, 159, 0.1) 50%,
-    transparent 100%
-  );
-  border-left: 3px solid var(--reader-primary);
-  padding-left: 12px;
-  margin-left: -15px;
-  border-radius: 0 8px 8px 0;
+/* Progress bars for content types */
+.type-progress-grid {
+  display: grid;
+  gap: 10px;
 }
 
-.reader-content-match::before {
-  content: '🎯';
-  position: absolute;
-  left: -8px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--reader-bg-secondary);
-  border: 1px solid var(--reader-primary);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
+.type-progress-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 10px;
+  gap: 8px;
+  padding: 6px 0;
 }
 
-/* Reading Milestone Celebrations */
-.reader-milestone-celebration {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  background: var(--reader-bg-primary);
-  border: 2px solid var(--reader-accent);
-  border-radius: 20px;
-  padding: 40px;
-  text-align: center;
-  z-index: 20000;
-  opacity: 0;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: var(--reader-shadow);
-  backdrop-filter: blur(20px);
-}
-
-.reader-milestone-celebration.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.reader-milestone-icon {
-  font-size: 4rem;
-  margin-bottom: 20px;
-  animation: readerMilestoneBounce 0.8s ease-out;
-}
-
-@keyframes readerMilestoneBounce {
-  0% { transform: scale(0) rotate(0deg); }
-  50% { transform: scale(1.2) rotate(180deg); }
-  100% { transform: scale(1) rotate(360deg); }
-}
-
-/* RECOMMENDATION SYSTEM STYLES */
-.reader-recommendations {
-  background: var(--reader-bg-secondary);
-  border: 1px solid var(--reader-border);
-  border-radius: 12px;
-  padding: 24px;
-  margin: 32px 0;
-  box-shadow: var(--reader-shadow);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: var(--reader-transition);
-}
-
-.reader-recommendations:hover {
-  border-color: var(--reader-border-active);
-  box-shadow: var(--reader-shadow-glow);
-}
-
-.recommendations-header {
-  margin-bottom: 20px;
+.type-icon {
+  font-size: 1.2em;
+  width: 24px;
   text-align: center;
 }
 
-.recommendations-header h3 {
-  color: var(--reader-primary);
-  font-size: 1.4em;
-  margin: 0 0 8px 0;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.recommendations-header p {
-  color: var(--reader-text-secondary);
-  margin: 0;
-  font-size: 0.9em;
-  opacity: 0.8;
-}
-
-.recommendations-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.recommendation-item {
-  background: var(--reader-bg-tertiary);
-  border: 1px solid var(--reader-border);
-  border-radius: 8px;
-  padding: 18px;
-  transition: var(--reader-transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.recommendation-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--reader-primary), var(--reader-secondary));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease-out;
-}
-
-.recommendation-item:hover {
-  border-color: var(--reader-border-active);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.recommendation-item:hover::before {
-  transform: scaleX(1);
-}
-
-.recommendation-type {
-  background: linear-gradient(135deg, var(--reader-primary), var(--reader-secondary));
-  color: var(--reader-bg-primary);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75em;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: inline-block;
-  margin-bottom: 12px;
-}
-
-.recommendation-title {
-  margin: 0 0 8px 0;
-  font-size: 1.1em;
-  line-height: 1.3;
-}
-
-.recommendation-title a {
-  color: var(--reader-text-primary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--reader-transition-fast);
-}
-
-.recommendation-title a:hover {
-  color: var(--reader-primary);
-  text-shadow: 0 0 8px rgba(0, 255, 159, 0.3);
-}
-
-.recommendation-description {
-  color: var(--reader-text-secondary);
-  font-size: 0.9em;
-  line-height: 1.5;
-  margin: 0 0 12px 0;
-  opacity: 0.9;
-}
-
-.recommendation-reason {
-  color: var(--reader-accent);
-  font-style: italic;
+.type-label {
   font-size: 0.8em;
-  opacity: 0.8;
-  padding-top: 8px;
-  border-top: 1px solid var(--reader-border);
+  color: var(--reader-text-primary);
+  min-width: 50px;
+  font-weight: 500;
 }
 
-/* Mobile Optimization for Recommendations */
+.type-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.type-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--reader-primary), var(--reader-secondary));
+  border-radius: 3px;
+  transition: width 0.5s ease-out;
+  width: 0%;
+}
+
+.type-count {
+  font-size: 0.7em;
+  color: var(--reader-text-secondary);
+  min-width: 30px;
+  text-align: right;
+}
+
+/* Subtle animations for toggles */
+.ui-component-toggle .toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.ui-component-toggle.collapsed .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* Tooltip for collapsed state */
+.ui-component-toggle::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--reader-bg-primary);
+  color: var(--reader-text-primary);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.7em;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--reader-transition-fast);
+  z-index: 10001;
+  border: 1px solid var(--reader-border);
+}
+
+.ui-component-toggle:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile optimizations for collapsible components */
 @media (max-width: 768px) {
-  .reader-recommendations {
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .recommendations-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .recommendation-item {
-    padding: 16px;
-  }
-  
-  .recommendations-header h3 {
-    font-size: 1.2em;
-  }
-}
-
-/* Dark Mode Enhancements */
-@media (prefers-color-scheme: dark) {
-  .reader-recommendations {
-    background: rgba(10, 10, 20, 0.95);
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-  
-  .recommendation-item {
-    background: rgba(20, 20, 30, 0.9);
-    border-color: rgba(255, 255, 255, 0.05);
-  }
-}
-
-/* High Contrast Mode */
-@media (prefers-contrast: high) {
-  .reader-recommendations {
-    border-width: 2px;
-    background: rgba(0, 0, 0, 0.95);
-  }
-  
-  .recommendation-item {
-    border-width: 2px;
-  }
-  
-  .recommendation-title a {
-    color: #ffffff;
-  }
-  
-  .recommendation-type {
-    background: #ffffff;
-    color: #000000;
-  }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .recommendation-item,
-  .recommendation-item::before,
-  .recommendation-title a {
-    transition: none;
-  }
-  
-  .recommendation-item:hover {
-    transform: none;
-  }
-}
-
-/* Enhanced Mobile Experience */
-@media (max-width: 768px) {
-  .reader-fab {
+  .ui-component-toggle {
     width: 48px;
     height: 48px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+  }
+  
+  .progress-toggle {
+    left: 15px;
+    bottom: 120px;
+  }
+  
+  .progress-toggle.collapsed {
+    bottom: 15px;
+  }
+  
+  .stats-toggle {
+    right: 15px;
+    bottom: 120px;
+  }
+  
+  .stats-toggle.collapsed {
+    bottom: 15px;
+  }
+  
+  .content-type-progress {
+    left: 15px;
+    right: 15px;
+    bottom: 70px;
+    max-width: none;
+    width: auto;
   }
   
   .reader-stats-mini {
-    bottom: 80px;
-    left: 10px;
-    right: 10px;
-    padding: 8px 12px;
+    right: 15px;
+    bottom: 70px;
+    max-width: 180px;
   }
   
   .reader-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
   
-  .reader-discovery-content {
-    padding: 24px 20px;
-    margin: 20px;
-    width: auto;
-  }
-  
-  .reader-milestone-celebration {
-    margin: 20px;
-    padding: 24px;
-    width: auto;
-    max-width: 90vw;
-  }
-  
-  .reader-milestone-icon {
-    font-size: 3rem;
-    margin-bottom: 16px;
+  .ui-component-toggle::after {
+    bottom: 52px;
   }
 }
 
-/* High Contrast Mode Support */
+/* High contrast mode adjustments */
 @media (prefers-contrast: high) {
-  :root {
-    --reader-primary: #00ff00;
-    --reader-secondary: #00cc00;
-    --reader-border: rgba(255, 255, 255, 0.3);
-    --reader-text-primary: #ffffff;
-    --reader-text-secondary: #cccccc;
-  }
-}
-
-/* Dark Mode Enhancements */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --reader-bg-primary: rgba(5, 5, 15, 0.98);
-    --reader-bg-secondary: rgba(15, 15, 25, 0.95);
-    --reader-bg-tertiary: rgba(25, 25, 35, 0.9);
-  }
-}
-
-/* Reduced Motion Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .reader-interaction-feedback::before,
-  .mandala-grid.reader-active::after,
-  .mandala-item.reader-recommended,
-  .reader-fab.reader-fab-pulse,
-  .reader-flow-line.active,
-  .reader-personalized::before,
-  .reader-milestone-icon {
-    animation: none !important;
+  .ui-component-toggle {
+    border-width: 2px;
+    background: #000000;
+    color: #ffffff;
   }
   
-  .reader-interaction-feedback,
-  .mandala-item,
-  .reader-fab,
-  .reader-tooltip,
-  .reader-discovery-overlay,
+  .content-type-progress,
+  .reader-stats-mini {
+    border-width: 2px;
+    background: rgba(0, 0, 0, 0.95);
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .ui-component-toggle,
+  .content-type-progress,
   .reader-stats-mini,
-  .reader-milestone-celebration {
-    transition: opacity 0.2s ease !important;
+  .type-progress-fill,
+  .toggle-icon {
+    transition: none !important;
+  }
+  
+  .ui-component-toggle.collapsed .toggle-icon {
+    transform: none;
   }
 }
 

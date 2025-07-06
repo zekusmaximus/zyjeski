@@ -30,49 +30,7 @@
         <div class="speed-label">Reading Speed</div>
         <div class="speed-value" id="current-speed">250 wpm</div>
       </div>
-    </div>
-  </div>
-  
-  <!-- Content Type Progress -->
-  <div class="content-type-progress" id="content-type-progress">
-    <div class="type-progress-header">
-      <h4>Exploration Progress</h4>
-    </div>
-    <div class="type-progress-grid">
-      <div class="type-progress-item" data-type="story">
-        <div class="type-icon">📚</div>
-        <div class="type-label">Stories</div>
-        <div class="type-progress-bar">
-          <div class="type-progress-fill" data-progress="0"></div>
-        </div>
-        <div class="type-count">0/∞</div>
-      </div>
-      <div class="type-progress-item" data-type="book">
-        <div class="type-icon">📖</div>
-        <div class="type-label">Books</div>
-        <div class="type-progress-bar">
-          <div class="type-progress-fill" data-progress="0"></div>
-        </div>
-        <div class="type-count">0/∞</div>
-      </div>
-      <div class="type-progress-item" data-type="audio">
-        <div class="type-icon">🎧</div>
-        <div class="type-label">Audio</div>
-        <div class="type-progress-bar">
-          <div class="type-progress-fill" data-progress="0"></div>
-        </div>
-        <div class="type-count">0/∞</div>
-      </div>
-      <div class="type-progress-item" data-type="post">
-        <div class="type-icon">💭</div>
-        <div class="type-label">Posts</div>
-        <div class="type-progress-bar">
-          <div class="type-progress-fill" data-progress="0"></div>
-        </div>
-        <div class="type-count">0/∞</div>
-      </div>
-    </div>
-  </div>
+    </div>  </div>
   
   <!-- Session Summary -->
   <div class="session-summary-widget" id="session-summary-widget" style="display: none;">
@@ -101,8 +59,7 @@
           Keep exploring to discover more content!
         </div>
       </div>
-    </div>
-  </div>
+    </div>  </div>
 </div>
 
 <style>
@@ -427,6 +384,99 @@
   font-style: italic;
 }
 
+/* UI Component Toggles */
+.ui-component-toggles {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ui-component-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.ui-component-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.ui-component-toggle:active {
+  transform: scale(0.98);
+}
+
+.toggle-icon {
+  font-size: 1.2rem;
+  color: var(--progress-color);
+}
+
+/* Reader Stats Mini Widget */
+.reader-stats-mini {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  max-width: 300px;
+  z-index: 1003;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.reader-stats-mini.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reader-stats-header {
+  margin-bottom: 12px;
+}
+
+.reader-stats-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--progress-text);
+  margin: 0;
+}
+
+.reader-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.reader-stat-item {
+  text-align: center;
+}
+
+.reader-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--progress-color);
+  margin-bottom: 4px;
+}
+
+.reader-stat-label {
+  font-size: 0.75rem;
+  color: var(--progress-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .reading-estimate {
@@ -461,6 +511,17 @@
   
   .scroll-progress-bar {
     height: 2px;
+  }
+  
+  .ui-component-toggles {
+    top: 70px;
+    right: 10px;
+  }
+  
+  .reader-stats-mini {
+    top: 70px;
+    right: 10px;
+    max-width: none;
   }
 }
 
@@ -499,13 +560,11 @@ class ProgressTracker {
     
     this.init();
   }
-  
-  init() {
+    init() {
     this.calculateWordCount();
     this.setupScrollTracking();
     this.setupSectionTracking();
     this.setupReadingEstimate();
-    this.setupContentTypeProgress();
     this.setupSessionTracking();
     this.bindEvents();
     
@@ -597,35 +656,7 @@ class ProgressTracker {
     estimateElement.textContent = estimatedMinutes + ' min';
     
     setTimeout(() => {
-      estimateContainer.classList.add('visible');
-    }, 1000);
-  }
-  
-  setupContentTypeProgress() {
-    if (!window.readerJourney) return;
-    
-    const progressContainer = document.querySelector('.content-type-progress');
-    const stats = window.readerJourney.getReadingStats();
-    
-    // Update content type progress bars
-    const types = ['story', 'book', 'audio', 'post'];
-    types.forEach(type => {
-      const item = document.querySelector(`[data-type="${type}"]`);
-      if (!item) return;
-      
-      const fill = item.querySelector('.type-progress-fill');
-      const count = item.querySelector('.type-count');
-      
-      const typeData = window.readerJourney.readingHistory.contentTypes[type] || { count: 0 };
-      const progress = Math.min((typeData.count / 5) * 100, 100); // 5 items = 100%
-      
-      fill.style.width = progress + '%';
-      count.textContent = `${typeData.count}/∞`;
-    });
-    
-    setTimeout(() => {
-      progressContainer.classList.add('visible');
-    }, 2000);
+      estimateContainer.classList.add('visible');    }, 1000);
   }
   
   setupSessionTracking() {
@@ -762,8 +793,7 @@ class ProgressTracker {
             func.apply(context, args);
             lastRan = Date.now();
           }
-        }, limit - (Date.now() - lastRan));
-      }
+        }, limit - (Date.now() - lastRan));      }
     };
   }
 }

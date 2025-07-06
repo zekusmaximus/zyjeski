@@ -101,27 +101,13 @@
           <div class="type-icon">💭</div>
           <div class="type-info">
             <div class="type-name">Posts</div>
-            <div class="type-count" id="posts-count">0 read</div>
-          </div>
+            <div class="type-count" id="posts-count">0 read</div>          </div>
           <div class="type-progress">
             <div class="type-progress-bar">
               <div class="type-progress-fill" data-type="post"></div>
             </div>
           </div>
         </a>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Smart Suggestions -->
-  <div class="nav-section" id="smart-suggestions">
-    <div class="nav-section-header">
-      <h4>Recommended</h4>
-      <button class="nav-section-toggle">−</button>
-    </div>
-    <div class="nav-section-content">
-      <div class="suggestions-list">
-        <!-- Populated by JavaScript based on reading patterns -->
       </div>
     </div>
   </div>
@@ -497,51 +483,6 @@
   background: #00ff9f;
   width: 0%;
   transition: width 0.3s ease;
-}
-
-/* Smart Suggestions */
-.suggestions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.suggestion-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 6px;
-  text-decoration: none;
-  color: inherit;
-  transition: background-color 0.2s ease;
-}
-
-.suggestion-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.suggestion-icon {
-  font-size: 1rem;
-  opacity: 0.7;
-  margin-top: 2px;
-}
-
-.suggestion-content {
-  flex: 1;
-}
-
-.suggestion-title {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 2px;
-}
-
-.suggestion-reason {
-  font-size: 0.75rem;
-  color: #888;
 }
 
 /* Reading Path Visualization */

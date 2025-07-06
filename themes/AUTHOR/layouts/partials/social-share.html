@@ -121,17 +121,7 @@
         <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
       </svg>
       <span class="copy-text">Copy Link</span>
-    </button>
-  </div>
-
-  {{/* Reading progress for return visitors */}}
-  <div class="reading-progress-container" style="display: none;">
-    <div class="reading-progress-indicator">
-      <span class="progress-icon">◉</span>
-      <span class="progress-text">Continue where you left off</span>
-      <button class="progress-dismiss" aria-label="Dismiss reading progress">×</button>
-    </div>
-  </div>
+    </button>  </div>
 </div>
 
 {{/* Copy to clipboard notification */}}
@@ -237,49 +227,6 @@
 .share-copy.copied {
   background: linear-gradient(135deg, rgba(0, 245, 212, 0.4), rgba(110, 13, 208, 0.2));
   border-color: var(--holographic-teal);
-}
-
-/* Reading Progress Indicator */
-.reading-progress-container {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(0, 245, 212, 0.3);
-}
-
-.reading-progress-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
-  background: rgba(0, 245, 212, 0.1);
-  border: 1px solid rgba(0, 245, 212, 0.3);
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
-
-.progress-icon {
-  color: var(--holographic-teal);
-  animation: pulse-glow 2s infinite;
-}
-
-.progress-text {
-  flex: 1;
-  color: var(--light-gray);
-}
-
-.progress-dismiss {
-  background: none;
-  border: none;
-  color: var(--light-gray);
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0.25rem;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.progress-dismiss:hover {
-  opacity: 1;
 }
 
 /* Copy Notification */

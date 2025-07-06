@@ -21,49 +21,9 @@
         .success {
             color: green;
             font-weight: bold;
-        }
-        .error {
+        }        .error {
             color: red;
             font-weight: bold;
-        }
-        .reader-recommendations {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .recommendations-grid {
-            display: grid;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .recommendation-item {
-            border: 1px solid #eee;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .recommendation-type {
-            background: #e7f3ff;
-            color: #0066cc;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 0.8em;
-            display: inline-block;
-            margin-bottom: 5px;
-        }
-        .recommendation-title a {
-            text-decoration: none;
-            color: #333;
-        }
-        .recommendation-title a:hover {
-            color: #0066cc;
-        }
-        .recommendation-reason {
-            font-style: italic;
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 10px;
         }
     </style>
 </head>
@@ -78,12 +38,10 @@
     <main>
         <h2>Sample Content</h2>
         <p>This is a test page to verify the Reader Journey Optimizer works correctly without throwing the "getAllContent is not a function" error.</p>
-        
-        <p>The system should:</p>
+          <p>The system should:</p>
         <ul>
             <li>Initialize without errors</li>
             <li>Track this page view</li>
-            <li>Generate recommendations if applicable</li>
             <li>Handle mandala interactions (if present)</li>
         </ul>
     </main>
@@ -136,31 +94,11 @@
                         results.push(`<span class="success">  → Found ${similarContent.length} similar items</span>`);
                     } else {
                         results.push('<span class="error">✗ findSimilarContent method exists but returns invalid data</span>');
-                    }
-                } else {
+                    }                } else {
                     results.push('<span class="error">✗ findSimilarContent method not found</span>');
                 }
                 
-                // Test 5: Test recommendation generation
-                if (window.readerJourney && typeof window.readerJourney.getRecommendations === 'function') {
-                    const recommendations = window.readerJourney.getRecommendations();
-                    if (Array.isArray(recommendations)) {
-                        results.push('<span class="success">✓ Recommendation system works</span>');
-                        results.push(`<span class="success">  → Generated ${recommendations.length} recommendations</span>`);
-                        
-                        // Try to display recommendations
-                        if (recommendations.length > 0) {
-                            window.readerJourney.displayRecommendations(recommendations);
-                            results.push('<span class="success">✓ Recommendations displayed successfully</span>');
-                        }
-                    } else {
-                        results.push('<span class="error">✗ Recommendation system exists but returns invalid data</span>');
-                    }
-                } else {
-                    results.push('<span class="error">✗ Recommendation system not found</span>');
-                }
-                
-                // Test 6: Check reading stats
+                // Test 5: Check reading stats
                 if (window.readerJourney && typeof window.readerJourney.getReadingStats === 'function') {
                     const stats = window.readerJourney.getReadingStats();
                     if (stats && typeof stats === 'object') {

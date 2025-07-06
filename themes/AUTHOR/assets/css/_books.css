@@ -13,11 +13,22 @@
 .book-title {
   font-family: 'Orbitron', sans-serif;
   font-size: 2.5rem;
+  /* Fallback color for browsers that don't support background-clip */
+  color: #ff00cc;
   background: linear-gradient(90deg, #ff00cc, #3333ff);
   -webkit-background-clip: text;
   background-clip: text;
+  /* Only make text transparent if background-clip is supported */
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (background-clip: text) {
+  .book-title {
+    color: #ff00cc !important;
+    -webkit-text-fill-color: unset !important;
+  }
 }
 
 .book-date {

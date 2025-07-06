@@ -206,17 +206,7 @@
                 <button class="test-button" onclick="testInteractionTracking()">Test Click Tracking</button>
                 <button class="test-button" onclick="testViewTracking()">Test View Tracking</button>
                 <button class="test-button" onclick="simulateUserJourney()">Simulate User Journey</button>
-                <div id="tracking-output" class="output"></div>
-            </div>
-            
-            <!-- Recommendations Tests -->
-            <div class="test-card">
-                <h3>🎯 Recommendations</h3>
-                <button class="test-button" onclick="getRecommendations()">Get Recommendations</button>
-                <button class="test-button" onclick="updatePreferences()">Update Preferences</button>
-                <button class="test-button secondary" onclick="testRecommendationLogic()">Test Recommendation Logic</button>
-                <div id="recommendations-output" class="output"></div>
-            </div>
+                <div id="tracking-output" class="output"></div>            </div>
             
             <!-- Achievement Tests -->
             <div class="test-card">
@@ -516,83 +506,8 @@
                     } else {
                         readerJourney.trackInteraction(step.id, step.action, { contentType: step.type });
                     }
-                    log('tracking-output', `${step.action} → ${step.type}: ${step.id}`, 'success');
-                }, index * 800);
+                    log('tracking-output', `${step.action} → ${step.type}: ${step.id}`, 'success');                }, index * 800);
             });
-        }
-        
-        // Recommendations Functions
-        function getRecommendations() {
-            clearOutput('recommendations-output');
-            if (!readerJourney) {
-                log('recommendations-output', 'Reader journey not initialized', 'error');
-                return;
-            }
-            
-            log('recommendations-output', 'Getting recommendations...');
-            
-            try {
-                const recommendations = readerJourney.getRecommendations();
-                log('recommendations-output', `Found ${recommendations.length} recommendations:`, 'success');
-                
-                recommendations.forEach((rec, index) => {
-                    log('recommendations-output', `${index + 1}. ${rec.title} (${rec.type}) - Score: ${rec.score.toFixed(2)}`);
-                });
-                
-                if (recommendations.length === 0) {
-                    log('recommendations-output', 'No recommendations available. Try generating test data first.', 'warning');
-                }
-            } catch (e) {
-                log('recommendations-output', 'Error getting recommendations: ' + e.message, 'error');
-            }
-        }
-        
-        function updatePreferences() {
-            clearOutput('recommendations-output');
-            if (!readerJourney) {
-                log('recommendations-output', 'Reader journey not initialized', 'error');
-                return;
-            }
-            
-            log('recommendations-output', 'Updating preferences...');
-            
-            // Simulate preference updates
-            const preferences = {
-                contentTypes: ['stories', 'audio'],
-                themes: ['sci-fi', 'technology'],
-                difficulty: 'intermediate'
-            };
-            
-            readerJourney.data.preferences = { ...readerJourney.data.preferences, ...preferences };
-            readerJourney.saveData();
-            
-            log('recommendations-output', 'Preferences updated:', 'success');
-            log('recommendations-output', JSON.stringify(preferences, null, 2));
-        }
-        
-        function testRecommendationLogic() {
-            clearOutput('recommendations-output');
-            if (!readerJourney) {
-                log('recommendations-output', 'Reader journey not initialized', 'error');
-                return;
-            }
-            
-            log('recommendations-output', 'Testing recommendation logic...');
-            
-            // First generate some test data
-            generateTestData();
-            
-            setTimeout(() => {
-                // Then get recommendations
-                getRecommendations();
-                
-                // Show preference analysis
-                setTimeout(() => {
-                    const analysis = readerJourney.analyzePreferences();
-                    log('recommendations-output', 'Preference Analysis:');
-                    log('recommendations-output', JSON.stringify(analysis, null, 2));
-                }, 1000);
-            }, 500);
         }
         
         // Achievement Functions
