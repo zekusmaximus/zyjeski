@@ -1,13 +1,9 @@
-<!--
 +++
 title = "Debugging Alexander Kane"
 date = 2025-04-12T08:00:00-07:00
 draft = false
 tags = ['experiment', 'html', 'interactive']
 +++
--->
-
-<!-- Your HTML story content goes here -->
 
 <head>
     <meta charset="UTF-8">
@@ -1199,47 +1195,3 @@ tags = ['experiment', 'html', 'interactive']
     </script>
 </body>
 </html>
-        }
-        
-        // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Button listeners
-            document.getElementById('analyze-btn').addEventListener('click', analyze);
-            document.getElementById('patch-btn').addEventListener('click', patch);
-            document.getElementById('reboot-btn').addEventListener('click', reboot);
-            
-            // Fragment listeners
-            for (let i = 1; i <= 8; i++) {
-                const fragment = document.getElementById(`fragment-${i}`);
-                if (fragment) {
-                    fragment.addEventListener('click', () => openModal(i));
-                    fragment.setAttribute('tabindex', '0');
-                    fragment.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            openModal(i);
-                        }
-                    });
-                }
-            }
-            
-            // Modal close on outside click
-            document.getElementById('modal').addEventListener('click', (e) => {
-                if (e.target.id === 'modal') {
-                    closeModal();
-                }
-            });
-            
-            // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    closeModal();
-                }
-            });
-            
-            // Initialize
-            updateButtons();
-            showFragment(1);
-            updateMetrics(1);
-        });
-    </script>
