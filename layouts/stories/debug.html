@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+  {{ with .Params.description }}
+  <meta name="description" content="{{ . }}">
+  {{ else }}{{ with site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}{{ end }}
+  
+  <!-- Mobile optimization -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#0a192f">
+  
+  <!-- Override any theme CSS that might interfere -->
+  <style>
+    /* Reset any theme constraints */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+    
+    /* Hide theme elements that might interfere */
+    .page-container,
+    .content-container,
+    .koan-single,
+    header[role="banner"],
+    footer[role="contentinfo"],
+    .skip-links,
+    .loading-indicator,
+    .mobile-reading-controls,
+    .content-navigation,
+    nav[role="navigation"] {
+      display: none !important;
+    }
+    
+    /* Ensure full width for our content */
+    main {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Full-width content without theme constraints -->
+  <main style="width: 100%; height: 100vh; margin: 0; padding: 0;">
+    {{ .Content }}
+  </main>
+  
+  <!-- Minimal JavaScript for basic functionality -->
+  <script>
+    // Basic device detection without theme interference
+    (function() {
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      const isTouch = 'ontouchstart' in window;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      document.documentElement.classList.add(
+        isMobile ? 'mobile' : 'desktop',
+        isTouch ? 'touch' : 'no-touch',
+        prefersReducedMotion ? 'reduce-motion' : 'motion-ok'
+      );
+    })();
+  </script>
+</body>
+</html>
