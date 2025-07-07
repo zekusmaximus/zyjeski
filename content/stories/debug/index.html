@@ -255,10 +255,10 @@ layout = "debug"
             position: relative;
             width: 100%;
             max-width: 1000px;
-            height: 300px;
+            height: 350px;
             margin: 20px 0;
         }
-        
+
         .fragment {
             position: absolute;
             width: 200px;
@@ -272,34 +272,35 @@ layout = "debug"
             border: 1px solid rgba(100, 255, 218, 0.2);
             display: none;
         }
-        
+
         .fragment.visible {
             display: block;
         }
-        
+
         .fragment:hover {
             transform: rotate(0deg) translateY(-5px);
         }
-        
+
         .fragment.fragment--error {
             filter: blur(2px);
             animation: shake 0.5s ease-in-out;
         }
-        
+
         @keyframes shake {
             0%, 100% { transform: rotate(5deg); }
             25% { transform: rotate(3deg) translateX(-2px); }
             75% { transform: rotate(7deg) translateX(2px); }
         }
-        
+
+        /* Consistent positioning for all fragments to avoid overlap with content below */
         .fragment:nth-child(1) { left: 15%; top: 10%; }
         .fragment:nth-child(2) { right: 15%; top: 20%; transform: rotate(-4deg); }
         .fragment:nth-child(3) { left: 50%; top: 5%; transform: translateX(-50%) rotate(3deg); }
-        .fragment:nth-child(4) { left: 25%; bottom: 10%; transform: rotate(-3deg); }
-        .fragment:nth-child(5) { right: 25%; bottom: 20%; transform: rotate(4deg); }
+        .fragment:nth-child(4) { left: 25%; top: 60%; transform: rotate(-3deg); }
+        .fragment:nth-child(5) { right: 25%; top: 70%; transform: rotate(4deg); }
         .fragment:nth-child(6) { left: 60%; top: 40%; transform: rotate(-5deg); }
         .fragment:nth-child(7) { left: 10%; top: 50%; transform: rotate(2deg); }
-        .fragment:nth-child(8) { right: 10%; top: 5%; transform: rotate(-3deg); }
+        .fragment:nth-child(8) { right: 10%; top: 30%; transform: rotate(-3deg); }
         
         .fragment-header {
             color: var(--highlight-cyan);
@@ -394,10 +395,10 @@ layout = "debug"
         /* Content layout improvements */
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 400px 1fr;
             gap: 30px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1400px;
             margin: 20px 0;
         }
         
@@ -616,7 +617,11 @@ layout = "debug"
             }
             
             .memory-fragments {
-                height: 250px;
+                height: 300px;
+            }
+
+            .content-grid {
+                max-width: 100%;
             }
         }
     </style>
