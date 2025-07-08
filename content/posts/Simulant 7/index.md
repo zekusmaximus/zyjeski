@@ -32,6 +32,6 @@ This project is a narrative exploration of the questions that fascinate me as a 
 
 Step into the courtroom of tomorrow. Examine the charges, review the evidence, and draw your own conclusions.
 
-Visit [casefile.zyjeski.com](https://casefile.zyjeski.com)casefile.zyjeski.com to access the dossier.
+Visit [casefile.zyjeski.com](https://casefile.zyjeski.com) to access the dossier.
 
 *"When the property speaks, the law must learn a new language."*
