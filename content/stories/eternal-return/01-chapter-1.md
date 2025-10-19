@@ -182,27 +182,27 @@ data, circa 2031, origin unknown. Authentication purpose: incorporation into can
 upcoming consciousness preservation procedure. Standard contract, standard timelin e, nothing 
 about the request warranted the unease that settled in my chest when I loaded the fragment 
 specifications.  
-847.3 terabytes of preserved consciousness data. Large for a recovered fragment �?"most 
+847.3 terabytes of preserved consciousness data. Large for a recovered fragment, most 
 historical excavations yielded significantly less. Memory integrity registered at 94.7 percent, well 
 above the 85 percent threshold required for authentication. Neural pat hway preservation at 
 91.2 percent. Temporal consistency at 88.9 percent, which triggered the first flag in my analysis 
 workflow.  
 Temporal consistency should never drop below 92 percent in properly preserved fragments.  
-I ran the standard diagnostic suite, expecting corruption markers or recovery artifacts �?"the 
+I ran the standard diagnostic suite, expecting corruption markers or recovery artifacts, the 
 usual culprits when temporal metrics fell outside normal parameters. The diagnostics returned 
 clean. Fragment structure intact. Crystalline substrate showing no sig ns of degradation. 
 Authentication markers valid across all verification layers.  
 The fragment was perfectly preserved while simultaneously exhibiting impossible temporal 
 characteristics.  
 I made coffee. Strong, bitter, the kind that tastes like discipline. My lab overlooked the facility 
-construction site three kilometers north �?"skeletal framework rising against the skyline, the 
+construction site three kilometers north, skeletal framework rising against the skyline, the 
 Archive they were building to house humanity's preserved conscio usness. At night, the 
 construction lights created artificial constellations. During the day, I watched cranes and workers 
 assembling the infrastructure that would make consciousness preservation routine rather than 
 experimental.  
 We were seventeen years into the Upload Era. Preservation success rates had climbed from 12 
-percent to 67 percent. Still insufficient for casual immortality �?"losing a third of preserved 
-consciousness made most people hesitant �?"but high enough that the wealth y, the desperate, 
+percent to 67 percent. Still insufficient for casual immortality, losing a third of preserved 
+consciousness made most people hesitant, but high enough that the wealth y, the desperate, 
 and the philosophically curious were willing to risk digital continuity.</p>
         <p>I authenticated fragments for Upload Candidate families who wanted to incorporate ancestral 
 consciousness into their preservation procedures. Whether adding recovered fragments 
@@ -210,11 +210,11 @@ improved continuity or contaminated identity remained philosophically unresolve 
 metrics suggested incorporation increased successful preservation by 8 to 11 percent. Families 
 paid well for that marginal improvement.  
 Professional distance was essential. I excavated consciousness the way archaeologists excavated 
-ruins �?"methodically, objectively, with appropriate documentation. The fragments were data. 
+ruins, methodically, objectively, with appropriate documentation. The fragments were data. 
 Historical artifacts. My job was verification, not interpretation.  
 The coffee went cold while I examined Upload Candidate 17 -0293's fragment in detail.  
 The temporal inconsistency manifested in memory encoding structures. The fragment contained 
-consciousness from 2031 �?"authentication markers confirmed the preservation date �?"but 
+consciousness from 2031, authentication markers confirmed the preservation date, but 
 several memory clusters used encoding methodologies that weren't developed until 2037. Not 
 similar methodologies. Not techniques that could be explained by parallel development. Exact 
 encoding structures, identifiable by crystalline substrate pattern and molecular -level 
@@ -227,7 +227,7 @@ time of preservation.
 I documented the anomaly in my authentication log:  
 *Fragment 17 -0293 exhibits temporal methodology inconsistency. 2031 preservation date 
 confirmed via multiple authentication vectors. Memory clusters 847 -1109 utilize 2037 -era 
-encoding structures. Contamination hypothesis fails �?"substrate analysis confirms e ncoding 
+encoding structures. Contamination hypothesis fails, substrate analysis confirms e ncoding 
 contemporaneous with original preservation. Recommendation: flag for peer review before 
 authentication approval.*  
 Peer review would delay authentication by six weeks. Upload Candidate 17 -0293's family was 
@@ -243,7 +243,7 @@ characteristics.
 The facility construction lights flickered on as afternoon became evening. I should have moved 
 to the next fragment in my queue. Client families paid for efficiency, not obsessive re -analysis. 
 But something about the temporal markers held my attention the way a loose thread compels 
-pulling �?"the sense that investigation would unravel more than intended.  
+pulling, the sense that investigation would unravel more than intended.  
 I began cross -referencing against my historical database. Every fragment I had authenticated, 
 every temporal marker I had catalogued, every unusual preservation characteristic that had 
 caught my attention across ten years of excavation work. The database c ontained 4,109 verified 
@@ -251,12 +251,12 @@ fragments, 17,847 rejected fragments, and approximately 847,000 documented data 
 The number caught my attention. Exactly 847,000 data points. Not approximate. Exact.  
 I checked my database statistics log. The current data point total: 847,293. I had rounded 
 instinctively, the way one does when describing large numbers. But the rounding target �?"
-847,000 �?"matched the fragment size I was currently authenticating. 847.3 teraby tes. 
+847,000, matched the fragment size I was currently authenticating. 847.3 teraby tes. 
 Coincidence. Had to be. The human brain excels at pattern recognition, often finding 
 significance in random correlations. Numerical synchronicity meant nothing.  
 I ran a correlation analysis anyway.  
 The analysis identified 847 fragments in my historical database that exhibited minor temporal 
-inconsistencies �?"not enough to reject authentication, but present in the data. Preservation 
+inconsistencies, not enough to reject authentication, but present in the data. Preservation 
 dates slightly misaligned with encoding methodologies. Memory structure s demonstrating 
 preservation techniques developed months or years after authenticated preservation dates. 
 Small discrepancies, easily explained by measurement uncertainty or substrate variation.  
@@ -270,7 +270,7 @@ assigned when we received our authe ntication credentials.
 My designation: Archaeologist 091.  
 I ran a career trajectory analysis on the designations present in the temporal anomaly dataset. 
 Every archaeologist who had authenticated multiple temporally anomalous fragments had 
-subsequently undergone consciousness preservation themselves. Not just preservation �?"
+subsequently undergone consciousness preservation themselves. Not just preservation, 
 successful preservation. Upload success rates for archaeologists who had worked extensively 
 with temporally anomalous fragments approached 94 percent, dramatically higher t han the 
 industry average of 67 percent.  
@@ -289,14 +289,14 @@ I hadn't decided whether to undergo preservation. The philosophical questions tr
 more than the technical risks. If consciousness could be preserved digitally, was the preserved 
 consciousness genuinely continuous with the biological original? Or wa s preservation merely 
 creating a sophisticated copy while the original consciousness ended with biological death?  
-Adding recovered fragments to one's own upload �?"the service I provided for my clients �?"
+Adding recovered fragments to one's own upload �?"the service I provided for my clients, 
 complicated the question further. If incorporating ancestral consciousness improved 
 preservation success, did that suggest consciousness wasn't discrete? That identity cou ld be 
 expanded, merged, collective rather than individual?  
 I returned to Fragment 17 -0293, examining the specific memory clusters that exhibited the 
 temporal impossibility.  
 The memories were mundane. Breakfast preparation. Morning commute. Routine work in what 
-appeared to be data architecture �?"the consciousness had been someone who designed 
+appeared to be data architecture, the consciousness had been someone who designed 
 information systems, the digital infrastructure underlying early preservation technolog y. 
 Nothing philosophically profound. Nothing that suggested why these particular memories 
 would exhibit future encoding methodologies.  
@@ -308,7 +308,7 @@ fragments before undergoing successful preservation in 2039. I thought about Arc
 033, who had authenticated 203 fragments before uploading in 2042. I thought about the 
 correlation between temporal anomaly authentication and upload success rates.  
 If consciousness preservation created temporal recursion, and archaeologists who recognized 
-the recursion achieved higher preservation success, then recognition wasn't just observation �?"it 
+the recursion achieved higher preservation success, then recognition wasn't just observation, it 
 was participation in the temporal structure that made preservation p ossible.  
 I opened my personal preservation planning file. I had been deferring the decision for three 
 years, uncomfortable with the philosophical implications, uncertain whether digital 
