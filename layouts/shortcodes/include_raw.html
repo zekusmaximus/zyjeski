@@ -1,0 +1,14 @@
+{{- $path := .Get "path" -}}
+{{- $raw := readFile $path -}}
+{{- /* Strip front matter if present */ -}}
+{{- $noFM := replaceRE `(?s)^---.*?---\s*` "" $raw -}}
+{{- /* Remove any stray <head> or </head> tags in content */ -}}
+{{- $noHead := replaceRE `(?is)</?head[^>]*>` "" $noFM -}}
+{{- /* Optionally strip legacy Next button hard-links */ -}}
+{{- $stripNext := .Get "strip_next" | default "true" -}}
+{{- $content := $noHead -}}
+{{- if eq $stripNext "true" -}}
+  {{- $content = replaceRE `(?is)<a[^>]*class=\"next-button\"[^>]*>.*?</a>` "" $content -}}
+{{- end -}}
+{{- $content | safeHTML -}}
+
