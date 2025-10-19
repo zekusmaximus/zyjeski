@@ -6,5 +6,4 @@ type: "story"
 layout: "chapter"
 ---
 
-{{< include_raw path="content/stories/Eternal_Return/chapter3.html" strip_next="true" >}}
-
+{{< include_raw path="assets/story_sources/eternal-return/chapter3.html" strip_next="true" >}}
