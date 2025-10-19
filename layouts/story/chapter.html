@@ -1,0 +1,17 @@
+{{ define "main" }}
+<article class="mx-auto max-w-3xl px-6 py-10">
+  <header><h1>{{ .Title }}</h1></header>
+  <div class="content">
+    {{ .Content }}
+  </div>
+  <nav class="mt-10 flex justify-between">
+    <div>
+      {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">◀ {{ .Title }}</a>{{ end }}
+    </div>
+    <div>
+      {{ with .NextInSection }}<a href="{{ .RelPermalink }}">{{ .Title }} ▶</a>{{ end }}
+    </div>
+  </nav>
+</article>
+{{ end }}
+
