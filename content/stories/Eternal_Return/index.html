@@ -1,0 +1,192 @@
+<!--
++++
+title = "Eternal Return of the Digital Self"
+date = 2025-10-19T08:00:00-07:00
+draft = false
+summary = "An interactive story exploring consciousness preservation, temporal recursion, and the philosophical implications of digital immortality in a world where archaeologists excavate fragments of preserved consciousness."
+tags = ['experiment', 'html', 'interactive']
+layout = "raw-html"
++++
+-->
+
+<!-- Your HTML story content goes here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Eternal Return of the Digital Self</title>
+    <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 30px;
+    min-height: 100vh;
+}
+
+.chapter-title {
+    font-size: 2em;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.chapter-content {
+    font-size: 1.1em;
+    text-align: justify;
+    margin-bottom: 60px;
+}
+
+.chapter-content p {
+    margin-bottom: 1.5em;
+}
+
+.next-button {
+    display: block;
+    width: 200px;
+    margin: 40px auto;
+    padding: 15px 30px;
+    background-color: transparent;
+    color: #4A90E2;
+    border: 2px solid #4A90E2;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #4A90E2;
+    color: #000000;
+    text-shadow: 0 0 8px #4A90E2;
+    box-shadow: 0 0 15px #4A90E2;
+}
+
+/* Landing page specific styles */
+.landing {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/images/cyber-bg-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.landing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.landing-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 3em;
+    margin-bottom: 50px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+}
+
+.begin-button {
+    padding: 20px 40px;
+    font-size: 1.2em;
+    background-color: transparent;
+    color: #4A90E2;
+    border: 3px solid #4A90E2;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.begin-button:hover {
+    background-color: #4A90E2;
+    color: #000000;
+    text-shadow: 0 0 10px #4A90E2;
+    box-shadow: 0 0 20px #4A90E2;
+}
+
+/* Epilogue specific styles */
+.terminal-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.recursive-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #4A90E2;
+    border: 2px solid #4A90E2;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.recursive-button:hover {
+    background-color: #4A90E2;
+    color: #000000;
+    text-shadow: 0 0 8px #4A90E2;
+    box-shadow: 0 0 15px #4A90E2;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2em;
+    }
+    
+    .container {
+        padding: 40px 20px;
+    }
+    
+    .chapter-content {
+        font-size: 1em;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="landing">
+        <div class="landing-content">
+            <h1 class="main-title">The Eternal Return of the Digital Self</h1>
+            <a href="/stories/eternal-return/chapter1.html" class="begin-button">BEGIN THE STORY</a>
+        </div>
+    </div>
+</body>
+</html>
