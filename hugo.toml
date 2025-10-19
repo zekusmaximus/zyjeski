@@ -88,3 +88,8 @@ theme = "AUTHOR"
     name = 'Agent/Editor Inquiries'
     pageRef = '/inquiries'
     weight = 80
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
