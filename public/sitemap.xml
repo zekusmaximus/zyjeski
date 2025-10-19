@@ -2,138 +2,144 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://zyjeski.netlify.app/tags/consciousness/</loc>
-    <lastmod>2025-10-19T08:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/stories/eternal_return/</loc>
+    <lastmod>2025-10-19T16:50:51+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/digital-immortality/</loc>
-    <lastmod>2025-10-19T08:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/tags/fiction/</loc>
+    <lastmod>2025-10-19T16:50:51+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/eternal_return/</loc>
-    <lastmod>2025-10-19T08:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/tags/philosophy/</loc>
+    <lastmod>2025-10-19T16:50:51+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/experiment/</loc>
-    <lastmod>2025-10-19T08:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/tags/sci-fi/</loc>
+    <lastmod>2025-10-19T16:50:51+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/interactive/</loc>
-    <lastmod>2025-10-19T08:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/tags/story/</loc>
+    <lastmod>2025-10-19T16:50:51+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/</loc>
-    <lastmod>2025-10-19T08:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-10-19T16:50:51+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/fiction/</loc>
+    <loc>http://localhost:1313/tags/recursive/</loc>
     <lastmod>2025-07-20T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/recursive/</loc>
+    <loc>http://localhost:1313/stories/cellar/</loc>
     <lastmod>2025-07-20T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/cellar/</loc>
-    <lastmod>2025-07-20T10:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://zyjeski.netlify.app/tags/cyberpunk/</loc>
+    <loc>http://localhost:1313/tags/cyberpunk/</loc>
     <lastmod>2025-07-07T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/future-governance/</loc>
+    <loc>http://localhost:1313/tags/future-governance/</loc>
     <lastmod>2025-07-07T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/posts/simulant-7/</loc>
+    <loc>http://localhost:1313/posts/simulant-7/</loc>
     <lastmod>2025-07-07T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/inquiries/</loc>
+    <loc>http://localhost:1313/inquiries/</loc>
     <lastmod>2025-04-30T12:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/audio/spoken-story-one/</loc>
+    <loc>http://localhost:1313/audio/spoken-story-one/</loc>
     <lastmod>2025-04-30T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/audio/spoken-story-two/</loc>
+    <loc>http://localhost:1313/audio/spoken-story-two/</loc>
     <lastmod>2025-04-30T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/audio/spoken-story-three/</loc>
+    <loc>http://localhost:1313/audio/spoken-story-three/</loc>
     <lastmod>2025-04-30T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/thousand/thousand/</loc>
+    <loc>http://localhost:1313/stories/thousand/thousand/</loc>
     <lastmod>2025-04-20T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/bart-higgins/</loc>
+    <loc>http://localhost:1313/stories/bart-higgins/</loc>
     <lastmod>2025-04-20T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/character-study/</loc>
+    <loc>http://localhost:1313/tags/character-study/</loc>
     <lastmod>2025-04-20T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/debug/</loc>
+    <loc>http://localhost:1313/stories/debug/</loc>
     <lastmod>2025-04-12T08:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/html/</loc>
+    <loc>http://localhost:1313/tags/experiment/</loc>
     <lastmod>2025-04-12T08:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/eigenstate/</loc>
+    <loc>http://localhost:1313/tags/html/</loc>
+    <lastmod>2025-04-12T08:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/interactive/</loc>
+    <lastmod>2025-04-12T08:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/stories/eigenstate/</loc>
     <lastmod>2025-04-05T14:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/mysticism/</loc>
+    <loc>http://localhost:1313/tags/mysticism/</loc>
     <lastmod>2025-04-05T14:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/books/there-are-no-humans/</loc>
+    <loc>http://localhost:1313/books/there-are-no-humans/</loc>
     <lastmod>2025-04-03T12:27:25+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2025-03-30T08:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/books/</loc>
+    <loc>http://localhost:1313/books/</loc>
     <lastmod>2025-03-30T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2025-03-30T08:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-03-30T08:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/</loc>
+    <loc>http://localhost:1313/stories/</loc>
     <lastmod>2025-03-30T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/audio/</loc>
+    <loc>http://localhost:1313/audio/</loc>
     <lastmod>2025-03-30T15:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/meditation/</loc>
+    <loc>http://localhost:1313/tags/consciousness/</loc>
     <lastmod>2025-03-25T09:30:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/posts/first-post/</loc>
+    <loc>http://localhost:1313/tags/meditation/</loc>
     <lastmod>2025-03-25T09:30:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/programming/</loc>
+    <loc>http://localhost:1313/posts/first-post/</loc>
     <lastmod>2025-03-25T09:30:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/audio/first-simulation/</loc>
+    <loc>http://localhost:1313/tags/programming/</loc>
+    <lastmod>2025-03-25T09:30:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/audio/first-simulation/</loc>
     <lastmod>2025-03-15T14:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/simulation/</loc>
+    <loc>http://localhost:1313/tags/simulation/</loc>
     <lastmod>2025-03-15T14:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/digital-enlightenment/</loc>
+    <loc>http://localhost:1313/tags/digital-enlightenment/</loc>
     <lastmod>2025-02-15T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/books/the-protocol-vol1/</loc>
+    <loc>http://localhost:1313/books/the-protocol-vol1/</loc>
     <lastmod>2025-02-15T10:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/koans/</loc>
+    <loc>http://localhost:1313/tags/koans/</loc>
     <lastmod>2025-01-10T11:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/non-duality/</loc>
+    <loc>http://localhost:1313/tags/non-duality/</loc>
     <lastmod>2025-01-10T11:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/tags/paradox/</loc>
+    <loc>http://localhost:1313/tags/paradox/</loc>
     <lastmod>2025-01-10T11:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/first-koan/</loc>
+    <loc>http://localhost:1313/stories/first-koan/</loc>
     <lastmod>2025-01-10T11:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/newsletter/</loc>
+    <loc>http://localhost:1313/newsletter/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/html-story/</loc>
+    <loc>http://localhost:1313/stories/html-story/</loc>
   </url><url>
-    <loc>https://zyjeski.netlify.app/stories/meaning/</loc>
+    <loc>http://localhost:1313/stories/meaning/</loc>
   </url><url>
-    <loc>https://zyjeski.netlify.app/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://zyjeski.netlify.app/offline/</loc>
+    <loc>http://localhost:1313/offline/</loc>
   </url>
 </urlset>
