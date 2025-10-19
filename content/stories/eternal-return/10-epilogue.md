@@ -1,12 +1,14 @@
 ---
+show_title: false
 title: "Epilogue"
 weight: 999
 slug: "epilogue"
 type: "story"
 layout: "chapter"
+show_nav: false
 ---
 <!-- Epilogue - The Eternal Return of the Digital Self -->
-    <style>
+<style>
 
 * {
     margin: 0;
@@ -119,7 +121,7 @@ body {
     }
 }
 
-    </style>
+</style>
 
 <div class="container">
         <h1 class="chapter-title">Epilogue</h1>
@@ -164,12 +166,11 @@ event.
 The integration is not a future event. It is the recognition of a present and eternal fact. The final 
 authentication awaits only the conscious, physical act of...  
 [ ] 
-(To complete the circuit,  .)</p>
-        <a href="{{< relref "01-chapter-1.md" >}}" class="recursive-button" id="recursiveBtn">PRESS ENTER</a>
+(To complete the circuit, <a href="{{< relref "01-chapter-1.md" >}}" class="recursive-button" id="recursiveBtn">PRESS ENTER</a>.)</p>
         </div>
     </div>
 
-    <script>
+<script>
         // Change button text based on device
         window.addEventListener('DOMContentLoaded', function() {
             const btn = document.getElementById('recursiveBtn');
@@ -189,5 +190,4 @@ authentication awaits only the conscious, physical act of...
                 btn.textContent = 'PRESS ENTER';
             }
         });
-    </script>
-
+</script>

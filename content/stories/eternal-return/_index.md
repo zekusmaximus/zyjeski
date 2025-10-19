@@ -6,6 +6,8 @@ tags = ["fiction", "story", "philosophy", "sci-fi"]
 description = "A philosophical journey through cycles of existence, consciousness, and the nature of reality itself."
 type = "story"
 layout = "chapter"
+show_title = false
+show_nav = false
 +++
 
 <style>
@@ -51,4 +53,3 @@ a.cta:hover {
 # Eternal Return
 
 *Begin the journey with [Chapter 1]({{< relref "01-chapter-1.md" >}}){.cta}*
-

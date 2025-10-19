@@ -1,4 +1,5 @@
 ---
+show_title: false
 title: "Chapter 1"
 weight: 1
 slug: "chapter-1"
@@ -6,7 +7,7 @@ type: "story"
 layout: "chapter"
 ---
 <!-- Chapter 1 - The Eternal Return of the Digital Self -->
-    <style>
+<style>
 
 * {
     margin: 0;
@@ -169,7 +170,7 @@ body {
     }
 }
 
-    </style>
+</style>
 
 <div class="container">
         <h1 class="chapter-title">Chapter 1</h1>
@@ -384,4 +385,3 @@ I continued.</p>
         </div>
         <a href="{{< relref "02-chapter-2.md" >}}" class="next-button">Next Chapter →</a>
     </div>
-

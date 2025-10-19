@@ -1,4 +1,5 @@
 ---
+show_title: false
 title: "Chapter 5"
 weight: 5
 slug: "chapter-5"
