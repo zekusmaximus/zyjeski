@@ -23,7 +23,6 @@
 {{- with resources.Get "css/_social.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_content-types.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_mobile-reading.css" }}{{ $css = $css | append . }}{{ end }}
-{{- with resources.Get "css/reader-journey.css" }}{{ $css = $css | append . }}{{ end }}
 {{- with resources.Get "css/_responsive.css" }}{{ $css = $css | append . }}{{ end }}
 
 {{/* Concatenate all CSS files */}}

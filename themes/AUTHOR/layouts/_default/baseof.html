@@ -56,16 +56,11 @@
       {{ partial "footer.html" . }}
     </footer>
   </div>
-  <!-- Reader Journey Optimization Features -->
-  {{ partial "onboarding-flow.html" . }}
-  {{ partial "progress-tracker.html" . }}
-  {{ partial "contextual-navigation.html" . }}
-  {{ partial "achievement-system.html" . }}
-
-  <!-- Core JavaScript with Reader Journey Integration -->
-  {{ $readerJourneyJS := resources.Get "js/reader-journey.js" }}
-  {{ $readerJourneyJS = $readerJourneyJS | resources.Minify }}
-  <script src="{{ $readerJourneyJS.RelPermalink }}" defer></script>
+  <!-- Reader Journey features disabled -->
+  {{/* onboarding-flow.html removed */}}
+  {{/* progress-tracker.html removed */}}
+  {{/* contextual-navigation.html removed */}}
+  {{/* achievement-system.html removed */}}
   
   {{ $mainJS := resources.Get "js/main.js" }}
   {{ $mainJS = $mainJS | resources.Minify }}
