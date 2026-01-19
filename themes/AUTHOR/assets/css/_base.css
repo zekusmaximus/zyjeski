@@ -42,9 +42,9 @@ body::before {
 }
 
 .home-banner {
-  margin: 1.5rem auto 2rem;
-  max-width: 540px;
-  text-align: center;
+  margin: 1rem 0 2rem;
+  max-width: 380px;
+  text-align: left;
 }
 
 .home-banner img {
