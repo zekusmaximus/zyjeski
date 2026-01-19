@@ -3,7 +3,7 @@ title: The Forms Must Flow
 date: 2026-01-01T12:27:25.696Z
 draft: false
 cover_image: /images/uploads/Cover1_SciFiSatire_4x5_IG.png
-pages: 69
+pages: 313
 publication_date: January 6, 2026
 show_3d_transition: false
 purchase_links:
