@@ -129,7 +129,7 @@
    ============================================================================= */
 
 .content-container {
-  max-width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: var(--content-padding);
   position: relative;
@@ -435,10 +435,9 @@
 
 /* Koan-specific styles */
 .content-container[data-content-type="koan"] .main-content {
-  text-align: center;
+  text-align: left;
   font-size: var(--reading-font-size-lg);
-  font-style: italic;
-  max-width: 60ch;
+  max-width: var(--reading-max-width);
 }
 
 .content-container[data-content-type="koan"] .main-content p {
