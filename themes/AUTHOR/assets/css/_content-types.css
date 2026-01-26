@@ -22,33 +22,79 @@
 }
 
 .content-container[data-content-type="koan"] .main-content {
-  text-align: center;
+  text-align: left;
   font-family: 'Inter', serif;
   font-weight: 300;
   letter-spacing: 0.02em;
+  max-width: 75ch;
+  margin: 0 auto;
 }
 
 .content-container[data-content-type="koan"] .main-content p {
-  font-size: clamp(1.25rem, 1.25rem + 1.5vw, 2rem);
-  line-height: clamp(1.6, 1.6 + 0.2vw, 2);
-  margin-bottom: clamp(2rem, 2rem + 1vw, 3rem);
+  font-size: clamp(1.1rem, 1.1rem + 0.5vw, 1.4rem);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
   position: relative;
-  padding: 1rem 0;
+}
+
+/* Use semantic dropcap for story beginnings */
+.content-container[data-content-type="koan"] .main-content p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  padding-right: 0.8rem;
+  padding-top: 0.4rem;
+  color: var(--holographic-teal);
+  font-weight: bold;
+}
+
+/* Special story components */
+.terminal-display {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  border-left: 3px solid var(--holographic-teal);
+  margin: 2.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  color: var(--holographic-teal);
+  text-shadow: 0 0 5px rgba(0, 245, 212, 0.3);
+}
+
+.terminal-display p {
+  margin-bottom: 0 !important;
+  text-align: left !important;
+  font-size: 0.95rem !important;
+}
+
+.story-stats {
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  color: var(--holographic-teal);
+}
+
+.error-log {
+  background: rgba(255, 0, 0, 0.05);
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 2.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #ff4d4d;
+  text-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
 }
 
 .content-container[data-content-type="koan"] .main-content p::before,
 .content-container[data-content-type="koan"] .main-content p::after {
-  content: "◆";
-  display: block;
-  color: var(--saffron);
-  opacity: 0.3;
-  font-size: 1rem;
-  margin: 1rem 0;
+  display: none;
 }
 
-/* Breathing animation for koans */
+/* Breathing animation disabled globally for stories */
 .content-container[data-content-type="koan"] .main-content p {
-  animation: breathe 8s ease-in-out infinite;
+  animation: none;
 }
 
 @keyframes breathe {
