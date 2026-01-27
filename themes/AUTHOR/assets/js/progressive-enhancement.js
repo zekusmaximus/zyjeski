@@ -326,29 +326,38 @@ class ProgressiveEnhancement {
   }
 
   progressivelyLoadFeatures() {
+    // Start all imports immediately for enabled features
+    const imports = {};
+    if (this.features.mandala3D) imports.mandala3D = import('./features/mandala-3d.js');
+    if (this.features.prayerWheelAnimation) imports.prayerWheelAnimation = import('./features/prayer-wheel.js');
+    if (this.features.particleEffects) imports.particleEffects = import('./features/particles.js');
+    if (this.features.complexAnimations) imports.complexAnimations = import('./features/animations.js');
+    if (this.features.audioVisualization) imports.audioVisualization = import('./features/audio-visualization.js');
+    if (this.features.backgroundEffects) imports.backgroundEffects = import('./features/background-effects.js');
+
     // Load features in order of importance
     if (this.features.mandala3D) {
-      this.loadingQueue.push(() => this.loadMandala3D());
+      this.loadingQueue.push(() => this.loadMandala3D(imports.mandala3D));
     }
     
     if (this.features.prayerWheelAnimation) {
-      this.loadingQueue.push(() => this.loadPrayerWheelAnimation());
+      this.loadingQueue.push(() => this.loadPrayerWheelAnimation(imports.prayerWheelAnimation));
     }
     
     if (this.features.particleEffects) {
-      this.loadingQueue.push(() => this.loadParticleEffects());
+      this.loadingQueue.push(() => this.loadParticleEffects(imports.particleEffects));
     }
     
     if (this.features.complexAnimations) {
-      this.loadingQueue.push(() => this.loadComplexAnimations());
+      this.loadingQueue.push(() => this.loadComplexAnimations(imports.complexAnimations));
     }
     
     if (this.features.audioVisualization) {
-      this.loadingQueue.push(() => this.loadAudioVisualization());
+      this.loadingQueue.push(() => this.loadAudioVisualization(imports.audioVisualization));
     }
     
     if (this.features.backgroundEffects) {
-      this.loadingQueue.push(() => this.loadBackgroundEffects());
+      this.loadingQueue.push(() => this.loadBackgroundEffects(imports.backgroundEffects));
     }
     
     // Process queue with throttling
@@ -368,9 +377,10 @@ class ProgressiveEnhancement {
     }
   }
 
-  async loadMandala3D() {
+  async loadMandala3D(importPromise) {
+    const promise = importPromise || import('./features/mandala-3d.js');
     return new Promise((resolve) => {
-      import('./features/mandala-3d.js').then(module => {
+      promise.then(module => {
         module.initMandala3D(this.capabilities);
         resolve();
       }).catch(() => {
@@ -381,9 +391,10 @@ class ProgressiveEnhancement {
     });
   }
 
-  async loadPrayerWheelAnimation() {
+  async loadPrayerWheelAnimation(importPromise) {
+    const promise = importPromise || import('./features/prayer-wheel.js');
     return new Promise((resolve) => {
-      import('./features/prayer-wheel.js').then(module => {
+      promise.then(module => {
         module.initPrayerWheel(this.capabilities);
         resolve();
       }).catch(() => {
@@ -394,9 +405,10 @@ class ProgressiveEnhancement {
     });
   }
 
-  async loadParticleEffects() {
+  async loadParticleEffects(importPromise) {
+    const promise = importPromise || import('./features/particles.js');
     return new Promise((resolve) => {
-      import('./features/particles.js').then(module => {
+      promise.then(module => {
         module.initParticles(this.capabilities);
         resolve();
       }).catch(() => {
@@ -405,9 +417,10 @@ class ProgressiveEnhancement {
     });
   }
 
-  async loadComplexAnimations() {
+  async loadComplexAnimations(importPromise) {
+    const promise = importPromise || import('./features/animations.js');
     return new Promise((resolve) => {
-      import('./features/animations.js').then(module => {
+      promise.then(module => {
         module.initComplexAnimations(this.capabilities);
         resolve();
       }).catch(() => {
@@ -416,9 +429,10 @@ class ProgressiveEnhancement {
     });
   }
 
-  async loadAudioVisualization() {
+  async loadAudioVisualization(importPromise) {
+    const promise = importPromise || import('./features/audio-visualization.js');
     return new Promise((resolve) => {
-      import('./features/audio-visualization.js').then(module => {
+      promise.then(module => {
         module.initAudioVisualization(this.capabilities);
         resolve();
       }).catch(() => {
@@ -427,9 +441,10 @@ class ProgressiveEnhancement {
     });
   }
 
-  async loadBackgroundEffects() {
+  async loadBackgroundEffects(importPromise) {
+    const promise = importPromise || import('./features/background-effects.js');
     return new Promise((resolve) => {
-      import('./features/background-effects.js').then(module => {
+      promise.then(module => {
         module.initBackgroundEffects(this.capabilities);
         resolve();
       }).catch(() => {
