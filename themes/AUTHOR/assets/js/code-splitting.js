@@ -31,7 +31,9 @@ class CodeSplittingManager {
       progressive: {
         'mandala-3d': {
           path: '/js/features/mandala-3d.js',
-          requirements: { webGL: true, performance: 'high', reducedMotion: false },
+          // Touch devices excluded: 3D effects rely on hover/mouse parallax which doesn't translate to touch
+          // High performance required: WebGL rendering + parallax calculations are CPU/GPU intensive
+          requirements: { webGL: true, performance: 'high', reducedMotion: false, touch: false },
           budget: { js: 80, css: 20 }
         },
         'animations': {

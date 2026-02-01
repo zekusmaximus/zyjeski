@@ -254,7 +254,13 @@ class ProgressiveEnhancement {
     switch (perf) {
       case 'high':
         // Enable all features on high-performance devices (if flags allow)
+
+        // Mandala3D disabled on touch devices (!touch) because:
+        // 1. 3D effects rely on mouse hover and parallax tracking (no touch equivalent)
+        // 2. Touch interactions conflict with scroll gestures needed for parallax
+        // 3. Mobile/tablet users get better experience with simplified grid
         this.features.mandala3D = flags.mandala3D !== false && motion !== 'reduce' && !touch;
+
         this.features.complexAnimations = flags.animations !== false && motion !== 'reduce';
         this.features.audioVisualization = flags.audioVisualization !== false;
         break;

@@ -29,13 +29,40 @@
   {{ $progressiveCSS = $progressiveCSS | resources.Minify }}
   <link rel="stylesheet" href="{{ $progressiveCSS.RelPermalink }}">
 
-  <!-- Feature Flags - Configure which features are enabled -->
+  <!-- Feature Flags - Emergency shutoff controls for progressive features -->
+  <!--
+    These flags provide instant on/off control without code changes.
+
+    Use cases for disabling features:
+    - Performance issues on production
+    - Bug discovered in specific feature
+    - A/B testing different feature combinations
+    - Gradual rollout of new features
+
+    Each feature has device/capability requirements checked by progressive-enhancement.js
+    even when flag is true. Setting to false completely prevents loading.
+  -->
   <script>
     window.FEATURE_FLAGS = {
-      mandala3D: true,           // 3D effects for mandala grid (desktop only)
-      animations: true,          // Complex animations (respects reduced-motion)
-      audioVisualization: true,  // Audio visualization on audio pages
-      imageOptimization: true    // Advanced image optimization
+      // Mandala 3D effects - WebGL-based depth and parallax on mandala grid
+      // Requirements: Desktop only (no touch), high performance, WebGL support
+      // Disable if: WebGL issues reported, performance problems on mid-range desktops
+      mandala3D: true,
+
+      // Complex animations - Glitch effects, scroll reveals, hover animations
+      // Requirements: Medium+ performance, respects prefers-reduced-motion
+      // Disable if: Animation performance issues, accessibility concerns
+      animations: true,
+
+      // Audio visualization - WebAudio API canvas visualizer on audio pages
+      // Requirements: Medium+ performance, WebAudio API support, audio routes only
+      // Disable if: Audio API issues, performance problems on audio pages
+      audioVisualization: true,
+
+      // Advanced image optimization - Format detection, responsive images, lazy loading
+      // Requirements: None (progressive enhancement, works on all devices)
+      // Disable if: Image loading issues, CDN/format problems detected
+      imageOptimization: true
     };
   </script>
 
