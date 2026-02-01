@@ -336,21 +336,21 @@ class ProgressiveEnhancement {
     try {
       // Only import modules that are enabled
       if (this.features.mandala3D) {
-        imports.mandala3D = import('./features/mandala-3d.js').catch(err => {
+        imports.mandala3D = import('/js/features/mandala-3d.js').catch(err => {
           console.warn('Failed to import mandala-3d.js:', err);
           return null;
         });
       }
 
       if (this.features.complexAnimations) {
-        imports.complexAnimations = import('./features/animations.js').catch(err => {
+        imports.complexAnimations = import('/js/features/animations.js').catch(err => {
           console.warn('Failed to import animations.js:', err);
           return null;
         });
       }
 
       if (this.features.audioVisualization) {
-        imports.audioVisualization = import('./features/audio-visualization.js').catch(err => {
+        imports.audioVisualization = import('/js/features/audio-visualization.js').catch(err => {
           console.warn('Failed to import audio-visualization.js:', err);
           return null;
         });
@@ -390,7 +390,7 @@ class ProgressiveEnhancement {
   }
 
   async loadMandala3D(importPromise) {
-    const promise = importPromise || import('./features/mandala-3d.js');
+    const promise = importPromise || import('/js/features/mandala-3d.js');
     return new Promise((resolve) => {
       promise.then(module => {
         module.initMandala3D(this.capabilities);
@@ -404,7 +404,7 @@ class ProgressiveEnhancement {
   }
 
   async loadComplexAnimations(importPromise) {
-    const promise = importPromise || import('./features/animations.js');
+    const promise = importPromise || import('/js/features/animations.js');
     return new Promise((resolve) => {
       promise.then(module => {
         if (module && module.initComplexAnimations) {
@@ -419,7 +419,7 @@ class ProgressiveEnhancement {
   }
 
   async loadAudioVisualization(importPromise) {
-    const promise = importPromise || import('./features/audio-visualization.js');
+    const promise = importPromise || import('/js/features/audio-visualization.js');
     return new Promise((resolve) => {
       promise.then(module => {
         if (module && module.initAudioVisualization) {

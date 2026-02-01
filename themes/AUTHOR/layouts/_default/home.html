@@ -208,10 +208,13 @@
                role="button"
                aria-label="Central mandala - decorative element">
             <div class="mandala-center-content">
-              <img src="{{ "/images/mandala-center.jpg" | relURL }}" 
-                   alt="Central mandala design - decorative" 
-                   class="mandala-center-img"
-                   role="presentation">
+              {{ partial "image.html" (dict
+                "src" "/images/mandala-center.jpg"
+                "alt" "Central mandala design - decorative"
+                "class" "mandala-center-img"
+                "attrs" "role=\"presentation\""
+                "page" .
+              ) }}
             </div>
           </div>
         </div>
@@ -225,12 +228,13 @@
           <a href="/books/" 
              aria-describedby="books-description"
              class="mandala-item-link">
-            <img src="/images/cyber-bg-1.jpg" 
-                 alt="Books section featuring The Protocol and other works" 
-                 class="mandala-photo" 
-                 loading="lazy"
-                 width="400"
-                 height="300">
+            {{ partial "image.html" (dict
+              "src" "/images/cyber-bg-1.jpg"
+              "alt" "Books section featuring The Protocol and other works"
+              "class" "mandala-photo"
+              "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              "page" .
+            ) }}
             <div class="mandala-overlay">
               <h3 class="mandala-item-title" id="books-title">Books</h3>
               <div class="mandala-item-subtitle" id="books-subtitle">The Protocol</div>
@@ -250,12 +254,13 @@
           <a href="/stories/" 
              aria-describedby="stories-description"
              class="mandala-item-link">
-            <img src="/images/cyber-bg-2.jpg" 
-                 alt="Stories section featuring digital koans and narratives" 
-                 class="mandala-photo" 
-                 loading="lazy"
-                 width="400"
-                 height="300">
+            {{ partial "image.html" (dict
+              "src" "/images/cyber-bg-2.jpg"
+              "alt" "Stories section featuring digital koans and narratives"
+              "class" "mandala-photo"
+              "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              "page" .
+            ) }}
             <div class="mandala-overlay">
               <h3 class="mandala-item-title" id="stories-title">Stories</h3>
               <div class="mandala-item-subtitle" id="stories-subtitle">Koans</div>
@@ -274,12 +279,13 @@
         <a href="/audio/" 
            aria-describedby="audio-description"
            class="mandala-item-link">
-          <img src="/images/cyber-bg-3.jpg" 
-               alt="Audio section featuring neural simulations and spoken stories" 
-               class="mandala-photo" 
-               loading="lazy"
-               width="400"
-               height="300">
+          {{ partial "image.html" (dict
+            "src" "/images/cyber-bg-3.jpg"
+            "alt" "Audio section featuring neural simulations and spoken stories"
+            "class" "mandala-photo"
+            "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            "page" .
+          ) }}
           <div class="mandala-overlay">
             <h3 class="mandala-item-title" id="audio-title">Audio</h3>
             <div class="mandala-item-subtitle" id="audio-subtitle">Simulations</div>
@@ -299,12 +305,13 @@
         <a href="/about/" 
            aria-describedby="about-description"
            class="mandala-item-link">
-          <img src="{{ "/images/featured-book.jpg" | relURL }}" 
-               alt="Jeffrey A. Zyjeski - Author profile photo" 
-               class="mandala-photo"
-               loading="lazy"
-               width="400"
-               height="300">
+          {{ partial "image.html" (dict
+            "src" "/images/featured-book.jpg"
+            "alt" "Jeffrey A. Zyjeski - Author profile photo"
+            "class" "mandala-photo"
+            "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            "page" .
+          ) }}
           <div class="mandala-overlay">
             <h3 class="mandala-item-title">About</h3>
             <div class="mandala-item-subtitle">Jeffrey A. Zyjeski</div>
@@ -324,12 +331,13 @@
         <a href="/books/the-protocol-vol1/" 
            aria-describedby="book-description"
            class="mandala-item-link">
-          <img src="{{ "/images/featured-event.jpg" | relURL }}" 
-               alt="The Karmic Protocol book cover" 
-               class="mandala-photo"
-               loading="lazy"
-               width="400"
-               height="300">
+          {{ partial "image.html" (dict
+            "src" "/images/featured-event.jpg"
+            "alt" "The Karmic Protocol book cover"
+            "class" "mandala-photo"
+            "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            "page" .
+          ) }}
           <div class="mandala-overlay">
             <h3 class="mandala-item-title">Featured</h3>
             <div class="mandala-item-subtitle">The Karmic Protocol</div>
@@ -349,12 +357,13 @@
         <a href="/posts/" 
            aria-describedby="blog-description"
            class="mandala-item-link">
-          <img src="/images/cyber-bg-4.jpg" 
-               alt="Blog section - Dharma Log featuring thoughts and insights" 
-               class="mandala-photo" 
-               loading="lazy"
-               width="400"
-               height="300">
+          {{ partial "image.html" (dict
+            "src" "/images/cyber-bg-4.jpg"
+            "alt" "Blog section - Dharma Log featuring thoughts and insights"
+            "class" "mandala-photo"
+            "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            "page" .
+          ) }}
           <div class="mandala-overlay">
             <h3 class="mandala-item-title" id="blog-title">Blog</h3>
             <div class="mandala-item-subtitle" id="blog-subtitle">Dharma Log</div>
@@ -372,12 +381,13 @@
         <a href="/newsletter/" 
            aria-describedby="newsletter-description"
            class="mandala-item-link">
-          <img src="/images/cyber-bg-5.jpg" 
-               alt="Newsletter - Future Law Insider covering technology and legal futures" 
-               class="mandala-photo" 
-               loading="lazy"
-               width="400"
-               height="300">
+          {{ partial "image.html" (dict
+            "src" "/images/cyber-bg-5.jpg"
+            "alt" "Newsletter - Future Law Insider covering technology and legal futures"
+            "class" "mandala-photo"
+            "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            "page" .
+          ) }}
           <div class="mandala-overlay">
             <h3 class="mandala-item-title" id="newsletter-title">Newsletter</h3>
             <div class="mandala-item-subtitle" id="newsletter-subtitle">Future Law Insider</div>
@@ -397,12 +407,13 @@
         <a href="/inquiries/" 
            aria-describedby="inquiries-description"
            class="mandala-item-link">
-          <img src="/images/cyber-bg-6.jpg" 
-               alt="Inquiries - Contact and collaboration opportunities" 
-               class="mandala-photo" 
-               loading="lazy"
-               width="400"
-               height="300">
+          {{ partial "image.html" (dict
+            "src" "/images/cyber-bg-6.jpg"
+            "alt" "Inquiries - Contact and collaboration opportunities"
+            "class" "mandala-photo"
+            "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            "page" .
+          ) }}
           <div class="mandala-overlay">
             <h3 class="mandala-item-title" id="inquiries-title">Inquiries</h3>
             <div class="mandala-item-subtitle" id="inquiries-subtitle">Connect</div>

@@ -319,9 +319,18 @@ class CodeSplittingManager {
       const module = await import(path);
       
       // Initialize module if it has an init function
+      let initialized = false;
+      
       if (module.default && typeof module.default.init === 'function') {
         await module.default.init(options);
-      } else if (module.init) {
+        initialized = true;
+      } else if (module.default && typeof module.default === 'function') {
+        // Default export is often a class for these modules
+        new module.default(options);
+        initialized = true;
+      }
+      
+      if (!initialized && typeof module.init === 'function') {
         await module.init(options);
       }
       
@@ -460,18 +469,16 @@ class CodeSplittingManager {
   fallbackToMonolithicLoading() {
     console.warn('Code splitting failed, loading all modules');
     
-    // Load all critical modules immediately
-    const criticalModules = [
-      'accessibility',
-      'basic-interactions',
-      'social-sharing'
+    const fallbackModules = [
+      '/js/core/accessibility.js',
+      '/js/core/basic-interactions.js',
+      '/js/social-sharing.js'
     ];
     
-    criticalModules.forEach(module => {
-      const script = document.createElement('script');
-      script.src = `/js/fallback/${module}.js`;
-      script.async = true;
-      document.head.appendChild(script);
+    fallbackModules.forEach(path => {
+      import(path).catch(error => {
+        console.warn(`Fallback module failed to load: ${path}`, error);
+      });
     });
   }
 }

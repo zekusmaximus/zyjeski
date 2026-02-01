@@ -1,0 +1,19 @@
+{{- /* Publish dynamic JS modules so import() paths resolve at runtime. */ -}}
+{{- $modules := slice -}}
+
+{{- range resources.Match "js/core/*.js" -}}
+  {{- $modules = $modules | append . -}}
+{{- end -}}
+{{- range resources.Match "js/features/*.js" -}}
+  {{- $modules = $modules | append . -}}
+{{- end -}}
+{{- range resources.Match "js/pages/*.js" -}}
+  {{- $modules = $modules | append . -}}
+{{- end -}}
+{{- with resources.Get "js/social-sharing.js" -}}
+  {{- $modules = $modules | append . -}}
+{{- end -}}
+
+{{- range $modules -}}
+  {{- $noop := .RelPermalink -}}
+{{- end -}}

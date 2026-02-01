@@ -24,11 +24,13 @@
       <div class="book-cover">
         {{ with .Params.cover_image }}
           <div class="content-image-container">
-            <img src="{{ . }}" 
-                 alt="Cover for {{ $.Title }}" 
-                 class="book-cover-img content-image"
-                 loading="lazy"
-                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 30vw, 25vw">
+            {{ partial "image.html" (dict
+              "src" .
+              "alt" (printf "Cover for %s" $.Title)
+              "class" "book-cover-img content-image"
+              "sizes" "(max-width: 768px) 50vw, (max-width: 1200px) 30vw, 25vw"
+              "page" $
+            ) }}
           </div>
         {{ else }}
           <div class="book-cover-placeholder">

@@ -1,0 +1,9 @@
+{{- $alt := .Text | default "" -}}
+{{- $title := .Title -}}
+{{- partial "image.html" (dict
+  "src" .Destination
+  "alt" $alt
+  "title" $title
+  "class" "content-image"
+  "page" .Page
+) -}}

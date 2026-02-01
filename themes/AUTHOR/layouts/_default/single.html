@@ -21,11 +21,13 @@
       
       {{ with .Params.image }}
         <div class="content-image-container">
-          <img class="post-image content-image" 
-               src="{{ . | relURL }}" 
-               alt="{{ $.Title }}"
-               loading="lazy"
-               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw">
+          {{ partial "image.html" (dict
+            "src" .
+            "alt" $.Title
+            "class" "post-image content-image"
+            "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+            "page" $
+          ) }}
         </div>
       {{ end }}
     </header>

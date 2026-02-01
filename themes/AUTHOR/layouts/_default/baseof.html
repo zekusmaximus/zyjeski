@@ -62,15 +62,20 @@
       // Advanced image optimization - Format detection, responsive images, lazy loading
       // Requirements: None (progressive enhancement, works on all devices)
       // Disable if: Image loading issues, CDN/format problems detected
-      imageOptimization: true
+      imageOptimization: true,
+
+      // Global emergency fix - should stay off unless actively troubleshooting
+      emergencyFix: false
     };
   </script>
 
   <!-- CSS Debug Information (development only) -->
   {{ partialCached "debug/css-debug.html" . }}
+  {{ partialCached "head/module-publish.html" . }}
 
   <!-- GLOBAL EMERGENCY FIX - Disable all progressive features and fix images -->
   <script>
+if (window.FEATURE_FLAGS && window.FEATURE_FLAGS.emergencyFix) {
 /*! GLOBAL EMERGENCY FIX for broken images and modules - DO NOT REMOVE */
 console.log('🚨 EMERGENCY: Loading global image fix...');
 
@@ -216,6 +221,7 @@ if (document.readyState !== 'loading') {
 }
 
 console.log('✅ EMERGENCY: Fix script loaded');
+}
   </script>
 </head>
 <body>

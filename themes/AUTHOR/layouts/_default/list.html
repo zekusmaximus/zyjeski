@@ -17,9 +17,16 @@
         <a href="{{ if .Params.externalLink }}{{ .Params.externalLink }}{{ else }}{{ .RelPermalink }}{{ end }}" 
            class="section-item-link"
            {{ if .Params.externalLink }}target="_blank" rel="noopener"{{ end }}>
+          {{ $page := . }}
           {{ with .Params.image }}
             <div class="section-item-image-container">
-              <img src="{{ . }}" alt="{{ $.Title }}" class="section-item-image">
+              {{ partial "image.html" (dict
+                "src" .
+                "alt" $page.Title
+                "class" "section-item-image"
+                "sizes" "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                "page" $page
+              ) }}
               <div class="section-item-image-overlay"></div>
             </div>
           {{ else }}

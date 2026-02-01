@@ -31,10 +31,13 @@ class ImageOptimizer {
   async init() {
     await this.detectFormatSupport();
     await this.loadPerformanceBudget();
+    if (window.FEATURE_FLAGS && window.FEATURE_FLAGS.imageOptimization === false) {
+      console.warn('ImageOptimizer disabled via feature flag');
+      return;
+    }
     this.setupImageProcessing();
     this.setupIntersectionObserver();
     this.setupConnectionMonitoring();
-    this.setupImageErrorHandling();
     
     console.log('ImageOptimizer initialized', {
       formats: this.supportedFormats,
@@ -155,19 +158,27 @@ class ImageOptimizer {
   }
 
   processImage(img) {
+    if (!img) return;
     if (img.dataset.optimized) return;
     
+    const shouldOptimize = img.dataset.optimize === 'true';
+    const serverOptimized = img.dataset.optimizedBy === 'hugo';
+
     // Mark as processed
     img.dataset.optimized = 'true';
     
-    // Setup responsive image
-    this.setupResponsiveImage(img);
+    if (shouldOptimize && !serverOptimized) {
+      // Setup responsive image
+      this.setupResponsiveImage(img);
+    }
     
     // Setup lazy loading
     this.setupImageLazyLoading(img);
     
-    // Optimize image format
-    this.optimizeImageFormat(img);
+    if (shouldOptimize && !serverOptimized) {
+      // Optimize image format
+      this.optimizeImageFormat(img);
+    }
     
     // Setup error handling
     this.setupImageErrorHandling(img);
@@ -523,7 +534,7 @@ class ImageOptimizer {
     // Re-process images with new quality settings
     const images = document.querySelectorAll('img[data-optimized]');
     images.forEach(img => {
-      if (!img.dataset.loaded) {
+      if (!img.dataset.loaded && img.dataset.optimize === 'true') {
         this.optimizeImageFormat(img);
       }
     });
@@ -532,6 +543,7 @@ class ImageOptimizer {
   optimizeImageFormat(img) {
     const src = img.src || img.dataset.src;
     if (!src) return;
+    if (img.dataset.optimizedBy === 'hugo') return;
     
     // Generate optimized URL with best format
     const optimizedSrc = this.generateOptimizedImageUrl(src);
@@ -562,6 +574,7 @@ class ImageOptimizer {
   }
 
   setupImageErrorHandling(img) {
+    if (!img) return;
     if (img.dataset.errorHandled) return;
     
     img.addEventListener('error', (event) => {

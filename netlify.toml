@@ -4,7 +4,8 @@
   functions = "netlify/functions"
 
 [build.environment]
-  HUGO_VERSION = "0.116.0"
+  HUGO_VERSION = "0.147.8"
+  HUGO_EXTENDED = "true"
   # Node version is specified in .nvmrc file
 
 [context.production.environment]

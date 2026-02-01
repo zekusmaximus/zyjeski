@@ -1,0 +1,101 @@
+{{- $src := .src | default "" -}}
+{{- if $src -}}
+{{- $page := .page -}}
+{{- $alt := .alt | default "" -}}
+{{- $class := .class | default "" -}}
+{{- $title := .title -}}
+{{- $sizes := .sizes | default "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $decoding := .decoding | default "async" -}}
+{{- $fetchpriority := .fetchpriority -}}
+{{- $attrs := .attrs -}}
+{{- $isRemote := or (strings.HasPrefix $src "http://") (strings.HasPrefix $src "https://") (strings.HasPrefix $src "//") -}}
+{{- $srcClean := $src -}}
+{{- if not $isRemote -}}
+  {{- $srcClean = strings.TrimPrefix "/" $src -}}
+{{- end -}}
+{{- $img := false -}}
+{{- if and $page (not $isRemote) -}}
+  {{- $img = $page.Resources.GetMatch $src -}}
+  {{- if not $img -}}
+    {{- $img = $page.Resources.GetMatch (printf "*%s" (path.Base $src)) -}}
+  {{- end -}}
+{{- end -}}
+{{- if and (not $img) (not $isRemote) -}}
+  {{- $img = resources.Get $srcClean -}}
+{{- end -}}
+{{- $useProcessing := and $img hugo.IsExtended -}}
+{{- if $img -}}
+  {{- $isVector := eq $img.MediaType.SubType "svg" -}}
+  {{- $isGif := eq $img.MediaType.SubType "gif" -}}
+  {{- if or $isVector $isGif -}}
+    {{- $useProcessing = false -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if and $img $useProcessing -}}
+  {{- $widths := slice 480 768 1024 1440 1920 -}}
+  {{- $defaultWidth := $img.Width -}}
+  {{- if ge $img.Width 1024 -}}
+    {{- $defaultWidth = 1024 -}}
+  {{- end -}}
+  {{- $fallback := $img -}}
+  {{- if gt $defaultWidth 0 -}}
+    {{- $fallback = $img.Resize (printf "%dx q85" $defaultWidth) -}}
+  {{- end -}}
+  {{- $srcset := slice -}}
+  {{- range $widths -}}
+    {{- if and (gt $img.Width 0) (le . $img.Width) -}}
+      {{- $resized := $img.Resize (printf "%dx q85" .) -}}
+      {{- $srcset = $srcset | append (printf "%s %dw" $resized.RelPermalink .) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if eq (len $srcset) 0 -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $fallback.RelPermalink $fallback.Width) -}}
+  {{- end -}}
+  {{- $srcsetWebp := slice -}}
+  {{- range $widths -}}
+    {{- if and (gt $img.Width 0) (le . $img.Width) -}}
+      {{- $resized := $img.Resize (printf "%dx webp q85" .) -}}
+      {{- $srcsetWebp = $srcsetWebp | append (printf "%s %dw" $resized.RelPermalink .) -}}
+    {{- end -}}
+  {{- end -}}
+  <picture>
+    {{- if gt (len $srcsetWebp) 0 -}}
+      <source type="image/webp" srcset="{{ delimit $srcsetWebp ", " }}" sizes="{{ $sizes }}">
+    {{- end -}}
+    <img src="{{ $fallback.RelPermalink }}"
+         srcset="{{ delimit $srcset ", " }}"
+         sizes="{{ $sizes }}"
+         alt="{{ $alt }}"
+         {{- if $title }} title="{{ $title }}"{{- end }}
+         {{- if $class }} class="{{ $class }}"{{- end }}
+         loading="{{ $loading }}"
+         decoding="{{ $decoding }}"
+         {{- if $fetchpriority }} fetchpriority="{{ $fetchpriority }}"{{- end }}
+         {{- if and $fallback.Width $fallback.Height }} width="{{ $fallback.Width }}" height="{{ $fallback.Height }}"{{- end }}
+         {{- if $attrs }} {{ $attrs | safeHTMLAttr }}{{- end }}
+         data-optimize="true"
+         data-optimized-by="hugo">
+  </picture>
+{{- else if $img -}}
+  <img src="{{ $img.RelPermalink }}"
+       alt="{{ $alt }}"
+       {{- if $title }} title="{{ $title }}"{{- end }}
+       {{- if $class }} class="{{ $class }}"{{- end }}
+       loading="{{ $loading }}"
+       decoding="{{ $decoding }}"
+       {{- if $fetchpriority }} fetchpriority="{{ $fetchpriority }}"{{- end }}
+       {{- if and $img.Width $img.Height }} width="{{ $img.Width }}" height="{{ $img.Height }}"{{- end }}
+       {{- if $attrs }} {{ $attrs | safeHTMLAttr }}{{- end }}>
+{{- else -}}
+  <img src="{{ $src | safeURL }}"
+       alt="{{ $alt }}"
+       {{- if $title }} title="{{ $title }}"{{- end }}
+       {{- if $class }} class="{{ $class }}"{{- end }}
+       loading="{{ $loading }}"
+       decoding="{{ $decoding }}"
+       {{- if $fetchpriority }} fetchpriority="{{ $fetchpriority }}"{{- end }}
+       {{- if $attrs }} {{ $attrs | safeHTMLAttr }}{{- end }}>
+{{- end -}}
+{{- end -}}
