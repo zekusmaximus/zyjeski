@@ -16,42 +16,37 @@ class CodeSplittingManager {
         'accessibility',
         'basic-interactions'
       ],
-      
-      // Progressive modules - loaded on demand
+
+      // Critical modules - high priority, loaded early
+      critical: {
+        'image-optimizer': {
+          path: '/js/image-optimizer.js',
+          requirements: {},
+          budget: { js: 150, css: 0 },
+          priority: 'high'
+        }
+      },
+
+      // Progressive modules - loaded on demand based on device capabilities
       progressive: {
         'mandala-3d': {
           path: '/js/features/mandala-3d.js',
-          requirements: { webGL: true, performance: 'medium' },
+          requirements: { webGL: true, performance: 'high', reducedMotion: false },
           budget: { js: 80, css: 20 }
         },
-        'particle-effects': {
-          path: '/js/features/particles.js',
-          requirements: { gpuAcceleration: true, performance: 'high' },
-          budget: { js: 60, css: 15 }
-        },
-        'prayer-wheel': {
-          path: '/js/features/prayer-wheel.js',
-          requirements: { performance: 'medium' },
-          budget: { js: 40, css: 10 }
-        },
-        'background-effects': {
-          path: '/js/features/background-effects.js',
+        'animations': {
+          path: '/js/features/animations.js',
           requirements: { performance: 'medium', reducedMotion: false },
-          budget: { js: 50, css: 25 }
+          budget: { js: 100, css: 30 }
         },
         'audio-visualization': {
           path: '/js/features/audio-visualization.js',
-          requirements: { webAudio: true, performance: 'high' },
+          requirements: { webAudio: true, performance: 'medium' },
           budget: { js: 120, css: 10 }
-        },
-        'social-sharing': {
-          path: '/js/social-sharing.js',
-          requirements: {},
-          budget: { js: 30, css: 5 }
         }
       },
-      
-      // Route-specific modules
+
+      // Route-specific modules - loaded based on current page
       routes: {
         'books': {
           path: '/js/pages/books.js',
@@ -63,7 +58,9 @@ class CodeSplittingManager {
         },
         'audio': {
           path: '/js/pages/audio.js',
-          budget: { js: 100, css: 20 }
+          budget: { js: 100, css: 20 },
+          // Load audio visualization on audio routes
+          includes: ['audio-visualization']
         }
       }
     };
@@ -428,9 +425,9 @@ class CodeSplittingManager {
   }
 
   loadInteractionModules() {
-    // Load modules that enhance interactivity
-    const interactionModules = ['mandala-3d', 'particle-effects', 'social-sharing'];
-    
+    // Load modules that enhance interactivity (only those we're keeping)
+    const interactionModules = ['mandala-3d', 'animations'];
+
     interactionModules.forEach(module => {
       this.loadModule('progressive', module);
     });

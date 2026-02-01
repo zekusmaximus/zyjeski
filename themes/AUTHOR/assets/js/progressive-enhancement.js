@@ -25,11 +25,8 @@ class ProgressiveEnhancement {
     
     this.features = {
       mandala3D: false,
-      prayerWheelAnimation: false,
-      particleEffects: false,
       complexAnimations: false,
-      audioVisualization: false,
-      backgroundEffects: false
+      audioVisualization: false
     };
     
     this.loadingQueue = [];
@@ -246,42 +243,37 @@ class ProgressiveEnhancement {
     const perf = this.capabilities.performance;
     const motion = this.capabilities.motionPreference;
     const touch = this.capabilities.touchSupport;
-    
+    const flags = window.FEATURE_FLAGS || {};
+
     // Base features (always enabled for accessibility)
     this.features.basicInteractivity = true;
     this.features.keyboardNavigation = true;
     this.features.focusManagement = true;
-    
-    // Progressive features based on capabilities
+
+    // Progressive features based on capabilities AND feature flags
     switch (perf) {
       case 'high':
-        this.features.mandala3D = motion !== 'reduce';
-        this.features.prayerWheelAnimation = true;
-        this.features.particleEffects = motion !== 'reduce';
-        this.features.complexAnimations = motion !== 'reduce';
-        this.features.audioVisualization = true;
-        this.features.backgroundEffects = motion !== 'reduce';
+        // Enable all features on high-performance devices (if flags allow)
+        this.features.mandala3D = flags.mandala3D !== false && motion !== 'reduce' && !touch;
+        this.features.complexAnimations = flags.animations !== false && motion !== 'reduce';
+        this.features.audioVisualization = flags.audioVisualization !== false;
         break;
-        
+
       case 'medium':
+        // Medium performance: animations only, no 3D
         this.features.mandala3D = false;
-        this.features.prayerWheelAnimation = true;
-        this.features.particleEffects = false;
-        this.features.complexAnimations = motion !== 'reduce';
-        this.features.audioVisualization = true;
-        this.features.backgroundEffects = false;
+        this.features.complexAnimations = flags.animations !== false && motion !== 'reduce';
+        this.features.audioVisualization = flags.audioVisualization !== false;
         break;
-        
+
       case 'low':
+        // Low performance: disable all enhancements
         this.features.mandala3D = false;
-        this.features.prayerWheelAnimation = motion !== 'reduce';
-        this.features.particleEffects = false;
         this.features.complexAnimations = false;
         this.features.audioVisualization = false;
-        this.features.backgroundEffects = false;
         break;
     }
-    
+
     // Touch-specific adjustments
     if (touch) {
       this.features.hoverEffects = false;
@@ -334,38 +326,46 @@ class ProgressiveEnhancement {
   progressivelyLoadFeatures() {
     // Start all imports immediately for enabled features
     const imports = {};
-    if (this.features.mandala3D) imports.mandala3D = import('./features/mandala-3d.js');
-    if (this.features.prayerWheelAnimation) imports.prayerWheelAnimation = import('./features/prayer-wheel.js');
-    if (this.features.particleEffects) imports.particleEffects = import('./features/particles.js');
-    if (this.features.complexAnimations) imports.complexAnimations = import('./features/animations.js');
-    if (this.features.audioVisualization) imports.audioVisualization = import('./features/audio-visualization.js');
-    if (this.features.backgroundEffects) imports.backgroundEffects = import('./features/background-effects.js');
+
+    try {
+      // Only import modules that are enabled
+      if (this.features.mandala3D) {
+        imports.mandala3D = import('./features/mandala-3d.js').catch(err => {
+          console.warn('Failed to import mandala-3d.js:', err);
+          return null;
+        });
+      }
+
+      if (this.features.complexAnimations) {
+        imports.complexAnimations = import('./features/animations.js').catch(err => {
+          console.warn('Failed to import animations.js:', err);
+          return null;
+        });
+      }
+
+      if (this.features.audioVisualization) {
+        imports.audioVisualization = import('./features/audio-visualization.js').catch(err => {
+          console.warn('Failed to import audio-visualization.js:', err);
+          return null;
+        });
+      }
+    } catch (error) {
+      console.warn('Error importing feature modules:', error);
+    }
 
     // Load features in order of importance
-    if (this.features.mandala3D) {
+    if (this.features.mandala3D && imports.mandala3D) {
       this.loadingQueue.push(() => this.loadMandala3D(imports.mandala3D));
     }
-    
-    if (this.features.prayerWheelAnimation) {
-      this.loadingQueue.push(() => this.loadPrayerWheelAnimation(imports.prayerWheelAnimation));
-    }
-    
-    if (this.features.particleEffects) {
-      this.loadingQueue.push(() => this.loadParticleEffects(imports.particleEffects));
-    }
-    
-    if (this.features.complexAnimations) {
+
+    if (this.features.complexAnimations && imports.complexAnimations) {
       this.loadingQueue.push(() => this.loadComplexAnimations(imports.complexAnimations));
     }
-    
-    if (this.features.audioVisualization) {
+
+    if (this.features.audioVisualization && imports.audioVisualization) {
       this.loadingQueue.push(() => this.loadAudioVisualization(imports.audioVisualization));
     }
-    
-    if (this.features.backgroundEffects) {
-      this.loadingQueue.push(() => this.loadBackgroundEffects(imports.backgroundEffects));
-    }
-    
+
     // Process queue with throttling
     this.processLoadingQueue();
   }
@@ -397,39 +397,16 @@ class ProgressiveEnhancement {
     });
   }
 
-  async loadPrayerWheelAnimation(importPromise) {
-    const promise = importPromise || import('./features/prayer-wheel.js');
-    return new Promise((resolve) => {
-      promise.then(module => {
-        module.initPrayerWheel(this.capabilities);
-        resolve();
-      }).catch(() => {
-        // Fallback to basic audio player
-        this.loadBasicAudioPlayer();
-        resolve();
-      });
-    });
-  }
-
-  async loadParticleEffects(importPromise) {
-    const promise = importPromise || import('./features/particles.js');
-    return new Promise((resolve) => {
-      promise.then(module => {
-        module.initParticles(this.capabilities);
-        resolve();
-      }).catch(() => {
-        resolve();
-      });
-    });
-  }
-
   async loadComplexAnimations(importPromise) {
     const promise = importPromise || import('./features/animations.js');
     return new Promise((resolve) => {
       promise.then(module => {
-        module.initComplexAnimations(this.capabilities);
+        if (module && module.initComplexAnimations) {
+          module.initComplexAnimations(this.capabilities);
+        }
         resolve();
-      }).catch(() => {
+      }).catch((error) => {
+        console.warn('Complex animations failed to load:', error);
         resolve();
       });
     });
@@ -439,21 +416,12 @@ class ProgressiveEnhancement {
     const promise = importPromise || import('./features/audio-visualization.js');
     return new Promise((resolve) => {
       promise.then(module => {
-        module.initAudioVisualization(this.capabilities);
+        if (module && module.initAudioVisualization) {
+          module.initAudioVisualization(this.capabilities);
+        }
         resolve();
-      }).catch(() => {
-        resolve();
-      });
-    });
-  }
-
-  async loadBackgroundEffects(importPromise) {
-    const promise = importPromise || import('./features/background-effects.js');
-    return new Promise((resolve) => {
-      promise.then(module => {
-        module.initBackgroundEffects(this.capabilities);
-        resolve();
-      }).catch(() => {
+      }).catch((error) => {
+        console.warn('Audio visualization failed to load:', error);
         resolve();
       });
     });

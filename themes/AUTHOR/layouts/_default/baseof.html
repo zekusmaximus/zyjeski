@@ -28,7 +28,17 @@
   {{ $progressiveCSS := resources.Get "css/progressive-enhancement.css" }}
   {{ $progressiveCSS = $progressiveCSS | resources.Minify }}
   <link rel="stylesheet" href="{{ $progressiveCSS.RelPermalink }}">
-  
+
+  <!-- Feature Flags - Configure which features are enabled -->
+  <script>
+    window.FEATURE_FLAGS = {
+      mandala3D: true,           // 3D effects for mandala grid (desktop only)
+      animations: true,          // Complex animations (respects reduced-motion)
+      audioVisualization: true,  // Audio visualization on audio pages
+      imageOptimization: true    // Advanced image optimization
+    };
+  </script>
+
   <!-- CSS Debug Information (development only) -->
   {{ partialCached "debug/css-debug.html" . }}
 </head>
@@ -61,11 +71,30 @@
   {{/* progress-tracker.html removed */}}
   {{/* contextual-navigation.html removed */}}
   {{/* achievement-system.html removed */}}
-  
+
+  <!-- JavaScript Module Load Sequence -->
+  <!-- CRITICAL: Scripts must load in this exact order -->
+
+  <!-- 1. Image Optimizer - Loads early for critical path performance -->
+  {{ $imageOptimizerJS := resources.Get "js/image-optimizer.js" }}
+  {{ $imageOptimizerJS = $imageOptimizerJS | resources.Minify }}
+  <script src="{{ $imageOptimizerJS.RelPermalink }}" defer></script>
+
+  <!-- 2. Progressive Enhancement - Detects capabilities, determines feature set -->
+  {{ $progressiveEnhancementJS := resources.Get "js/progressive-enhancement.js" }}
+  {{ $progressiveEnhancementJS = $progressiveEnhancementJS | resources.Minify }}
+  <script src="{{ $progressiveEnhancementJS.RelPermalink }}" defer></script>
+
+  <!-- 3. Code Splitting Manager - Loads route-specific modules on demand -->
+  {{ $codeSplittingJS := resources.Get "js/code-splitting.js" }}
+  {{ $codeSplittingJS = $codeSplittingJS | resources.Minify }}
+  <script src="{{ $codeSplittingJS.RelPermalink }}" defer></script>
+
+  <!-- 4. Main - Core functionality, waits for progressive enhancement ready event -->
   {{ $mainJS := resources.Get "js/main.js" }}
   {{ $mainJS = $mainJS | resources.Minify }}
   <script src="{{ $mainJS.RelPermalink }}" defer></script>
-  
+
   <!-- Mobile Reading Experience is embedded in main.js -->
   
   <!-- Simple device detection for basic responsive behavior -->
