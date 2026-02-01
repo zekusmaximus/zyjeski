@@ -128,8 +128,14 @@ class ProgressiveEnhancement {
         this.capabilities.connection = 'poor';
       }
     } else {
-      // Fallback: measure connection speed
-      this.capabilities.connection = await this.measureConnectionSpeed();
+      // Fallback: measure connection speed non-blocking
+      this.capabilities.connection = 'unknown';
+      this.measureConnectionSpeed().then(speed => {
+        if (speed !== 'unknown' && speed !== this.capabilities.connection) {
+          this.capabilities.connection = speed;
+          this.reassessFeatures();
+        }
+      });
     }
   }
 
