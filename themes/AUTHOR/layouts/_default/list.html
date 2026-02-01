@@ -40,7 +40,7 @@
           {{ $dateHuman := .Date | time.Format ":date_medium" }}
           <time datetime="{{ $dateMachine }}" class="section-item-date">{{ $dateHuman }}</time>
           
-          <div class="section-item-summary">{{ .Summary | truncate 120 }}</div>
+          <div class="section-item-summary">{{ .Summary | plainify | truncate 120 }}</div>
           
           <div class="section-item-read-more">
             <span class="read-more-text">{{ if .Params.externalLink }}Listen on Spoken.Press{{ else }}Enter{{ end }}</span>
