@@ -44,14 +44,15 @@ class ImageOptimizer {
   }
 
   async detectFormatSupport() {
-    // Test WebP support
-    this.supportedFormats.webp = await this.testImageFormat('webp');
-    
-    // Test AVIF support
-    this.supportedFormats.avif = await this.testImageFormat('avif');
-    
-    // Test JPEG 2000 support (Safari)
-    this.supportedFormats.jp2 = await this.testImageFormat('jp2');
+    const [webp, avif, jp2] = await Promise.all([
+      this.testImageFormat('webp'),
+      this.testImageFormat('avif'),
+      this.testImageFormat('jp2')
+    ]);
+
+    this.supportedFormats.webp = webp;
+    this.supportedFormats.avif = avif;
+    this.supportedFormats.jp2 = jp2;
   }
 
   testImageFormat(format) {
