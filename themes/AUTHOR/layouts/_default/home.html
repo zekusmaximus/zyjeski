@@ -7,6 +7,49 @@
   </div>
 
   <style>
+    /* Home hero layout */
+    .home-intro {
+      max-width: 1200px;
+      margin: 0 auto 1.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .home-hero {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .home-banner {
+      margin: 0;
+      max-width: 360px;
+    }
+
+    .home-banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .home-tagline {
+      margin: 0;
+      max-width: 540px;
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .home-hero {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .home-tagline {
+        text-align: left;
+        max-width: 100%;
+      }
+    }
+
     /* Force the correct grid layout */
     .mandala-grid {
       display: grid;
