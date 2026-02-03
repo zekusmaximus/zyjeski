@@ -3,6 +3,8 @@
  * Progressive enhancement for atmospheric background effects
  */
 
+const NOISE_SIZE = 256;
+
 export function initBackgroundEffects(capabilities) {
   if (capabilities.motionPreference === 'reduce') return;
   if (capabilities.performance === 'low') return;
@@ -92,8 +94,8 @@ function initNoiseOverlay(config) {
 
 function createNoiseCanvas(config) {
   const canvas = document.createElement('canvas');
-  canvas.width = 256;
-  canvas.height = 256;
+  canvas.width = NOISE_SIZE;
+  canvas.height = NOISE_SIZE;
   canvas.className = 'noise-canvas';
   
   const ctx = canvas.getContext('2d');
@@ -116,18 +118,26 @@ function animateNoise(canvas, config) {
   const ctx = canvas.getContext('2d');
   let animationFrame;
   
+  // Pre-generate noise frames to improve performance
+  const noiseFrames = 10;
+  const noiseBuffer = createNoiseBuffer(config, noiseFrames);
+  let currentFrame = 0;
+
   function updateNoise() {
-    const imageData = ctx.createImageData(canvas.width, canvas.height);
+    // Draw the pre-generated frame
+    // Use drawImage which is much faster than putImageData with new random values
+    const frameHeight = NOISE_SIZE;
     
-    for (let i = 0; i < imageData.data.length; i += 4) {
-      const noise = Math.random() * 255;
-      imageData.data[i] = noise;
-      imageData.data[i + 1] = noise;
-      imageData.data[i + 2] = noise;
-      imageData.data[i + 3] = config.intensity * 255;
-    }
+    // Clear canvas to prevent alpha accumulation
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(
+      noiseBuffer,
+      0, currentFrame * frameHeight, NOISE_SIZE, frameHeight, // Source
+      0, 0, canvas.width, canvas.height                // Destination
+    );
     
-    ctx.putImageData(imageData, 0, 0);
+    currentFrame = (currentFrame + 1) % noiseFrames;
     
     // Update every 100ms for performance
     setTimeout(() => {
@@ -143,6 +153,29 @@ function animateNoise(canvas, config) {
       cancelAnimationFrame(animationFrame);
     }
   });
+}
+
+function createNoiseBuffer(config, frames) {
+  const width = NOISE_SIZE;
+  const height = NOISE_SIZE;
+  const buffer = document.createElement('canvas');
+  buffer.width = width;
+  buffer.height = height * frames;
+
+  const ctx = buffer.getContext('2d');
+  const imageData = ctx.createImageData(width, height * frames);
+
+  // Generate noise pattern for all frames at once
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const noise = Math.random() * 255;
+    imageData.data[i] = noise;
+    imageData.data[i + 1] = noise;
+    imageData.data[i + 2] = noise;
+    imageData.data[i + 3] = config.intensity * 255;
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+  return buffer;
 }
 
 function initGradientAnimation(config) {
