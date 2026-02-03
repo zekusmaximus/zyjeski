@@ -107,16 +107,13 @@ function initInteractiveParticles(config) {
     container.appendChild(particle);
     particles.push({
       element: particle,
-      active: false,
-      startTime: 0
+      active: false
     });
   }
   
   document.body.appendChild(container);
   
   // Mouse interaction
-  let rafId;
-  
   function handleMouseMove(e) {
     const availableParticle = particles.find(p => !p.active);
     if (!availableParticle) return;
@@ -148,25 +145,10 @@ function initInteractiveParticles(config) {
   document.addEventListener('mousemove', throttledMouseMove, { passive: true });
   document.addEventListener('touchmove', handleTouchMove, { passive: false });
   
-  // Animation loop to deactivate particles
-  function updateParticles() {
-    const now = Date.now();
-    particles.forEach(particle => {
-      if (particle.active && now - particle.startTime > config.animationDuration) {
-        deactivateParticle(particle);
-      }
-    });
-    
-    rafId = requestAnimationFrame(updateParticles);
-  }
-  
-  updateParticles();
-  
   // Cleanup
   window.addEventListener('beforeunload', () => {
     document.removeEventListener('mousemove', throttledMouseMove);
     document.removeEventListener('touchmove', handleTouchMove);
-    if (rafId) cancelAnimationFrame(rafId);
     container.remove();
   });
 }
@@ -249,8 +231,12 @@ function activateParticle(particleObj, x, y, config) {
   // Add animation
   particle.style.animation = `particleFade ${config.animationDuration}ms ease-out forwards`;
   
+  // Use animationend event for cleanup instead of polling
+  particle.addEventListener('animationend', () => {
+    deactivateParticle(particleObj);
+  }, { once: true });
+
   particleObj.active = true;
-  particleObj.startTime = Date.now();
 }
 
 function deactivateParticle(particleObj) {
