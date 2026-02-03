@@ -172,15 +172,18 @@ function initSinglePrayerWheel(player, config) {
   }
   
   function startSmoothRotation() {
+    // Cache the glow ring element for performance
+    const glowRing = wheel.querySelector('.wheel-glow-ring');
+
     function animate() {
       if (isPlaying) {
         rotationAngle += config.rotationSpeed;
         wheel.style.transform = `rotate(${rotationAngle}deg)`;
         
-        // Add glow effects if enabled
-        if (config.glowEffects) {
+        // Add glow effects if enabled (using opacity on static element for performance)
+        if (config.glowEffects && glowRing) {
           const intensity = 0.5 + Math.sin(rotationAngle * 0.01) * 0.3;
-          wheel.style.filter = `drop-shadow(0 0 ${intensity * 10}px var(--holographic-teal))`;
+          glowRing.style.opacity = intensity;
         }
         
         animationFrame = requestAnimationFrame(animate);
@@ -244,7 +247,8 @@ function setupWheelEnhancements(wheel, config) {
   wheel.classList.add('wheel-enhanced');
   
   if (config.visualEffects) {
-    wheel.classList.add('wheel-visual-effects');
+    // Use pre-rendered glow ring instead of drop-shadow filter for better performance
+    createGlowRing(wheel);
   }
   
   if (config.particleEffects) {
@@ -262,6 +266,14 @@ function setupWheelEnhancements(wheel, config) {
       wheel.classList.remove('wheel-touched');
     }, { passive: true });
   }
+}
+
+function createGlowRing(wheel) {
+  const glow = document.createElement('div');
+  glow.className = 'wheel-glow-ring';
+  // Set default opacity for static visual effects
+  glow.style.opacity = '1';
+  wheel.appendChild(glow);
 }
 
 function createParticleEffects(wheel) {
