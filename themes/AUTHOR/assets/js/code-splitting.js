@@ -361,24 +361,48 @@ class CodeSplittingManager {
   }
 
   preloadLikelyRoutes() {
-    // Simple heuristic: preload modules for links visible in viewport
-    const visibleLinks = Array.from(document.querySelectorAll('a[href]'))
-      .filter(link => {
-        const rect = link.getBoundingClientRect();
-        return rect.top >= 0 && rect.bottom <= window.innerHeight;
-      });
-    
-    visibleLinks.forEach(link => {
+    // Optimization: Use IntersectionObserver to detect visible links without layout thrashing
+    const routes = Object.keys(this.moduleRegistry.routes);
+    const linkToRoutes = new Map();
+
+    // 1. Identify candidate links (no layout thrashing)
+    document.querySelectorAll('a[href]').forEach(link => {
       const href = link.getAttribute('href');
-      for (const route of Object.keys(this.moduleRegistry.routes)) {
-        if (href.includes(`/${route}`)) {
-          // Preload with low priority
-          setTimeout(() => {
-            this.loadModule('routes', route);
-          }, 2000);
-        }
+      const matchingRoutes = routes.filter(route => href.includes(`/${route}`));
+
+      if (matchingRoutes.length > 0) {
+        linkToRoutes.set(link, matchingRoutes);
       }
     });
+
+    if (linkToRoutes.size === 0) return;
+
+    // 2. Setup observer to trigger preload when links are fully visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const routesToLoad = linkToRoutes.get(entry.target);
+
+          if (routesToLoad) {
+            routesToLoad.forEach(route => {
+              // Preload with low priority
+              setTimeout(() => {
+                this.loadModule('routes', route);
+              }, 2000);
+            });
+            // Avoid duplicate triggers
+            linkToRoutes.delete(entry.target);
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 1.0 // Matches original behavior: fully inside viewport
+    });
+
+    // 3. Observe candidates
+    linkToRoutes.forEach((_, link) => observer.observe(link));
   }
 
   setupIntersectionObservers() {
