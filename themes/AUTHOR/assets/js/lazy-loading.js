@@ -14,6 +14,7 @@ class LazyLoadManager {
       features: 0,
       totalSize: 0
     };
+    this.webpSupported = null;
     
     this.init();
   }
@@ -241,10 +242,14 @@ class LazyLoadManager {
   }
 
   supportsWebP() {
+    if (this.webpSupported !== null) {
+      return this.webpSupported;
+    }
     const canvas = document.createElement('canvas');
     canvas.width = 1;
     canvas.height = 1;
-    return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+    this.webpSupported = canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+    return this.webpSupported;
   }
 
   setupComponentLazyLoading() {
