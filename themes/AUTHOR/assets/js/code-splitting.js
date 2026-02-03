@@ -128,15 +128,64 @@ class CodeSplittingManager {
     return 'desktop';
   }
 
-  async assessPerformance() {
-    // Simple performance assessment
+  runCpuTestSync() {
     const start = performance.now();
-    
-    // CPU test
     let iterations = 0;
     const cpuTestEnd = start + 10; // 10ms test
     while (performance.now() < cpuTestEnd) {
       iterations++;
+    }
+    return iterations;
+  }
+
+  runCpuTestInWorker() {
+    return new Promise((resolve, reject) => {
+      const workerCode = `
+        self.onmessage = function() {
+          const start = performance.now();
+          let iterations = 0;
+          const end = start + 10;
+          while (performance.now() < end) {
+            iterations++;
+          }
+          self.postMessage(iterations);
+        };
+      `;
+
+      const blob = new Blob([workerCode], { type: 'application/javascript' });
+      const url = URL.createObjectURL(blob);
+      const worker = new Worker(url);
+
+      worker.onmessage = (e) => {
+        resolve(e.data);
+        worker.terminate();
+        URL.revokeObjectURL(url);
+      };
+
+      worker.onerror = (e) => {
+        reject(e);
+        worker.terminate();
+        URL.revokeObjectURL(url);
+      };
+
+      worker.postMessage('start');
+    });
+  }
+
+  async assessPerformance() {
+    // Simple performance assessment
+    let iterations = 0;
+
+    // CPU test
+    if (typeof Worker !== 'undefined') {
+      try {
+        iterations = await this.runCpuTestInWorker();
+      } catch (e) {
+        console.warn('Worker CPU test failed, falling back to main thread', e);
+        iterations = this.runCpuTestSync();
+      }
+    } else {
+      iterations = this.runCpuTestSync();
     }
     
     // Memory test
