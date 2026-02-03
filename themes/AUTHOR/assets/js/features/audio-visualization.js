@@ -195,7 +195,7 @@ function createCanvasVisualization(config) {
       const barWidth = canvas.width / barCount;
       
       // We need to sample frequencyData to match barCount
-      const step = Math.floor(frequencyData.length / barCount);
+      // Note: Data sampling is handled by calculation inside the loop
 
       for (let i = 0; i < barCount; i++) {
         const dataIndex = Math.floor(i * frequencyData.length / barCount);
@@ -204,29 +204,20 @@ function createCanvasVisualization(config) {
         const x = i * barWidth;
         const y = canvas.height - barHeight;
 
-        // Match the HSL color logic from DOM version
-        // const hue = (value * 120) + 180; // Blue to purple range
-        // bar.style.backgroundColor = `hsl(${hue}, 80%, 60%)`;
-
         if (config.visualEffects) {
              const hue = (value * 120) + 180;
-             ctx.fillStyle = `hsl(${hue}, 80%, 60%)`;
 
-             // Expensive box-shadow simulation
-             // Only apply if strictly necessary, but Canvas shadowBlur is expensive too.
-             // However, context suggests replacing box-shadow.
-             // We can achieve a glow effect with shadowBlur which is often hardware accelerated.
-             ctx.shadowBlur = value * 10;
-             ctx.shadowColor = `hsl(${hue}, 80%, 60%)`;
+             // Simulating glow with a semi-transparent larger rect is much faster than shadowBlur
+             ctx.fillStyle = `hsla(${hue}, 80%, 60%, 0.3)`;
+             ctx.fillRect(x - 1, y - 2, barWidth + 1, barHeight + 4);
+
+             ctx.fillStyle = `hsl(${hue}, 80%, 60%)`;
         } else {
-             // Fallback colors if effects disabled (shouldn't happen here if we check config)
+             // Fallback colors if effects disabled
              ctx.fillStyle = i % 2 === 0 ? '#6E0DD0' : '#00F5D4'; // Approximation of CSS vars
         }
 
         ctx.fillRect(x, y, barWidth - 1, barHeight);
-
-        // Reset shadow for next iteration if needed, but here we set it every time.
-        // Optimization: batch draw calls? No, color changes per bar.
       }
     },
     reset: () => {
