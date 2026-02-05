@@ -40,7 +40,7 @@ body::before {
 }
 
 .home-banner {
-  margin: 1rem 0 2rem;
+  margin: 0;
   max-width: 380px;
   text-align: left;
 }
@@ -57,6 +57,12 @@ body::before {
 main {
   padding: 2rem 0;
   min-height: 70vh;
+}
+
+@media (min-width: 769px) {
+  main {
+    padding: 1rem 0;
+  }
 }
 
 /* Footer */
