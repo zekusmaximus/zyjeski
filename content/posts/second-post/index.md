@@ -2,7 +2,7 @@
 title = 'Tempus Dimitterre Skeleton Key'
 date = 2026-01-26T09:40:00-07:00
 draft = false
-image = "/images/uploads/the_key.png"
+image = "/images/stories/the-key.png"
 tags = ['scholarship', 'academic', 'allusions']
 description = 'A Companion to Tempus Dimitterre'
 +++

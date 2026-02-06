@@ -2,7 +2,7 @@
 title: The Verdant Accord
 date: 2025-11-10T12:27:25.696Z
 draft: false
-cover_image: /images/uploads/9798349690914.jpg
+cover_image: /images/books/promo/9798349690914.jpg
 pages: 313
 publication_date: November 10, 2025
 show_3d_transition: false

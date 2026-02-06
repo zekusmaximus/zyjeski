@@ -3,7 +3,7 @@ title = "Steel Driver"
 date = 2026-01-25T15:00:00.000Z
 draft = false
 externalLink = "https://ihave.spoken.press/p/IFD0AGEkGMg"
-image = "/images/uploads/Steel-Driver.jpg"
+image = "/images/audio/steel-driver.jpg"
 description = "Spoken.press audio story titled Steel Driver."
 +++
 

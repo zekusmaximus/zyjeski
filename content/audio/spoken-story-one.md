@@ -3,7 +3,7 @@ title = "Bart Higgins"
 date = 2025-04-30T15:00:00.000Z
 draft = false
 externalLink = "https://ihave.spoken.press/p/P6q4ODkJMLk"
-image = "/images/uploads/first-spoken-story.png"
+image = "/images/audio/first-spoken-story.png"
 description = "Audio story hosted on spoken.press featuring the character Bart Higgins."
 +++
 

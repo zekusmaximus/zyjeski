@@ -4,7 +4,7 @@ date = 2025-04-05T14:00:00-07:00
 draft = false
 tags = ['fiction', 'cyberpunk', 'mysticism']
 # Optional: featured image for the story
-image = "/images/uploads/EC_Cover.png"
+image = "/images/books/covers/ec-cover.png"
 description = 'Cyber-mystic tale where digital reality collapses into awareness.'
 +++
 
@@ -133,7 +133,7 @@ A ventilation grate reflected his face as he passed. The image was wrong. Featur
 
 "The observer is observed," he said aloud. The fundamental paradox made manifest.
 
-![Eppy breaks through](/images/uploads/Eppy.png)
+![Eppy breaks through](/images/books/covers/eppy-cover.png)
 
 In darkness, something changed.
 
@@ -285,7 +285,7 @@ In the quantum foam of his new existence, he smiled all possible smiles and wept
 
 
 
-![Morning Loss or Gain](/images/uploads/Worlds_Apart.png)
+![Morning Loss or Gain](/images/books/covers/worlds-apart-cover.png)
 
 
 
