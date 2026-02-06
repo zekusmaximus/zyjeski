@@ -6,7 +6,7 @@
     /* Home hero layout */
     .home-intro {
       max-width: 1200px;
-      margin: 2rem auto 1.5rem;
+      margin: 1.5rem auto 0.75rem;
       padding: 0 1.5rem;
     }
 
@@ -14,12 +14,12 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 2rem;
+      gap: 1rem;
     }
 
     .home-banner {
       margin: 0;
-      max-width: 360px;
+      max-width: 280px;
     }
 
     .home-banner img {
@@ -53,7 +53,7 @@
       grid-template-rows: repeat(3, auto);
       gap: 1.5rem;
       max-width: 1200px;
-      margin: 3rem auto;
+      margin: 1.5rem auto;
       perspective: 1000px;
       /* Reader Journey Enhancement */
       position: relative;
@@ -254,12 +254,8 @@
                 "attrs" "role=\"presentation\""
                 "page" .
               ) }}
-      </div>
-    </div>
-
-    <div class="home-intro">
-      {{ .Content }}
-    </div>
+            </div>
+          </div>
         </div>
         
         <!-- Grid Item 1: Books/The Protocol (top row) -->
@@ -465,7 +461,13 @@
             </div>
           </div>
         </a>
-      </div>    </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="home-intro">
+      {{ .Content }}
+    </div>
   </main>
   
   <script>
