@@ -105,47 +105,50 @@
 .mobile-reading-controls {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 50px; /* Position to the left of the gear button */
   display: flex;
-  gap: var(--touch-spacing);
-  padding: var(--touch-spacing);
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 0.5rem;
   background: rgba(0, 15, 8, 0.95);
-  border-radius: 12px;
+  border-radius: 8px;
   backdrop-filter: blur(15px);
   border: 1px solid rgba(0, 245, 212, 0.2);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
   transform-origin: top right;
+  white-space: nowrap;
 }
 
 .mobile-reading-controls.collapsed {
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.8) translateY(-10px);
+  transform: scale(0.8) translateX(10px);
 }
 
 .mobile-reading-controls:not(.collapsed) {
   opacity: 1;
   pointer-events: auto;
-  transform: scale(1) translateY(0);
+  transform: scale(1) translateX(0);
 }
 
 .reading-mode-toggle,
 .font-size-toggle {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
   background: rgba(110, 13, 208, 0.1);
   border: 1px solid rgba(110, 13, 208, 0.3);
-  border-radius: 8px;
+  border-radius: 6px;
   color: var(--holographic-teal);
-  font-size: var(--reading-font-size-sm);
+  font-size: 0.875rem;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: var(--touch-target-size);
-  min-width: var(--touch-target-size);
+  min-height: 36px;
+  white-space: nowrap;
 }
 
 .reading-mode-toggle:hover,
@@ -165,14 +168,34 @@
   color: var(--holographic-teal);
 }
 
-.control-text {
-  display: none;
+.reading-mode-toggle .icon-eye,
+.font-size-toggle .icon-text {
+  font-size: 1rem;
+  line-height: 1;
 }
 
-/* Show text labels on larger mobile screens */
-@media (min-width: 480px) {
+.control-text {
+  display: block;
+  font-size: 0.813rem;
+  line-height: 1;
+}
+
+/* Make controls even more compact on small mobile screens */
+@media (max-width: 380px) {
+  .mobile-reading-controls {
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.4rem;
+  }
+
+  .reading-mode-toggle,
+  .font-size-toggle {
+    padding: 0.4rem 0.6rem;
+    min-height: 32px;
+  }
+
   .control-text {
-    display: block;
+    font-size: 0.75rem;
   }
 }
 
