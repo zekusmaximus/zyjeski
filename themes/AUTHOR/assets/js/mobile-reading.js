@@ -47,13 +47,14 @@ class MobileReadingExperience {
         clearTimeout(autoHideTimer);
       }
 
-      // Set new timer to auto-hide after 3 seconds
+      // Set new timer to auto-hide after 2 seconds
       if (this.controlsExpanded) {
         autoHideTimer = setTimeout(() => {
           this.controlsExpanded = false;
           this.applyControlsState();
           this.saveUserPreferences();
-        }, 3000);
+          autoHideTimer = null;
+        }, 2000);
       }
     };
 
@@ -82,9 +83,16 @@ class MobileReadingExperience {
       }
     });
 
-    // Cancel auto-hide when hovering over controls
+    // Cancel auto-hide when hovering over controls (desktop)
     controls.addEventListener('mouseenter', cancelAutoHide);
     controls.addEventListener('mouseleave', startAutoHideTimer);
+
+    // Touch device support
+    controls.addEventListener('touchstart', cancelAutoHide, { passive: true });
+    controls.addEventListener('touchend', () => {
+      // Restart timer after touch interaction
+      setTimeout(startAutoHideTimer, 100);
+    }, { passive: true });
 
     // Cancel auto-hide when interacting with controls
     controls.addEventListener('click', () => {
@@ -369,16 +377,17 @@ class MobileReadingExperience {
         const preferences = JSON.parse(saved);
         this.readingMode = preferences.readingMode || false;
         this.fontSize = preferences.fontSize || 'normal';
-        // Always start with controls collapsed
-        this.controlsExpanded = false;
 
         this.applyReadingMode();
         this.applyFontSize();
-        this.applyControlsState();
       }
     } catch (e) {
       console.warn('Could not restore reading preferences:', e);
     }
+
+    // ALWAYS ensure controls start collapsed, regardless of saved state
+    this.controlsExpanded = false;
+    this.applyControlsState();
   }
 
   /**
