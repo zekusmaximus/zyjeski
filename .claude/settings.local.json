@@ -9,7 +9,8 @@
       "Bash(find:*)",
       "Bash(hugo:*)",
       "Bash(pwsh -Command:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
