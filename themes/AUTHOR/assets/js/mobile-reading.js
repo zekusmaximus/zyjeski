@@ -351,8 +351,8 @@ class MobileReadingExperience {
   saveUserPreferences() {
     const preferences = {
       readingMode: this.readingMode,
-      fontSize: this.fontSize,
-      controlsExpanded: this.controlsExpanded
+      fontSize: this.fontSize
+      // Note: controlsExpanded is intentionally NOT saved - always start collapsed
     };
 
     try {
@@ -369,7 +369,8 @@ class MobileReadingExperience {
         const preferences = JSON.parse(saved);
         this.readingMode = preferences.readingMode || false;
         this.fontSize = preferences.fontSize || 'normal';
-        this.controlsExpanded = preferences.controlsExpanded || false;
+        // Always start with controls collapsed
+        this.controlsExpanded = false;
 
         this.applyReadingMode();
         this.applyFontSize();
