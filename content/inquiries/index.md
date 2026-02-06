@@ -3,6 +3,8 @@ title = "Agent/Editor Inquiries"
 date = 2025-04-30T12:00:00-07:00
 draft = false
 description = "Contact information for literary agents and editors interested in Jeffrey A. Zyjeski's work."
+hide_date = true
+compact_header = true
 +++
 
 For agent or editor inquiries, please visit [agent.zyjeski.com](https://agent.zyjeski.com) or email [jeff@zyjeski.com](mailto:jeff@zyjeski.com).

@@ -10,7 +10,9 @@
       "Bash(hugo:*)",
       "Bash(pwsh -Command:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)"
     ]
   }
 }

@@ -17,12 +17,14 @@
       </div>
     </div>
 
-    <header class="post-header content-header">
+    <header class="post-header content-header{{ if .Params.compact_header }} compact-header{{ end }}">
       <h1 class="post-title content-title">{{ .Title }}</h1>
 
-      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-      {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <time datetime="{{ $dateMachine }}" class="post-date content-date">{{ $dateHuman }}</time>
+      {{ if not .Params.hide_date }}
+        {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+        {{ $dateHuman := .Date | time.Format ":date_long" }}
+        <time datetime="{{ $dateMachine }}" class="post-date content-date">{{ $dateHuman }}</time>
+      {{ end }}
       
       {{ with .Params.image }}
         <div class="content-image-container">

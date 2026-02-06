@@ -187,11 +187,22 @@
   position: relative;
 }
 
+.content-container:has(.compact-header) {
+  padding-top: 1rem;
+}
+
 .content-header {
   text-align: center;
   margin-bottom: var(--section-spacing);
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(0, 245, 212, 0.2);
+}
+
+.content-header.compact-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .content-title {
@@ -204,6 +215,12 @@
   background-clip: text;
   color: transparent;
   text-shadow: 0 0 20px rgba(110, 13, 208, 0.3);
+}
+
+.compact-header .content-title {
+  font-size: var(--reading-font-size-xl);
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .content-date {
