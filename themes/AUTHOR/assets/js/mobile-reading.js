@@ -39,6 +39,31 @@ class MobileReadingExperience {
     const controls = document.querySelector('.mobile-reading-controls');
     if (!toggleBtn || !controls) return;
 
+    let autoHideTimer = null;
+
+    const startAutoHideTimer = () => {
+      // Clear any existing timer
+      if (autoHideTimer) {
+        clearTimeout(autoHideTimer);
+      }
+
+      // Set new timer to auto-hide after 3 seconds
+      if (this.controlsExpanded) {
+        autoHideTimer = setTimeout(() => {
+          this.controlsExpanded = false;
+          this.applyControlsState();
+          this.saveUserPreferences();
+        }, 3000);
+      }
+    };
+
+    const cancelAutoHide = () => {
+      if (autoHideTimer) {
+        clearTimeout(autoHideTimer);
+        autoHideTimer = null;
+      }
+    };
+
     toggleBtn.addEventListener('click', () => {
       this.controlsExpanded = !this.controlsExpanded;
       this.applyControlsState();
@@ -48,6 +73,24 @@ class MobileReadingExperience {
       this.announceToScreenReader(
         this.controlsExpanded ? 'Reading controls expanded' : 'Reading controls collapsed'
       );
+
+      // Start auto-hide timer when expanded
+      if (this.controlsExpanded) {
+        startAutoHideTimer();
+      } else {
+        cancelAutoHide();
+      }
+    });
+
+    // Cancel auto-hide when hovering over controls
+    controls.addEventListener('mouseenter', cancelAutoHide);
+    controls.addEventListener('mouseleave', startAutoHideTimer);
+
+    // Cancel auto-hide when interacting with controls
+    controls.addEventListener('click', () => {
+      // Keep controls open briefly after interaction
+      cancelAutoHide();
+      startAutoHideTimer();
     });
 
     // Close controls when clicking outside
@@ -58,6 +101,7 @@ class MobileReadingExperience {
         this.controlsExpanded = false;
         this.applyControlsState();
         this.saveUserPreferences();
+        cancelAutoHide();
       }
     });
   }
