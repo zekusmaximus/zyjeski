@@ -12,7 +12,7 @@ description = 'Speculative fiction author exploring technology and spirituality 
 		</a>
 	</p>
 	<p class="home-tagline">
-		Author exploring technology and spirituality through novels, short fiction, and immersive audio. Browse published works and projects below.
+		Author exploring technology and spirituality through novels, short fiction, and immersive audio.
 	</p>
 </div>
 

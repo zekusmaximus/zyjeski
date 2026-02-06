@@ -1,9 +1,9 @@
 /* Header and Navigation Styles */
 
 header {
-  padding: 1.5rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid rgba(0, 245, 212, 0.2);
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
   background: rgba(0, 15, 8, 0.8);
   backdrop-filter: blur(10px);
   position: sticky;
@@ -111,7 +111,7 @@ header {
 
 /* Navigation */
 nav {
-  margin: 1rem 0;
+  margin: 0.35rem 0;
 }
 
 nav ul {
@@ -119,8 +119,9 @@ nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  gap: 2rem;
-  flex-wrap: wrap;
+  gap: 1.25rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 nav li {
@@ -129,12 +130,12 @@ nav li {
 
 nav a {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   position: relative;
   color: var(--flickering-white);
-  padding: 0.5rem 1rem;
+  padding: 0.35rem 0.6rem;
   border-radius: 4px;
   transition: all 0.3s ease;
 }
@@ -165,6 +166,24 @@ nav a.ancestor {
   .nav-container {
     max-height: none;
     display: block;
+  }
+}
+
+/* Keep nav on one line even on narrow screens */
+@media (max-width: 900px) {
+  .nav-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  nav ul {
+    flex-wrap: nowrap;
+    gap: 0.9rem;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
   }
 }
 

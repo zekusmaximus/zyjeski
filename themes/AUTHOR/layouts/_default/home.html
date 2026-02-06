@@ -2,15 +2,11 @@
   <!-- Skip Link for Keyboard Navigation -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
   
-  <div class="home-intro">
-    {{ .Content }}
-  </div>
-
   <style>
     /* Home hero layout */
     .home-intro {
       max-width: 1200px;
-      margin: 0 auto 1.5rem;
+      margin: 2rem auto 1.5rem;
       padding: 0 1.5rem;
     }
 
@@ -258,8 +254,12 @@
                 "attrs" "role=\"presentation\""
                 "page" .
               ) }}
-            </div>
-          </div>
+      </div>
+    </div>
+
+    <div class="home-intro">
+      {{ .Content }}
+    </div>
         </div>
         
         <!-- Grid Item 1: Books/The Protocol (top row) -->
