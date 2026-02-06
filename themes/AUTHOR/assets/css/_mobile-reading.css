@@ -63,19 +63,71 @@
    MOBILE READING CONTROLS
    ============================================================================= */
 
-.mobile-reading-controls {
-  position: sticky;
-  top: 60px; /* Account for header */
+.mobile-reading-wrapper {
+  position: fixed;
+  top: 70px;
+  right: 1rem;
   z-index: 100;
+}
+
+.reading-controls-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: rgba(110, 13, 208, 0.2);
+  border: 1px solid rgba(110, 13, 208, 0.4);
+  border-radius: 50%;
+  color: var(--holographic-teal);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.reading-controls-toggle:hover,
+.reading-controls-toggle:focus {
+  background: rgba(110, 13, 208, 0.3);
+  border-color: var(--holographic-teal);
+  transform: scale(1.1);
+  outline: 2px solid var(--holographic-teal);
+  outline-offset: 2px;
+}
+
+.reading-controls-toggle[aria-expanded="true"] {
+  background: rgba(0, 245, 212, 0.3);
+  border-color: var(--holographic-teal);
+}
+
+.mobile-reading-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: flex;
   gap: var(--touch-spacing);
   padding: var(--touch-spacing);
-  background: rgba(0, 15, 8, 0.9);
+  background: rgba(0, 15, 8, 0.95);
   border-radius: 12px;
-  margin: 1rem 0;
   backdrop-filter: blur(15px);
   border: 1px solid rgba(0, 245, 212, 0.2);
-  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  transform-origin: top right;
+}
+
+.mobile-reading-controls.collapsed {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8) translateY(-10px);
+}
+
+.mobile-reading-controls:not(.collapsed) {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
 }
 
 .reading-mode-toggle,
@@ -492,11 +544,15 @@
   .content-container {
     padding: var(--content-padding) 2rem;
   }
-  
-  .mobile-reading-controls {
-    justify-content: flex-end;
-    margin: 1rem 0 2rem auto;
-    max-width: 300px;
+
+  .mobile-reading-wrapper {
+    right: 2rem;
+  }
+
+  .reading-controls-toggle {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
   }
   
   .content-navigation {

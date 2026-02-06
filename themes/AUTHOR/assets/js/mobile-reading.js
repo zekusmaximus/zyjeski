@@ -7,6 +7,7 @@ class MobileReadingExperience {
   constructor() {
     this.readingMode = false;
     this.fontSize = 'normal';
+    this.controlsExpanded = false;
     this.init();
   }
 
@@ -21,12 +22,59 @@ class MobileReadingExperience {
 
   setupFeatures() {
     this.setupReadingProgress();
+    this.setupControlsToggle();
     this.setupReadingModeToggle();
     this.setupFontSizeToggle();
     this.setupExpandableContent();
     this.setupKeyboardNavigation();
     this.setupGestureSupport();
     this.restoreUserPreferences();
+  }
+
+  /**
+   * Controls Toggle (Show/Hide Reading Options)
+   */
+  setupControlsToggle() {
+    const toggleBtn = document.querySelector('.reading-controls-toggle');
+    const controls = document.querySelector('.mobile-reading-controls');
+    if (!toggleBtn || !controls) return;
+
+    toggleBtn.addEventListener('click', () => {
+      this.controlsExpanded = !this.controlsExpanded;
+      this.applyControlsState();
+      this.saveUserPreferences();
+
+      // Announce to screen readers
+      this.announceToScreenReader(
+        this.controlsExpanded ? 'Reading controls expanded' : 'Reading controls collapsed'
+      );
+    });
+
+    // Close controls when clicking outside
+    document.addEventListener('click', (e) => {
+      if (this.controlsExpanded &&
+          !controls.contains(e.target) &&
+          !toggleBtn.contains(e.target)) {
+        this.controlsExpanded = false;
+        this.applyControlsState();
+        this.saveUserPreferences();
+      }
+    });
+  }
+
+  applyControlsState() {
+    const toggleBtn = document.querySelector('.reading-controls-toggle');
+    const controls = document.querySelector('.mobile-reading-controls');
+
+    if (this.controlsExpanded) {
+      controls?.classList.remove('collapsed');
+      controls?.setAttribute('aria-hidden', 'false');
+      toggleBtn?.setAttribute('aria-expanded', 'true');
+    } else {
+      controls?.classList.add('collapsed');
+      controls?.setAttribute('aria-hidden', 'true');
+      toggleBtn?.setAttribute('aria-expanded', 'false');
+    }
   }
 
   /**
@@ -165,27 +213,34 @@ class MobileReadingExperience {
    */
   setupKeyboardNavigation() {
     document.addEventListener('keydown', (e) => {
+      // Controls toggle with 'O' key (Options)
+      if (e.key.toLowerCase() === 'o' && e.ctrlKey) {
+        e.preventDefault();
+        const toggleBtn = document.querySelector('.reading-controls-toggle');
+        if (toggleBtn) toggleBtn.click();
+      }
+
       // Reading mode toggle with 'R' key
       if (e.key.toLowerCase() === 'r' && e.ctrlKey) {
         e.preventDefault();
         const toggleBtn = document.querySelector('.reading-mode-toggle');
         if (toggleBtn) toggleBtn.click();
       }
-      
+
       // Font size toggle with 'F' key
       if (e.key.toLowerCase() === 'f' && e.ctrlKey) {
         e.preventDefault();
         const toggleBtn = document.querySelector('.font-size-toggle');
         if (toggleBtn) toggleBtn.click();
       }
-      
+
       // Navigate between sections with arrow keys
       if (e.key === 'ArrowLeft' && e.altKey) {
         e.preventDefault();
         const prevLink = document.querySelector('.nav-prev');
         if (prevLink) prevLink.click();
       }
-      
+
       if (e.key === 'ArrowRight' && e.altKey) {
         e.preventDefault();
         const nextLink = document.querySelector('.nav-next');
@@ -252,9 +307,10 @@ class MobileReadingExperience {
   saveUserPreferences() {
     const preferences = {
       readingMode: this.readingMode,
-      fontSize: this.fontSize
+      fontSize: this.fontSize,
+      controlsExpanded: this.controlsExpanded
     };
-    
+
     try {
       localStorage.setItem('mobileReadingPreferences', JSON.stringify(preferences));
     } catch (e) {
@@ -269,9 +325,11 @@ class MobileReadingExperience {
         const preferences = JSON.parse(saved);
         this.readingMode = preferences.readingMode || false;
         this.fontSize = preferences.fontSize || 'normal';
-        
+        this.controlsExpanded = preferences.controlsExpanded || false;
+
         this.applyReadingMode();
         this.applyFontSize();
+        this.applyControlsState();
       }
     } catch (e) {
       console.warn('Could not restore reading preferences:', e);
