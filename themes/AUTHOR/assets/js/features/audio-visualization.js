@@ -238,10 +238,11 @@ function createDomVisualization(config) {
     container.appendChild(bar);
   }
   
+  const bars = container.querySelectorAll('.visualization-bar');
+
   return {
     element: container,
     update: (frequencyData) => {
-      const bars = container.querySelectorAll('.visualization-bar');
       bars.forEach((bar, index) => {
         const dataIndex = Math.floor(index * frequencyData.length / bars.length);
         const value = frequencyData[dataIndex] / 255;
@@ -254,7 +255,6 @@ function createDomVisualization(config) {
       });
     },
     reset: () => {
-      const bars = container.querySelectorAll('.visualization-bar');
       bars.forEach(bar => {
         bar.style.height = '0%';
         bar.style.backgroundColor = '';
