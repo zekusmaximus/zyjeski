@@ -302,10 +302,11 @@ class MobileReadingOptimizer {
     distractingElements.forEach(selector => {
       const elements = document.querySelectorAll(selector);
       elements.forEach(element => {
+        const originalDisplay = element.style.display;
         element.style.display = 'none';
         this.optimizations.set(element, {
           type: 'hide',
-          originalDisplay: element.style.display
+          originalDisplay
         });
       });
     });
