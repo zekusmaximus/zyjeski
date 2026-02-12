@@ -1,5 +1,5 @@
 +++
-title = '11 Books like Hitchhiker's Guide'
+title = "11 Books like Hitchhiker's Guide"
 date = 2026-02-11T09:40:00-07:00
 draft = false
 tags = ['scholarship', 'academic', 'allusions']

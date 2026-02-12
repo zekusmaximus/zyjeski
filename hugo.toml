@@ -1,6 +1,6 @@
 baseURL = 'https://www.zyjeski.com/'
 languageCode = 'en-us'
-title = 'Jeffrey A. Zyjeski â€” Satirical Sci-Fi & Speculative Fiction Author'
+title = 'Jeffrey A, Zyjeski Esq. Speculative Fiction Author'
 theme = "AUTHOR"
 canonifyURLs = false
 relativeURLs = false
