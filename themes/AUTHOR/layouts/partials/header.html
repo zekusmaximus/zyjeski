@@ -32,7 +32,16 @@
   
   <!-- Center Site Title -->
   <div class="header-branding">
-    <h1 class="site-title">{{ site.Title }}</h1>
+    {{ $subtitle := "Speculative Fiction Author" }}
+    {{ if hasSuffix site.Title (printf " %s" $subtitle) }}
+      {{ $name := replace site.Title (printf " %s" $subtitle) "" }}
+      <h1 class="site-title">
+        <span class="site-title-name">{{ $name }}</span>
+        <span class="site-title-subtitle">{{ $subtitle }}</span>
+      </h1>
+    {{ else }}
+      <h1 class="site-title">{{ site.Title }}</h1>
+    {{ end }}
   </div>
   
   <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
