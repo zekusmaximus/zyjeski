@@ -1,13 +1,14 @@
-baseURL = 'https://zyjeski.netlify.app/'
+baseURL = 'https://www.zyjeski.com/'
 languageCode = 'en-us'
-title = 'Jeffrey A. Zyjeski, Esq.'
+title = 'Jeffrey A. Zyjeski â€” Satirical Sci-Fi & Speculative Fiction Author'
 theme = "AUTHOR"
+canonifyURLs = false
+relativeURLs = false
 
 # Basic author information
 [params]
   author = 'Jeffrey A. Zyjeski'
-  description = 'Speculative fiction author exploring the intersection of consciousness and technology through neuro-digital enlightenment practices'
-  twitter = 'your_twitter_handle'  # Add your Twitter handle for meta tags
+  description = 'Jeffrey A. Zyjeski writes satirical science fiction and speculative stories. Author of The Forms Must Flow and other character-driven, humorous sci-fi.'
   
   # Social sharing configuration
   [params.social_sharing]
@@ -43,10 +44,10 @@ theme = "AUTHOR"
 # Optional social media links
 [params.social]
   twitter = '@zekusmaximus'
-  facebook = 'facebook.com/zyjeski'
-  instagram = '/zeksumaximus'
+  facebook = 'https://www.facebook.com/zyjeski'
+  instagram = 'https://www.instagram.com/zeksumaximus/'
   # goodreads = 'yourgoodreadsprofile'
-  amazon = 'youramazonauthorpage'
+  amazon = 'https://www.amazon.com/stores/Jeffrey-Zyjeski/author/B0F2GDTL7K'
 
 # Menu configuration (from your existing theme)
 [[menu.main]]
