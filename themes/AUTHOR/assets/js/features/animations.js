@@ -157,6 +157,15 @@ function initScrollAnimations(config) {
   animatedElements.forEach((element, index) => {
     element.classList.add('scroll-animate');
     element.style.setProperty('--animation-delay', `${index * config.stagger}ms`);
+
+    // Blog post bodies should never risk staying hidden if an observer callback
+    // is delayed or skipped on mobile Safari.
+    if (element.classList.contains('post-content')) {
+      element.classList.add('scroll-animate-active');
+      animateGenericElement(element, config);
+      return;
+    }
+
     observer.observe(element);
   });
   
