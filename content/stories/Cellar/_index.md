@@ -7,7 +7,7 @@ description = 'Flash fiction exploring recursion and self-reflection.'
 +++
 
 
-![Cellar](/images/uploads/Cellar.png)
+![Cellar](/images/stories/cellar.png)
 
 Marcus gripped the steering wheel until his knuckles blanched, watching the Victorian house materialize through the rain at Sycamore Lane's dead end. Twenty years since he'd fled this place, and still it squatted there like something that had crawled up from the earth and learned to mimic architecture. The wipers shrieked across the windshield, each pass revealing the house anew, its gables sharp as accusations, paint peeling in patterns that looked deliberate, malevolent. He killed the engine. In the sudden silence, he could hear his pulse in his ears, quick and shallow as a trapped animal's.
 

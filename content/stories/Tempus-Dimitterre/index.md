@@ -3,7 +3,7 @@ title = "Tempus Dimitterre"
 date = 2026-01-26T10:00:00-07:00
 draft = false
 tags = ['fiction', 'character-study']
-image = "/images/uploads/Tempus.png"
+image = "/images/books/covers/tempus-cover.png"
 description = 'Time relinquished, power surrendered, the city finally allowed to breathe.'
 +++
 

@@ -7,6 +7,17 @@
   {{ with .Params.description }}
   <meta name="description" content="{{ . }}">
   {{ else }}{{ with site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}{{ end }}
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ if .IsHome }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jeffrey A. Zyjeski",
+    "url": "https://www.zyjeski.com/"
+  }
+  </script>
+  {{ end }}
   
   <!-- Add mobile viewport and touch icon meta tags -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -77,7 +88,7 @@
   <script>
 if (window.FEATURE_FLAGS && window.FEATURE_FLAGS.emergencyFix) {
 /*! GLOBAL EMERGENCY FIX for broken images and modules - DO NOT REMOVE */
-console.log('🚨 EMERGENCY: Loading global image fix...');
+console.log('ðŸš¨ EMERGENCY: Loading global image fix...');
 
 // IMMEDIATE FIX: Override broken imports
 (function() {
@@ -110,16 +121,16 @@ console.log('🚨 EMERGENCY: Loading global image fix...');
     const normalizedPath = modulePath.replace(/^\.\//, '/js/');
 
     if (brokenModules.some(broken => normalizedPath.includes(broken) || modulePath.includes(broken))) {
-      console.log(`⚠️ Blocking broken module: ${modulePath}`);
+      console.log(`âš ï¸ Blocking broken module: ${modulePath}`);
       return Promise.resolve({
-        initMandala3D: () => console.log('🔧 Mandala3D fallback'),
-        initPrayerWheel: () => console.log('🔧 PrayerWheel fallback'),
-        initParticles: () => console.log('🔧 Particles fallback'),
-        initComplexAnimations: () => console.log('🔧 Animations fallback'),
-        initAudioVisualization: () => console.log('🔧 AudioViz fallback'),
-        initBackgroundEffects: () => console.log('🔧 BackgroundFX fallback'),
-        init: () => console.log('🔧 Module fallback'),
-        default: () => console.log('🔧 Default fallback')
+        initMandala3D: () => console.log('ðŸ”§ Mandala3D fallback'),
+        initPrayerWheel: () => console.log('ðŸ”§ PrayerWheel fallback'),
+        initParticles: () => console.log('ðŸ”§ Particles fallback'),
+        initComplexAnimations: () => console.log('ðŸ”§ Animations fallback'),
+        initAudioVisualization: () => console.log('ðŸ”§ AudioViz fallback'),
+        initBackgroundEffects: () => console.log('ðŸ”§ BackgroundFX fallback'),
+        init: () => console.log('ðŸ”§ Module fallback'),
+        default: () => console.log('ðŸ”§ Default fallback')
       });
     }
 
@@ -160,7 +171,7 @@ function fixImages() {
       img.classList.remove('lazy', 'lazyload', 'lazyloading', 'lazyloaded');
 
       fixedCount++;
-      console.log('🔧 Fixed image:', fixedSrc);
+      console.log('ðŸ”§ Fixed image:', fixedSrc);
     }
   });
 
@@ -177,7 +188,7 @@ function fixProgressiveEnhancement() {
        'loadComplexAnimations', 'loadAudioVisualization', 'loadBackgroundEffects'].forEach(method => {
         if (pe[method]) {
           pe[method] = async () => {
-            console.log(`🔧 ${method}: Using fallback`);
+            console.log(`ðŸ”§ ${method}: Using fallback`);
             if (method === 'loadMandala3D') pe.loadBasicMandala?.();
             if (method === 'loadPrayerWheelAnimation') pe.loadBasicAudioPlayer?.();
             return Promise.resolve();
@@ -193,7 +204,7 @@ function fixProgressiveEnhancement() {
 
 // RUN FIXES
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚨 EMERGENCY: Applying global fixes...');
+  console.log('ðŸš¨ EMERGENCY: Applying global fixes...');
   fixImages();
   fixProgressiveEnhancement();
 
@@ -211,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Periodic safety check
   setInterval(fixImages, 5000);
 
-  console.log('✅ EMERGENCY: Global fix active');
+  console.log('âœ… EMERGENCY: Global fix active');
 });
 
 // Run immediately if DOM is ready
@@ -220,7 +231,7 @@ if (document.readyState !== 'loading') {
   fixProgressiveEnhancement();
 }
 
-console.log('✅ EMERGENCY: Fix script loaded');
+console.log('âœ… EMERGENCY: Fix script loaded');
 }
   </script>
 </head>

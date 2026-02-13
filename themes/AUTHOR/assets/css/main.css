@@ -28,7 +28,10 @@
 /* 9. Social Sharing Components */
 @import '_social.css';
 
-/* 10. Responsive Design and Media Queries */
+/* 10. Footer and Newsletter Styles */
+@import '_footer.css';
+
+/* 11. Responsive Design and Media Queries */
 @import '_responsive.css';
 
 /* ===== END OF IMPORTS ===== */

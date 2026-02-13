@@ -32,13 +32,21 @@
   
   <!-- Center Site Title -->
   <div class="header-branding">
-    <h1 class="site-title">{{ site.Title }}</h1>
+    {{ $subtitle := "Speculative Fiction Author" }}
+    {{ if hasSuffix site.Title (printf " %s" $subtitle) }}
+      {{ $name := replace site.Title (printf " %s" $subtitle) "" }}
+      <h1 class="site-title">
+        <span class="site-title-name">{{ $name }}</span>
+        <span class="site-title-subtitle">{{ $subtitle }}</span>
+      </h1>
+    {{ else }}
+      <h1 class="site-title">{{ site.Title }}</h1>
+    {{ end }}
   </div>
-  <!-- Author Name - Right Side -->
-  <div class="author-name-container">
-    <div class="author-name problem-chars" data-text="Jeffrey A. Zyjeski">
-      Jeffrey A. Zyjeski
-    </div>
+  
+  <!-- Right Side - Symmetrical Balance -->
+  <div class="author-name-container" aria-hidden="true">
+    <!-- Empty div for symmetry with accessibility controls -->
   </div>
 
   <!-- Conversion CTA -->

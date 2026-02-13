@@ -106,15 +106,30 @@ export class StoriesPageModule {
 
     const progressFill = progressBar.querySelector('.reading-progress-fill');
 
+    let cachedDocHeight = 0;
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+
+    const updateCache = () => {
+      cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+    };
+
     const updateProgress = () => {
-      const scrollTop = window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      
-      progressFill.style.width = `${Math.min(progress, 100)}%`;
+      lastKnownScrollPosition = window.pageYOffset;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const progress = (lastKnownScrollPosition / cachedDocHeight) * 100;
+          progressFill.style.width = `${Math.min(progress, 100)}%`;
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateCache, { passive: true });
+
+    updateCache(); // Initial cache
     updateProgress(); // Initial update
   }
 }

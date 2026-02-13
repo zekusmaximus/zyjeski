@@ -78,7 +78,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('/images/cyber-bg-1.jpg');
+    background-image: url('/images/backgrounds/cyber-bg-1.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

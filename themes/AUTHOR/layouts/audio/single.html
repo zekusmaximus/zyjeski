@@ -1,15 +1,20 @@
 {{ define "main" }}
   <article class="audio-single content-container" data-content-type="audio">
-    <!-- Mobile Reading Controls -->
-    <div class="mobile-reading-controls" role="toolbar" aria-label="Reading options">
-      <button class="reading-mode-toggle" aria-pressed="false" aria-label="Toggle reading mode">
-        <span class="icon-eye" aria-hidden="true">👁</span>
-        <span class="control-text">Reading Mode</span>
+    <!-- Mobile Reading Controls with Collapsible Toggle -->
+    <div class="mobile-reading-wrapper">
+      <button class="reading-controls-toggle" aria-expanded="false" aria-label="Toggle reading controls" title="Reading options">
+        <span aria-hidden="true">⚙️</span>
       </button>
-      <button class="font-size-toggle" aria-label="Adjust font size">
-        <span class="icon-text" aria-hidden="true">Aa</span>
-        <span class="control-text">Font Size</span>
-      </button>
+      <div class="mobile-reading-controls collapsed" role="toolbar" aria-label="Reading options" aria-hidden="true">
+        <button class="reading-mode-toggle" aria-pressed="false" aria-label="Toggle reading mode">
+          <span class="icon-eye" aria-hidden="true">👁</span>
+          <span class="control-text">Reading Mode</span>
+        </button>
+        <button class="font-size-toggle" aria-label="Adjust font size">
+          <span class="icon-text" aria-hidden="true">Aa</span>
+          <span class="control-text">Font Size</span>
+        </button>
+      </div>
     </div>
 
     <div class="audio-header content-header">

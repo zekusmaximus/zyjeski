@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Item -Path \"C:\\\\Users\\\\Jeff\\\\Projects\\\\zyjeski\\\\assets\\\\images\\\\sim7.jpg\" -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -ExpandProperty Length)",
+      "Read(//c/Users/Jeff/Projects/zyjeski/**)",
+      "Bash(md5sum:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(hugo:*)",
+      "Bash(pwsh -Command:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)"
+    ]
+  }
+}

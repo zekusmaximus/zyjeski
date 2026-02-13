@@ -131,6 +131,11 @@ html, body {
     font-size: 1.2rem;
   }
   
+  .site-title-subtitle {
+    font-size: 0.58em;
+    letter-spacing: 0.12em;
+  }
+  
   .author-name-container {
     min-width: auto;
   }
@@ -337,6 +342,11 @@ html, body {
   
   .site-title {
     font-size: 1.1rem;
+  }
+  
+  .site-title-subtitle {
+    font-size: 0.56em;
+    letter-spacing: 0.1em;
   }
   
   .accessibility-controls {

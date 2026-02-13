@@ -12,7 +12,7 @@ show_nav = false
 
 <style>
 body {
-  background: url("/images/uploads/landing_background.png") no-repeat center center fixed;
+  background: url("/images/backgrounds/landing-background.png") no-repeat center center fixed;
   background-size: cover;
   color: #FFFFFF;
   font-family: 'Courier New', Courier, monospace;

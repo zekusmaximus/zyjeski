@@ -24,7 +24,7 @@ Then, one day, he just... didn't wake up. They found him in his armchair, remote
 
 The funeral was small. A few relatives he hadn't seen in years, a couple of people from the old jobs, his landlord. The pastor, a guy who'd never met Bart, said some nice things, the usual stuff about a life well-lived. It felt wrong, somehow. Like putting a bright red bow on a cardboard box. Bartholomew Higgins. A man who drifted through life like a tumbleweed in a ghost town. He didn't leave much of a mark. No great loves, no great achievements, no great anything. He just... was. And then he wasn't. Did he waste his life? I don't know. Maybe. Or maybe he just saw something the rest of us didn't. Maybe he understood that the whole rat race, the whole striving and yearning, was just a big, cosmic joke. And maybe, just maybe, his quiet, unassuming nothing of a life was the punchline. A life that was, in its own strange way, a quiet rebellion, a gentle refusal to play the game. Or maybe he was just a guy who liked to take it easy. Either way, he's probably the only one who knows for sure, and he isn't telling.
 
-![Bart Higgins](/images/uploads/Bart-Higgins.png)
+![Bart Higgins](/images/stories/bart-higgins.png)
 
 *“Well... here we are.”*
 

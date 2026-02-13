@@ -7,7 +7,7 @@ description = 'Flash fiction exploring recursion and self-reflection.'
 +++
 
 
-![thousand](/images/uploads/thousand.jpg)
+![thousand](/images/stories/thousand.jpg)
 
 ## 0. <03-30-2664> [Observation Note: Final Human Consciousness Archive]
 
