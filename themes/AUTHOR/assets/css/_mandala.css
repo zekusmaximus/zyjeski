@@ -35,7 +35,7 @@
   grid-template-rows: repeat(3, minmax(200px, auto)) !important;
   gap: 1.5rem !important;
   max-width: 1200px !important;
-  margin: 3rem auto !important;
+  margin: 0.25rem auto 1.5rem !important;
   padding: 0 2rem !important;
   position: relative;
 }
