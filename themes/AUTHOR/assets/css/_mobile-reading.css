@@ -18,7 +18,7 @@
   --reading-font-size-3xl: clamp(1.875rem, 1.875rem + 2.5vw, 3.5rem);
   
   /* Reading mode variables */
-  --reading-line-height: clamp(1.4, 1.4 + 0.2vw, 1.8);
+  --reading-line-height: 1.6;
   --reading-paragraph-spacing: clamp(1rem, 1rem + 0.5vw, 1.75rem);
   --reading-max-width: clamp(45ch, 45ch + 10vw, 75ch);
   
@@ -263,6 +263,7 @@
 .main-content {
   font-family: 'Inter', sans-serif;
   font-size: var(--reading-font-size-base);
+  line-height: 1.6;
   line-height: var(--reading-line-height);
   color: var(--flickering-white);
   max-width: var(--reading-max-width);
@@ -272,6 +273,7 @@
 .main-content p {
   margin-bottom: var(--reading-paragraph-spacing);
   font-size: var(--reading-font-size-base);
+  line-height: 1.6;
   line-height: var(--reading-line-height);
 }
 
