@@ -385,6 +385,15 @@
 .content-container[data-content-type="post"] .main-content {
   font-family: 'Inter', sans-serif;
   line-height: var(--reading-line-height);
+  color: var(--reading-text);
+}
+
+.content-container[data-content-type="post"] .main-content p,
+.content-container[data-content-type="post"] .main-content li,
+.content-container[data-content-type="post"] .main-content blockquote,
+.content-container[data-content-type="post"] .main-content strong,
+.content-container[data-content-type="post"] .main-content em {
+  color: inherit;
 }
 
 .content-container[data-content-type="post"] .main-content h2,
